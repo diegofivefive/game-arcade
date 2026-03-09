@@ -111,7 +111,12 @@
     color: var(--text-dim);
     font-size: 11px;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
   }
+  .footer a { color: var(--text-dim); text-decoration: none; }
+  .footer a:hover { color: var(--text); }
   @media (max-width: 480px) {
     .hub-cards { flex-direction: column; }
     .hub-card { padding: 28px 20px; }
@@ -148,7 +153,10 @@
       </a>
     </div>
 
-    <div class="footer">All games and tools work offline</div>
+    <div class="footer">
+      <span>All games and tools work offline</span>
+      <span><a href="privacy.html">Privacy Policy</a></span>
+    </div>
 
     <!-- Ad Slot 2: Bottom Banner -->
     <div class="ad-slot ad-banner ad-slot--placeholder">
