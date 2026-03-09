@@ -6,7 +6,7 @@
  * Dark mode (default) — add data-theme="light" to <html> for light mode.
  *
  * Available CSS classes:
- *   Layout:    .game-page, .game-header, .game-header .logo, .header-btns
+ *   Layout:    .game-page, .game-header, .header-left, .header-btns, .site-name
  *   Buttons:   .icon-btn, .tool-btn, .tool-btn.active, .tool-btn .tool-icon
  *   Chips:     .toggle-chip, .toggle-chip.on, .toggle-chip .dot
  *   Cards:     .card, .stat-chip, .stat-chip .label, .stat-chip .value
@@ -120,6 +120,19 @@ body {
   justify-content: space-between;
   align-items: center;
 }
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.site-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-dim);
+  text-decoration: none;
+  transition: color var(--transition);
+}
+.site-name:hover { color: var(--text); }
 .game-header .logo {
   font-size: 26px;
   font-weight: 800;
@@ -130,6 +143,20 @@ body {
   background-clip: text;
 }
 .header-btns { display: flex; gap: 6px; }
+
+/* ===========================
+   SECTION HEADINGS (hub page)
+   =========================== */
+.section-heading {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--card-border);
+}
 
 /* ===========================
    ICON BUTTON (small square)
