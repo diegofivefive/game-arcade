@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Game Arcade</title>
+<link rel="stylesheet" href="theme.css">
+<style>
+  .hub-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    padding: 32px 16px;
+  }
+  .hub-header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  .hub-logo {
+    font-size: 40px;
+    font-weight: 800;
+    letter-spacing: -2px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2), var(--accent3));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 8px;
+  }
+  .hub-sub {
+    color: var(--text-dim);
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .theme-toggle {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+  }
+  .games-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
+    max-width: 700px;
+    width: 100%;
+  }
+  .game-card {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+    color: var(--text);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    box-shadow: var(--shadow);
+  }
+  .game-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--accent);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.3), 0 0 0 1px var(--accent);
+  }
+  .game-card .game-icon {
+    font-size: 48px;
+    line-height: 1;
+  }
+  .game-card .game-name {
+    font-size: 18px;
+    font-weight: 700;
+  }
+  .game-card .game-desc {
+    font-size: 12px;
+    color: var(--text-dim);
+    line-height: 1.4;
+  }
+  .game-card.coming-soon {
+    opacity: 0.4;
+    pointer-events: none;
+  }
+  .game-card.coming-soon .game-name::after {
+    content: ' (Soon)';
+    font-size: 10px;
+    color: var(--accent2);
+    font-weight: 600;
+  }
+  .footer {
+    margin-top: 48px;
+    color: var(--text-dim);
+    font-size: 12px;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+  <div class="hub-page">
+    <div class="theme-toggle">
+      <button class="icon-btn" id="themeBtn" title="Toggle theme">&#x1f319;</button>
+    </div>
+
+    <div class="hub-header">
+      <div class="hub-logo">Game Arcade</div>
+      <div class="hub-sub">Pick a game and play</div>
+    </div>
+
+    <div class="games-grid">
+      <a href="sudoku.html" class="game-card">
+        <div class="game-icon">&#x1f9e9;</div>
+        <div class="game-name">Sudoku</div>
+        <div class="game-desc">Classic number puzzle with 4 difficulty levels</div>
+      </a>
+
+      <div class="game-card coming-soon">
+        <div class="game-icon">&#x1f4a3;</div>
+        <div class="game-name">Minesweeper</div>
+        <div class="game-desc">Clear the minefield without detonating</div>
+      </div>
+
+      <div class="game-card coming-soon">
+        <div class="game-icon">&#x1f522;</div>
+        <div class="game-name">2048</div>
+        <div class="game-desc">Slide and merge tiles to reach 2048</div>
+      </div>
+
+      <div class="game-card coming-soon">
+        <div class="game-icon">&#x1f520;</div>
+        <div class="game-name">Wordle</div>
+        <div class="game-desc">Guess the 5-letter word in 6 tries</div>
+      </div>
+
+      <div class="game-card coming-soon">
+        <div class="game-icon">&#x1f40d;</div>
+        <div class="game-name">Snake</div>
+        <div class="game-desc">Grow your snake without crashing</div>
+      </div>
+
+      <div class="game-card coming-soon">
+        <div class="game-icon">&#x1f0cf;</div>
+        <div class="game-name">Memory</div>
+        <div class="game-desc">Match pairs of cards with fewest flips</div>
+      </div>
+
+      <div class="game-card coming-soon">
+        <div class="game-icon">&#x1f9f1;</div>
+        <div class="game-name">Tetris</div>
+        <div class="game-desc">Stack and clear falling blocks</div>
+      </div>
+
+      <div class="game-card coming-soon">
+        <div class="game-icon">&#x1f5bc;</div>
+        <div class="game-name">Nonogram</div>
+        <div class="game-desc">Reveal pixel art by filling cells</div>
+      </div>
+    </div>
+
+    <div class="footer">All games work offline &mdash; no internet required</div>
+  </div>
+
+  <script src="theme.js"></script>
+  <script>GameTheme.init();</script>
+</body>
+</html>
