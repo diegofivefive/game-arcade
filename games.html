@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Games - TheFreeFix.com</title>
+<link rel="stylesheet" href="theme.css">
+<style>
+  .listing-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    padding-bottom: 32px;
+  }
+  .listing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
+    max-width: 700px;
+    width: 100%;
+    padding: 0 16px;
+  }
+  .listing-card {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+    color: var(--text);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    box-shadow: var(--shadow);
+  }
+  .listing-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--accent);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.3), 0 0 0 1px var(--accent);
+  }
+  .listing-card .card-icon { font-size: 48px; line-height: 1; }
+  .listing-card .card-name { font-size: 18px; font-weight: 700; }
+  .listing-card .card-desc { font-size: 12px; color: var(--text-dim); line-height: 1.4; }
+  .listing-card.coming-soon { opacity: 0.4; pointer-events: none; }
+  .listing-card.coming-soon .card-name::after {
+    content: ' (Soon)';
+    font-size: 10px;
+    color: var(--accent2);
+    font-weight: 600;
+  }
+</style>
+</head>
+<body>
+  <div class="listing-page">
+    <a href="index.html" class="site-brand">TheFreeFix.com</a>
+
+    <div class="game-header">
+      <div class="header-left">
+        <a href="index.html" class="icon-btn" title="Back" style="text-decoration:none;font-size:14px">&#x2190;</a>
+        <span class="logo">Games</span>
+      </div>
+      <div class="header-btns">
+        <button class="icon-btn" id="themeBtn" title="Toggle theme">&#x1f319;</button>
+      </div>
+    </div>
+
+    <div style="height:16px"></div>
+
+    <div class="listing-grid">
+      <a href="sudoku.html" class="listing-card">
+        <div class="card-icon">&#x1f9e9;</div>
+        <div class="card-name">Sudoku</div>
+        <div class="card-desc">Classic number puzzle with 4 difficulty levels</div>
+      </a>
+
+      <a href="minesweeper.html" class="listing-card">
+        <div class="card-icon">&#x1f4a3;</div>
+        <div class="card-name">Minesweeper</div>
+        <div class="card-desc">Clear the minefield without detonating</div>
+      </a>
+
+      <div class="listing-card coming-soon">
+        <div class="card-icon">&#x1f522;</div>
+        <div class="card-name">2048</div>
+        <div class="card-desc">Slide and merge tiles to reach 2048</div>
+      </div>
+
+      <div class="listing-card coming-soon">
+        <div class="card-icon">&#x1f520;</div>
+        <div class="card-name">Wordle</div>
+        <div class="card-desc">Guess the 5-letter word in 6 tries</div>
+      </div>
+
+      <div class="listing-card coming-soon">
+        <div class="card-icon">&#x1f40d;</div>
+        <div class="card-name">Snake</div>
+        <div class="card-desc">Grow your snake without crashing</div>
+      </div>
+
+      <div class="listing-card coming-soon">
+        <div class="card-icon">&#x1f0cf;</div>
+        <div class="card-name">Memory</div>
+        <div class="card-desc">Match pairs of cards with fewest flips</div>
+      </div>
+
+      <div class="listing-card coming-soon">
+        <div class="card-icon">&#x1f9f1;</div>
+        <div class="card-name">Tetris</div>
+        <div class="card-desc">Stack and clear falling blocks</div>
+      </div>
+
+      <div class="listing-card coming-soon">
+        <div class="card-icon">&#x1f5bc;</div>
+        <div class="card-name">Nonogram</div>
+        <div class="card-desc">Reveal pixel art by filling cells</div>
+      </div>
+    </div>
+  </div>
+
+  <script src="theme.js"></script>
+  <script>GameTheme.init();</script>
+</body>
+</html>
