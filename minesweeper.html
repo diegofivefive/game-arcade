@@ -92,6 +92,12 @@
     border-color: transparent;
   }
 
+  /* Mobile: shrink pill labels */
+  @media (max-width: 400px) {
+    .pill-selector { width: 100%; }
+    .pill-btn[data-diff] { flex: 1; padding: 5px 6px; font-size: 11px; text-align: center; }
+  }
+
   /* Number colors */
   .n1 { color: #6eb5ff; }
   .n2 { color: #00e6b8; }
@@ -226,7 +232,9 @@ let currentDiff = 'beginner';
 function init(diff = currentDiff) {
   currentDiff = diff;
   cfg = DIFFS[diff];
+  if (timer) timer.stop();
   timer = new GameTimer('timer');
+  timer.reset();
   stats = new GameStatsManager('minesweeper_' + diff);
 
   grid = [];
