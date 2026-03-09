@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Game Arcade</title>
+<title>TheFreeFix.com</title>
 <link rel="stylesheet" href="theme.css">
 <style>
   .hub-page {
@@ -18,7 +18,7 @@
     margin-bottom: 40px;
   }
   .hub-logo {
-    font-size: 40px;
+    font-size: 36px;
     font-weight: 800;
     letter-spacing: -2px;
     background: linear-gradient(135deg, var(--accent), var(--accent2), var(--accent3));
@@ -37,11 +37,15 @@
     top: 16px;
     right: 16px;
   }
+  .hub-section {
+    max-width: 700px;
+    width: 100%;
+    margin-bottom: 32px;
+  }
   .games-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 16px;
-    max-width: 700px;
     width: 100%;
   }
   .game-card {
@@ -88,6 +92,14 @@
     color: var(--accent2);
     font-weight: 600;
   }
+  .tools-empty {
+    color: var(--text-dim);
+    font-size: 13px;
+    padding: 24px;
+    text-align: center;
+    border: 1px dashed var(--card-border);
+    border-radius: var(--radius-lg);
+  }
   .footer {
     margin-top: 48px;
     color: var(--text-dim);
@@ -103,61 +115,71 @@
     </div>
 
     <div class="hub-header">
-      <div class="hub-logo">Game Arcade</div>
-      <div class="hub-sub">Pick a game and play</div>
+      <div class="hub-logo">TheFreeFix.com</div>
+      <div class="hub-sub">Free games and tools</div>
     </div>
 
-    <div class="games-grid">
-      <a href="sudoku.html" class="game-card">
-        <div class="game-icon">&#x1f9e9;</div>
-        <div class="game-name">Sudoku</div>
-        <div class="game-desc">Classic number puzzle with 4 difficulty levels</div>
-      </a>
+    <!-- Games Section -->
+    <div class="hub-section">
+      <div class="section-heading">Games</div>
+      <div class="games-grid">
+        <a href="sudoku.html" class="game-card">
+          <div class="game-icon">&#x1f9e9;</div>
+          <div class="game-name">Sudoku</div>
+          <div class="game-desc">Classic number puzzle with 4 difficulty levels</div>
+        </a>
 
-      <a href="minesweeper.html" class="game-card">
-        <div class="game-icon">&#x1f4a3;</div>
-        <div class="game-name">Minesweeper</div>
-        <div class="game-desc">Clear the minefield without detonating</div>
-      </a>
+        <a href="minesweeper.html" class="game-card">
+          <div class="game-icon">&#x1f4a3;</div>
+          <div class="game-name">Minesweeper</div>
+          <div class="game-desc">Clear the minefield without detonating</div>
+        </a>
 
-      <div class="game-card coming-soon">
-        <div class="game-icon">&#x1f522;</div>
-        <div class="game-name">2048</div>
-        <div class="game-desc">Slide and merge tiles to reach 2048</div>
-      </div>
+        <div class="game-card coming-soon">
+          <div class="game-icon">&#x1f522;</div>
+          <div class="game-name">2048</div>
+          <div class="game-desc">Slide and merge tiles to reach 2048</div>
+        </div>
 
-      <div class="game-card coming-soon">
-        <div class="game-icon">&#x1f520;</div>
-        <div class="game-name">Wordle</div>
-        <div class="game-desc">Guess the 5-letter word in 6 tries</div>
-      </div>
+        <div class="game-card coming-soon">
+          <div class="game-icon">&#x1f520;</div>
+          <div class="game-name">Wordle</div>
+          <div class="game-desc">Guess the 5-letter word in 6 tries</div>
+        </div>
 
-      <div class="game-card coming-soon">
-        <div class="game-icon">&#x1f40d;</div>
-        <div class="game-name">Snake</div>
-        <div class="game-desc">Grow your snake without crashing</div>
-      </div>
+        <div class="game-card coming-soon">
+          <div class="game-icon">&#x1f40d;</div>
+          <div class="game-name">Snake</div>
+          <div class="game-desc">Grow your snake without crashing</div>
+        </div>
 
-      <div class="game-card coming-soon">
-        <div class="game-icon">&#x1f0cf;</div>
-        <div class="game-name">Memory</div>
-        <div class="game-desc">Match pairs of cards with fewest flips</div>
-      </div>
+        <div class="game-card coming-soon">
+          <div class="game-icon">&#x1f0cf;</div>
+          <div class="game-name">Memory</div>
+          <div class="game-desc">Match pairs of cards with fewest flips</div>
+        </div>
 
-      <div class="game-card coming-soon">
-        <div class="game-icon">&#x1f9f1;</div>
-        <div class="game-name">Tetris</div>
-        <div class="game-desc">Stack and clear falling blocks</div>
-      </div>
+        <div class="game-card coming-soon">
+          <div class="game-icon">&#x1f9f1;</div>
+          <div class="game-name">Tetris</div>
+          <div class="game-desc">Stack and clear falling blocks</div>
+        </div>
 
-      <div class="game-card coming-soon">
-        <div class="game-icon">&#x1f5bc;</div>
-        <div class="game-name">Nonogram</div>
-        <div class="game-desc">Reveal pixel art by filling cells</div>
+        <div class="game-card coming-soon">
+          <div class="game-icon">&#x1f5bc;</div>
+          <div class="game-name">Nonogram</div>
+          <div class="game-desc">Reveal pixel art by filling cells</div>
+        </div>
       </div>
     </div>
 
-    <div class="footer">All games work offline &mdash; no internet required</div>
+    <!-- Tools Section -->
+    <div class="hub-section">
+      <div class="section-heading">Tools</div>
+      <div class="tools-empty">Tools coming soon</div>
+    </div>
+
+    <div class="footer">All games and tools work offline &mdash; no internet required</div>
   </div>
 
   <script src="theme.js"></script>
