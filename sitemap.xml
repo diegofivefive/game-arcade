@@ -21,6 +21,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://thefreefix.com/qr-code-generator.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://thefreefix.com/minesweeper.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
