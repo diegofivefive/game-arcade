@@ -26,7 +26,8 @@ TheFreeFix.com is a free online games and tools website. No accounts, no downloa
 thefreefix.com/                  ← Hub page (2 cards: Games, Tools)
 ├── games.html                   ← Games listing (cards for each game)
 │   ├── sudoku.html              ← Sudoku game (4 difficulty levels)
-│   └── minesweeper.html         ← Minesweeper game (3 difficulty levels)
+│   ├── minesweeper.html         ← Minesweeper game (3 difficulty levels)
+│   └── 2048.html                ← 2048 game (slide and merge tiles)
 ├── tools.html                   ← Tools listing (QR Code Generator)
 │   └── qr-code-generator.html   ← QR Code Generator tool
 ├── theme.css                    ← Shared stylesheet (all CSS variables, components)
@@ -77,9 +78,10 @@ thefreefix.com/                  ← Hub page (2 cards: Games, Tools)
 ## Current Games
 1. **Sudoku** — Full-featured: 4 difficulty levels (easy/medium/hard/expert), notes mode, hints (3 per game), undo, error checking, stats tracking, best times per difficulty, keyboard support, landscape layout on wide screens
 2. **Minesweeper** — 3 difficulty levels (beginner 9×9, intermediate 16×16, expert 16×30), flagging, chord clicking, timer, stats tracking, best times per difficulty
+3. **2048** — Slide and merge tiles to reach 2048. Arrow keys + swipe controls, score tracking, best score persistence, timer, stats tracking, keep playing after win
 
 ## Planned Games (listed as "coming soon" on games.html)
-- 2048, Wordle, Snake, Memory, Tetris, Nonogram
+- Wordle, Snake, Memory, Tetris, Nonogram
 
 ## Current Tools
 1. **QR Code Generator** — Generate QR codes for any URL or text. Features: auto-generation on input with debounce, customizable foreground/background colors, three size options (S/M/L), download as PNG. Self-contained QR encoder in vanilla JS (byte mode, EC level M, versions 1-40, Reed-Solomon error correction).
