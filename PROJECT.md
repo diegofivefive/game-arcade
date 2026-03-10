@@ -27,7 +27,8 @@ thefreefix.com/                  ← Hub page (2 cards: Games, Tools)
 ├── games.html                   ← Games listing (cards for each game)
 │   ├── sudoku.html              ← Sudoku game (4 difficulty levels)
 │   ├── minesweeper.html         ← Minesweeper game (3 difficulty levels)
-│   └── 2048.html                ← 2048 game (slide and merge tiles)
+│   ├── 2048.html                ← 2048 game (slide and merge tiles)
+│   └── word-leap.html           ← Word Leap game (5-letter word puzzle)
 ├── tools.html                   ← Tools listing (QR Code Generator, Word Counter)
 │   ├── qr-code-generator.html   ← QR Code Generator tool
 │   └── word-counter.html        ← Word Counter tool
@@ -80,9 +81,10 @@ thefreefix.com/                  ← Hub page (2 cards: Games, Tools)
 1. **Sudoku** — Full-featured: 4 difficulty levels (easy/medium/hard/expert), notes mode, hints (3 per game), undo, error checking, stats tracking, best times per difficulty, keyboard support, landscape layout on wide screens
 2. **Minesweeper** — 3 difficulty levels (beginner 9×9, intermediate 16×16, expert 16×30), flagging, chord clicking, timer, stats tracking, best times per difficulty
 3. **2048** — Slide and merge tiles to reach 2048. Arrow keys + swipe controls, score tracking, best score persistence, timer, stats tracking, keep playing after win
+4. **Word Leap** — Guess the 5-letter word in 6 tries. Animated tile reveals, on-screen keyboard with color-coded letter states, stats tracking with guess distribution, physical keyboard support. ~700 answer words, ~2500 valid guesses.
 
 ## Planned Games (listed as "coming soon" on games.html)
-- Wordle, Snake, Memory, Tetris, Nonogram
+- Snake, Memory, Tetris, Nonogram
 
 ## Current Tools
 1. **QR Code Generator** — Generate QR codes for any URL or text. Features: auto-generation on input with debounce, customizable foreground/background colors, three size options (S/M/L), download as PNG. Self-contained QR encoder in vanilla JS (byte mode, EC level M, versions 1-40, Reed-Solomon error correction).
