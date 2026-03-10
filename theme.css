@@ -526,6 +526,27 @@ body {
 }
 
 /* ===========================
+   SITE FOOTER (every page)
+   =========================== */
+.site-footer {
+  width: 100%;
+  text-align: center;
+  padding: 24px 16px 20px;
+  font-size: 12px;
+  color: var(--text-dim);
+}
+.site-footer a {
+  color: var(--text-dim);
+  text-decoration: none;
+  transition: color var(--transition);
+}
+.site-footer a:hover { color: var(--text); }
+.site-footer .footer-sep {
+  margin: 0 8px;
+  opacity: 0.4;
+}
+
+/* ===========================
    ANIMATIONS
    =========================== */
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
