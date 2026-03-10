@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7700405385978151"
+     crossorigin="anonymous"></script>
+<title>Word Counter - TheFreeFix.com</title>
+<meta name="description" content="Count words, characters, sentences, and paragraphs instantly. Estimate reading time for any text. No downloads or sign-ups needed.">
+<link rel="canonical" href="https://thefreefix.com/word-counter.html">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#0a0a1a">
+<!-- Open Graph -->
+<meta property="og:title" content="Word Counter - Free Online Tool">
+<meta property="og:description" content="Count words, characters, sentences, and paragraphs instantly. Estimate reading time for any text.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://thefreefix.com/word-counter.html">
+<meta property="og:site_name" content="TheFreeFix.com">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://thefreefix.com/og-image.png">
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@TheFreeFix">
+<meta name="twitter:title" content="Word Counter - Free Online Tool">
+<meta name="twitter:image" content="https://thefreefix.com/og-image.png">
+<meta name="twitter:description" content="Count words, characters, sentences, and paragraphs instantly. Estimate reading time for any text.">
+<!-- Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Word Counter",
+  "url": "https://thefreefix.com/word-counter.html",
+  "description": "Count words, characters, sentences, and paragraphs instantly. Estimate reading time for any text.",
+  "applicationCategory": "UtilityApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "isPartOf": { "@type": "WebSite", "name": "TheFreeFix.com", "url": "https://thefreefix.com/" }
+}
+</script>
+<link rel="stylesheet" href="theme.css">
+<style>
+  .game-page { padding-bottom: 32px; }
+  .game-header { max-width: 560px; margin: 0 auto; }
+
+  .tool-content {
+    width: 100%;
+    max-width: 560px;
+    padding: 0 16px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .wc-input {
+    width: 100%;
+    min-height: 200px;
+    padding: 14px 16px;
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-md);
+    background: var(--card);
+    color: var(--text);
+    font-size: 14px;
+    font-family: inherit;
+    line-height: 1.6;
+    transition: border-color var(--transition);
+    outline: none;
+    resize: vertical;
+    box-sizing: border-box;
+  }
+  .wc-input:focus { border-color: var(--accent); }
+  .wc-input::placeholder { color: var(--text-dim); }
+
+  .stats-grid {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+
+  .wc-stat {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-md);
+    padding: 14px 10px;
+    text-align: center;
+    box-shadow: var(--shadow);
+  }
+  .wc-stat .val {
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--accent);
+    line-height: 1;
+  }
+  .wc-stat .lbl {
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-dim);
+    margin-top: 6px;
+  }
+
+  @media (max-width: 400px) {
+    .tool-content { padding: 0 12px; }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    .wc-stat .val { font-size: 20px; }
+  }
+</style>
+</head>
+<body>
+<div class="game-page">
+
+  <a href="index.html" class="site-brand">TheFreeFix.com</a>
+
+  <!-- Ad Slot 1: Top Banner -->
+  <div class="ad-slot ad-content ad-slot--placeholder">
+    <span class="ad-size-label">Responsive</span>
+  </div>
+
+  <div class="game-header">
+    <div class="header-left">
+      <a href="tools.html" class="icon-btn" title="Back" style="text-decoration:none;font-size:14px">&#x2190;</a>
+      <span class="logo">Word Counter</span>
+    </div>
+    <div class="header-btns">
+      <button class="icon-btn" id="themeBtn" title="Toggle theme">&#x1f319;</button>
+    </div>
+  </div>
+
+  <div class="tool-content">
+    <textarea class="wc-input" id="textInput" placeholder="Paste or type your text here..."></textarea>
+
+    <div class="stats-grid">
+      <div class="wc-stat"><div class="val" id="words">0</div><div class="lbl">Words</div></div>
+      <div class="wc-stat"><div class="val" id="chars">0</div><div class="lbl">Characters</div></div>
+      <div class="wc-stat"><div class="val" id="charsNoSpace">0</div><div class="lbl">No Spaces</div></div>
+      <div class="wc-stat"><div class="val" id="sentences">0</div><div class="lbl">Sentences</div></div>
+      <div class="wc-stat"><div class="val" id="paragraphs">0</div><div class="lbl">Paragraphs</div></div>
+      <div class="wc-stat"><div class="val" id="readTime">0s</div><div class="lbl">Read Time</div></div>
+    </div>
+  </div>
+
+  <!-- Ad Slot 2: Bottom Banner -->
+  <div class="ad-slot ad-bottom ad-slot--placeholder">
+    <span class="ad-size-label">Responsive</span>
+  </div>
+
+  <footer class="site-footer">
+    <a href="about.html">About</a>
+    <span class="footer-sep">&middot;</span>
+    <a href="contact.html">Contact</a>
+    <span class="footer-sep">&middot;</span>
+    <a href="terms.html">Terms</a>
+    <span class="footer-sep">&middot;</span>
+    <a href="privacy.html">Privacy</a>
+    <span class="footer-sep">&middot;</span>
+    <a href="https://x.com/TheFreeFix" target="_blank" rel="noopener">X</a>
+  </footer>
+</div>
+
+<script src="theme.js"></script>
+<script>
+const input = document.getElementById('textInput');
+const els = {
+  words: document.getElementById('words'),
+  chars: document.getElementById('chars'),
+  charsNoSpace: document.getElementById('charsNoSpace'),
+  sentences: document.getElementById('sentences'),
+  paragraphs: document.getElementById('paragraphs'),
+  readTime: document.getElementById('readTime')
+};
+
+function update() {
+  const text = input.value;
+  const trimmed = text.trim();
+
+  const words = trimmed ? trimmed.split(/\s+/).length : 0;
+  const chars = text.length;
+  const charsNoSpace = text.replace(/\s/g, '').length;
+  const sentences = trimmed ? (trimmed.match(/[.!?]+(?=\s|$)/g) || []).length : 0;
+  const paragraphs = trimmed ? trimmed.split(/\n\s*\n/).filter(p => p.trim()).length : 0;
+
+  // Average reading speed: 238 words per minute
+  const totalSeconds = Math.ceil((words / 238) * 60);
+  let readTime;
+  if (totalSeconds < 60) readTime = totalSeconds + 's';
+  else if (totalSeconds < 3600) readTime = Math.ceil(totalSeconds / 60) + 'm';
+  else readTime = Math.floor(totalSeconds / 3600) + 'h ' + Math.ceil((totalSeconds % 3600) / 60) + 'm';
+
+  els.words.textContent = words.toLocaleString();
+  els.chars.textContent = chars.toLocaleString();
+  els.charsNoSpace.textContent = charsNoSpace.toLocaleString();
+  els.sentences.textContent = sentences.toLocaleString();
+  els.paragraphs.textContent = paragraphs || (trimmed ? 1 : 0);
+  els.readTime.textContent = readTime;
+}
+
+input.addEventListener('input', update);
+GameTheme.init();
+</script>
+</body>
+</html>

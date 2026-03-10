@@ -28,8 +28,9 @@ thefreefix.com/                  ← Hub page (2 cards: Games, Tools)
 │   ├── sudoku.html              ← Sudoku game (4 difficulty levels)
 │   ├── minesweeper.html         ← Minesweeper game (3 difficulty levels)
 │   └── 2048.html                ← 2048 game (slide and merge tiles)
-├── tools.html                   ← Tools listing (QR Code Generator)
-│   └── qr-code-generator.html   ← QR Code Generator tool
+├── tools.html                   ← Tools listing (QR Code Generator, Word Counter)
+│   ├── qr-code-generator.html   ← QR Code Generator tool
+│   └── word-counter.html        ← Word Counter tool
 ├── theme.css                    ← Shared stylesheet (all CSS variables, components)
 ├── theme.js                     ← Shared JS utilities (theme toggle, timer, stats, confetti, modals)
 ├── privacy.html                 ← Privacy policy page
@@ -85,6 +86,7 @@ thefreefix.com/                  ← Hub page (2 cards: Games, Tools)
 
 ## Current Tools
 1. **QR Code Generator** — Generate QR codes for any URL or text. Features: auto-generation on input with debounce, customizable foreground/background colors, three size options (S/M/L), download as PNG. Self-contained QR encoder in vanilla JS (byte mode, EC level M, versions 1-40, Reed-Solomon error correction).
+2. **Word Counter** — Count words, characters (with/without spaces), sentences, paragraphs, and estimate reading time. Live updates on input, reading speed based on 238 WPM average. Responsive 3-column stat grid (2 columns on small phones).
 
 ## Key Implementation Details
 - **Minesweeper board overflow**: Expert mode (16×30) exceeds mobile viewport. Uses `overflow-x: auto` on `.board-wrap` with `width: 100%` to enable horizontal scrolling without clipping.
