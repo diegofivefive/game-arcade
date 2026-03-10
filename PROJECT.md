@@ -31,6 +31,9 @@ thefreefix.com/                  ← Hub page (2 cards: Games, Tools)
 ├── theme.css                    ← Shared stylesheet (all CSS variables, components)
 ├── theme.js                     ← Shared JS utilities (theme toggle, timer, stats, confetti, modals)
 ├── privacy.html                 ← Privacy policy page
+├── about.html                   ← About page
+├── contact.html                 ← Contact page
+├── terms.html                   ← Terms of Service page
 ├── robots.txt                   ← Search engine crawling directives
 ├── sitemap.xml                  ← XML sitemap for all pages
 ├── ads.txt                      ← Google AdSense authorization
@@ -53,7 +56,7 @@ thefreefix.com/                  ← Hub page (2 cards: Games, Tools)
 - **Dark mode** (default): Deep purple/navy palette (#0a0a1a bg, #7b6fff accent, #ff5e94 accent2, #00e6b8 accent3)
 - **Light mode**: Clean white/gray with same accent colors adjusted
 - **Font**: System font stack (Segoe UI, system-ui, -apple-system, sans-serif)
-- **Components**: `.icon-btn`, `.pill-selector`/`.pill-btn`, `.stat-chip`, `.tool-btn`, `.toggle-chip`, `.modal-overlay`/`.modal`, `.card`, `.site-brand`, `.game-header`
+- **Components**: `.icon-btn`, `.pill-selector`/`.pill-btn`, `.stat-chip`, `.tool-btn`, `.toggle-chip`, `.modal-overlay`/`.modal`, `.card`, `.site-brand`, `.game-header`, `.site-footer`
 - **Responsive breakpoints**: 400px (small mobile), 480px (mobile), 768px (tablet), 800px (landscape games)
 
 ## SEO (implemented)

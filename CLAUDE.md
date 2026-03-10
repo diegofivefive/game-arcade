@@ -32,6 +32,9 @@ tools.html          ← Tools listing (placeholder)
 sudoku.html         ← Sudoku game
 minesweeper.html    ← Minesweeper game
 privacy.html        ← Privacy policy
+about.html          ← About page
+contact.html        ← Contact page
+terms.html          ← Terms of Service
 theme.css           ← Shared stylesheet (CSS variables, components)
 theme.js            ← Shared JS (GameTheme, GameTimer, GameStatsManager, GameSettings, Confetti, Modal)
 robots.txt          ← Crawling directives
@@ -43,7 +46,7 @@ PROJECT.md          ← Full project reference doc
 
 ## Adding a New Game
 1. Create `gamename.html` — follow sudoku.html or minesweeper.html as template
-2. Include theme.css + theme.js, add site-brand header, game-header, ad slots
+2. Include theme.css + theme.js, add site-brand header, game-header, ad slots, site-footer
 3. Add SEO meta tags, canonical URL, Schema.org VideoGame JSON-LD
 4. Add a card to `games.html` listing
 5. Add URL to `sitemap.xml`
