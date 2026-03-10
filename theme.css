@@ -134,7 +134,8 @@ body {
 .game-header {
   width: 100%;
   max-width: 560px;
-  padding: 10px 16px 0;
+  padding: 10px 16px;
+  margin-bottom: 8px;
   display: flex;
   justify-content: space-between;
   align-items: center;
