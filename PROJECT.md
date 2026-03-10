@@ -84,7 +84,7 @@ thefreefix.com/                  ← Hub page (2 cards: Games, Tools)
 4. **Word Leap** — Guess the 5-letter word in 6 tries. Animated tile reveals, on-screen keyboard with color-coded letter states, stats tracking with guess distribution, physical keyboard support. ~700 answer words, ~2500 valid guesses.
 
 ## Planned Games (listed as "coming soon" on games.html)
-- Snake, Memory, Tetris, Nonogram
+- Snake, Memory, Nonogram
 
 ## Current Tools
 1. **QR Code Generator** — Generate QR codes for any URL or text. Features: auto-generation on input with debounce, customizable foreground/background colors, three size options (S/M/L), download as PNG. Self-contained QR encoder in vanilla JS (byte mode, EC level M, versions 1-40, Reed-Solomon error correction).

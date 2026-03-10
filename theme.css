@@ -142,8 +142,26 @@ body {
 .header-left {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 6px;
 }
+.back-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px; height: 28px;
+  text-decoration: none;
+  font-size: 0;
+  transition: opacity var(--transition);
+}
+.back-btn::before {
+  content: '';
+  width: 12px; height: 12px;
+  border-left: 3px solid var(--accent);
+  border-bottom: 3px solid var(--accent2);
+  transform: rotate(45deg);
+  margin-left: 3px;
+}
+.back-btn:hover { opacity: 0.65; }
 .game-header .logo {
   font-size: 26px;
   font-weight: 800;
