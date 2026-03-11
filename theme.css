@@ -176,6 +176,75 @@ body {
 .header-btns { display: flex; gap: 6px; }
 
 /* ===========================
+   INFO BUTTON (gradient "i")
+   =========================== */
+.info-btn {
+  width: 36px; height: 36px;
+  border: 1.5px solid var(--accent);
+  border-radius: var(--radius-md);
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 18px;
+  font-weight: 700;
+  font-style: italic;
+  background-image: linear-gradient(135deg, var(--accent), var(--accent2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  transition: all var(--transition);
+  cursor: pointer;
+}
+.info-btn:hover {
+  border-color: var(--accent2);
+  transform: translateY(-1px);
+}
+
+/* ===========================
+   INFO PAGE CONTENT
+   =========================== */
+.info-content {
+  width: 100%;
+  max-width: 560px;
+  padding: 0 16px;
+  margin: 0 auto;
+}
+.info-content h2 {
+  font-size: 18px;
+  font-weight: 800;
+  margin: 24px 0 12px;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.info-content h2:first-child { margin-top: 0; }
+.info-content p {
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--text);
+  margin-bottom: 12px;
+}
+.info-content ul, .info-content ol {
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--text);
+  margin: 0 0 12px 20px;
+}
+.info-content li { margin-bottom: 6px; }
+.info-content strong { color: var(--accent); }
+.info-content .info-card {
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  margin-bottom: 12px;
+}
+
+/* ===========================
    SECTION HEADINGS (hub page)
    =========================== */
 .section-heading {
