@@ -26,12 +26,18 @@ TheFreeFix.com is a free online games and tools website. No accounts, no downloa
 thefreefix.com/                  ← Hub page (2 cards: Games, Tools)
 ├── games.html                   ← Games listing (cards for each game)
 │   ├── sudoku.html              ← Sudoku game (4 difficulty levels)
+│   │   └── sudoku-info.html     ← Sudoku info/how-to-play page
 │   ├── minesweeper.html         ← Minesweeper game (3 difficulty levels)
+│   │   └── minesweeper-info.html ← Minesweeper info/how-to-play page
 │   ├── 2048.html                ← 2048 game (slide and merge tiles)
+│   │   └── 2048-info.html       ← 2048 info/how-to-play page
 │   └── word-leap.html           ← Word Leap game (5-letter word puzzle)
+│       └── word-leap-info.html  ← Word Leap info/how-to-play page
 ├── tools.html                   ← Tools listing (QR Code Generator, Word Counter)
 │   ├── qr-code-generator.html   ← QR Code Generator tool
+│   │   └── qr-code-generator-info.html ← QR Generator info/how-to-use page
 │   └── word-counter.html        ← Word Counter tool
+│       └── word-counter-info.html ← Word Counter info/how-to-use page
 ├── theme.css                    ← Shared stylesheet (all CSS variables, components)
 ├── theme.js                     ← Shared JS utilities (theme toggle, timer, stats, confetti, modals)
 ├── privacy.html                 ← Privacy policy page
