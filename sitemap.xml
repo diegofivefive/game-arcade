@@ -46,6 +46,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://thefreefix.com/pdf-merge-split.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://thefreefix.com/sudoku-info.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -72,6 +77,11 @@
   </url>
   <url>
     <loc>https://thefreefix.com/word-counter-info.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://thefreefix.com/pdf-merge-split-info.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
