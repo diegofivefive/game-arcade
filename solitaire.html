@@ -634,11 +634,15 @@ function klondikeRender() {
     }
   });
 
-  // Render waste
+  // Render waste (only top 3 to avoid heavy stacked shadow)
+  const wasteLen = kl.waste.length;
+  const wasteStart = Math.max(0, wasteLen - 3);
   kl.waste.forEach((c, i) => {
-    renderCard(c);
-    positionCard(c, startX + colW, 0, i);
-    $board.appendChild(c.el);
+    if (i >= wasteStart) {
+      renderCard(c);
+      positionCard(c, startX + colW, 0, i);
+      $board.appendChild(c.el);
+    }
   });
 
   // Render foundations
