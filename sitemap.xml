@@ -51,6 +51,26 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://thefreefix.com/block-drop.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://thefreefix.com/chess-puzzles.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://thefreefix.com/memory-match.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://thefreefix.com/solitaire.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://thefreefix.com/sudoku-info.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -82,6 +102,26 @@
   </url>
   <url>
     <loc>https://thefreefix.com/pdf-merge-split-info.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://thefreefix.com/block-drop-info.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://thefreefix.com/chess-puzzles-info.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://thefreefix.com/memory-match-info.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://thefreefix.com/solitaire-info.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>

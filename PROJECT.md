@@ -31,8 +31,16 @@ thefreefix.com/                  ← Hub page (2 cards: Games, Tools)
 │   │   └── minesweeper-info.html ← Minesweeper info/how-to-play page
 │   ├── 2048.html                ← 2048 game (slide and merge tiles)
 │   │   └── 2048-info.html       ← 2048 info/how-to-play page
-│   └── word-leap.html           ← Word Leap game (5-letter word puzzle)
-│       └── word-leap-info.html  ← Word Leap info/how-to-play page
+│   ├── word-leap.html           ← Word Leap game (5-letter word puzzle)
+│   │   └── word-leap-info.html  ← Word Leap info/how-to-play page
+│   ├── block-drop.html          ← Block Drop game (falling-blocks puzzle)
+│   │   └── block-drop-info.html ← Block Drop info/how-to-play page
+│   ├── chess-puzzles.html       ← Chess Puzzles game (20,000 tactical puzzles)
+│   │   └── chess-puzzles-info.html ← Chess Puzzles info/how-to-play page
+│   ├── memory-match.html        ← Memory Match game (card-matching)
+│   │   └── memory-match-info.html ← Memory Match info/how-to-play page
+│   └── solitaire.html           ← Solitaire Collection (Klondike, Spider, FreeCell)
+│       └── solitaire-info.html  ← Solitaire info/how-to-play page
 ├── tools.html                   ← Tools listing (QR Code Generator, Word Counter, PDF Merge & Split)
 │   ├── qr-code-generator.html   ← QR Code Generator tool
 │   │   └── qr-code-generator-info.html ← QR Generator info/how-to-use page
@@ -90,9 +98,13 @@ thefreefix.com/                  ← Hub page (2 cards: Games, Tools)
 2. **Minesweeper** — 3 difficulty levels (beginner 9×9, intermediate 16×16, expert 16×30), flagging, chord clicking, timer, stats tracking, best times per difficulty
 3. **2048** — Slide and merge tiles to reach 2048. Arrow keys + swipe controls, score tracking, best score persistence, timer, stats tracking, keep playing after win
 4. **Word Leap** — Guess the 5-letter word in 6 tries. Animated tile reveals, on-screen keyboard with color-coded letter states, stats tracking with guess distribution, physical keyboard support. ~700 answer words, ~2500 valid guesses.
+5. **Block Drop** — Classic falling-blocks puzzle game. Stack, rotate, and clear lines to rack up points. Touch and keyboard controls.
+6. **Chess Puzzles** — Solve 20,000 chess puzzles from real Lichess games. Four difficulty levels from beginner to master.
+7. **Memory Match** — Classic card-matching memory game. Flip cards, find pairs, and test your memory across multiple difficulty levels.
+8. **Solitaire Collection** — Three classic solitaire card games: Klondike, Spider, and FreeCell.
 
-## Planned Games (listed as "coming soon" on games.html)
-- Snake, Memory, Nonogram
+## Planned Games
+- (None currently listed)
 
 ## Current Tools
 1. **QR Code Generator** — Generate QR codes for any URL or text. Features: auto-generation on input with debounce, customizable foreground/background colors, three size options (S/M/L), download as PNG. Self-contained QR encoder in vanilla JS (byte mode, EC level M, versions 1-40, Reed-Solomon error correction).
