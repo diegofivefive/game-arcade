@@ -558,11 +558,17 @@ let kl = {};
 
 function klondikeInit() {
   const deck = shuffle(makeDeck());
-  kl = { tableau: [[],[],[],[],[],[],[]], foundations: [[],[],[],[]], stock: [], waste: [], draw3: false };
+  kl = { tableau: [[],[],[],[],[],[],[]], foundations: [[],[],[],[]], stock: [], waste: [], draw3: false, passes: 0, maxPasses: 0 };
 
   // Read draw setting
   const d3chip = document.querySelector('.toggle-chip[data-setting="draw3"]');
   kl.draw3 = d3chip && d3chip.classList.contains('active');
+
+  // Read passes setting (0 = unlimited)
+  const passChip = document.querySelector('.toggle-chip[data-setting="pass1"].active');
+  const pass3Chip = document.querySelector('.toggle-chip[data-setting="pass3"].active');
+  kl.maxPasses = passChip ? 1 : pass3Chip ? 3 : 0;
+  kl.passes = 0;
 
   // Deal tableau
   let idx = 0;
@@ -597,6 +603,15 @@ function klondikeRender() {
   stockPh.className = 'pile-placeholder';
   stockPh.style.left = startX + 'px';
   stockPh.style.top = '0px';
+  // Show X when no more passes allowed
+  const passesExhausted = kl.stock.length === 0 && kl.maxPasses > 0 && kl.passes >= kl.maxPasses;
+  if (passesExhausted) {
+    stockPh.style.opacity = '0.3';
+    const x = document.createElement('span');
+    x.textContent = '\u2715';
+    x.style.cssText = 'position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:20px;color:var(--text-dim);';
+    stockPh.appendChild(x);
+  }
   $board.appendChild(stockPh);
   stockPh.addEventListener('pointerdown', (e) => { e.preventDefault(); klondikeDrawStock(); });
 
@@ -607,12 +622,16 @@ function klondikeRender() {
   wastePh.style.top = '0px';
   $board.appendChild(wastePh);
 
-  // Render stock cards
+  // Render stock cards (only top 3 to avoid heavy stacked shadow)
+  const stockLen = kl.stock.length;
+  const stockStart = Math.max(0, stockLen - 3);
   kl.stock.forEach((c, i) => {
-    renderCard(c);
-    positionCard(c, startX, 0, i);
-    c.el.addEventListener('pointerdown', (e) => { e.preventDefault(); e.stopPropagation(); klondikeDrawStock(); });
-    $board.appendChild(c.el);
+    if (i >= stockStart) {
+      renderCard(c);
+      positionCard(c, startX, 0, i);
+      c.el.addEventListener('pointerdown', (e) => { e.preventDefault(); e.stopPropagation(); klondikeDrawStock(); });
+      $board.appendChild(c.el);
+    }
   });
 
   // Render waste
@@ -662,7 +681,10 @@ function klondikeDrawStock() {
   const undoState = { type: 'draw', count: 0, recycled: false };
   if (kl.stock.length === 0) {
     if (kl.waste.length === 0) return;
+    // Check pass limit
+    if (kl.maxPasses > 0 && kl.passes >= kl.maxPasses) return;
     // Recycle waste back to stock
+    kl.passes++;
     undoState.recycled = true;
     undoState.count = kl.waste.length;
     while (kl.waste.length > 0) {
@@ -818,7 +840,8 @@ function klondikeUndo() {
   $btnUndo.disabled = undoStack.length === 0;
   if (u.type === 'draw') {
     if (u.recycled) {
-      // Un-recycle: move stock back to waste
+      // Un-recycle: move stock back to waste, undo pass count
+      kl.passes--;
       while (kl.stock.length > 0) {
         const c = kl.stock.pop();
         flipCard(c, true);
@@ -1576,10 +1599,24 @@ function startGame(game) {
   if (game === 'klondike') {
     $settingsRow.innerHTML = '<span class="setting-label">Draw:</span>' +
       '<button class="toggle-chip active" data-setting="draw1">Draw 1</button>' +
-      '<button class="toggle-chip" data-setting="draw3">Draw 3</button>';
-    $settingsRow.querySelectorAll('.toggle-chip').forEach(ch => {
+      '<button class="toggle-chip" data-setting="draw3">Draw 3</button>' +
+      '<span class="setting-label" style="margin-left:8px">Passes:</span>' +
+      '<button class="toggle-chip" data-setting="pass1">1</button>' +
+      '<button class="toggle-chip" data-setting="pass3">3</button>' +
+      '<button class="toggle-chip active" data-setting="passU">&#x221e;</button>';
+    // Draw toggle group
+    const drawChips = $settingsRow.querySelectorAll('.toggle-chip[data-setting^="draw"]');
+    drawChips.forEach(ch => {
       ch.addEventListener('click', () => {
-        $settingsRow.querySelectorAll('.toggle-chip').forEach(c => c.classList.remove('active'));
+        drawChips.forEach(c => c.classList.remove('active'));
+        ch.classList.add('active');
+      });
+    });
+    // Passes toggle group
+    const passChips = $settingsRow.querySelectorAll('.toggle-chip[data-setting^="pass"]');
+    passChips.forEach(ch => {
+      ch.addEventListener('click', () => {
+        passChips.forEach(c => c.classList.remove('active'));
         ch.classList.add('active');
       });
     });
