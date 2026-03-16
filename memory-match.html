@@ -67,7 +67,7 @@
   .board-wrap {
     width: 100%;
     max-width: 560px;
-    padding: 0 12px;
+    padding: 0 12px 20px;
   }
   .board {
     display: grid;
@@ -119,7 +119,7 @@
   .card-front {
     background: var(--card);
     transform: rotateY(180deg);
-    font-size: clamp(24px, 6vw, 42px);
+    font-size: var(--emoji-size, 42px);
     user-select: none;
   }
   .card.matched .card-face {
@@ -327,6 +327,15 @@ function buildBoard() {
     card.addEventListener('click', () => handleCardClick(card));
     board.appendChild(card);
   });
+
+  // Size emojis to ~50% of card width
+  requestAnimationFrame(() => {
+    const firstCard = board.querySelector('.card');
+    if (firstCard) {
+      const sz = Math.round(firstCard.offsetWidth * 0.5);
+      board.style.setProperty('--emoji-size', sz + 'px');
+    }
+  });
 }
 
 // ===========================
@@ -442,6 +451,20 @@ document.getElementById('winPlayAgain').addEventListener('click', () => {
 GameTheme.init();
 Modal.bindOverlayClose();
 init();
+
+// Update emoji size on resize
+let resizeTimer;
+window.addEventListener('resize', () => {
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(() => {
+    const board = document.getElementById('board');
+    const firstCard = board.querySelector('.card');
+    if (firstCard) {
+      const sz = Math.round(firstCard.offsetWidth * 0.5);
+      board.style.setProperty('--emoji-size', sz + 'px');
+    }
+  }, 150);
+});
 </script>
 </body>
 </html>
