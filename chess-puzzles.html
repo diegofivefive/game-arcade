@@ -693,9 +693,9 @@ var Chess = function (fen) {
     return true
   }
 
-  /* TODO: this function is pretty much crap - it validates structure but
-   * completely ignores content (e.g. doesn't verify that each side has a king)
-   * ... we should rewrite this, and ditch the silly error_number field while
+  /* Validates board structure but does not verify piece content (e.g. king
+   * presence). Consider extending validation and removing the error_number
+   * field in a future refactor while
    * we're at it
    */
   function validate_fen(fen) {
@@ -1277,9 +1277,8 @@ var Chess = function (fen) {
   }
 
   function in_threefold_repetition() {
-    /* TODO: while this function is fine for casual use, a better
-     * implementation would use a Zobrist key (instead of FEN). the
-     * Zobrist key would be maintained in the make_move/undo_move functions,
+    /* For casual use this FEN-based check is sufficient. A Zobrist key
+     * approach (maintained in make_move/undo_move) would be more efficient.
      * avoiding the costly that we do below.
      */
     var moves = []
@@ -1906,8 +1905,8 @@ var Chess = function (fen) {
 
       /* add the PGN header headerrmation */
       for (var i in header) {
-        /* TODO: order of enumerated properties in header object is not
-         * guaranteed, see ECMA-262 spec (section 12.6.4)
+        /* Note: enumeration order of properties is not guaranteed per
+         * ECMA-262 spec (section 12.6.4).
          */
         result.push('[' + i + ' "' + header[i] + '"]' + newline)
         header_exists = true
