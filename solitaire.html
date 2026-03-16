@@ -1043,7 +1043,7 @@ function spiderDealRow() {
   const dealt = [];
   for (let i = 0; i < 10; i++) {
     const c = sp.stock.pop();
-    flipCard(c, true);
+    c.faceUp = true;
     sp.tableau[i].push(c);
     dealt.push(c);
   }
