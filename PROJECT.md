@@ -103,8 +103,8 @@ thefreefix.com/                  ← Hub page (2 cards: Games, Tools)
 7. **Memory Match** — Classic card-matching memory game. Flip cards, find pairs, and test your memory across multiple difficulty levels.
 8. **Solitaire Collection** — Three classic solitaire card games: Klondike, Spider, and FreeCell.
 
-## Planned Games (listed as "coming soon" on games.html)
-- Snake, Nonogram
+## Planned Games
+- (None currently listed)
 
 ## Current Tools
 1. **QR Code Generator** — Generate QR codes for any URL or text. Features: auto-generation on input with debounce, customizable foreground/background colors, three size options (S/M/L), download as PNG. Self-contained QR encoder in vanilla JS (byte mode, EC level M, versions 1-40, Reed-Solomon error correction).
