@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7700405385978151"
+     crossorigin="anonymous"></script>
+<title>JSON Formatter &amp; Validator - TheFreeFix.com</title>
+<meta name="description" content="Format, validate, and minify JSON online for free — instant syntax highlighting, error detection, and beautification right in your browser. No downloads or sign-ups needed.">
+<link rel="canonical" href="https://thefreefix.com/json-formatter.html">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#0a0a1a">
+<!-- Open Graph -->
+<meta property="og:title" content="JSON Formatter &amp; Validator - Free Online Tool">
+<meta property="og:description" content="Format, validate, and minify JSON online for free — instant syntax highlighting, error detection, and beautification right in your browser.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://thefreefix.com/json-formatter.html">
+<meta property="og:site_name" content="TheFreeFix.com">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://thefreefix.com/og-image.png">
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@TheFreeFix">
+<meta name="twitter:title" content="JSON Formatter &amp; Validator - Free Online Tool">
+<meta name="twitter:image" content="https://thefreefix.com/og-image.png">
+<meta name="twitter:description" content="Format, validate, and minify JSON online for free — instant syntax highlighting, error detection, and beautification right in your browser.">
+<!-- Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "JSON Formatter & Validator",
+  "url": "https://thefreefix.com/json-formatter.html",
+  "description": "Format, validate, and minify JSON online for free — instant syntax highlighting, error detection, and beautification right in your browser.",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "isPartOf": { "@type": "WebSite", "name": "TheFreeFix.com", "url": "https://thefreefix.com/" }
+}
+</script>
+<link rel="stylesheet" href="theme.css">
+<style>
+  .game-page { padding-bottom: 32px; }
+  .game-header { max-width: 600px; margin: 0 auto; }
+
+  .tool-content {
+    width: 100%;
+    max-width: 600px;
+    padding: 0 16px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  /* Toolbar */
+  .toolbar {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-items: center;
+  }
+  .toolbar-left {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    flex: 1;
+  }
+  .toolbar-right {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+  }
+  .tb-btn {
+    padding: 7px 14px;
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-sm);
+    background: var(--btn-bg);
+    color: var(--text);
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition);
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .tb-btn:hover { background: var(--btn-hover); transform: translateY(-1px); }
+  .tb-btn.primary {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+  }
+  .tb-btn.primary:hover { filter: brightness(1.15); }
+
+  .indent-select {
+    padding: 7px 10px;
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-sm);
+    background: var(--btn-bg);
+    color: var(--text);
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    outline: none;
+    font-family: inherit;
+  }
+  .indent-select:focus { border-color: var(--accent); }
+
+  /* Editor area */
+  .editor-wrapper {
+    width: 100%;
+    position: relative;
+  }
+  .json-input {
+    width: 100%;
+    min-height: 200px;
+    max-height: 50vh;
+    padding: 14px;
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-md);
+    background: var(--card);
+    color: var(--text);
+    font-family: 'SF Mono', 'Fira Code', 'Consolas', 'Monaco', monospace;
+    font-size: 13px;
+    line-height: 1.6;
+    resize: vertical;
+    outline: none;
+    transition: border-color var(--transition);
+    box-sizing: border-box;
+    tab-size: 2;
+    white-space: pre;
+    overflow-wrap: normal;
+    overflow-x: auto;
+  }
+  .json-input:focus { border-color: var(--accent); }
+  .json-input::placeholder { color: var(--text-dim); }
+  .json-input.has-error { border-color: #ff3355; }
+
+  .char-count {
+    position: absolute;
+    bottom: 8px;
+    right: 12px;
+    font-size: 10px;
+    color: var(--text-dim);
+    pointer-events: none;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Status bar */
+  .status-bar {
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    min-height: 20px;
+  }
+  .status-icon {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .status-icon.valid { background: rgba(0,230,184,0.15); color: var(--accent3); }
+  .status-icon.invalid { background: rgba(255,51,85,0.15); color: #ff3355; }
+  .status-icon.empty { background: var(--btn-bg); color: var(--text-dim); }
+  .status-text {
+    font-size: 12px;
+    line-height: 1.5;
+    color: var(--text-dim);
+    flex: 1;
+    min-width: 0;
+    word-break: break-word;
+  }
+  .status-text strong { color: var(--text); }
+  .status-text .error-detail { color: #ff3355; }
+  .status-text .success-detail { color: var(--accent3); }
+
+  /* Output area */
+  .output-wrapper {
+    width: 100%;
+    position: relative;
+    display: none;
+  }
+  .output-wrapper.visible { display: block; }
+  .output-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+  }
+  .output-label {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-dim);
+  }
+  .copy-btn {
+    padding: 4px 10px;
+    border: 1px solid var(--card-border);
+    border-radius: 6px;
+    background: var(--btn-bg);
+    color: var(--text-dim);
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .copy-btn:hover { background: var(--btn-hover); color: var(--text); }
+  .copy-btn.copied { background: var(--accent3); color: #fff; border-color: var(--accent3); }
+
+  .output-box {
+    width: 100%;
+    max-height: 50vh;
+    overflow: auto;
+    padding: 14px;
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-md);
+    background: var(--bg2);
+    font-family: 'SF Mono', 'Fira Code', 'Consolas', 'Monaco', monospace;
+    font-size: 13px;
+    line-height: 1.6;
+    white-space: pre;
+    overflow-wrap: normal;
+    tab-size: 2;
+    color: var(--text);
+  }
+
+  /* Syntax highlighting */
+  .hl-key { color: #7b6fff; }
+  .hl-str { color: #00e6b8; }
+  .hl-num { color: #ff5e94; }
+  .hl-bool { color: #ffb347; }
+  .hl-null { color: #7e7ea8; }
+  .hl-brace { color: var(--text-dim); }
+  [data-theme="light"] .hl-key { color: #5a4fd0; }
+  [data-theme="light"] .hl-str { color: #00805a; }
+  [data-theme="light"] .hl-num { color: #d0306a; }
+  [data-theme="light"] .hl-bool { color: #c07000; }
+  [data-theme="light"] .hl-null { color: #6a6a8e; }
+
+  /* Tree view */
+  .tree-view {
+    width: 100%;
+    max-height: 50vh;
+    overflow: auto;
+    padding: 10px 14px;
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-md);
+    background: var(--bg2);
+    font-size: 13px;
+    line-height: 1.7;
+    font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+    display: none;
+  }
+  .tree-view.visible { display: block; }
+  .tree-node { padding-left: 18px; }
+  .tree-toggle {
+    cursor: pointer;
+    user-select: none;
+    color: var(--text-dim);
+    display: inline;
+  }
+  .tree-toggle:hover { color: var(--accent); }
+  .tree-toggle::before {
+    content: '\25BC';
+    display: inline-block;
+    width: 14px;
+    font-size: 9px;
+    transition: transform 0.15s;
+  }
+  .tree-toggle.collapsed::before { transform: rotate(-90deg); }
+  .tree-key { color: #7b6fff; }
+  .tree-str { color: #00e6b8; }
+  .tree-num { color: #ff5e94; }
+  .tree-bool { color: #ffb347; }
+  .tree-null { color: #7e7ea8; }
+  .tree-bracket { color: var(--text-dim); }
+  .tree-hidden { display: none; }
+  [data-theme="light"] .tree-key { color: #5a4fd0; }
+  [data-theme="light"] .tree-str { color: #00805a; }
+  [data-theme="light"] .tree-num { color: #d0306a; }
+  [data-theme="light"] .tree-bool { color: #c07000; }
+
+  /* View toggle */
+  .view-toggle {
+    width: 100%;
+    display: none;
+    justify-content: center;
+  }
+  .view-toggle.visible { display: flex; }
+
+  /* Stats bar */
+  .stats-row {
+    width: 100%;
+    display: none;
+    flex-wrap: wrap;
+    gap: 8px;
+    font-size: 11px;
+    color: var(--text-dim);
+  }
+  .stats-row.visible { display: flex; }
+  .stat-item {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 6px;
+    padding: 4px 10px;
+    font-weight: 600;
+  }
+  .stat-item span { color: var(--text); }
+
+  /* Copy toast */
+  .copy-toast {
+    position: fixed;
+    bottom: 80px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--card);
+    color: var(--text);
+    border: 1px solid var(--card-border);
+    padding: 8px 18px;
+    border-radius: var(--radius-md);
+    font-size: 13px;
+    font-weight: 600;
+    box-shadow: var(--shadow);
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.25s;
+    z-index: 50;
+  }
+  .copy-toast.visible {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  @media (max-width: 400px) {
+    .tool-content { padding: 0 12px; }
+    .tb-btn { padding: 6px 10px; font-size: 11px; }
+    .json-input { font-size: 12px; min-height: 160px; padding: 10px; }
+    .output-box { font-size: 12px; padding: 10px; }
+    .tree-view { font-size: 12px; padding: 8px 10px; }
+  }
+</style>
+</head>
+<body>
+<div class="game-page">
+
+  <a href="index.html" class="site-brand">TheFreeFix.com</a>
+
+  <!-- Ad Slot 1: Top Banner -->
+  <div class="ad-slot ad-content ad-slot--placeholder">
+    <span class="ad-size-label">Responsive</span>
+  </div>
+
+  <div class="game-header">
+    <div class="header-left">
+      <a href="tools.html" class="back-btn" title="Back">&#x2190;</a>
+      <span class="logo">JSON Formatter</span>
+    </div>
+    <div class="header-btns">
+      <a href="json-formatter-info.html" class="info-btn" title="Info">i</a>
+      <button class="icon-btn" id="themeBtn" title="Toggle theme">&#x1f319;</button>
+    </div>
+  </div>
+
+  <div class="tool-content">
+    <!-- Toolbar -->
+    <div class="toolbar">
+      <div class="toolbar-left">
+        <button class="tb-btn primary" id="formatBtn">Format</button>
+        <button class="tb-btn" id="minifyBtn">Minify</button>
+        <button class="tb-btn" id="validateBtn">Validate</button>
+        <button class="tb-btn" id="clearBtn">Clear</button>
+      </div>
+      <div class="toolbar-right">
+        <select class="indent-select" id="indentSelect" title="Indentation">
+          <option value="2">2 spaces</option>
+          <option value="4">4 spaces</option>
+          <option value="tab">Tab</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Input -->
+    <div class="editor-wrapper">
+      <textarea class="json-input" id="jsonInput" placeholder='Paste or type JSON here...&#10;&#10;e.g. {"name": "John", "age": 30}' spellcheck="false"></textarea>
+      <div class="char-count" id="charCount">0 chars</div>
+    </div>
+
+    <!-- Status bar -->
+    <div class="status-bar" id="statusBar">
+      <div class="status-icon empty" id="statusIcon">?</div>
+      <div class="status-text" id="statusText">Paste or type JSON to get started.</div>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats-row" id="statsRow"></div>
+
+    <!-- View toggle -->
+    <div class="view-toggle" id="viewToggle">
+      <div class="pill-selector">
+        <button class="pill-btn active" data-view="formatted">Formatted</button>
+        <button class="pill-btn" data-view="tree">Tree View</button>
+      </div>
+    </div>
+
+    <!-- Formatted output -->
+    <div class="output-wrapper" id="outputWrapper">
+      <div class="output-header">
+        <span class="output-label">Formatted Output</span>
+        <button class="copy-btn" id="copyBtn">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          Copy
+        </button>
+      </div>
+      <div class="output-box" id="outputBox"></div>
+    </div>
+
+    <!-- Tree view -->
+    <div class="tree-view" id="treeView"></div>
+  </div>
+
+  <!-- Copy toast -->
+  <div class="copy-toast" id="copyToast">Copied!</div>
+
+  <!-- Ad Slot 2: Bottom Banner -->
+  <div class="ad-slot ad-bottom ad-slot--placeholder">
+    <span class="ad-size-label">Responsive</span>
+  </div>
+
+  <footer class="site-footer">
+    <a href="about.html">About</a>
+    <span class="footer-sep">&middot;</span>
+    <a href="contact.html">Contact</a>
+    <span class="footer-sep">&middot;</span>
+    <a href="terms.html">Terms</a>
+    <span class="footer-sep">&middot;</span>
+    <a href="privacy.html">Privacy</a>
+    <span class="footer-sep">&middot;</span>
+    <a href="https://x.com/TheFreeFix" target="_blank" rel="noopener">X</a>
+  </footer>
+</div>
+
+<script src="theme.js"></script>
+<script>
+// === State ===
+var currentView = 'formatted';
+var parsedData = null;
+var formattedJson = '';
+var toastTimer = null;
+
+// === DOM refs ===
+var jsonInput = document.getElementById('jsonInput');
+var charCount = document.getElementById('charCount');
+var formatBtn = document.getElementById('formatBtn');
+var minifyBtn = document.getElementById('minifyBtn');
+var validateBtn = document.getElementById('validateBtn');
+var clearBtn = document.getElementById('clearBtn');
+var indentSelect = document.getElementById('indentSelect');
+var statusBar = document.getElementById('statusBar');
+var statusIcon = document.getElementById('statusIcon');
+var statusText = document.getElementById('statusText');
+var statsRow = document.getElementById('statsRow');
+var viewToggle = document.getElementById('viewToggle');
+var outputWrapper = document.getElementById('outputWrapper');
+var outputBox = document.getElementById('outputBox');
+var treeView = document.getElementById('treeView');
+var copyBtn = document.getElementById('copyBtn');
+var copyToast = document.getElementById('copyToast');
+
+// === Utilities ===
+function escapeHtml(str) {
+  return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+function getIndent() {
+  var val = indentSelect.value;
+  if (val === 'tab') return '\t';
+  return parseInt(val, 10);
+}
+
+function updateCharCount() {
+  var len = jsonInput.value.length;
+  charCount.textContent = len.toLocaleString() + ' char' + (len !== 1 ? 's' : '');
+}
+
+function setStatus(type, html) {
+  statusIcon.className = 'status-icon ' + type;
+  if (type === 'valid') statusIcon.textContent = '\u2713';
+  else if (type === 'invalid') statusIcon.textContent = '!';
+  else statusIcon.textContent = '?';
+  statusText.innerHTML = html;
+}
+
+function showToast(msg) {
+  copyToast.textContent = msg;
+  copyToast.classList.add('visible');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(function() {
+    copyToast.classList.remove('visible');
+  }, 1800);
+}
+
+function copyText(text) {
+  navigator.clipboard.writeText(text).then(function() {
+    showToast('Copied to clipboard!');
+  }).catch(function() {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    showToast('Copied to clipboard!');
+  });
+}
+
+// === Parse & validate ===
+function tryParse(str) {
+  str = str.trim();
+  if (!str) return { ok: false, error: 'Empty input', data: null };
+  try {
+    var data = JSON.parse(str);
+    return { ok: true, error: null, data: data };
+  } catch (e) {
+    return { ok: false, error: e.message, data: null };
+  }
+}
+
+function getErrorPosition(errMsg) {
+  var m = errMsg.match(/position\s+(\d+)/i);
+  if (m) return parseInt(m[1], 10);
+  m = errMsg.match(/column\s+(\d+)/i);
+  if (m) return parseInt(m[1], 10);
+  return -1;
+}
+
+function posToLineCol(str, pos) {
+  if (pos < 0 || pos > str.length) return null;
+  var lines = str.substring(0, pos).split('\n');
+  return { line: lines.length, col: lines[lines.length - 1].length + 1 };
+}
+
+// === Stats ===
+function computeStats(data) {
+  var stats = { keys: 0, values: 0, arrays: 0, objects: 0, depth: 0, strings: 0, numbers: 0, booleans: 0, nulls: 0 };
+  function walk(node, depth) {
+    if (depth > stats.depth) stats.depth = depth;
+    if (node === null) { stats.nulls++; stats.values++; return; }
+    if (typeof node === 'string') { stats.strings++; stats.values++; return; }
+    if (typeof node === 'number') { stats.numbers++; stats.values++; return; }
+    if (typeof node === 'boolean') { stats.booleans++; stats.values++; return; }
+    if (Array.isArray(node)) {
+      stats.arrays++;
+      for (var i = 0; i < node.length; i++) walk(node[i], depth + 1);
+      return;
+    }
+    if (typeof node === 'object') {
+      stats.objects++;
+      var keys = Object.keys(node);
+      stats.keys += keys.length;
+      for (var k = 0; k < keys.length; k++) walk(node[keys[k]], depth + 1);
+    }
+  }
+  walk(data, 0);
+  return stats;
+}
+
+function renderStats(stats) {
+  var items = [];
+  if (stats.keys > 0) items.push('Keys: <span>' + stats.keys + '</span>');
+  if (stats.objects > 0) items.push('Objects: <span>' + stats.objects + '</span>');
+  if (stats.arrays > 0) items.push('Arrays: <span>' + stats.arrays + '</span>');
+  items.push('Depth: <span>' + stats.depth + '</span>');
+  statsRow.innerHTML = items.map(function(h) { return '<div class="stat-item">' + h + '</div>'; }).join('');
+  statsRow.classList.add('visible');
+}
+
+// === Syntax highlighting ===
+function highlightJson(str) {
+  return escapeHtml(str).replace(
+    /("(?:\\.|[^"\\])*")\s*:/g,
+    '<span class="hl-key">$1</span>:'
+  ).replace(
+    /:\s*("(?:\\.|[^"\\])*")/g,
+    function(match, val) {
+      return ': <span class="hl-str">' + val + '</span>';
+    }
+  ).replace(
+    /(?<=[\[,\n]\s*)("(?:\\.|[^"\\])*")(?=\s*[,\]\n])/g,
+    '<span class="hl-str">$1</span>'
+  ).replace(
+    /\b(-?\d+\.?\d*(?:[eE][+-]?\d+)?)\b/g,
+    '<span class="hl-num">$1</span>'
+  ).replace(
+    /\b(true|false)\b/g,
+    '<span class="hl-bool">$1</span>'
+  ).replace(
+    /\bnull\b/g,
+    '<span class="hl-null">null</span>'
+  );
+}
+
+// === Tree view ===
+function buildTree(data, key, isLast) {
+  var html = '';
+  var comma = isLast ? '' : ',';
+
+  if (data === null) {
+    var prefix = key !== undefined ? '<span class="tree-key">"' + escapeHtml(String(key)) + '"</span>: ' : '';
+    return '<div>' + prefix + '<span class="tree-null">null</span>' + comma + '</div>';
+  }
+
+  var type = typeof data;
+
+  if (type === 'string') {
+    var prefix = key !== undefined ? '<span class="tree-key">"' + escapeHtml(String(key)) + '"</span>: ' : '';
+    var display = data.length > 80 ? data.substring(0, 80) + '\u2026' : data;
+    return '<div>' + prefix + '<span class="tree-str">"' + escapeHtml(display) + '"</span>' + comma + '</div>';
+  }
+
+  if (type === 'number') {
+    var prefix = key !== undefined ? '<span class="tree-key">"' + escapeHtml(String(key)) + '"</span>: ' : '';
+    return '<div>' + prefix + '<span class="tree-num">' + data + '</span>' + comma + '</div>';
+  }
+
+  if (type === 'boolean') {
+    var prefix = key !== undefined ? '<span class="tree-key">"' + escapeHtml(String(key)) + '"</span>: ' : '';
+    return '<div>' + prefix + '<span class="tree-bool">' + data + '</span>' + comma + '</div>';
+  }
+
+  if (Array.isArray(data)) {
+    var prefix = key !== undefined ? '<span class="tree-key">"' + escapeHtml(String(key)) + '"</span>: ' : '';
+    var id = 'tn' + Math.random().toString(36).substr(2, 8);
+    html += '<div>' + prefix + '<span class="tree-toggle" data-target="' + id + '"><span class="tree-bracket">[</span></span> <span class="tree-bracket" style="font-size:10px;color:var(--text-dim)">' + data.length + ' items</span>';
+    html += '<div class="tree-node" id="' + id + '">';
+    for (var i = 0; i < data.length; i++) {
+      html += buildTree(data[i], undefined, i === data.length - 1);
+    }
+    html += '</div><span class="tree-bracket">]</span>' + comma + '</div>';
+    return html;
+  }
+
+  if (type === 'object') {
+    var keys = Object.keys(data);
+    var prefix = key !== undefined ? '<span class="tree-key">"' + escapeHtml(String(key)) + '"</span>: ' : '';
+    var id = 'tn' + Math.random().toString(36).substr(2, 8);
+    html += '<div>' + prefix + '<span class="tree-toggle" data-target="' + id + '"><span class="tree-bracket">{</span></span> <span class="tree-bracket" style="font-size:10px;color:var(--text-dim)">' + keys.length + ' keys</span>';
+    html += '<div class="tree-node" id="' + id + '">';
+    for (var i = 0; i < keys.length; i++) {
+      html += buildTree(data[keys[i]], keys[i], i === keys.length - 1);
+    }
+    html += '</div><span class="tree-bracket">}</span>' + comma + '</div>';
+    return html;
+  }
+
+  return '';
+}
+
+function renderTree(data) {
+  treeView.innerHTML = buildTree(data, undefined, true);
+  // Wire toggle clicks
+  treeView.addEventListener('click', function(e) {
+    var toggle = e.target.closest('.tree-toggle');
+    if (!toggle) return;
+    var targetId = toggle.dataset.target;
+    var targetEl = document.getElementById(targetId);
+    if (!targetEl) return;
+    toggle.classList.toggle('collapsed');
+    targetEl.classList.toggle('tree-hidden');
+  });
+}
+
+// === Actions ===
+function doFormat() {
+  var raw = jsonInput.value;
+  var result = tryParse(raw);
+  jsonInput.classList.toggle('has-error', !result.ok);
+
+  if (!result.ok) {
+    var pos = getErrorPosition(result.error);
+    var locStr = '';
+    if (pos >= 0) {
+      var loc = posToLineCol(raw, pos);
+      if (loc) locStr = ' at <strong>line ' + loc.line + ', column ' + loc.col + '</strong>';
+    }
+    setStatus('invalid', '<span class="error-detail">Invalid JSON' + locStr + '</span><br>' + escapeHtml(result.error));
+    outputWrapper.classList.remove('visible');
+    treeView.classList.remove('visible');
+    viewToggle.classList.remove('visible');
+    statsRow.classList.remove('visible');
+    return;
+  }
+
+  parsedData = result.data;
+  var indent = getIndent();
+  formattedJson = JSON.stringify(result.data, null, indent);
+  var minLen = JSON.stringify(result.data).length;
+  var stats = computeStats(result.data);
+
+  setStatus('valid', '<span class="success-detail">Valid JSON</span> \u2014 formatted to <strong>' + formattedJson.length.toLocaleString() + '</strong> chars (minified: ' + minLen.toLocaleString() + ')');
+
+  outputBox.innerHTML = highlightJson(formattedJson);
+  outputWrapper.classList.add('visible');
+  viewToggle.classList.add('visible');
+  renderStats(stats);
+  renderTree(result.data);
+  updateViewDisplay();
+}
+
+function doMinify() {
+  var raw = jsonInput.value;
+  var result = tryParse(raw);
+  jsonInput.classList.toggle('has-error', !result.ok);
+
+  if (!result.ok) {
+    var pos = getErrorPosition(result.error);
+    var locStr = '';
+    if (pos >= 0) {
+      var loc = posToLineCol(raw, pos);
+      if (loc) locStr = ' at <strong>line ' + loc.line + ', column ' + loc.col + '</strong>';
+    }
+    setStatus('invalid', '<span class="error-detail">Invalid JSON' + locStr + '</span><br>' + escapeHtml(result.error));
+    return;
+  }
+
+  var minified = JSON.stringify(result.data);
+  jsonInput.value = minified;
+  updateCharCount();
+  var saved = raw.length - minified.length;
+  setStatus('valid', '<span class="success-detail">Minified!</span> \u2014 <strong>' + minified.length.toLocaleString() + '</strong> chars' + (saved > 0 ? ' (saved ' + saved.toLocaleString() + ')' : ''));
+  outputWrapper.classList.remove('visible');
+  treeView.classList.remove('visible');
+  viewToggle.classList.remove('visible');
+  statsRow.classList.remove('visible');
+}
+
+function doValidate() {
+  var raw = jsonInput.value;
+  var result = tryParse(raw);
+  jsonInput.classList.toggle('has-error', !result.ok);
+
+  if (!result.ok) {
+    if (!raw.trim()) {
+      setStatus('empty', 'Enter some JSON to validate.');
+    } else {
+      var pos = getErrorPosition(result.error);
+      var locStr = '';
+      if (pos >= 0) {
+        var loc = posToLineCol(raw, pos);
+        if (loc) locStr = ' at <strong>line ' + loc.line + ', column ' + loc.col + '</strong>';
+      }
+      setStatus('invalid', '<span class="error-detail">Invalid JSON' + locStr + '</span><br>' + escapeHtml(result.error));
+    }
+    return;
+  }
+
+  var stats = computeStats(result.data);
+  var type = Array.isArray(result.data) ? 'Array' : typeof result.data === 'object' ? 'Object' : typeof result.data;
+  setStatus('valid', '<span class="success-detail">Valid JSON</span> \u2014 root type: <strong>' + type + '</strong>, ' + raw.length.toLocaleString() + ' chars');
+  renderStats(stats);
+}
+
+function doClear() {
+  jsonInput.value = '';
+  jsonInput.classList.remove('has-error');
+  updateCharCount();
+  setStatus('empty', 'Paste or type JSON to get started.');
+  outputWrapper.classList.remove('visible');
+  treeView.classList.remove('visible');
+  viewToggle.classList.remove('visible');
+  statsRow.classList.remove('visible');
+  parsedData = null;
+  formattedJson = '';
+}
+
+// === View toggle ===
+function updateViewDisplay() {
+  if (currentView === 'formatted') {
+    outputWrapper.classList.add('visible');
+    treeView.classList.remove('visible');
+  } else {
+    outputWrapper.classList.remove('visible');
+    treeView.classList.add('visible');
+  }
+}
+
+viewToggle.addEventListener('click', function(e) {
+  var btn = e.target.closest('.pill-btn');
+  if (!btn) return;
+  viewToggle.querySelectorAll('.pill-btn').forEach(function(b) { b.classList.remove('active'); });
+  btn.classList.add('active');
+  currentView = btn.dataset.view;
+  updateViewDisplay();
+});
+
+// === Event listeners ===
+formatBtn.addEventListener('click', doFormat);
+minifyBtn.addEventListener('click', doMinify);
+validateBtn.addEventListener('click', doValidate);
+clearBtn.addEventListener('click', doClear);
+
+jsonInput.addEventListener('input', updateCharCount);
+
+// Tab key inserts tab/spaces in textarea
+jsonInput.addEventListener('keydown', function(e) {
+  if (e.key === 'Tab') {
+    e.preventDefault();
+    var indent = indentSelect.value === 'tab' ? '\t' : ' '.repeat(parseInt(indentSelect.value, 10));
+    var start = jsonInput.selectionStart;
+    var end = jsonInput.selectionEnd;
+    jsonInput.value = jsonInput.value.substring(0, start) + indent + jsonInput.value.substring(end);
+    jsonInput.selectionStart = jsonInput.selectionEnd = start + indent.length;
+    updateCharCount();
+  }
+  // Ctrl/Cmd + Enter to format
+  if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+    e.preventDefault();
+    doFormat();
+  }
+});
+
+// Copy button
+copyBtn.addEventListener('click', function() {
+  if (formattedJson) {
+    copyText(formattedJson);
+    copyBtn.classList.add('copied');
+    copyBtn.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Copied!';
+    setTimeout(function() {
+      copyBtn.classList.remove('copied');
+      copyBtn.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy';
+    }, 2000);
+  }
+});
+
+// Paste auto-format
+jsonInput.addEventListener('paste', function() {
+  setTimeout(function() {
+    updateCharCount();
+    var raw = jsonInput.value.trim();
+    if (raw && raw.length > 2) {
+      doFormat();
+    }
+  }, 50);
+});
+
+// === Init ===
+GameTheme.init();
+updateCharCount();
+</script>
+</body>
+</html>
