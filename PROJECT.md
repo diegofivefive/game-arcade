@@ -41,13 +41,19 @@ thefreefix.com/                  ← Hub page (2 cards: Games, Tools)
 │   │   └── memory-match-info.html ← Memory Match info/how-to-play page
 │   └── solitaire.html           ← Solitaire Collection (Klondike, Spider, FreeCell)
 │       └── solitaire-info.html  ← Solitaire info/how-to-play page
-├── tools.html                   ← Tools listing (QR Code Generator, Word Counter, PDF Merge & Split)
+├── tools.html                   ← Tools listing
 │   ├── qr-code-generator.html   ← QR Code Generator tool
 │   │   └── qr-code-generator-info.html ← QR Generator info/how-to-use page
 │   ├── word-counter.html        ← Word Counter tool
 │   │   └── word-counter-info.html ← Word Counter info/how-to-use page
-│   └── pdf-merge-split.html     ← PDF Merge & Split tool
-│       └── pdf-merge-split-info.html ← PDF Merge & Split info/how-to-use page
+│   ├── pdf-merge-split.html     ← PDF Merge & Split tool
+│   │   └── pdf-merge-split-info.html ← PDF Merge & Split info/how-to-use page
+│   ├── color-palette-generator.html ← Color Palette Generator tool
+│   │   └── color-palette-generator-info.html ← Color Palette info/how-to-use page
+│   ├── image-compressor.html    ← Image Compressor tool
+│   │   └── image-compressor-info.html ← Image Compressor info/how-to-use page
+│   └── json-formatter.html      ← JSON Formatter & Validator tool
+│       └── json-formatter-info.html ← JSON Formatter info/how-to-use page
 ├── theme.css                    ← Shared stylesheet (all CSS variables, components)
 ├── theme.js                     ← Shared JS utilities (theme toggle, timer, stats, confetti, modals)
 ├── privacy.html                 ← Privacy policy page
@@ -110,6 +116,9 @@ thefreefix.com/                  ← Hub page (2 cards: Games, Tools)
 1. **QR Code Generator** — Generate QR codes for any URL or text. Features: auto-generation on input with debounce, customizable foreground/background colors, three size options (S/M/L), download as PNG. Self-contained QR encoder in vanilla JS (byte mode, EC level M, versions 1-40, Reed-Solomon error correction).
 2. **Word Counter** — Count words, characters (with/without spaces), sentences, paragraphs, and estimate reading time. Live updates on input, reading speed based on 238 WPM average. Responsive 3-column stat grid (2 columns on small phones).
 3. **PDF Merge & Split** — Merge multiple PDFs into one or split a PDF into separate files. Features: drag-and-drop file upload, drag-to-reorder for merge, extract specific pages by range, split all pages into a ZIP archive. Uses pdf-lib (CDN) for PDF manipulation and JSZip (CDN) for ZIP creation. All processing in-browser, no server uploads.
+4. **Color Palette Generator** — Generate beautiful color palettes for designs. Harmony modes, lock colors, adjust hues, export to CSS or JSON.
+5. **Image Compressor** — Compress JPEG, PNG, and WebP images in-browser. No uploads to any server.
+6. **JSON Formatter & Validator** — Format, validate, and minify JSON with instant syntax highlighting and error detection.
 
 ## Key Implementation Details
 - **Minesweeper board overflow**: Expert mode (16×30) exceeds mobile viewport. Uses `overflow-x: auto` on `.board-wrap` with `width: 100%` to enable horizontal scrolling without clipping.

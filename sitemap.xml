@@ -51,6 +51,21 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://thefreefix.com/color-palette-generator.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://thefreefix.com/image-compressor.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://thefreefix.com/json-formatter.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://thefreefix.com/block-drop.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -122,6 +137,21 @@
   </url>
   <url>
     <loc>https://thefreefix.com/solitaire-info.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://thefreefix.com/color-palette-generator-info.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://thefreefix.com/image-compressor-info.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://thefreefix.com/json-formatter-info.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
