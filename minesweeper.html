@@ -100,6 +100,9 @@
     cursor: pointer;
     transition: background 0.1s, transform 0.1s;
     position: relative;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+    touch-action: manipulation;
   }
 
   .cell:hover:not(.revealed):not(.exploded) {
@@ -290,6 +293,8 @@ let gameState = 'idle'; // idle | playing | won | lost
 let firstClick = true;
 let timer, stats;
 let currentDiff = 'beginner';
+let longPressTimer = null;
+let longPressTriggered = false;
 
 // ===========================
 // INIT
@@ -541,8 +546,27 @@ function renderBoard(explodeR = -1, explodeC = -1) {
         cell.innerHTML = '&#x1f6a9;';
       }
 
-      cell.addEventListener('click', () => handleClick(r, c));
+      cell.addEventListener('click', (e) => {
+        if (longPressTriggered) { longPressTriggered = false; return; }
+        handleClick(r, c);
+      });
       cell.addEventListener('contextmenu', e => handleRightClick(e, r, c));
+
+      // Long-press to flag on mobile
+      cell.addEventListener('touchstart', (e) => {
+        longPressTriggered = false;
+        longPressTimer = setTimeout(() => {
+          longPressTriggered = true;
+          handleRightClick(e, r, c);
+        }, 400);
+      }, { passive: true });
+      cell.addEventListener('touchend', () => {
+        clearTimeout(longPressTimer);
+      });
+      cell.addEventListener('touchmove', () => {
+        clearTimeout(longPressTimer);
+      });
+
       board.appendChild(cell);
     }
   }
