@@ -43,7 +43,7 @@
 <link rel="stylesheet" href="theme.css">
 <style>
   .game-page { padding-bottom: 32px; }
-  .game-header { max-width: 560px; margin: 0 auto; }
+  .game-header { max-width: 480px; margin: 0 auto; }
 
   /* Layout */
   .game-area {
@@ -53,7 +53,7 @@
     align-items: flex-start;
     padding: 0 6px;
     width: 100%;
-    max-width: 560px;
+    max-width: 480px;
   }
 
   /* Side panels */
@@ -204,7 +204,7 @@
   .touch-controls {
     display: none;
     width: 100%;
-    max-width: 560px;
+    max-width: 480px;
     padding: 8px 8px 0;
     gap: 6px;
   }
@@ -290,8 +290,16 @@
   </div>
 
   <div class="game-area">
-    <!-- Left panel: Hold + Level -->
+    <!-- Left panel: Score, Next, Hold, Level, Lines -->
     <div class="side-panel" id="leftPanel">
+      <div class="panel-box">
+        <div class="p-label">Score</div>
+        <div class="p-value" id="score">0</div>
+      </div>
+      <div class="panel-box">
+        <div class="p-label">Next</div>
+        <canvas class="preview-canvas" id="nextCanvas"></canvas>
+      </div>
       <div class="panel-box">
         <div class="p-label">Hold</div>
         <canvas class="preview-canvas" id="holdCanvas"></canvas>
@@ -349,17 +357,6 @@
       </div>
     </div>
 
-    <!-- Right panel: Score + Next -->
-    <div class="side-panel" id="rightPanel">
-      <div class="panel-box">
-        <div class="p-label">Score</div>
-        <div class="p-value" id="score">0</div>
-      </div>
-      <div class="panel-box">
-        <div class="p-label">Next</div>
-        <canvas class="preview-canvas" id="nextCanvas"></canvas>
-      </div>
-    </div>
   </div>
 
   <!-- Touch controls -->
@@ -422,19 +419,21 @@ function sizeBoard() {
   const isMobile = vw <= 480;
   const isTouch = window.matchMedia('(pointer: coarse)').matches;
 
-  // Width constraint: viewport - side panels - gaps - padding
+  // Width constraint: viewport - single side panel - gaps - padding
   const sidePanelW = isMobile ? 54 : 72;
-  const gapAndPad = isMobile ? 20 : 28;
-  const availW = vw - (sidePanelW * 2) - gapAndPad;
+  const gapAndPad = isMobile ? 16 : 22;
+  const availW = vw - sidePanelW - gapAndPad;
   const maxBlockW = Math.floor(availW / COLS);
 
   // Height constraint: viewport minus UI chrome
-  // Only subtract touch controls if on a touch device
-  const chromeH = (isMobile ? 120 : 160) + (isTouch ? 156 : 0);
-  const availH = vh - chromeH;
+  // brand(25) + ad(70) + header(45) + gaps(16) = ~156 on mobile, ~180 desktop
+  // Touch controls: 2 rows of buttons + padding = ~110
+  const topChrome = isMobile ? 156 : 180;
+  const bottomChrome = isTouch ? 110 : 16;
+  const availH = vh - topChrome - bottomChrome;
   const maxBlockH = Math.floor(availH / ROWS);
 
-  BLOCK = Math.max(14, Math.min(maxBlockW, maxBlockH, 28));
+  BLOCK = Math.max(14, Math.min(maxBlockW, maxBlockH, 32));
   CANVAS_W = COLS * BLOCK;
   CANVAS_H = ROWS * BLOCK;
 
