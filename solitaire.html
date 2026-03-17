@@ -79,7 +79,7 @@
   .stat-display b { color: var(--text); }
 
   /* ── Shared Board ── */
-  .board-area { max-width: 860px; margin: 0 auto; padding: 0 8px; min-height: 400px; position: relative; }
+  .board-area { max-width: 860px; margin: 0 auto; padding: 0 8px; min-height: 400px; position: relative; touch-action: none; }
 
   /* ── Cards ── */
   .card {
@@ -241,6 +241,11 @@
     <div class="board-area" id="board"></div>
   </div>
 
+  <!-- Ad Slot 2: Bottom Banner (floats below cards) -->
+  <div class="ad-slot ad-bottom ad-slot--placeholder" id="boardAd">
+    <span class="ad-size-label">Responsive</span>
+  </div>
+
   <!-- Win Modal -->
   <div class="modal-overlay" id="winModal">
     <div class="modal-box">
@@ -254,11 +259,6 @@
       <br>
       <button class="ctrl-btn" id="btnBackToMenu" style="margin-top:10px;">Back to Menu</button>
     </div>
-  </div>
-
-  <!-- Ad Slot 2: Bottom Banner -->
-  <div class="ad-slot ad-bottom ad-slot--placeholder">
-    <span class="ad-size-label">Responsive</span>
   </div>
 
   <footer class="site-footer">
