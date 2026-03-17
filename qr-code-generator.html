@@ -158,6 +158,10 @@
     padding: 0;
   }
 
+  .download-group {
+    display: flex;
+    gap: 6px;
+  }
   .download-btn {
     display: flex;
     align-items: center;
@@ -166,11 +170,19 @@
     border-radius: var(--radius-md);
     background: var(--accent);
     color: #fff;
-    padding: 10px 24px;
+    padding: 10px 20px;
     font-size: 14px;
     font-weight: 700;
     cursor: pointer;
     transition: all 0.15s;
+  }
+  .download-btn--secondary {
+    background: var(--btn-bg);
+    color: var(--text);
+    border: 1px solid var(--card-border);
+  }
+  .download-btn--secondary:hover {
+    background: var(--btn-hover);
   }
   .download-btn:hover {
     filter: brightness(1.15);
@@ -181,11 +193,82 @@
     pointer-events: none;
   }
 
+  /* Mode selector */
+  .mode-selector {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  .mode-selector .pill-btn {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+
+  /* Form panels */
+  .qr-form-panel { width: 100%; display: none; }
+  .qr-form-panel.active { display: block; }
+  .qr-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .qr-form-row {
+    display: flex;
+    gap: 10px;
+  }
+  .qr-form-row > .qr-field { flex: 1; min-width: 0; }
+  .qr-field label {
+    display: block;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-dim);
+    margin-bottom: 4px;
+  }
+  .qr-form input,
+  .qr-form select {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-md);
+    background: var(--card);
+    color: var(--text);
+    font-size: 14px;
+    font-family: inherit;
+    transition: border-color var(--transition);
+    outline: none;
+    box-sizing: border-box;
+  }
+  .qr-form input:focus,
+  .qr-form select:focus { border-color: var(--accent); }
+  .qr-form input::placeholder { color: var(--text-dim); }
+  .qr-form input:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+  .qr-form select {
+    cursor: pointer;
+    -webkit-appearance: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%237e7ea8'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 32px;
+  }
+  input[type="date"].qr-form-input,
+  input[type="time"].qr-form-input { color-scheme: dark; }
+  [data-theme="light"] input[type="date"].qr-form-input,
+  [data-theme="light"] input[type="time"].qr-form-input { color-scheme: light; }
+  .qr-field .toggle-chip { margin-top: 4px; }
+
   @media (max-width: 400px) {
     .tool-content { padding: 0 12px; }
     .qr-output { padding: 16px; }
     .qr-canvas-wrap { padding: 12px; }
     .download-btn { padding: 10px 16px; font-size: 13px; }
+    .mode-selector .pill-btn { padding: 5px 8px; font-size: 11px; }
+    .qr-form-row { flex-direction: column; gap: 10px; }
   }
 </style>
 </head>
@@ -211,12 +294,126 @@
   </div>
 
   <div class="tool-content">
+    <div class="mode-selector">
+      <div class="pill-selector" id="qrModeSelector">
+        <button class="pill-btn active" data-mode="text">Text</button>
+        <button class="pill-btn" data-mode="wifi">WiFi</button>
+        <button class="pill-btn" data-mode="vcard">vCard</button>
+        <button class="pill-btn" data-mode="event">Event</button>
+      </div>
+    </div>
+
     <div class="input-group">
       <textarea class="qr-input" id="qrInput"
         placeholder="Enter a URL or text..."
         rows="2"
         maxlength="2048"></textarea>
       <div class="char-count"><span id="charCount">0</span> / 2,048</div>
+    </div>
+
+    <!-- WiFi form -->
+    <div class="qr-form-panel" id="wifiForm">
+      <div class="qr-form">
+        <div class="qr-field">
+          <label for="wifiSsid">Network Name (SSID)</label>
+          <input type="text" id="wifiSsid" placeholder="e.g. MyWiFi" maxlength="32">
+        </div>
+        <div class="qr-field">
+          <label for="wifiPass">Password</label>
+          <input type="password" id="wifiPass" placeholder="Password">
+        </div>
+        <div class="qr-form-row">
+          <div class="qr-field">
+            <label for="wifiSec">Security</label>
+            <select id="wifiSec">
+              <option value="WPA" selected>WPA / WPA2</option>
+              <option value="WEP">WEP</option>
+              <option value="nopass">None (Open)</option>
+            </select>
+          </div>
+          <div class="qr-field" style="flex:0 0 auto;display:flex;align-items:flex-end">
+            <button class="toggle-chip" id="wifiHidden" type="button"><span class="dot"></span> Hidden</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- vCard form -->
+    <div class="qr-form-panel" id="vcardForm">
+      <div class="qr-form">
+        <div class="qr-form-row">
+          <div class="qr-field">
+            <label for="vcFirst">First Name</label>
+            <input type="text" id="vcFirst" placeholder="First name">
+          </div>
+          <div class="qr-field">
+            <label for="vcLast">Last Name</label>
+            <input type="text" id="vcLast" placeholder="Last name">
+          </div>
+        </div>
+        <div class="qr-form-row">
+          <div class="qr-field">
+            <label for="vcPhone">Phone</label>
+            <input type="tel" id="vcPhone" placeholder="+1 234 567 8900">
+          </div>
+          <div class="qr-field">
+            <label for="vcEmail">Email</label>
+            <input type="email" id="vcEmail" placeholder="email@example.com">
+          </div>
+        </div>
+        <div class="qr-form-row">
+          <div class="qr-field">
+            <label for="vcOrg">Company</label>
+            <input type="text" id="vcOrg" placeholder="Company">
+          </div>
+          <div class="qr-field">
+            <label for="vcTitle">Job Title</label>
+            <input type="text" id="vcTitle" placeholder="Job title">
+          </div>
+        </div>
+        <div class="qr-field">
+          <label for="vcUrl">Website</label>
+          <input type="url" id="vcUrl" placeholder="https://example.com">
+        </div>
+      </div>
+    </div>
+
+    <!-- Event form -->
+    <div class="qr-form-panel" id="eventForm">
+      <div class="qr-form">
+        <div class="qr-field">
+          <label for="evTitle">Event Title</label>
+          <input type="text" id="evTitle" placeholder="Event title">
+        </div>
+        <div class="qr-form-row">
+          <div class="qr-field">
+            <label for="evStartDate">Start Date</label>
+            <input type="date" id="evStartDate" class="qr-form-input">
+          </div>
+          <div class="qr-field">
+            <label for="evStartTime">Start Time</label>
+            <input type="time" id="evStartTime" class="qr-form-input">
+          </div>
+        </div>
+        <div class="qr-form-row">
+          <div class="qr-field">
+            <label for="evEndDate">End Date</label>
+            <input type="date" id="evEndDate" class="qr-form-input">
+          </div>
+          <div class="qr-field">
+            <label for="evEndTime">End Time</label>
+            <input type="time" id="evEndTime" class="qr-form-input">
+          </div>
+        </div>
+        <div class="qr-field">
+          <label for="evLocation">Location</label>
+          <input type="text" id="evLocation" placeholder="Location">
+        </div>
+        <div class="qr-field">
+          <label for="evDesc">Description</label>
+          <input type="text" id="evDesc" placeholder="Description (optional)">
+        </div>
+      </div>
     </div>
 
     <div class="qr-output">
@@ -246,7 +443,10 @@
         <div class="color-swatch"><input type="color" id="bgColor" value="#ffffff" title="Background color"></div>
       </div>
 
-      <button class="download-btn" id="downloadBtn" disabled>&#x2B07; Download PNG</button>
+      <div class="download-group">
+        <button class="download-btn" id="downloadBtn" disabled>&#x2B07; PNG</button>
+        <button class="download-btn download-btn--secondary" id="downloadSvgBtn" disabled>&#x2B07; SVG</button>
+      </div>
     </div>
   </div>
 
@@ -729,6 +929,26 @@ function renderQR(matrix, canvas, moduleSize, fgColor, bgColor) {
 }
 
 
+// ── SVG Generator ──
+
+function generateSVG(matrix, moduleSize, fgColor, bgColor) {
+  const size = matrix.length;
+  const quietZone = 4;
+  const totalModules = size + quietZone * 2;
+  const px = totalModules * moduleSize;
+  let rects = '';
+  for (let r = 0; r < size; r++) {
+    for (let c = 0; c < size; c++) {
+      if (matrix[r][c]) {
+        const x = (c + quietZone) * moduleSize;
+        const y = (r + quietZone) * moduleSize;
+        rects += `<rect x="${x}" y="${y}" width="${moduleSize}" height="${moduleSize}"/>`;
+      }
+    }
+  }
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${px} ${px}" width="${px}" height="${px}" shape-rendering="crispEdges"><rect width="${px}" height="${px}" fill="${bgColor}"/><g fill="${fgColor}">${rects}</g></svg>`;
+}
+
 // ── UI Wiring ──
 
 let currentMatrix = null;
@@ -741,17 +961,22 @@ const canvas = document.getElementById('qrCanvas');
 const placeholder = document.getElementById('qrPlaceholder');
 const canvasWrap = document.getElementById('canvasWrap');
 const downloadBtn = document.getElementById('downloadBtn');
+const downloadSvgBtn = document.getElementById('downloadSvgBtn');
 const fgColorInput = document.getElementById('fgColor');
 const bgColorInput = document.getElementById('bgColor');
 const charCountEl = document.getElementById('charCount');
 
-function generate() {
-  const text = input.value.trim();
+let currentMode = 'text';
+
+function generate(rawText) {
+  const text = rawText != null ? rawText : input.value.trim();
   if (!text) {
     canvas.style.display = 'none';
     placeholder.style.display = 'flex';
-    placeholder.textContent = 'Type something above to generate a QR code';
-    downloadBtn.disabled = true;
+    placeholder.textContent = currentMode === 'text'
+      ? 'Type something above to generate a QR code'
+      : 'Fill in the form above to generate a QR code';
+    downloadBtn.disabled = downloadSvgBtn.disabled = true;
     currentMatrix = null;
     canvasWrap.style.background = '';
     return;
@@ -760,14 +985,14 @@ function generate() {
     currentMatrix = QR.generate(text);
     canvas.style.display = 'block';
     placeholder.style.display = 'none';
-    downloadBtn.disabled = false;
+    downloadBtn.disabled = downloadSvgBtn.disabled = false;
     canvasWrap.style.background = bgColorInput.value;
     renderQR(currentMatrix, canvas, SIZES[currentSize], fgColorInput.value, bgColorInput.value);
   } catch (e) {
     canvas.style.display = 'none';
     placeholder.style.display = 'flex';
     placeholder.textContent = 'Text is too long for a QR code. Try shortening it.';
-    downloadBtn.disabled = true;
+    downloadBtn.disabled = downloadSvgBtn.disabled = true;
     currentMatrix = null;
     canvasWrap.style.background = '';
   }
@@ -807,6 +1032,156 @@ downloadBtn.addEventListener('click', () => {
   link.href = canvas.toDataURL('image/png');
   link.click();
 });
+
+downloadSvgBtn.addEventListener('click', () => {
+  if (!currentMatrix) return;
+  const svg = generateSVG(currentMatrix, SIZES[currentSize], fgColorInput.value, bgColorInput.value);
+  const blob = new Blob([svg], { type: 'image/svg+xml' });
+  const link = document.createElement('a');
+  link.download = 'qrcode.svg';
+  link.href = URL.createObjectURL(blob);
+  link.click();
+  URL.revokeObjectURL(link.href);
+});
+
+// ── Quick-Action Mode Switching ──
+
+const formPanels = { wifi: 'wifiForm', vcard: 'vcardForm', event: 'eventForm' };
+const inputGroup = document.querySelector('.input-group');
+
+function switchMode(mode) {
+  currentMode = mode;
+  // Update pill buttons
+  document.querySelectorAll('#qrModeSelector .pill-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.mode === mode);
+  });
+  // Toggle text input vs form panels
+  inputGroup.style.display = mode === 'text' ? '' : 'none';
+  document.querySelectorAll('.qr-form-panel').forEach(p => p.classList.remove('active'));
+  if (mode !== 'text') {
+    document.getElementById(formPanels[mode]).classList.add('active');
+    updateFromForm();
+  } else {
+    charCountEl.textContent = input.value.length;
+    generate();
+  }
+}
+
+document.getElementById('qrModeSelector').addEventListener('click', e => {
+  const btn = e.target.closest('.pill-btn');
+  if (btn && btn.dataset.mode) switchMode(btn.dataset.mode);
+});
+
+// ── Builder Functions ──
+
+function buildWifiString() {
+  const ssid = document.getElementById('wifiSsid').value;
+  const pass = document.getElementById('wifiPass').value;
+  const sec = document.getElementById('wifiSec').value;
+  const hidden = document.getElementById('wifiHidden').classList.contains('on');
+  if (!ssid) return '';
+  const esc = s => s.replace(/([\\;,":"])/g, '\\$1');
+  let str = `WIFI:T:${sec};S:${esc(ssid)};`;
+  if (sec !== 'nopass' && pass) str += `P:${esc(pass)};`;
+  if (hidden) str += 'H:true;';
+  str += ';';
+  return str;
+}
+
+function buildVcardString() {
+  const first = document.getElementById('vcFirst').value.trim();
+  const last = document.getElementById('vcLast').value.trim();
+  if (!first && !last) return '';
+  const lines = ['BEGIN:VCARD', 'VERSION:3.0'];
+  lines.push(`N:${last};${first};;;`);
+  lines.push(`FN:${[first, last].filter(Boolean).join(' ')}`);
+  const phone = document.getElementById('vcPhone').value.trim();
+  if (phone) lines.push(`TEL:${phone}`);
+  const email = document.getElementById('vcEmail').value.trim();
+  if (email) lines.push(`EMAIL:${email}`);
+  const org = document.getElementById('vcOrg').value.trim();
+  if (org) lines.push(`ORG:${org}`);
+  const title = document.getElementById('vcTitle').value.trim();
+  if (title) lines.push(`TITLE:${title}`);
+  const url = document.getElementById('vcUrl').value.trim();
+  if (url) lines.push(`URL:${url}`);
+  lines.push('END:VCARD');
+  return lines.join('\r\n');
+}
+
+function buildEventString() {
+  const title = document.getElementById('evTitle').value.trim();
+  if (!title) return '';
+  const startDate = document.getElementById('evStartDate').value;
+  const startTime = document.getElementById('evStartTime').value;
+  const endDate = document.getElementById('evEndDate').value;
+  const endTime = document.getElementById('evEndTime').value;
+  if (!startDate || !startTime) return '';
+  const fmt = (d, t) => d.replace(/-/g, '') + 'T' + t.replace(/:/g, '') + '00';
+  const lines = ['BEGIN:VEVENT'];
+  lines.push(`SUMMARY:${title}`);
+  lines.push(`DTSTART:${fmt(startDate, startTime)}`);
+  if (endDate && endTime) lines.push(`DTEND:${fmt(endDate, endTime)}`);
+  const loc = document.getElementById('evLocation').value.trim();
+  if (loc) lines.push(`LOCATION:${loc}`);
+  const desc = document.getElementById('evDesc').value.trim();
+  if (desc) lines.push(`DESCRIPTION:${desc}`);
+  lines.push('END:VEVENT');
+  return lines.join('\r\n');
+}
+
+const MODE_BUILDERS = { wifi: buildWifiString, vcard: buildVcardString, event: buildEventString };
+
+function updateFromForm() {
+  if (currentMode === 'text') return;
+  const str = MODE_BUILDERS[currentMode]();
+  input.value = str;
+  charCountEl.textContent = str.length;
+  generate(str); // pass raw string to preserve \r\n for vCard/iCal
+}
+
+// ── Form Event Wiring ──
+
+// WiFi
+['wifiSsid', 'wifiPass'].forEach(id => {
+  document.getElementById(id).addEventListener('input', updateFromForm);
+});
+document.getElementById('wifiSec').addEventListener('change', () => {
+  const isOpen = document.getElementById('wifiSec').value === 'nopass';
+  const passField = document.getElementById('wifiPass');
+  passField.disabled = isOpen;
+  if (isOpen) passField.value = '';
+  updateFromForm();
+});
+document.getElementById('wifiHidden').addEventListener('click', function() {
+  this.classList.toggle('on');
+  updateFromForm();
+});
+
+// vCard
+['vcFirst','vcLast','vcPhone','vcEmail','vcOrg','vcTitle','vcUrl'].forEach(id => {
+  document.getElementById(id).addEventListener('input', updateFromForm);
+});
+
+// Event
+['evTitle','evStartDate','evStartTime','evEndDate','evEndTime','evLocation','evDesc'].forEach(id => {
+  document.getElementById(id).addEventListener('input', updateFromForm);
+});
+
+// Smart defaults for event dates
+(function initEventDefaults() {
+  const now = new Date();
+  const next = new Date(now);
+  next.setHours(now.getHours() + 1, 0, 0, 0);
+  const end = new Date(next);
+  end.setHours(next.getHours() + 1);
+  const fmtD = d => d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+  const fmtT = d => String(d.getHours()).padStart(2,'0') + ':' + String(d.getMinutes()).padStart(2,'0');
+  document.getElementById('evStartDate').value = fmtD(next);
+  document.getElementById('evStartTime').value = fmtT(next);
+  document.getElementById('evEndDate').value = fmtD(end);
+  document.getElementById('evEndTime').value = fmtT(end);
+})();
 
 GameTheme.init();
 </script>
