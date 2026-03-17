@@ -213,8 +213,23 @@
     font-weight: 600;
     color: var(--text-dim);
   }
-  .puzzle-tag.theme-tag { color: var(--accent); border-color: var(--accent); }
+  .puzzle-tag.mistake-tag { color: var(--cell-error); border-color: var(--cell-error); transition: transform 0.15s ease; }
+  .puzzle-tag.mistake-tag.bump { animation: mistakeBump 0.3s ease; }
   .puzzle-tag.rating-tag { color: var(--accent3); border-color: var(--accent3); }
+
+  @keyframes mistakeBump {
+    0% { transform: scale(1); }
+    40% { transform: scale(1.25); }
+    100% { transform: scale(1); }
+  }
+  @keyframes pieceShake {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-6px); }
+    40% { transform: translateX(6px); }
+    60% { transform: translateX(-4px); }
+    80% { transform: translateX(4px); }
+  }
+  .piece-shake .piece-img { animation: pieceShake 0.4s ease; }
 
   .turn-indicator {
     font-size: 13px;
@@ -355,7 +370,7 @@
     </div>
     <div class="puzzle-tag" id="puzzleNum">Puzzle 1/5000</div>
     <div class="puzzle-tag rating-tag" id="puzzleRating">Rating 1200</div>
-    <div class="puzzle-tag theme-tag" id="puzzleTheme">Fork</div>
+    <div class="puzzle-tag mistake-tag" id="mistakeCount">Mistakes: 0</div>
   </div>
 
   <div class="status-bar info" id="statusBar">Find the best move!</div>
@@ -2445,6 +2460,8 @@ let gameOver = false;
 let hintsUsed = 0;
 let moveHistory = [];
 let lastMoveSquares = [];
+let mistakes = 0;
+let wrongMoveInProgress = false;
 let stats;
 let puzzleOrder = [];
 
@@ -2537,12 +2554,14 @@ function loadPuzzle() {
   hintsUsed = 0;
   moveHistory = [];
   lastMoveSquares = [];
+  mistakes = 0;
+  wrongMoveInProgress = false;
 
   // Update UI
   const count = LICHESS_PUZZLES[currentDiff].length;
   document.getElementById('puzzleNum').textContent = 'Puzzle ' + (puzzleIndex + 1) + '/' + count;
   document.getElementById('puzzleRating').textContent = 'Rating ' + currentPuzzle.rating;
-  document.getElementById('puzzleTheme').textContent = formatTheme(currentPuzzle.themes);
+  document.getElementById('mistakeCount').textContent = 'Mistakes: 0';
   setStatus('Watch the opponent move...', 'thinking');
   updateProgress();
   document.getElementById('nextBtn').style.display = 'none';
@@ -2678,7 +2697,7 @@ function renderBoard() {
 // CLICK HANDLING
 // ====================================================================
 function handleSquareClick(row, col) {
-  if (gameOver) return;
+  if (gameOver || wrongMoveInProgress) return;
 
   const sqName = coordToSquare(row, col);
   const board = chess.board();
@@ -2742,16 +2761,39 @@ function attemptMove(moveObj) {
       setTimeout(() => opponentMove(), 600);
     }
   } else {
-    // Wrong move
-    setStatus('Not the best move. Try again!', 'error');
-    const coord = squareToCoord(moveObj.to);
-    highlightSquare(coord.row, coord.col, 'wrong-move');
+    // Wrong move — execute briefly, shake, then undo
+    wrongMoveInProgress = true;
+    const wrongFrom = moveObj.from;
+    const wrongTo = moveObj.to;
+    chess.move({ from: wrongFrom, to: wrongTo, promotion: moveObj.promotion });
     selectedSquare = null;
     validMoves = [];
+    lastMoveSquares = [wrongFrom, wrongTo];
     renderBoard();
+    setStatus('Wrong move!', 'error');
+
+    // After a short pause, shake the piece then undo
     setTimeout(() => {
-      if (!gameOver) setStatus('Find the best move!', 'info');
-    }, 1500);
+      const coord = squareToCoord(wrongTo);
+      const squares = document.querySelectorAll('.square');
+      const idx = coord.row * 8 + coord.col;
+      const sq = squares[idx];
+      if (sq) sq.classList.add('piece-shake', 'wrong-move');
+
+      setTimeout(() => {
+        chess.undo();
+        lastMoveSquares = moveHistory.length > 0 ? moveHistory[moveHistory.length - 1].lastMoveSquares : [];
+        mistakes++;
+        const el = document.getElementById('mistakeCount');
+        el.textContent = 'Mistakes: ' + mistakes;
+        el.classList.remove('bump');
+        void el.offsetWidth; // force reflow to restart animation
+        el.classList.add('bump');
+        renderBoard();
+        wrongMoveInProgress = false;
+        if (!gameOver) setStatus('Find the best move!', 'info');
+      }, 500);
+    }, 400);
   }
 }
 
