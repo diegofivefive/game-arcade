@@ -43,7 +43,7 @@
 <link rel="stylesheet" href="theme.css">
 <style>
   .game-page { padding-bottom: 32px; }
-  .game-header { max-width: 480px; margin: 0 auto; }
+  .game-header { max-width: 560px; margin: 0 auto; }
 
   /* Layout */
   .game-area {
@@ -53,7 +53,7 @@
     align-items: flex-start;
     padding: 0 6px;
     width: 100%;
-    max-width: 480px;
+    max-width: 560px;
   }
 
   /* Side panels */
@@ -204,7 +204,7 @@
   .touch-controls {
     display: none;
     width: 100%;
-    max-width: 480px;
+    max-width: 560px;
     padding: 8px 8px 0;
     gap: 6px;
   }
@@ -426,14 +426,14 @@ function sizeBoard() {
   const maxBlockW = Math.floor(availW / COLS);
 
   // Height constraint: viewport minus UI chrome
-  // brand(25) + ad(70) + header(45) + gaps(16) = ~156 on mobile, ~180 desktop
+  // brand(25) + ad(70) + header(45) + gaps(16) = ~156 on mobile, ~140 desktop
   // Touch controls: 2 rows of buttons + padding = ~110
-  const topChrome = isMobile ? 156 : 180;
+  const topChrome = isMobile ? 156 : 140;
   const bottomChrome = isTouch ? 110 : 16;
   const availH = vh - topChrome - bottomChrome;
   const maxBlockH = Math.floor(availH / ROWS);
 
-  BLOCK = Math.max(14, Math.min(maxBlockW, maxBlockH, 32));
+  BLOCK = Math.max(14, Math.min(maxBlockW, maxBlockH, 38));
   CANVAS_W = COLS * BLOCK;
   CANVAS_H = ROWS * BLOCK;
 
