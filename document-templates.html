@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-adsense-account" content="ca-pub-7700405385978151">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7700405385978151"
+     crossorigin="anonymous"></script>
+<title>Free Document Templates - PDF Generator - TheFreeFix.com</title>
+<meta name="description" content="Free document templates — invoices, resumes, NDAs, leases, letters, and more. Fill in your details and download as PDF. No sign-ups needed.">
+<link rel="canonical" href="https://thefreefix.com/document-templates.html">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#0a0a1a">
+<meta property="og:title" content="Free Document Templates - PDF Generator">
+<meta property="og:description" content="Free document templates. Fill in your details and download as PDF. Invoices, resumes, NDAs, leases, and more.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://thefreefix.com/document-templates.html">
+<meta property="og:site_name" content="TheFreeFix.com">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://thefreefix.com/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@TheFreeFix">
+<meta name="twitter:title" content="Free Document Templates - PDF Generator">
+<meta name="twitter:image" content="https://thefreefix.com/og-image.png">
+<meta name="twitter:description" content="Free document templates. Fill in your details and download as PDF.">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Document Templates",
+  "url": "https://thefreefix.com/document-templates.html",
+  "description": "Free document templates. Fill in your details and download as PDF. Invoices, resumes, NDAs, leases, letters, and more.",
+  "applicationCategory": "UtilityApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "isPartOf": { "@type": "WebSite", "name": "TheFreeFix.com", "url": "https://thefreefix.com/" }
+}
+</script>
+<link rel="stylesheet" href="theme.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.2/jspdf.umd.min.js"></script>
+<style>
+  .game-page { padding-bottom: 32px; }
+  .game-header { max-width: 600px; margin: 0 auto; }
+  .tool-content { width: 100%; max-width: 600px; padding: 0 16px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 16px; }
+
+  .template-selector { width: 100%; }
+  .selector-label { font-size: 12px; color: var(--text-dim); margin-bottom: 6px; display: block; }
+  .select-wrap { position: relative; width: 100%; }
+  .select-wrap::after { content: '\25BE'; position: absolute; right: 14px; top: 50%; transform: translateY(-50%); pointer-events: none; color: var(--text-dim); }
+  .template-select { width: 100%; box-sizing: border-box; background: var(--btn-bg); border: 1px solid var(--card-border); border-radius: var(--radius-sm); padding: 14px 32px 14px 14px; font-size: 15px; font-weight: 600; color: var(--text); font-family: inherit; cursor: pointer; appearance: none; -webkit-appearance: none; outline: none; transition: border-color 0.2s; }
+  .template-select:focus { border-color: var(--accent); }
+  .template-desc { font-size: 13px; color: var(--text-dim); margin: 6px 0 0; line-height: 1.4; }
+
+  .template-form { width: 100%; display: flex; flex-direction: column; gap: 6px; }
+  .form-heading { font-size: 13px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 10px; padding-bottom: 4px; border-bottom: 1px solid var(--card-border); }
+  .form-group { display: flex; flex-direction: column; gap: 3px; }
+  .form-row { display: flex; gap: 8px; }
+  .form-row .form-group { flex: 1; min-width: 0; }
+  .form-label { font-size: 12px; color: var(--text-dim); }
+  .form-input, .form-textarea, .form-fselect { width: 100%; box-sizing: border-box; background: var(--btn-bg); border: 1px solid var(--card-border); border-radius: var(--radius-sm); padding: 10px 12px; font-size: 14px; color: var(--text); font-family: inherit; outline: none; transition: border-color 0.2s; }
+  .form-input:focus, .form-textarea:focus, .form-fselect:focus { border-color: var(--accent); }
+  .form-input::placeholder, .form-textarea::placeholder { color: var(--text-dim); opacity: 0.5; }
+  .form-textarea { resize: vertical; min-height: 60px; }
+  .form-fselect { cursor: pointer; appearance: none; -webkit-appearance: none; }
+
+  .items-section { width: 100%; overflow-x: auto; }
+  .items-table { min-width: 400px; }
+  .items-header { display: flex; gap: 4px; margin-bottom: 4px; }
+  .items-header span { font-size: 11px; color: var(--text-dim); font-weight: 600; }
+  .items-row { display: flex; gap: 4px; margin-bottom: 3px; }
+  .items-row input { background: var(--btn-bg); border: 1px solid var(--card-border); border-radius: var(--radius-sm); padding: 8px; font-size: 13px; color: var(--text); font-family: inherit; outline: none; box-sizing: border-box; }
+  .items-row input:focus { border-color: var(--accent); }
+  .items-row input[type="number"] { -moz-appearance: textfield; }
+  .items-row input::-webkit-outer-spin-button, .items-row input::-webkit-inner-spin-button { -webkit-appearance: none; }
+
+  .action-btns { display: flex; gap: 10px; width: 100%; }
+  .download-btn { flex: 1; padding: 14px; border: none; border-radius: var(--radius-sm); background: var(--accent); color: #fff; font-size: 15px; font-weight: 700; font-family: inherit; cursor: pointer; transition: all 0.2s; }
+  .download-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+  .download-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+  .reset-btn { padding: 14px 20px; border: 1px solid var(--card-border); border-radius: var(--radius-sm); background: var(--btn-bg); color: var(--text-dim); font-size: 14px; font-family: inherit; cursor: pointer; transition: all 0.2s; }
+  .reset-btn:hover { border-color: var(--accent2); color: var(--accent2); }
+
+  @media (max-width: 480px) {
+    .form-row { flex-direction: column; gap: 6px; }
+    .items-table { min-width: 340px; }
+  }
+  @media (max-width: 400px) { .tool-content { padding: 0 12px; } }
+</style>
+</head>
+<body>
+<div class="game-page">
+  <a href="index.html" class="site-brand">TheFreeFix.com</a>
+  <div class="ad-slot ad-content ad-slot--placeholder"><span class="ad-size-label">Responsive</span></div>
+  <div class="game-header">
+    <div class="header-left">
+      <a href="tools.html" class="back-btn" title="Back">&#x2190;</a>
+      <span class="logo">Templates</span>
+    </div>
+    <div class="header-btns">
+      <a href="document-templates-info.html" class="info-btn" title="Info">i</a>
+      <button class="icon-btn" id="themeBtn" title="Toggle theme">&#x1f319;</button>
+    </div>
+  </div>
+
+  <div class="tool-content">
+    <div class="template-selector">
+      <label class="selector-label" for="templateSelect">Choose a template</label>
+      <div class="select-wrap">
+        <select id="templateSelect" class="template-select"></select>
+      </div>
+      <p class="template-desc" id="templateDesc"></p>
+    </div>
+    <div class="template-form" id="templateForm"></div>
+    <div class="action-btns">
+      <button id="downloadBtn" class="download-btn">Download PDF</button>
+      <button id="resetBtn" class="reset-btn">Reset</button>
+    </div>
+  </div>
+
+  <div class="ad-slot ad-bottom ad-slot--placeholder"><span class="ad-size-label">Responsive</span></div>
+  <footer class="site-footer">
+    <a href="about.html">About</a><span class="footer-sep">&middot;</span>
+    <a href="contact.html">Contact</a><span class="footer-sep">&middot;</span>
+    <a href="terms.html">Terms</a><span class="footer-sep">&middot;</span>
+    <a href="privacy.html">Privacy</a><span class="footer-sep">&middot;</span>
+    <a href="https://x.com/TheFreeFix" target="_blank" rel="noopener">X</a>
+  </footer>
+</div>
+
+<script src="theme.js"></script>
+<script>
+GameTheme.init();
+
+/* ── PDF Helpers ── */
+const H = {
+  M: 20, W: 170,
+  title(doc, text, y) {
+    doc.setFontSize(20); doc.setFont('helvetica','bold'); doc.setTextColor(0);
+    doc.text(text, 105, y, {align:'center'}); return y + 10;
+  },
+  section(doc, text, y) {
+    doc.setFontSize(12); doc.setFont('helvetica','bold'); doc.setTextColor(0);
+    doc.text(text, 20, y); return y + 6;
+  },
+  label(doc, text, x, y) {
+    doc.setFontSize(9); doc.setFont('helvetica','bold'); doc.setTextColor(100);
+    doc.text(text, x, y); doc.setTextColor(0); return y + 4;
+  },
+  text(doc, text, y, opts) {
+    const o = opts || {};
+    doc.setFontSize(o.size || 10); doc.setFont('helvetica', o.bold ? 'bold' : 'normal');
+    doc.setTextColor(o.color || 0);
+    const lines = doc.splitTextToSize(String(text || ''), o.mw || 170);
+    doc.text(lines, o.x || 20, y, o.align ? {align: o.align} : undefined);
+    return y + lines.length * (o.lh || 4.5);
+  },
+  line(doc, y, x1, x2) {
+    doc.setDrawColor(200); doc.setLineWidth(0.3);
+    doc.line(x1||20, y, x2||190, y); return y + 4;
+  },
+  sigLine(doc, lbl, x, y, w) {
+    doc.setDrawColor(0); doc.setLineWidth(0.3);
+    doc.line(x, y, x + (w||70), y);
+    doc.setFontSize(8); doc.setFont('helvetica','normal'); doc.setTextColor(80);
+    doc.text(lbl, x, y + 4); doc.setTextColor(0); return y + 12;
+  },
+  disclaimer(doc) {
+    doc.setFontSize(7); doc.setFont('helvetica','italic'); doc.setTextColor(140);
+    doc.text('This document is a general template for informational purposes only and does not constitute legal advice. Consult a licensed professional for your specific situation.', 105, 288, {align:'center', maxWidth: 170});
+    doc.setTextColor(0);
+  },
+  pageCheck(doc, y, need) { if (y + (need||25) > 275) { doc.addPage(); return 20; } return y; },
+  today() { return new Date().toLocaleDateString('en-US', {month:'long', day:'numeric', year:'numeric'}); }
+};
+
+function fill(text, d) { return text.replace(/\{\{(\w+)\}\}/g, (_, k) => d[k] || '________'); }
+
+/* ── Legal Template Renderer ── */
+function renderLegal(doc, d, title, intro, sections, parties) {
+  let y = 20;
+  y = H.title(doc, title, y);
+  y = H.line(doc, y);
+  if (intro) { y = H.text(doc, fill(intro, d), y); y += 2; }
+  sections.forEach((s, i) => {
+    y = H.pageCheck(doc, y, 20);
+    y = H.section(doc, (i+1) + '. ' + s.t, y);
+    y = H.text(doc, fill(s.b, d), y);
+    y += 3;
+  });
+  y = H.pageCheck(doc, y, 40);
+  y += 10;
+  doc.setFontSize(10); doc.setFont('helvetica','normal');
+  doc.text('IN WITNESS WHEREOF, the parties have executed this agreement as of the date written above.', 20, y, {maxWidth: 170});
+  y += 14;
+  const sx = 20;
+  parties.forEach((p, i) => {
+    const x = i === 0 ? sx : 115;
+    if (i === 2) { y += 16; }
+    H.sigLine(doc, fill(p, d) + ' — Signature', i < 2 ? x : sx, i < 2 ? y : y);
+    H.sigLine(doc, 'Date', i < 2 ? x : sx, (i < 2 ? y : y) + 12);
+  });
+  H.disclaimer(doc);
+}
+
+/* ── Legal Document Section Data ── */
+const LEGAL = {
+  nda: {
+    intro: 'This Non-Disclosure Agreement ("Agreement") is made effective {{effectiveDate}} between {{party1Name}}, located at {{party1Address}} ("Disclosing Party"), and {{party2Name}}, located at {{party2Address}} ("Receiving Party").',
+    sections: [
+      {t:'PURPOSE', b:'The parties wish to explore a potential business relationship regarding: {{purpose}}. In connection with this, the Disclosing Party may share confidential information with the Receiving Party.'},
+      {t:'CONFIDENTIAL INFORMATION', b:'"Confidential Information" means any non-public information disclosed by the Disclosing Party, including but not limited to business plans, financial data, technical specifications, customer lists, trade secrets, and proprietary processes, whether disclosed orally, in writing, or by other means.'},
+      {t:'OBLIGATIONS', b:'The Receiving Party shall: (a) hold all Confidential Information in strict confidence; (b) not disclose Confidential Information to any third party without prior written consent; (c) use Confidential Information solely for the stated purpose; (d) protect Confidential Information with at least the same degree of care used for its own confidential information, but no less than reasonable care.'},
+      {t:'EXCLUSIONS', b:'This Agreement does not apply to information that: (a) is or becomes publicly available through no fault of the Receiving Party; (b) was known to the Receiving Party prior to disclosure; (c) is independently developed without use of Confidential Information; (d) is required to be disclosed by law or court order, provided the Receiving Party gives prompt notice.'},
+      {t:'TERM', b:'This Agreement shall remain in effect for {{duration}} from the effective date above. The obligations regarding Confidential Information shall survive termination.'},
+      {t:'RETURN OF INFORMATION', b:'Upon termination or request, the Receiving Party shall promptly return or destroy all Confidential Information and any copies, and certify such destruction in writing.'},
+      {t:'REMEDIES', b:'The Receiving Party acknowledges that unauthorized disclosure may cause irreparable harm. The Disclosing Party shall be entitled to seek injunctive relief in addition to any other available legal remedies.'},
+      {t:'GOVERNING LAW', b:'This Agreement shall be governed by the laws of the State of {{state}}, without regard to its conflict of law provisions.'},
+      {t:'ENTIRE AGREEMENT', b:'This Agreement constitutes the entire agreement between the parties regarding confidentiality and supersedes all prior discussions, agreements, or understandings.'}
+    ]
+  },
+  lease: {
+    intro: 'This Residential Lease Agreement ("Lease") is made on {{leaseStart}} between {{landlordName}}, located at {{landlordAddress}} ("Landlord"), and {{tenantName}} ("Tenant").',
+    sections: [
+      {t:'PROPERTY', b:'Landlord agrees to lease the {{propertyType}} located at {{propertyAddress}} ("Premises") to Tenant for residential use only.'},
+      {t:'TERM', b:'The lease term begins on {{leaseStart}} and ends on {{leaseEnd}}. The lease may be renewed by mutual written agreement.'},
+      {t:'RENT', b:'Tenant shall pay monthly rent of ${{monthlyRent}}, due on the 1st of each month. A late fee of $50 or 5% of the monthly rent (whichever is greater) may be assessed for payments received after the 5th of the month.'},
+      {t:'SECURITY DEPOSIT', b:'Tenant shall pay a security deposit of ${{securityDeposit}} prior to move-in. The deposit shall be returned within 30 days of lease termination, minus any lawful deductions for unpaid rent or damages beyond normal wear and tear.'},
+      {t:'UTILITIES', b:'Tenant is responsible for all utilities and services unless otherwise agreed in writing by the Landlord.'},
+      {t:'MAINTENANCE', b:'Tenant shall maintain the Premises in clean and habitable condition and promptly report any needed repairs. Landlord is responsible for structural repairs and essential building systems.'},
+      {t:'ENTRY', b:'Landlord may enter the Premises with at least 24 hours written notice for inspections, repairs, or showings, except in emergencies requiring immediate access.'},
+      {t:'RESTRICTIONS', b:'Tenant shall not make alterations without written consent, shall not sublet without written consent, and shall comply with all applicable laws and any homeowners association rules.'},
+      {t:'TERMINATION', b:'Either party may terminate this Lease with at least 30 days written notice prior to the end of the current term. Early termination by Tenant without cause may result in liability for remaining rent.'},
+      {t:'GOVERNING LAW', b:'This Lease shall be governed by the laws of the State of {{state}}.'}
+    ]
+  },
+  billOfSale: {
+    intro: 'This Bill of Sale ("Agreement") is made on {{date}} between {{sellerName}}, located at {{sellerAddress}} ("Seller"), and {{buyerName}}, located at {{buyerAddress}} ("Buyer").',
+    sections: [
+      {t:'ITEM DESCRIPTION', b:'Seller hereby sells, transfers, and conveys to Buyer the following item: {{itemDescription}}. Serial/ID number (if applicable): {{serialNumber}}.'},
+      {t:'PURCHASE PRICE', b:'The total purchase price is ${{salePrice}}, paid by Buyer to Seller on the date of this agreement.'},
+      {t:'CONDITION', b:'The item is sold in "{{condition}}" condition. Seller represents that they have full legal right and authority to sell this item and that the item is free of all liens and encumbrances.'},
+      {t:'WARRANTY', b:'Unless otherwise stated, this sale is made WITHOUT WARRANTY of any kind, either express or implied. Buyer accepts the item as-is.'},
+      {t:'GOVERNING LAW', b:'This Agreement shall be governed by the laws of the State of {{state}}.'}
+    ]
+  },
+  iou: {
+    intro: 'This Promissory Note ("Note") is made on {{date}} between {{borrowerName}}, located at {{borrowerAddress}} ("Borrower"), and {{lenderName}}, located at {{lenderAddress}} ("Lender").',
+    sections: [
+      {t:'PROMISE TO PAY', b:'Borrower promises to pay Lender the principal sum of ${{amount}} ("Principal Amount").'},
+      {t:'INTEREST', b:'Interest shall accrue on the unpaid principal at a rate of {{interestRate}}% per annum. If no interest rate is specified, this Note shall be non-interest-bearing.'},
+      {t:'REPAYMENT', b:'The full principal amount plus any accrued interest shall be due and payable on or before {{repaymentDate}}.'},
+      {t:'DEFAULT', b:'If Borrower fails to make payment when due, the entire remaining balance shall become immediately due and payable. Borrower shall also be responsible for all reasonable collection costs and attorney fees.'},
+      {t:'GOVERNING LAW', b:'This Note shall be governed by the laws of the State of {{state}}.'}
+    ]
+  },
+  poa: {
+    intro: 'This Power of Attorney ("POA") is made on {{effectiveDate}} by {{principalName}}, located at {{principalAddress}} ("Principal").',
+    sections: [
+      {t:'APPOINTMENT', b:'Principal hereby appoints {{agentName}}, located at {{agentAddress}} ("Agent"), to act on Principal\'s behalf with the powers described herein.'},
+      {t:'SCOPE OF AUTHORITY', b:'This is a {{scope}} Power of Attorney. The Agent is authorized to act on behalf of the Principal in matters related to the scope described, including signing documents, making decisions, and conducting transactions as permitted by applicable law.'},
+      {t:'EFFECTIVE DATE', b:'This Power of Attorney is effective as of {{effectiveDate}} and shall remain in effect until revoked in writing by the Principal or upon the Principal\'s death or incapacity, unless otherwise specified by law.'},
+      {t:'THIRD PARTY RELIANCE', b:'Any third party who receives a copy of this document may rely upon it. Revocation is not effective as to a third party until they receive actual notice of revocation.'},
+      {t:'GOVERNING LAW', b:'This Power of Attorney shall be governed by the laws of the State of {{state}}.'}
+    ]
+  }
+};
+
+/* ── Template Definitions ── */
+const TEMPLATES = [
+  /* ── BUSINESS ── */
+  {
+    id:'invoice', name:'Invoice', cat:'Business',
+    desc:'Professional invoice for billing clients',
+    fields:[
+      {type:'heading',label:'From'},
+      {id:'fromName',label:'Your Name / Company'},{id:'fromAddress',label:'Address'},{id:'fromEmail',label:'Email',ph:'email@example.com'},{id:'fromPhone',label:'Phone',ph:'(555) 123-4567'},
+      {type:'heading',label:'Bill To'},
+      {id:'toName',label:'Client Name'},{id:'toAddress',label:'Client Address'},
+      {type:'heading',label:'Invoice Details'},
+      {id:'invoiceNum',label:'Invoice #',ph:'001',half:1},{id:'date',label:'Date',type:'date',half:1},
+      {id:'dueDate',label:'Due Date',type:'date'},
+      {type:'items',id:'items',label:'Line Items',cols:['Description','Qty','Rate ($)'],rows:5},
+      {id:'taxRate',label:'Tax Rate (%)',type:'number',ph:'0'},
+      {id:'notes',label:'Notes',type:'textarea',ph:'Payment terms, thank you note, etc.'}
+    ],
+    render(doc, d) {
+      let y = 15;
+      doc.setFontSize(24); doc.setFont('helvetica','bold'); doc.text('INVOICE', 190, y, {align:'right'}); y += 2;
+      doc.setFontSize(10); doc.setFont('helvetica','bold'); doc.text(d.fromName||'', 20, y);
+      doc.setFont('helvetica','normal'); doc.setFontSize(9);
+      if(d.fromAddress){y+=5; doc.text(d.fromAddress,20,y);}
+      if(d.fromEmail){y+=4; doc.text(d.fromEmail,20,y);}
+      if(d.fromPhone){y+=4; doc.text(d.fromPhone,20,y);}
+      let ry = 22;
+      doc.setFontSize(9); doc.setFont('helvetica','normal');
+      doc.text('Invoice #: '+(d.invoiceNum||'___'), 190, ry, {align:'right'}); ry+=5;
+      doc.text('Date: '+(d.date||H.today()), 190, ry, {align:'right'}); ry+=5;
+      if(d.dueDate) doc.text('Due: '+d.dueDate, 190, ry, {align:'right'});
+      y = Math.max(y, ry) + 8; y = H.line(doc, y);
+      y = H.label(doc, 'BILL TO', 20, y);
+      y = H.text(doc, d.toName||'', y, {bold:true}); y = H.text(doc, d.toAddress||'', y);
+      y += 4; y = H.line(doc, y);
+      // Table header
+      const cw = [90, 20, 25, 35];
+      doc.setFillColor(240,240,240); doc.rect(20, y-4, 170, 7, 'F');
+      doc.setFontSize(8); doc.setFont('helvetica','bold');
+      doc.text('Description',22,y); doc.text('Qty',112,y); doc.text('Rate',132,y); doc.text('Amount',162,y);
+      y += 5;
+      let subtotal = 0;
+      (d.items||[]).forEach(item => {
+        if(!item.col0) return;
+        const qty = parseFloat(item.col1)||0, rate = parseFloat(item.col2)||0, amt = qty*rate;
+        subtotal += amt;
+        doc.setFont('helvetica','normal'); doc.setFontSize(9);
+        doc.text(item.col0, 22, y); doc.text(String(qty), 112, y); doc.text('$'+rate.toFixed(2), 132, y); doc.text('$'+amt.toFixed(2), 162, y);
+        y += 5;
+      });
+      y = H.line(doc, y);
+      const tax = subtotal * (parseFloat(d.taxRate)||0) / 100;
+      doc.setFontSize(10); doc.setFont('helvetica','normal');
+      doc.text('Subtotal: $'+subtotal.toFixed(2), 190, y, {align:'right'}); y+=5;
+      if(tax > 0){ doc.text('Tax: $'+tax.toFixed(2), 190, y, {align:'right'}); y+=5; }
+      doc.setFont('helvetica','bold'); doc.setFontSize(12);
+      doc.text('TOTAL: $'+(subtotal+tax).toFixed(2), 190, y, {align:'right'}); y+=10;
+      if(d.notes){ y = H.section(doc,'Notes',y); y = H.text(doc, d.notes, y); }
+    }
+  },
+  {
+    id:'receipt', name:'Receipt', cat:'Business',
+    desc:'Payment receipt for goods or services',
+    fields:[
+      {type:'heading',label:'Business Info'},
+      {id:'bizName',label:'Business Name'},{id:'bizAddress',label:'Address'},
+      {type:'heading',label:'Receipt Details'},
+      {id:'receiptNum',label:'Receipt #',ph:'001',half:1},{id:'date',label:'Date',type:'date',half:1},
+      {type:'items',id:'items',label:'Items',cols:['Description','Amount ($)'],rows:5},
+      {id:'payMethod',label:'Payment Method',type:'select',options:['Cash','Check','Credit Card','Bank Transfer','Other']},
+      {id:'notes',label:'Notes',type:'textarea'}
+    ],
+    render(doc, d) {
+      let y = 20;
+      y = H.title(doc, 'RECEIPT', y); y = H.line(doc, y);
+      y = H.text(doc, d.bizName||'', y, {bold:true, size:12}); y = H.text(doc, d.bizAddress||'', y);
+      y += 4;
+      doc.setFontSize(9); doc.setFont('helvetica','normal');
+      doc.text('Receipt #: '+(d.receiptNum||'___'), 20, y); doc.text('Date: '+(d.date||H.today()), 190, y, {align:'right'}); y += 8;
+      y = H.line(doc, y);
+      doc.setFillColor(240,240,240); doc.rect(20, y-4, 170, 7, 'F');
+      doc.setFontSize(8); doc.setFont('helvetica','bold');
+      doc.text('Description', 22, y); doc.text('Amount', 162, y); y += 5;
+      let total = 0;
+      (d.items||[]).forEach(item => {
+        if(!item.col0) return;
+        const amt = parseFloat(item.col1)||0; total += amt;
+        doc.setFont('helvetica','normal'); doc.setFontSize(9);
+        doc.text(item.col0, 22, y); doc.text('$'+amt.toFixed(2), 162, y); y += 5;
+      });
+      y = H.line(doc, y);
+      doc.setFont('helvetica','bold'); doc.setFontSize(12);
+      doc.text('TOTAL: $'+total.toFixed(2), 190, y, {align:'right'}); y += 8;
+      if(d.payMethod){ doc.setFontSize(9); doc.setFont('helvetica','normal'); doc.text('Payment Method: '+d.payMethod, 20, y); y+=6; }
+      if(d.notes){ y+=2; y = H.section(doc,'Notes',y); y = H.text(doc, d.notes, y); }
+    }
+  },
+  {
+    id:'businessLetter', name:'Business Letter', cat:'Business',
+    desc:'Formal business correspondence',
+    fields:[
+      {type:'heading',label:'Sender'},
+      {id:'sName',label:'Your Name'},{id:'sAddress',label:'Address'},{id:'sEmail',label:'Email',half:1},{id:'sPhone',label:'Phone',half:1},
+      {type:'heading',label:'Recipient'},
+      {id:'rName',label:'Name'},{id:'rTitle',label:'Title',half:1},{id:'rCompany',label:'Company',half:1},{id:'rAddress',label:'Address'},
+      {type:'heading',label:'Letter'},
+      {id:'date',label:'Date',type:'date'},{id:'subject',label:'Subject'},
+      {id:'body',label:'Body',type:'textarea',ph:'Dear Mr./Ms. ...\n\nBody of your letter...\n\nSincerely,'},
+    ],
+    render(doc, d) {
+      let y = 25;
+      y = H.text(doc, d.sName||'', y, {bold:true, size:12}); y = H.text(doc, d.sAddress||'', y);
+      if(d.sEmail||d.sPhone) y = H.text(doc, [d.sEmail, d.sPhone].filter(Boolean).join(' | '), y, {size:9});
+      y += 8;
+      y = H.text(doc, d.date || H.today(), y);
+      y += 4;
+      y = H.text(doc, d.rName||'', y, {bold:true}); if(d.rTitle) y = H.text(doc, d.rTitle, y);
+      if(d.rCompany) y = H.text(doc, d.rCompany, y); y = H.text(doc, d.rAddress||'', y);
+      y += 6;
+      if(d.subject) { y = H.text(doc, 'Re: '+d.subject, y, {bold:true}); y += 4; }
+      if(d.body) {
+        d.body.split('\n').forEach(para => {
+          if(!para.trim()){ y += 4; return; }
+          y = H.pageCheck(doc, y, 15);
+          y = H.text(doc, para.trim(), y);
+        });
+      }
+    }
+  },
+  {
+    id:'meetingAgenda', name:'Meeting Agenda', cat:'Business',
+    desc:'Structured agenda for meetings',
+    fields:[
+      {id:'title',label:'Meeting Title'},{id:'date',label:'Date',type:'date',half:1},{id:'time',label:'Time',ph:'10:00 AM',half:1},
+      {id:'location',label:'Location'},{id:'organizer',label:'Organizer'},
+      {id:'attendees',label:'Attendees',type:'textarea',ph:'One name per line'},
+      {id:'agendaItems',label:'Agenda Items',type:'textarea',ph:'One item per line\nUse > prefix for sub-items'},
+      {id:'notes',label:'Notes',type:'textarea'}
+    ],
+    render(doc, d) {
+      let y = 20; y = H.title(doc, 'MEETING AGENDA', y); y = H.line(doc, y);
+      y = H.text(doc, d.title||'Untitled Meeting', y, {bold:true, size:14}); y += 2;
+      doc.setFontSize(9); doc.setFont('helvetica','normal');
+      if(d.date) { doc.text('Date: '+d.date, 20, y); y += 5; }
+      if(d.time) { doc.text('Time: '+d.time, 20, y); y += 5; }
+      if(d.location) { doc.text('Location: '+d.location, 20, y); y += 5; }
+      if(d.organizer) { doc.text('Organizer: '+d.organizer, 20, y); y += 5; }
+      y += 3;
+      if(d.attendees) { y = H.section(doc,'Attendees',y); y = H.text(doc, d.attendees.split('\n').map(a=>'\u2022 '+a.trim()).join('\n'), y); y += 4; }
+      if(d.agendaItems) {
+        y = H.section(doc,'Agenda',y);
+        let num = 1;
+        d.agendaItems.split('\n').forEach(item => {
+          if(!item.trim()) return;
+          y = H.pageCheck(doc, y, 10);
+          if(item.startsWith('>')) { y = H.text(doc, '    \u2022 '+item.slice(1).trim(), y); }
+          else { y = H.text(doc, (num++)+'. '+item.trim(), y); }
+        });
+        y += 4;
+      }
+      if(d.notes) { y = H.section(doc,'Notes',y); y = H.text(doc, d.notes, y); }
+    }
+  },
+  {
+    id:'meetingMinutes', name:'Meeting Minutes', cat:'Business',
+    desc:'Record of meeting discussions and action items',
+    fields:[
+      {id:'title',label:'Meeting Title'},{id:'date',label:'Date',type:'date',half:1},{id:'time',label:'Time',ph:'10:00 AM',half:1},
+      {id:'location',label:'Location'},{id:'attendees',label:'Attendees',type:'textarea',ph:'One name per line'},
+      {id:'minutes',label:'Discussion Items',type:'textarea',ph:'Summarize each discussion topic...'},
+      {id:'actions',label:'Action Items',type:'textarea',ph:'One action item per line\nFormat: Task - Assigned To - Due Date'},
+      {id:'nextMeeting',label:'Next Meeting',ph:'Date, time, location'}
+    ],
+    render(doc, d) {
+      let y = 20; y = H.title(doc, 'MEETING MINUTES', y); y = H.line(doc, y);
+      y = H.text(doc, d.title||'Untitled Meeting', y, {bold:true, size:14}); y += 2;
+      doc.setFontSize(9); doc.setFont('helvetica','normal');
+      ['date','time','location'].forEach(k => { if(d[k]) { doc.text(k.charAt(0).toUpperCase()+k.slice(1)+': '+d[k], 20, y); y += 5; } });
+      y += 3;
+      if(d.attendees) { y = H.section(doc,'Attendees',y); y = H.text(doc, d.attendees.split('\n').map(a=>'\u2022 '+a.trim()).join('\n'), y); y += 4; }
+      if(d.minutes) { y = H.pageCheck(doc,y,20); y = H.section(doc,'Discussion',y); y = H.text(doc, d.minutes, y); y += 4; }
+      if(d.actions) {
+        y = H.pageCheck(doc,y,20); y = H.section(doc,'Action Items',y);
+        d.actions.split('\n').forEach((a,i) => { if(a.trim()) { y = H.pageCheck(doc,y,8); y = H.text(doc,'\u25A1 '+a.trim(), y); } });
+        y += 4;
+      }
+      if(d.nextMeeting) { y = H.section(doc,'Next Meeting',y); y = H.text(doc, d.nextMeeting, y); }
+    }
+  },
+  {
+    id:'resignation', name:'Letter of Resignation', cat:'Business',
+    desc:'Formal resignation from a position',
+    fields:[
+      {type:'heading',label:'Your Info'},
+      {id:'yourName',label:'Your Name'},{id:'yourAddress',label:'Address'},
+      {type:'heading',label:'Employer'},
+      {id:'mgrName',label:'Manager Name'},{id:'mgrTitle',label:'Manager Title'},{id:'company',label:'Company'},{id:'companyAddress',label:'Company Address'},
+      {type:'heading',label:'Details'},
+      {id:'date',label:'Date',type:'date'},{id:'lastDay',label:'Last Working Day',type:'date'},
+      {id:'reason',label:'Reason (optional)',type:'textarea',ph:'Brief explanation (optional)'}
+    ],
+    render(doc, d) {
+      let y = 25;
+      y = H.text(doc, d.yourName||'', y, {bold:true, size:12}); y = H.text(doc, d.yourAddress||'', y); y += 6;
+      y = H.text(doc, d.date || H.today(), y); y += 6;
+      y = H.text(doc, d.mgrName||'', y, {bold:true}); if(d.mgrTitle) y = H.text(doc, d.mgrTitle, y);
+      y = H.text(doc, d.company||'', y); y = H.text(doc, d.companyAddress||'', y); y += 6;
+      y = H.text(doc, 'Dear '+(d.mgrName||'Hiring Manager')+',', y); y += 4;
+      y = H.text(doc, 'Please accept this letter as formal notification of my resignation from my position at '+(d.company||'the company')+'. My last day of work will be '+(d.lastDay||'________')+'.', y); y += 4;
+      if(d.reason) { y = H.text(doc, d.reason, y); y += 4; }
+      y = H.text(doc, 'I appreciate the opportunities I have been given during my time here and am grateful for the experience. I am committed to ensuring a smooth transition and am happy to assist in training my replacement during my remaining time.', y); y += 4;
+      y = H.text(doc, 'Thank you for your understanding. I wish the company continued success.', y); y += 8;
+      y = H.text(doc, 'Sincerely,', y); y += 8;
+      y = H.sigLine(doc, d.yourName||'Your Name', 20, y);
+    }
+  },
+  {
+    id:'offerLetter', name:'Employment Offer Letter', cat:'Business',
+    desc:'Job offer for a new employee',
+    fields:[
+      {type:'heading',label:'Company'},
+      {id:'company',label:'Company Name'},{id:'companyAddress',label:'Address'},
+      {type:'heading',label:'Candidate'},
+      {id:'candidateName',label:'Candidate Name'},{id:'candidateAddress',label:'Address'},
+      {type:'heading',label:'Position Details'},
+      {id:'position',label:'Job Title'},{id:'department',label:'Department',half:1},{id:'startDate',label:'Start Date',type:'date',half:1},
+      {id:'salary',label:'Annual Salary ($)',type:'number'},{id:'payFreq',label:'Pay Frequency',type:'select',options:['Weekly','Bi-Weekly','Semi-Monthly','Monthly']},
+      {id:'benefits',label:'Benefits Summary',type:'textarea',ph:'Health insurance, PTO, 401k, etc.'},
+      {id:'respondBy',label:'Respond By',type:'date'},
+      {id:'signerName',label:'Signer Name'},{id:'signerTitle',label:'Signer Title'}
+    ],
+    render(doc, d) {
+      let y = 25;
+      y = H.text(doc, d.company||'', y, {bold:true, size:14}); y = H.text(doc, d.companyAddress||'', y); y += 6;
+      y = H.text(doc, d.startDate ? new Date(d.startDate+'T00:00:00').toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'}) : H.today(), y); y += 6;
+      y = H.text(doc, d.candidateName||'', y); y = H.text(doc, d.candidateAddress||'', y); y += 6;
+      y = H.text(doc, 'Dear '+(d.candidateName||'Candidate')+',', y); y += 4;
+      y = H.text(doc, 'We are pleased to offer you the position of '+(d.position||'________')+' in the '+(d.department||'________')+' department at '+(d.company||'our company')+'. We believe your skills and experience will be a valuable addition to our team.', y); y += 4;
+      y = H.section(doc, 'Position Details', y);
+      const details = [['Position', d.position],['Department', d.department],['Start Date', d.startDate],['Salary', d.salary ? '$'+parseFloat(d.salary).toLocaleString()+' per year' : ''],['Pay Frequency', d.payFreq]];
+      details.forEach(([k,v]) => { if(v) { y = H.text(doc, k+': '+v, y); } });
+      y += 4;
+      if(d.benefits) { y = H.section(doc,'Benefits',y); y = H.text(doc, d.benefits, y); y += 4; }
+      if(d.respondBy) { y = H.text(doc, 'Please confirm your acceptance by '+d.respondBy+'.', y, {bold:true}); y += 4; }
+      y = H.text(doc, 'We look forward to welcoming you to the team.', y); y += 6;
+      y = H.text(doc, 'Sincerely,', y); y += 8;
+      y = H.sigLine(doc, (d.signerName||'')+(d.signerTitle ? ', '+d.signerTitle : ''), 20, y);
+      y += 10; y = H.text(doc, 'Accepted and Agreed:', y, {bold:true}); y += 6;
+      y = H.sigLine(doc, d.candidateName||'Candidate Signature', 20, y);
+      H.sigLine(doc, 'Date', 20, y);
+    }
+  },
+  /* ── PERSONAL ── */
+  {
+    id:'resume', name:'Resume', cat:'Personal',
+    desc:'Clean, professional resume / CV',
+    fields:[
+      {type:'heading',label:'Contact Info'},
+      {id:'name',label:'Full Name'},{id:'email',label:'Email',half:1},{id:'phone',label:'Phone',half:1},
+      {id:'location',label:'City, State',half:1},{id:'linkedin',label:'LinkedIn (optional)',half:1},
+      {id:'summary',label:'Professional Summary',type:'textarea',ph:'2-3 sentence career summary...'},
+      {type:'heading',label:'Experience 1'},
+      {id:'e1Title',label:'Job Title',half:1},{id:'e1Company',label:'Company',half:1},
+      {id:'e1Dates',label:'Dates',ph:'Jan 2020 - Present'},{id:'e1Desc',label:'Description',type:'textarea',ph:'One bullet point per line'},
+      {type:'heading',label:'Experience 2'},
+      {id:'e2Title',label:'Job Title',half:1},{id:'e2Company',label:'Company',half:1},
+      {id:'e2Dates',label:'Dates'},{id:'e2Desc',label:'Description',type:'textarea',ph:'One bullet point per line'},
+      {type:'heading',label:'Experience 3'},
+      {id:'e3Title',label:'Job Title',half:1},{id:'e3Company',label:'Company',half:1},
+      {id:'e3Dates',label:'Dates'},{id:'e3Desc',label:'Description',type:'textarea',ph:'One bullet point per line'},
+      {type:'heading',label:'Education'},
+      {id:'ed1Degree',label:'Degree',half:1},{id:'ed1School',label:'School',half:1},{id:'ed1Year',label:'Year',ph:'2020'},
+      {id:'ed2Degree',label:'Degree 2 (optional)',half:1},{id:'ed2School',label:'School',half:1},{id:'ed2Year2',label:'Year'},
+      {type:'heading',label:'Skills'},
+      {id:'skills',label:'Skills',type:'textarea',ph:'JavaScript, Python, React, Project Management...'}
+    ],
+    render(doc, d) {
+      let y = 22;
+      doc.setFontSize(22); doc.setFont('helvetica','bold'); doc.text(d.name||'Your Name', 105, y, {align:'center'}); y += 6;
+      const contact = [d.email, d.phone, d.location, d.linkedin].filter(Boolean).join('  |  ');
+      doc.setFontSize(9); doc.setFont('helvetica','normal'); doc.text(contact, 105, y, {align:'center'}); y += 6;
+      y = H.line(doc, y);
+      if(d.summary) { y = H.section(doc,'PROFESSIONAL SUMMARY',y); y = H.text(doc, d.summary, y); y += 4; }
+      const exps = [[d.e1Title,d.e1Company,d.e1Dates,d.e1Desc],[d.e2Title,d.e2Company,d.e2Dates,d.e2Desc],[d.e3Title,d.e3Company,d.e3Dates,d.e3Desc]].filter(e=>e[0]);
+      if(exps.length) {
+        y = H.section(doc,'EXPERIENCE',y);
+        exps.forEach(([title,co,dates,desc]) => {
+          y = H.pageCheck(doc,y,20);
+          doc.setFontSize(10); doc.setFont('helvetica','bold'); doc.text(title, 20, y);
+          doc.setFont('helvetica','normal'); doc.text(dates||'', 190, y, {align:'right'}); y += 5;
+          doc.setFont('helvetica','italic'); doc.text(co||'', 20, y); y += 5;
+          doc.setFont('helvetica','normal');
+          if(desc) { desc.split('\n').forEach(line => { if(line.trim()) { y = H.pageCheck(doc,y,8); y = H.text(doc, '\u2022 '+line.trim(), y, {x:24, mw:166}); } }); }
+          y += 3;
+        });
+      }
+      if(d.ed1Degree) {
+        y = H.section(doc,'EDUCATION',y);
+        [[d.ed1Degree,d.ed1School,d.ed1Year],[d.ed2Degree,d.ed2School,d.ed2Year2]].forEach(([deg,sch,yr]) => {
+          if(!deg) return;
+          doc.setFontSize(10); doc.setFont('helvetica','bold'); doc.text(deg, 20, y);
+          doc.setFont('helvetica','normal'); doc.text(yr||'', 190, y, {align:'right'}); y += 5;
+          doc.setFont('helvetica','italic'); doc.text(sch||'', 20, y); y += 6;
+        });
+      }
+      if(d.skills) { y = H.pageCheck(doc,y,15); y = H.section(doc,'SKILLS',y); y = H.text(doc, d.skills, y); }
+    }
+  },
+  {
+    id:'coverLetter', name:'Cover Letter', cat:'Personal',
+    desc:'Professional cover letter for job applications',
+    fields:[
+      {type:'heading',label:'Your Info'},
+      {id:'yourName',label:'Full Name'},{id:'yourAddress',label:'Address'},{id:'yourEmail',label:'Email',half:1},{id:'yourPhone',label:'Phone',half:1},
+      {type:'heading',label:'Employer'},
+      {id:'hiringMgr',label:'Hiring Manager Name',ph:'or "Hiring Manager"'},{id:'company',label:'Company'},{id:'companyAddress',label:'Company Address'},
+      {type:'heading',label:'Letter'},
+      {id:'date',label:'Date',type:'date'},{id:'position',label:'Position Applying For'},
+      {id:'body',label:'Letter Body',type:'textarea',ph:'Write 2-3 paragraphs:\n1. Why you\'re writing and the position\n2. Your relevant experience and skills\n3. Why you\'re a good fit and closing'}
+    ],
+    render(doc, d) {
+      let y = 25;
+      y = H.text(doc, d.yourName||'', y, {bold:true, size:12});
+      y = H.text(doc, d.yourAddress||'', y);
+      y = H.text(doc, [d.yourEmail, d.yourPhone].filter(Boolean).join(' | '), y, {size:9}); y += 8;
+      y = H.text(doc, d.date || H.today(), y); y += 6;
+      y = H.text(doc, d.hiringMgr||'Hiring Manager', y, {bold:true});
+      y = H.text(doc, d.company||'', y); y = H.text(doc, d.companyAddress||'', y); y += 6;
+      y = H.text(doc, 'Dear '+(d.hiringMgr||'Hiring Manager')+',', y); y += 4;
+      if(d.position) { y = H.text(doc, 'Re: Application for '+d.position+' position', y, {bold:true}); y += 4; }
+      if(d.body) {
+        d.body.split('\n').forEach(para => {
+          if(!para.trim()){ y += 4; return; }
+          y = H.pageCheck(doc, y, 15);
+          y = H.text(doc, para.trim(), y); y += 2;
+        });
+      }
+      y += 4; y = H.text(doc, 'Sincerely,', y); y += 8;
+      y = H.sigLine(doc, d.yourName||'Your Name', 20, y);
+    }
+  },
+  /* ── LEGAL ── */
+  {
+    id:'billOfSale', name:'Bill of Sale', cat:'Legal',
+    desc:'Transfer ownership of personal property',
+    fields:[
+      {type:'heading',label:'Seller'},
+      {id:'sellerName',label:'Name'},{id:'sellerAddress',label:'Address'},
+      {type:'heading',label:'Buyer'},
+      {id:'buyerName',label:'Name'},{id:'buyerAddress',label:'Address'},
+      {type:'heading',label:'Item'},
+      {id:'itemDescription',label:'Item Description',type:'textarea',ph:'Detailed description of the item being sold'},
+      {id:'serialNumber',label:'Serial / ID Number (optional)'},
+      {id:'salePrice',label:'Sale Price ($)',type:'number'},{id:'condition',label:'Condition',type:'select',options:['New','Used - Excellent','Used - Good','Used - Fair','As-Is']},
+      {id:'date',label:'Date',type:'date',half:1},{id:'state',label:'State',half:1}
+    ],
+    render(doc, d) { renderLegal(doc, d, 'BILL OF SALE', LEGAL.billOfSale.intro, LEGAL.billOfSale.sections, ['{{sellerName}}','{{buyerName}}']); }
+  },
+  {
+    id:'nda', name:'Non-Disclosure Agreement', cat:'Legal',
+    desc:'Protect confidential business information',
+    fields:[
+      {type:'heading',label:'Disclosing Party'},
+      {id:'party1Name',label:'Name'},{id:'party1Address',label:'Address'},
+      {type:'heading',label:'Receiving Party'},
+      {id:'party2Name',label:'Name'},{id:'party2Address',label:'Address'},
+      {type:'heading',label:'Agreement Details'},
+      {id:'effectiveDate',label:'Effective Date',type:'date'},{id:'duration',label:'Duration',type:'select',options:['1 year','2 years','3 years','5 years','Indefinite']},
+      {id:'purpose',label:'Purpose',type:'textarea',ph:'Describe the business purpose for sharing confidential information'},
+      {id:'state',label:'Governing State'}
+    ],
+    render(doc, d) { renderLegal(doc, d, 'NON-DISCLOSURE AGREEMENT', LEGAL.nda.intro, LEGAL.nda.sections, ['{{party1Name}}','{{party2Name}}']); }
+  },
+  {
+    id:'lease', name:'Rental / Lease Agreement', cat:'Legal',
+    desc:'Residential lease between landlord and tenant',
+    fields:[
+      {type:'heading',label:'Landlord'},
+      {id:'landlordName',label:'Name'},{id:'landlordAddress',label:'Address'},
+      {type:'heading',label:'Tenant'},
+      {id:'tenantName',label:'Name'},{id:'tenantAddress',label:'Current Address'},
+      {type:'heading',label:'Property'},
+      {id:'propertyAddress',label:'Property Address'},{id:'propertyType',label:'Type',type:'select',options:['Apartment','House','Condo','Townhouse','Room']},
+      {type:'heading',label:'Lease Terms'},
+      {id:'leaseStart',label:'Start Date',type:'date',half:1},{id:'leaseEnd',label:'End Date',type:'date',half:1},
+      {id:'monthlyRent',label:'Monthly Rent ($)',type:'number',half:1},{id:'securityDeposit',label:'Security Deposit ($)',type:'number',half:1},
+      {id:'state',label:'Governing State'}
+    ],
+    render(doc, d) { renderLegal(doc, d, 'RESIDENTIAL LEASE AGREEMENT', LEGAL.lease.intro, LEGAL.lease.sections, ['{{landlordName}} (Landlord)','{{tenantName}} (Tenant)']); }
+  },
+  {
+    id:'iou', name:'IOU / Promissory Note', cat:'Legal',
+    desc:'Formal promise to repay a debt',
+    fields:[
+      {type:'heading',label:'Borrower'},
+      {id:'borrowerName',label:'Name'},{id:'borrowerAddress',label:'Address'},
+      {type:'heading',label:'Lender'},
+      {id:'lenderName',label:'Name'},{id:'lenderAddress',label:'Address'},
+      {type:'heading',label:'Loan Details'},
+      {id:'amount',label:'Amount ($)',type:'number'},{id:'date',label:'Date',type:'date'},
+      {id:'repaymentDate',label:'Repayment Date',type:'date'},{id:'interestRate',label:'Interest Rate (%)',type:'number',ph:'0'},
+      {id:'state',label:'Governing State'}
+    ],
+    render(doc, d) { renderLegal(doc, d, 'PROMISSORY NOTE', LEGAL.iou.intro, LEGAL.iou.sections, ['{{borrowerName}} (Borrower)','{{lenderName}} (Lender)']); }
+  },
+  {
+    id:'poa', name:'Power of Attorney', cat:'Legal',
+    desc:'Authorize someone to act on your behalf',
+    fields:[
+      {type:'heading',label:'Principal (You)'},
+      {id:'principalName',label:'Name'},{id:'principalAddress',label:'Address'},
+      {type:'heading',label:'Agent'},
+      {id:'agentName',label:'Name'},{id:'agentAddress',label:'Address'},
+      {type:'heading',label:'Details'},
+      {id:'scope',label:'Scope',type:'select',options:['General','Financial','Healthcare','Limited']},
+      {id:'effectiveDate',label:'Effective Date',type:'date'},{id:'state',label:'Governing State'}
+    ],
+    render(doc, d) { renderLegal(doc, d, 'POWER OF ATTORNEY', LEGAL.poa.intro, LEGAL.poa.sections, ['{{principalName}} (Principal)','{{agentName}} (Agent)']); }
+  },
+  /* ── EVERYDAY ── */
+  {
+    id:'permissionSlip', name:'Permission Slip', cat:'Everyday',
+    desc:'Parental consent for school or activities',
+    fields:[
+      {id:'studentName',label:'Student Name'},{id:'grade',label:'Grade / Class',half:1},
+      {id:'eventName',label:'Event / Activity'},{id:'eventDate',label:'Date',type:'date',half:1},{id:'eventLocation',label:'Location',half:1},
+      {id:'departureTime',label:'Departure Time',ph:'8:00 AM',half:1},{id:'returnTime',label:'Return Time',ph:'3:00 PM',half:1},
+      {id:'parentName',label:'Parent / Guardian Name'},{id:'emergencyPhone',label:'Emergency Phone'},
+      {id:'specialNeeds',label:'Special Needs / Allergies (optional)',type:'textarea'}
+    ],
+    render(doc, d) {
+      let y = 20; y = H.title(doc, 'PERMISSION SLIP', y); y = H.line(doc, y);
+      y = H.text(doc, 'I, '+(d.parentName||'________')+', the parent/guardian of '+(d.studentName||'________')+' (Grade: '+(d.grade||'___')+'), hereby grant permission for my child to participate in the following activity:', y); y += 6;
+      y = H.section(doc, 'Event Details', y);
+      [['Event', d.eventName],['Date', d.eventDate],['Location', d.eventLocation],['Departure', d.departureTime],['Return', d.returnTime]].forEach(([k,v]) => {
+        if(v) { y = H.text(doc, k+': '+v, y); }
+      }); y += 4;
+      if(d.specialNeeds) { y = H.section(doc,'Special Needs / Allergies',y); y = H.text(doc, d.specialNeeds, y); y += 4; }
+      y = H.text(doc, 'Emergency Contact: '+(d.emergencyPhone||'________'), y); y += 4;
+      y = H.text(doc, 'I understand that reasonable safety precautions will be taken and that the school/organization is not liable for unforeseen accidents.', y, {size:9}); y += 10;
+      y = H.sigLine(doc, 'Parent / Guardian Signature', 20, y);
+      H.sigLine(doc, 'Date', 20, y);
+    }
+  },
+  {
+    id:'rentReceipt', name:'Rent Receipt', cat:'Everyday',
+    desc:'Proof of rent payment for tenants',
+    fields:[
+      {type:'heading',label:'Landlord'},
+      {id:'landlordName',label:'Name'},{id:'landlordAddress',label:'Address'},
+      {type:'heading',label:'Payment Details'},
+      {id:'tenantName',label:'Tenant Name'},{id:'propertyAddress',label:'Property Address'},
+      {id:'amount',label:'Amount ($)',type:'number'},{id:'paymentDate',label:'Payment Date',type:'date'},
+      {id:'paymentPeriod',label:'Rental Period',ph:'March 2026'},{id:'paymentMethod',label:'Payment Method',type:'select',options:['Cash','Check','Bank Transfer','Money Order','Other']},
+      {id:'receiptNum',label:'Receipt #',ph:'001'}
+    ],
+    render(doc, d) {
+      let y = 20; y = H.title(doc, 'RENT RECEIPT', y); y = H.line(doc, y);
+      doc.setFontSize(9); doc.setFont('helvetica','normal');
+      doc.text('Receipt #: '+(d.receiptNum||'___'), 190, 25, {align:'right'});
+      y = H.text(doc, d.landlordName||'', y, {bold:true, size:12}); y = H.text(doc, d.landlordAddress||'', y); y += 6;
+      const info = [['Received From', d.tenantName],['Property', d.propertyAddress],['Amount', d.amount ? '$'+parseFloat(d.amount).toFixed(2) : ''],['Payment Date', d.paymentDate],['Rental Period', d.paymentPeriod],['Payment Method', d.paymentMethod]];
+      info.forEach(([k,v]) => { if(v) { y = H.text(doc, k+': '+v, y); } }); y += 8;
+      y = H.text(doc, 'This receipt acknowledges that the above payment has been received in full for the rental period stated.', y, {size:9}); y += 10;
+      y = H.sigLine(doc, 'Landlord Signature', 20, y);
+      H.sigLine(doc, 'Date', 20, y);
+    }
+  },
+  {
+    id:'budget', name:'Personal Budget', cat:'Everyday',
+    desc:'Monthly income and expense planner',
+    fields:[
+      {id:'name',label:'Name',half:1},{id:'month',label:'Month',ph:'March 2026',half:1},
+      {type:'heading',label:'Income'},
+      {id:'inc1Src',label:'Source 1',ph:'Salary',half:1},{id:'inc1Amt',label:'Amount ($)',type:'number',half:1},
+      {id:'inc2Src',label:'Source 2 (optional)',half:1},{id:'inc2Amt',label:'Amount ($)',type:'number',half:1},
+      {id:'inc3Src',label:'Source 3 (optional)',half:1},{id:'inc3Amt',label:'Amount ($)',type:'number',half:1},
+      {type:'heading',label:'Expenses'},
+      {id:'expHousing',label:'Housing / Rent ($)',type:'number',half:1},{id:'expUtilities',label:'Utilities ($)',type:'number',half:1},
+      {id:'expFood',label:'Food / Groceries ($)',type:'number',half:1},{id:'expTransport',label:'Transportation ($)',type:'number',half:1},
+      {id:'expInsurance',label:'Insurance ($)',type:'number',half:1},{id:'expHealth',label:'Healthcare ($)',type:'number',half:1},
+      {id:'expEntertain',label:'Entertainment ($)',type:'number',half:1},{id:'expSavings',label:'Savings ($)',type:'number',half:1},
+      {id:'expDebt',label:'Debt Payments ($)',type:'number',half:1},{id:'expOther',label:'Other ($)',type:'number',half:1}
+    ],
+    render(doc, d) {
+      let y = 20; y = H.title(doc, 'PERSONAL BUDGET', y);
+      doc.setFontSize(11); doc.setFont('helvetica','normal');
+      doc.text((d.name||'')+' \u2014 '+(d.month||''), 105, y, {align:'center'}); y += 6;
+      y = H.line(doc, y);
+      // Income table
+      y = H.section(doc, 'INCOME', y);
+      let totalInc = 0;
+      [[d.inc1Src,d.inc1Amt],[d.inc2Src,d.inc2Amt],[d.inc3Src,d.inc3Amt]].forEach(([src,amt]) => {
+        if(!src && !amt) return;
+        const a = parseFloat(amt)||0; totalInc += a;
+        doc.setFontSize(10); doc.setFont('helvetica','normal');
+        doc.text(src||'Other', 24, y); doc.text('$'+a.toFixed(2), 190, y, {align:'right'}); y += 5;
+      });
+      y = H.line(doc, y);
+      doc.setFont('helvetica','bold'); doc.text('Total Income', 24, y); doc.text('$'+totalInc.toFixed(2), 190, y, {align:'right'}); y += 8;
+      // Expenses table
+      y = H.section(doc, 'EXPENSES', y);
+      let totalExp = 0;
+      const cats = [['Housing/Rent',d.expHousing],['Utilities',d.expUtilities],['Food/Groceries',d.expFood],['Transportation',d.expTransport],['Insurance',d.expInsurance],['Healthcare',d.expHealth],['Entertainment',d.expEntertain],['Savings',d.expSavings],['Debt Payments',d.expDebt],['Other',d.expOther]];
+      cats.forEach(([name,amt]) => {
+        const a = parseFloat(amt)||0; if(a===0) return; totalExp += a;
+        doc.setFontSize(10); doc.setFont('helvetica','normal');
+        doc.text(name, 24, y); doc.text('$'+a.toFixed(2), 190, y, {align:'right'}); y += 5;
+      });
+      y = H.line(doc, y);
+      doc.setFont('helvetica','bold'); doc.text('Total Expenses', 24, y); doc.text('$'+totalExp.toFixed(2), 190, y, {align:'right'}); y += 8;
+      // Summary
+      y = H.line(doc, y);
+      const remaining = totalInc - totalExp;
+      doc.setFontSize(13); doc.setFont('helvetica','bold');
+      doc.text('Remaining: $'+remaining.toFixed(2), 105, y, {align:'center'});
+      doc.setTextColor(remaining >= 0 ? 0 : 200, remaining >= 0 ? 128 : 0, 0);
+      y += 4; doc.setTextColor(0);
+    }
+  },
+  {
+    id:'movingChecklist', name:'Moving Checklist', cat:'Everyday',
+    desc:'Printable checklist for planning a move',
+    fields:[
+      {id:'name',label:'Name'},{id:'moveDate',label:'Move Date',type:'date'},
+      {id:'fromAddress',label:'Moving From'},{id:'toAddress',label:'Moving To'},
+      {id:'movingCo',label:'Moving Company (optional)'},{id:'notes',label:'Notes',type:'textarea'}
+    ],
+    render(doc, d) {
+      let y = 20; y = H.title(doc, 'MOVING CHECKLIST', y);
+      doc.setFontSize(10); doc.setFont('helvetica','normal');
+      doc.text((d.name||'')+' \u2014 Move Date: '+(d.moveDate||'TBD'), 105, y, {align:'center'}); y += 5;
+      doc.text('From: '+(d.fromAddress||'___')+'  \u2192  To: '+(d.toAddress||'___'), 105, y, {align:'center'}); y += 4;
+      if(d.movingCo) { doc.text('Moving Company: '+d.movingCo, 105, y, {align:'center'}); y += 4; }
+      y = H.line(doc, y);
+      const checklists = {
+        '8+ Weeks Before': ['Research moving companies and get quotes','Create a moving budget','Start decluttering room by room','Begin using up frozen and pantry food','Order packing supplies'],
+        '4-6 Weeks Before': ['Notify landlord / list property if needed','File change of address with USPS','Transfer or set up utilities at new home','Notify bank, insurance, subscriptions of address change','Start packing non-essential items','Arrange time off work for moving day'],
+        '2-3 Weeks Before': ['Confirm moving company or truck rental','Pack room by room, labeling all boxes','Arrange childcare or pet care for moving day','Refill prescriptions and transfer medical records','Clean out storage areas, garage, attic','Donate or sell unwanted items'],
+        '1 Week Before': ['Pack a moving-day essentials box','Defrost and clean refrigerator','Disassemble furniture as needed','Confirm delivery address and time with movers','Back up important computer files','Charge all devices and battery packs'],
+        'Moving Day': ['Do a final walkthrough of old home','Check all closets, cabinets, and drawers','Read utility meters and take photos','Lock up and hand over keys','Verify all boxes are loaded','Check nothing left behind in vehicles'],
+        'After the Move': ['Unpack essentials box first','Check that utilities are working','Update driver\'s license and vehicle registration','Register to vote at new address','Introduce yourself to neighbors','Locate nearest hospital and emergency services']
+      };
+      Object.entries(checklists).forEach(([section, items]) => {
+        y = H.pageCheck(doc, y, 20);
+        y = H.section(doc, section, y);
+        items.forEach(item => {
+          y = H.pageCheck(doc, y, 7);
+          doc.setFontSize(9); doc.setFont('helvetica','normal');
+          doc.rect(22, y-3, 3.5, 3.5); // checkbox
+          doc.text(item, 28, y); y += 5.5;
+        });
+        y += 2;
+      });
+      if(d.notes) { y = H.pageCheck(doc,y,15); y = H.section(doc,'Notes',y); y = H.text(doc, d.notes, y); }
+    }
+  },
+  {
+    id:'emergencyContacts', name:'Emergency Contact Sheet', cat:'Everyday',
+    desc:'Essential contacts and medical info',
+    fields:[
+      {type:'heading',label:'Person'},
+      {id:'personName',label:'Name'},{id:'personAddress',label:'Address'},{id:'personPhone',label:'Phone'},
+      {type:'heading',label:'Emergency Contact 1'},
+      {id:'c1Name',label:'Name',half:1},{id:'c1Phone',label:'Phone',half:1},{id:'c1Relation',label:'Relationship'},
+      {type:'heading',label:'Emergency Contact 2'},
+      {id:'c2Name',label:'Name',half:1},{id:'c2Phone',label:'Phone',half:1},{id:'c2Relation',label:'Relationship'},
+      {type:'heading',label:'Emergency Contact 3'},
+      {id:'c3Name',label:'Name',half:1},{id:'c3Phone',label:'Phone',half:1},{id:'c3Relation',label:'Relationship'},
+      {type:'heading',label:'Medical Information'},
+      {id:'bloodType',label:'Blood Type',half:1},{id:'doctorName',label:'Doctor Name',half:1},{id:'doctorPhone',label:'Doctor Phone'},
+      {id:'allergies',label:'Allergies',type:'textarea'},{id:'medications',label:'Medications',type:'textarea'},
+      {id:'conditions',label:'Medical Conditions',type:'textarea'},{id:'insurance',label:'Insurance Info'}
+    ],
+    render(doc, d) {
+      let y = 20; y = H.title(doc, 'EMERGENCY CONTACT SHEET', y); y = H.line(doc, y);
+      y = H.section(doc, 'PERSONAL INFORMATION', y);
+      [['Name',d.personName],['Address',d.personAddress],['Phone',d.personPhone]].forEach(([k,v]) => { if(v) y = H.text(doc, k+': '+v, y); }); y += 4;
+      y = H.section(doc, 'EMERGENCY CONTACTS', y);
+      [[d.c1Name,d.c1Phone,d.c1Relation],[d.c2Name,d.c2Phone,d.c2Relation],[d.c3Name,d.c3Phone,d.c3Relation]].forEach((c,i) => {
+        if(!c[0]) return;
+        doc.setFontSize(10); doc.setFont('helvetica','bold'); doc.text((i+1)+'. '+c[0], 24, y);
+        doc.setFont('helvetica','normal'); y += 5;
+        if(c[1]) { doc.text('Phone: '+c[1], 28, y); y += 4; }
+        if(c[2]) { doc.text('Relationship: '+c[2], 28, y); y += 4; }
+        y += 2;
+      });
+      y = H.section(doc, 'MEDICAL INFORMATION', y);
+      [['Blood Type',d.bloodType],['Doctor',d.doctorName],['Doctor Phone',d.doctorPhone],['Insurance',d.insurance]].forEach(([k,v]) => { if(v) y = H.text(doc, k+': '+v, y); });
+      if(d.allergies) { y += 2; y = H.label(doc,'ALLERGIES',20,y); y = H.text(doc, d.allergies, y); }
+      if(d.medications) { y += 2; y = H.label(doc,'MEDICATIONS',20,y); y = H.text(doc, d.medications, y); }
+      if(d.conditions) { y += 2; y = H.label(doc,'CONDITIONS',20,y); y = H.text(doc, d.conditions, y); }
+    }
+  },
+  {
+    id:'petSitter', name:'Pet Sitter Instructions', cat:'Everyday',
+    desc:'Everything your pet sitter needs to know',
+    fields:[
+      {type:'heading',label:'Owner'},
+      {id:'ownerName',label:'Name'},{id:'ownerPhone',label:'Phone',half:1},{id:'ownerEmail',label:'Email',half:1},
+      {type:'heading',label:'Pet'},
+      {id:'petName',label:'Pet Name',half:1},{id:'petType',label:'Type (dog, cat, etc.)',half:1},
+      {id:'petBreed',label:'Breed',half:1},{id:'petAge',label:'Age',half:1},
+      {type:'heading',label:'Veterinarian'},
+      {id:'vetName',label:'Vet Name'},{id:'vetPhone',label:'Vet Phone'},{id:'vetAddress',label:'Vet Address'},
+      {type:'heading',label:'Care Instructions'},
+      {id:'feeding',label:'Feeding Schedule',type:'textarea',ph:'What, when, and how much to feed'},
+      {id:'medications',label:'Medications',type:'textarea',ph:'Name, dosage, schedule (or "None")'},
+      {id:'walking',label:'Walking / Exercise',type:'textarea',ph:'How often, how long, leash rules'},
+      {id:'emergencyContact',label:'Emergency Contact',half:1},{id:'emergencyPhone',label:'Emergency Phone',half:1},
+      {id:'specialNotes',label:'Special Notes',type:'textarea',ph:'Behavior quirks, favorite toys, things to avoid...'}
+    ],
+    render(doc, d) {
+      let y = 20; y = H.title(doc, 'PET SITTER INSTRUCTIONS', y); y = H.line(doc, y);
+      y = H.section(doc, 'OWNER INFORMATION', y);
+      y = H.text(doc, (d.ownerName||'')+' \u2014 '+(d.ownerPhone||'')+' \u2014 '+(d.ownerEmail||''), y); y += 3;
+      y = H.section(doc, 'PET INFORMATION', y);
+      [['Name',d.petName],['Type',d.petType],['Breed',d.petBreed],['Age',d.petAge]].forEach(([k,v]) => { if(v) y = H.text(doc, k+': '+v, y); }); y += 3;
+      y = H.section(doc, 'VETERINARIAN', y);
+      [['Name',d.vetName],['Phone',d.vetPhone],['Address',d.vetAddress]].forEach(([k,v]) => { if(v) y = H.text(doc, k+': '+v, y); }); y += 3;
+      const sections = [['FEEDING',d.feeding],['MEDICATIONS',d.medications],['WALKING / EXERCISE',d.walking],['SPECIAL NOTES',d.specialNotes]];
+      sections.forEach(([title, val]) => {
+        if(!val) return;
+        y = H.pageCheck(doc, y, 20);
+        y = H.section(doc, title, y); y = H.text(doc, val, y); y += 3;
+      });
+      if(d.emergencyContact) { y = H.pageCheck(doc,y,15); y = H.section(doc,'EMERGENCY CONTACT',y); y = H.text(doc, d.emergencyContact+' \u2014 '+(d.emergencyPhone||''), y); }
+    }
+  }
+];
+
+/* ── UI Logic ── */
+const templateSelect = document.getElementById('templateSelect');
+const templateDesc = document.getElementById('templateDesc');
+const templateForm = document.getElementById('templateForm');
+const downloadBtn = document.getElementById('downloadBtn');
+const resetBtn = document.getElementById('resetBtn');
+
+function populateSelector() {
+  const cats = {};
+  TEMPLATES.forEach(t => { (cats[t.cat] = cats[t.cat] || []).push(t); });
+  Object.entries(cats).forEach(([cat, templates]) => {
+    const grp = document.createElement('optgroup');
+    grp.label = cat;
+    templates.forEach(t => grp.appendChild(new Option(t.name, t.id)));
+    templateSelect.appendChild(grp);
+  });
+}
+
+function getTemplate(id) { return TEMPLATES.find(t => t.id === id); }
+
+function renderForm(tmpl) {
+  templateForm.innerHTML = '';
+  templateDesc.textContent = tmpl.desc;
+  let rowDiv = null;
+  tmpl.fields.forEach((f, i) => {
+    if (f.type === 'heading') {
+      rowDiv = null;
+      const h = document.createElement('div');
+      h.className = 'form-heading';
+      h.textContent = f.label;
+      templateForm.appendChild(h);
+      return;
+    }
+    if (f.type === 'items') {
+      rowDiv = null;
+      renderItemsField(f);
+      return;
+    }
+    const grp = document.createElement('div');
+    grp.className = 'form-group';
+    const lbl = document.createElement('label');
+    lbl.className = 'form-label';
+    lbl.textContent = f.label;
+    lbl.htmlFor = 'field-' + f.id;
+    grp.appendChild(lbl);
+
+    let input;
+    const ft = f.type || 'text';
+    if (ft === 'textarea') {
+      input = document.createElement('textarea');
+      input.className = 'form-textarea';
+      input.rows = 3;
+    } else if (ft === 'select') {
+      input = document.createElement('select');
+      input.className = 'form-fselect';
+      input.appendChild(new Option('-- Select --', ''));
+      (f.options || []).forEach(o => input.appendChild(new Option(o, o)));
+    } else {
+      input = document.createElement('input');
+      input.className = 'form-input';
+      input.type = ft;
+      if (ft === 'number') { input.min = '0'; input.step = 'any'; }
+    }
+    input.id = 'field-' + f.id;
+    if (f.ph) input.placeholder = f.ph;
+    grp.appendChild(input);
+
+    if (f.half) {
+      const next = tmpl.fields[i + 1];
+      if (!rowDiv || !next || next.type === 'heading' || !next.half) {
+        // Start a new row or just add standalone
+        if (next && next.half && next.type !== 'heading') {
+          rowDiv = document.createElement('div');
+          rowDiv.className = 'form-row';
+          rowDiv.appendChild(grp);
+          templateForm.appendChild(rowDiv);
+        } else {
+          rowDiv = null;
+          templateForm.appendChild(grp);
+        }
+      } else if (rowDiv) {
+        rowDiv.appendChild(grp);
+        rowDiv = null;
+      }
+    } else {
+      rowDiv = null;
+      templateForm.appendChild(grp);
+    }
+  });
+}
+
+function renderItemsField(f) {
+  const section = document.createElement('div');
+  section.className = 'items-section';
+  const lbl = document.createElement('div');
+  lbl.className = 'form-heading';
+  lbl.textContent = f.label;
+  section.appendChild(lbl);
+
+  const table = document.createElement('div');
+  table.className = 'items-table';
+  table.id = 'items-' + f.id;
+
+  const header = document.createElement('div');
+  header.className = 'items-header';
+  const widths = f.cols.length === 3 ? ['55%','15%','20%'] : ['70%','25%'];
+  f.cols.forEach((col, ci) => {
+    const s = document.createElement('span');
+    s.textContent = col;
+    s.style.width = widths[ci];
+    header.appendChild(s);
+  });
+  table.appendChild(header);
+
+  for (let r = 0; r < f.rows; r++) {
+    const row = document.createElement('div');
+    row.className = 'items-row';
+    f.cols.forEach((col, ci) => {
+      const inp = document.createElement('input');
+      inp.type = ci === 0 ? 'text' : 'number';
+      inp.style.width = widths[ci];
+      inp.placeholder = ci === 0 ? 'Item ' + (r + 1) : '';
+      inp.dataset.itemId = f.id;
+      inp.dataset.row = r;
+      inp.dataset.col = ci;
+      if (ci > 0) { inp.min = '0'; inp.step = 'any'; }
+      row.appendChild(inp);
+    });
+    table.appendChild(row);
+  }
+  section.appendChild(table);
+  templateForm.appendChild(section);
+}
+
+function getData(tmpl) {
+  const d = {};
+  tmpl.fields.forEach(f => {
+    if (f.type === 'heading') return;
+    if (f.type === 'items') {
+      const items = [];
+      const table = document.getElementById('items-' + f.id);
+      if (!table) return;
+      table.querySelectorAll('.items-row').forEach(row => {
+        const item = {};
+        row.querySelectorAll('input').forEach(inp => { item['col' + inp.dataset.col] = inp.value; });
+        items.push(item);
+      });
+      d[f.id] = items;
+      return;
+    }
+    const el = document.getElementById('field-' + f.id);
+    if (el) d[f.id] = el.value;
+  });
+  return d;
+}
+
+function generatePDF() {
+  if (typeof jspdf === 'undefined') {
+    alert('PDF library is still loading. Please try again in a moment.');
+    return;
+  }
+  const tmpl = getTemplate(templateSelect.value);
+  if (!tmpl) return;
+  const data = getData(tmpl);
+  const doc = new jspdf.jsPDF();
+  tmpl.render(doc, data);
+  const name = data.name || data.fromName || data.yourName || data.personName || '';
+  const slug = name ? '_' + name.replace(/\s+/g, '_') : '';
+  doc.save(tmpl.name.replace(/\s+/g, '_') + slug + '.pdf');
+}
+
+/* ── Events ── */
+templateSelect.addEventListener('change', () => {
+  const tmpl = getTemplate(templateSelect.value);
+  if (tmpl) renderForm(tmpl);
+});
+
+downloadBtn.addEventListener('click', generatePDF);
+
+resetBtn.addEventListener('click', () => {
+  const tmpl = getTemplate(templateSelect.value);
+  if (tmpl) renderForm(tmpl);
+});
+
+/* ── Init ── */
+populateSelector();
+const urlT = new URLSearchParams(location.search).get('t');
+const initial = (urlT && getTemplate(urlT)) || TEMPLATES[0];
+if (initial) { templateSelect.value = initial.id; renderForm(initial); }
+</script>
+</body>
+</html>
