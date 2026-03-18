@@ -1,8 +1,7 @@
 # Claude Code Instructions
 
-## Session Start
-At the start of every new session, ask: **"What are we working on today?"**
-Don't assume it's TheFreeFix.com — the user may be working on a side project.
+## Dev Environment
+This is the **primary dev USB (F:\games)** for TheFreeFix.com. All building, fixing, and updating happens here. Changes are pushed directly to GitHub, which auto-deploys to the live site via GitHub Pages.
 
 ## TheFreeFix.com — Quick Context
 This repo is **TheFreeFix.com** — a free browser-based games & tools site. Static HTML/CSS/JS on GitHub Pages with Cloudflare DNS. See `PROJECT.md` for full details.
@@ -19,8 +18,7 @@ This repo is **TheFreeFix.com** — a free browser-based games & tools site. Sta
 - **Update sitemap.xml** when adding new pages
 
 ## Git Workflow
-- Always branch from latest `main` (pull first)
-- Create PRs to merge into `main` — never push directly to main
+- Push directly to `main` from this dev USB
 - Never force push
 - GitHub Pages auto-deploys from `main` (~40s)
 

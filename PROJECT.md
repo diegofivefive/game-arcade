@@ -108,6 +108,7 @@ thefreefix.com/                  ← Hub page (2 cards: Games, Tools)
 6. **Chess Puzzles** — Solve 20,000 chess puzzles from real Lichess games. Four difficulty levels from beginner to master.
 7. **Memory Match** — Classic card-matching memory game. Flip cards, find pairs, and test your memory across multiple difficulty levels.
 8. **Solitaire Collection** — Three classic solitaire card games: Klondike, Spider, and FreeCell.
+9. **Nonograms** — Picross/Griddlers picture logic puzzles. Fill cells based on row and column number clues. Four difficulty levels (5x5, 10x10, 15x15, 20x20), auto-cross completed clues, error checking, undo, timer, stats tracking, keyboard support.
 
 ## Planned Games
 - (None currently listed)
@@ -128,6 +129,6 @@ thefreefix.com/                  ← Hub page (2 cards: Games, Tools)
 - **Theme persistence**: Dark/light preference stored in localStorage, applied on page load
 
 ## Git Workflow
-- Work happens on feature branches (e.g., `claude/compassionate-jang`)
-- PRs are created and merged to `main` for deployment
-- GitHub Pages auto-deploys from `main` branch
+- Development happens on the dev USB (F:\games)
+- Push directly to `main` on GitHub for deployment
+- GitHub Pages auto-deploys from `main` branch (~40s)
