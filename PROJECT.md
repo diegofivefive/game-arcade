@@ -56,8 +56,10 @@ thefreefix.com/                  ← Hub page (2 cards: Games, Tools)
 │   │   └── color-palette-generator-info.html ← Color Palette info/how-to-use page
 │   ├── image-compressor.html    ← Image Compressor tool
 │   │   └── image-compressor-info.html ← Image Compressor info/how-to-use page
-│   └── json-formatter.html      ← JSON Formatter & Validator tool
-│       └── json-formatter-info.html ← JSON Formatter info/how-to-use page
+│   ├── json-formatter.html      ← JSON Formatter & Validator tool
+│   │   └── json-formatter-info.html ← JSON Formatter info/how-to-use page
+│   └── currency-converter.html  ← Currency Converter tool
+│       └── currency-converter-info.html ← Currency Converter info/how-to-use page
 ├── theme.css                    ← Shared stylesheet (all CSS variables, components)
 ├── theme.js                     ← Shared JS utilities (theme toggle, timer, stats, confetti, modals)
 ├── privacy.html                 ← Privacy policy page
@@ -125,6 +127,7 @@ thefreefix.com/                  ← Hub page (2 cards: Games, Tools)
 4. **Color Palette Generator** — Generate beautiful color palettes for designs. Harmony modes, lock colors, adjust hues, export to CSS or JSON.
 5. **Image Compressor** — Compress JPEG, PNG, and WebP images in-browser. No uploads to any server.
 6. **JSON Formatter & Validator** — Format, validate, and minify JSON with instant syntax highlighting and error detection.
+7. **Currency Converter** — Convert between 30+ world currencies with daily exchange rates from the European Central Bank (ECB) via Frankfurter API. Two-way conversion (type in either field), swap button, popular currency quick picks, rate caching in localStorage for offline use, status indicator (green=fresh, yellow=cached). No API key required.
 
 ## Key Implementation Details
 - **Minesweeper board overflow**: Expert mode (16×30) exceeds mobile viewport. Uses `overflow-x: auto` on `.board-wrap` with `width: 100%` to enable horizontal scrolling without clipping.
