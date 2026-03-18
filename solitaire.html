@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="google-adsense-account" content="ca-pub-7700405385978151">
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7700405385978151"
      crossorigin="anonymous"></script>
@@ -1673,6 +1673,16 @@ document.getElementById('backBtn').addEventListener('click', (e) => {
 });
 
 // Resize handler
+// Prevent stuck zoom on orientation change (iOS ignores user-scalable=no)
+if (window.visualViewport) {
+  window.visualViewport.addEventListener('resize', () => {
+    if (window.visualViewport.scale !== 1) {
+      document.body.style.zoom = 1;
+      window.scrollTo(0, 0);
+    }
+  });
+}
+
 let resizeTimer;
 window.addEventListener('resize', () => {
   clearTimeout(resizeTimer);

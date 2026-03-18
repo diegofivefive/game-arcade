@@ -98,6 +98,7 @@ body {
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   touch-action: manipulation;
+  overscroll-behavior-x: none;
 }
 
 /* ===========================
