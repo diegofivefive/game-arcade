@@ -288,9 +288,12 @@ const LEVELS = [
 ];
 
 const POWERUP_TYPES = [
-  { id: 'wide',  label: 'W',  color: '#00e6b8', weight: 4 },
-  { id: 'multi', label: 'M',  color: '#7b6fff', weight: 3 },
-  { id: 'life',  label: '+1', color: '#ff5e94', weight: 2 },
+  { id: 'wide',   label: 'W',  color: '#00e6b8', weight: 4 },
+  { id: 'multi',  label: 'M',  color: '#7b6fff', weight: 3 },
+  { id: 'life',   label: '+1', color: '#ff5e94', weight: 2 },
+  { id: 'slow',   label: 'S',  color: '#5ec3ff', weight: 3 },
+  { id: 'fire',   label: 'F',  color: '#ff8f5e', weight: 2 },
+  { id: 'sticky', label: 'C',  color: '#ffc35e', weight: 2 },
 ];
 
 // --- Sizing (recalculated) ---
@@ -301,10 +304,11 @@ let PADDLE_W_NORMAL, PADDLE_H, PADDLE_Y, BALL_R;
 // --- State ---
 let gameState = 'idle';
 let score = 0, level = 1, lives = 3;
-let animFrame = null, lastTime = 0;
+let animFrame = null, lastTime = 0, levelStartTime = 0;
 let balls = [], bricks = [], powerUps = [], particles = [];
 let paddle = { x: 0, w: 0, targetX: 0 };
-let effects = { widePaddle: 0 };
+let effects = { widePaddle: 0, slowBall: 0, fireBall: 0, sticky: false };
+let stickyBall = null; // held ball while sticky
 let bestScore = parseInt(localStorage.getItem('best_score_brick_smash') || '0');
 let stats;
 const keys = {};
@@ -337,7 +341,7 @@ function sizeBoard() {
   BRICK_H = Math.max(8, Math.floor(CANVAS_H * 0.028));
   BRICK_TOP = Math.floor(CANVAS_H * 0.06);
 
-  PADDLE_W_NORMAL = Math.floor(CANVAS_W * 0.2);
+  PADDLE_W_NORMAL = Math.floor(CANVAS_W * 0.16);
   PADDLE_H = Math.max(6, Math.floor(CANVAS_H * 0.018));
   PADDLE_Y = CANVAS_H - Math.floor(CANVAS_H * 0.06);
   BALL_R = Math.max(4, Math.floor(CANVAS_W * 0.015));
@@ -397,13 +401,14 @@ function loadLevel(lvl) {
   paddle.targetX = CANVAS_W / 2;
   powerUps = [];
   particles = [];
-  effects.widePaddle = 0;
+  effects = { widePaddle: 0, slowBall: 0, fireBall: 0, sticky: false };
+  stickyBall = null;
 }
 
 function resetBall() {
   const speed = getLevelSpeed(level);
   const angle = (Math.random() - 0.5) * 0.6;
-  balls = [{ x: CANVAS_W / 2, y: PADDLE_Y - BALL_R - 2, vx: Math.sin(angle) * speed, vy: -Math.cos(angle) * speed, speed, trail: [] }];
+  balls = [{ x: CANVAS_W / 2, y: PADDLE_Y - BALL_R - 2, vx: Math.sin(angle) * speed, vy: -Math.cos(angle) * speed, speed, trail: [], fire: false }];
   normSpeed(balls[0]);
 }
 
@@ -422,11 +427,13 @@ function startGame() {
   stats = new GameStatsManager('brick_smash');
   stats.addPlay();
   score = 0; level = 1; lives = 3;
-  effects = { widePaddle: 0 };
+  effects = { widePaddle: 0, slowBall: 0, fireBall: 0, sticky: false };
+  stickyBall = null;
   sizeBoard();
   loadLevel(level);
   gameState = 'playing';
   lastTime = performance.now();
+  levelStartTime = lastTime;
   updateDisplay();
   hideAllOverlays();
   gameLoop();
@@ -463,7 +470,8 @@ function loseLife() {
     setTimeout(() => {
       resetBall();
       paddle.w = PADDLE_W_NORMAL;
-      effects.widePaddle = 0;
+      effects = { widePaddle: 0, slowBall: 0, fireBall: 0, sticky: false };
+      stickyBall = null;
       powerUps = [];
       gameState = 'playing';
       lastTime = performance.now();
@@ -499,6 +507,7 @@ function nextLevel() {
   loadLevel(level);
   gameState = 'playing';
   lastTime = performance.now();
+  levelStartTime = lastTime;
   hideAllOverlays();
   updateDisplay();
   gameLoop();
@@ -549,6 +558,33 @@ function gameLoop(now = performance.now()) {
     paddle.w = PADDLE_W_NORMAL;
     effects.widePaddle = 0;
   }
+  if (effects.slowBall && now > effects.slowBall) {
+    effects.slowBall = 0;
+    for (const b of balls) { b.speed = getLevelSpeed(level); normSpeed(b); }
+  }
+  if (effects.fireBall && now > effects.fireBall) {
+    effects.fireBall = 0;
+    for (const b of balls) b.fire = false;
+  }
+
+  // Progressive speed: ramp up 0.5% per second of level time, capped at +30%
+  const levelElapsed = (now - levelStartTime) / 1000;
+  const speedRamp = Math.min(1 + levelElapsed * 0.005, 1.3);
+  if (!effects.slowBall) {
+    const baseSpd = getLevelSpeed(level);
+    for (const b of balls) {
+      if (Math.abs(b.speed - baseSpd * speedRamp) > 0.0001) {
+        b.speed = baseSpd * speedRamp;
+        normSpeed(b);
+      }
+    }
+  }
+
+  // Sticky ball follows paddle
+  if (stickyBall) {
+    stickyBall.x = paddle.x + (stickyBall.offsetX || 0);
+    stickyBall.y = PADDLE_Y - BALL_R;
+  }
 
   // Update balls
   for (let i = balls.length - 1; i >= 0; i--) {
@@ -574,6 +610,13 @@ function gameLoop(now = performance.now()) {
       b.vx = b.speed * Math.sin(ang);
       b.vy = -b.speed * Math.cos(ang);
       b.y = PADDLE_Y - BALL_R;
+      // Sticky catch: hold the ball on paddle
+      if (effects.sticky && !stickyBall) {
+        stickyBall = b;
+        b.vx = 0; b.vy = 0;
+        b.offsetX = b.x - paddle.x;
+        effects.sticky = false;
+      }
     }
 
     // Brick collision (one per ball per frame)
@@ -625,15 +668,17 @@ function checkBrickHit(b) {
       const cy = Math.max(brick.y, Math.min(b.y, brick.y + brick.h));
       const dx = b.x - cx, dy = b.y - cy;
       if (dx * dx + dy * dy <= BALL_R * BALL_R) {
-        // Determine bounce direction
-        const oL = (b.x + BALL_R) - brick.x;
-        const oR = (brick.x + brick.w) - (b.x - BALL_R);
-        const oT = (b.y + BALL_R) - brick.y;
-        const oB = (brick.y + brick.h) - (b.y - BALL_R);
-        if (Math.min(oL, oR) < Math.min(oT, oB)) b.vx = -b.vx;
-        else b.vy = -b.vy;
+        // Fireball passes through (except unbreakable)
+        if (!b.fire || brick.type === 'U') {
+          const oL = (b.x + BALL_R) - brick.x;
+          const oR = (brick.x + brick.w) - (b.x - BALL_R);
+          const oT = (b.y + BALL_R) - brick.y;
+          const oB = (brick.y + brick.h) - (b.y - BALL_R);
+          if (Math.min(oL, oR) < Math.min(oT, oB)) b.vx = -b.vx;
+          else b.vy = -b.vy;
+        }
         hitBrick(r, c);
-        return;
+        if (!b.fire) return; // fireball keeps going
       }
     }
   }
@@ -656,27 +701,37 @@ function hitBrick(r, c) {
 
 // --- Power-ups ---
 function maybeSpawnPowerUp(x, y) {
-  if (Math.random() > 0.15) return;
+  if (Math.random() > 0.07) return;
   const total = POWERUP_TYPES.reduce((s, p) => s + p.weight, 0);
   let roll = Math.random() * total;
   let type;
   for (const p of POWERUP_TYPES) { roll -= p.weight; if (roll <= 0) { type = p; break; } }
-  const sz = Math.floor(CANVAS_W * 0.05);
-  powerUps.push({ x: x - sz / 2, y, w: sz, h: sz, vy: CANVAS_H * 0.00018, id: type.id, label: type.label, color: type.color });
+  const pw = Math.floor(CANVAS_W * 0.07);
+  const ph = Math.floor(CANVAS_W * 0.035);
+  powerUps.push({ x: x - pw / 2, y, w: pw, h: ph, vy: CANVAS_H * 0.00015, id: type.id, label: type.label, color: type.color });
 }
 
 function activatePowerUp(id) {
+  const now = performance.now();
   if (id === 'wide') {
-    paddle.w = Math.floor(CANVAS_W * 0.33);
-    effects.widePaddle = performance.now() + 10000;
+    paddle.w = Math.floor(CANVAS_W * 0.28);
+    effects.widePaddle = now + 10000;
   } else if (id === 'multi' && balls.length > 0) {
     const src = balls[0];
     for (let i = 0; i < 2; i++) {
       const a = (Math.random() - 0.5) * Math.PI / 2;
-      balls.push({ x: src.x, y: src.y, vx: src.speed * Math.sin(a), vy: -src.speed * Math.cos(a), speed: src.speed, trail: [] });
+      balls.push({ x: src.x, y: src.y, vx: src.speed * Math.sin(a), vy: -src.speed * Math.cos(a), speed: src.speed, trail: [], fire: src.fire || false });
     }
   } else if (id === 'life') {
     lives = Math.min(lives + 1, 5);
+  } else if (id === 'slow') {
+    effects.slowBall = now + 6000;
+    for (const b of balls) { b.speed *= 0.6; normSpeed(b); }
+  } else if (id === 'fire') {
+    effects.fireBall = now + 8000;
+    for (const b of balls) b.fire = true;
+  } else if (id === 'sticky') {
+    effects.sticky = true;
   }
   updateDisplay();
 }
@@ -704,15 +759,20 @@ function draw() {
     }
   }
 
-  // Power-ups
+  // Power-ups (pill/capsule shape)
   for (const pu of powerUps) {
+    const r = pu.h / 2;
     ctx.fillStyle = pu.color;
-    roundRect(ctx, pu.x, pu.y, pu.w, pu.h, 4);
+    roundRect(ctx, pu.x, pu.y, pu.w, pu.h, r);
+    ctx.fill();
+    // Glossy highlight
+    ctx.fillStyle = 'rgba(255,255,255,0.25)';
+    roundRect(ctx, pu.x + 2, pu.y + 1, pu.w - 4, pu.h * 0.4, r * 0.6);
     ctx.fill();
     ctx.fillStyle = '#fff';
-    ctx.font = 'bold ' + Math.floor(pu.h * 0.55) + 'px system-ui';
+    ctx.font = 'bold ' + Math.floor(pu.h * 0.6) + 'px system-ui';
     ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-    ctx.fillText(pu.label, pu.x + pu.w / 2, pu.y + pu.h / 2);
+    ctx.fillText(pu.label, pu.x + pu.w / 2, pu.y + pu.h / 2 + 1);
   }
 
   // Ball trails
@@ -724,18 +784,18 @@ function draw() {
       const sz = BALL_R * (i / b.trail.length);
       ctx.beginPath();
       ctx.arc(t.x, t.y, sz, 0, Math.PI * 2);
-      ctx.fillStyle = 'rgba(123,111,255,' + alpha + ')';
+      ctx.fillStyle = b.fire ? 'rgba(255,143,94,' + alpha + ')' : 'rgba(123,111,255,' + alpha + ')';
       ctx.fill();
     }
   }
 
   // Balls
   for (const b of balls) {
-    ctx.shadowColor = '#7b6fff';
-    ctx.shadowBlur = 8;
+    ctx.shadowColor = b.fire ? '#ff8f5e' : '#7b6fff';
+    ctx.shadowBlur = b.fire ? 14 : 8;
     ctx.beginPath();
     ctx.arc(b.x, b.y, BALL_R, 0, Math.PI * 2);
-    ctx.fillStyle = '#f0f0ff';
+    ctx.fillStyle = b.fire ? '#ffb85e' : '#f0f0ff';
     ctx.fill();
     ctx.shadowBlur = 0;
   }
@@ -824,7 +884,19 @@ canvas.addEventListener('touchstart', (e) => {
   e.preventDefault();
   const rect = canvas.getBoundingClientRect();
   paddle.targetX = (e.touches[0].clientX - rect.left) * (CANVAS_W / rect.width);
+  releaseStickyBall();
 }, { passive: false });
+
+canvas.addEventListener('click', () => { if (gameState === 'playing') releaseStickyBall(); });
+
+function releaseStickyBall() {
+  if (!stickyBall) return;
+  const angle = (Math.random() - 0.5) * 0.6;
+  stickyBall.vx = Math.sin(angle) * stickyBall.speed;
+  stickyBall.vy = -Math.cos(angle) * stickyBall.speed;
+  delete stickyBall.offsetX;
+  stickyBall = null;
+}
 
 document.addEventListener('keydown', (e) => {
   keys[e.key] = true;
@@ -851,7 +923,7 @@ window.addEventListener('resize', () => {
   const sx = CANVAS_W / oldW, sy = CANVAS_H / oldH;
   for (const row of bricks) { for (const b of row) { if (!b) continue; b.x *= sx; b.y *= sy; b.w = BRICK_W; b.h = BRICK_H; } }
   paddle.x *= sx; paddle.targetX *= sx;
-  paddle.w = effects.widePaddle > performance.now() ? Math.floor(CANVAS_W * 0.33) : PADDLE_W_NORMAL;
+  paddle.w = effects.widePaddle > performance.now() ? Math.floor(CANVAS_W * 0.28) : PADDLE_W_NORMAL;
   for (const b of balls) { b.x *= sx; b.y *= sy; b.speed = getLevelSpeed(level); normSpeed(b); b.trail = []; }
   for (const pu of powerUps) { pu.x *= sx; pu.y *= sy; }
   PADDLE_Y = CANVAS_H - Math.floor(CANVAS_H * 0.06);
