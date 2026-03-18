@@ -6,13 +6,13 @@
 <meta name="google-adsense-account" content="ca-pub-7700405385978151">
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7700405385978151"
      crossorigin="anonymous"></script>
-<title>Free Document Templates - PDF Generator - TheFreeFix.com</title>
-<meta name="description" content="Free document templates — invoices, resumes, NDAs, leases, letters, and more. Fill in your details and download as PDF. No sign-ups needed.">
+<title>Free Document Templates - PDF, Word &amp; Text - TheFreeFix.com</title>
+<meta name="description" content="Free document templates — invoices, resumes, NDAs, leases, letters, and more. Fill in your details and download as PDF, Word, or text. No sign-ups needed.">
 <link rel="canonical" href="https://thefreefix.com/document-templates.html">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <meta name="theme-color" content="#0a0a1a">
-<meta property="og:title" content="Free Document Templates - PDF Generator">
-<meta property="og:description" content="Free document templates. Fill in your details and download as PDF. Invoices, resumes, NDAs, leases, and more.">
+<meta property="og:title" content="Free Document Templates - PDF, Word &amp; Text">
+<meta property="og:description" content="Free document templates. Fill in your details and download as PDF, Word, or text. Invoices, resumes, NDAs, leases, and more.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://thefreefix.com/document-templates.html">
 <meta property="og:site_name" content="TheFreeFix.com">
@@ -20,16 +20,16 @@
 <meta property="og:image" content="https://thefreefix.com/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@TheFreeFix">
-<meta name="twitter:title" content="Free Document Templates - PDF Generator">
+<meta name="twitter:title" content="Free Document Templates - PDF, Word &amp; Text">
 <meta name="twitter:image" content="https://thefreefix.com/og-image.png">
-<meta name="twitter:description" content="Free document templates. Fill in your details and download as PDF.">
+<meta name="twitter:description" content="Free document templates. Fill in your details and download as PDF, Word, or text.">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "WebApplication",
   "name": "Document Templates",
   "url": "https://thefreefix.com/document-templates.html",
-  "description": "Free document templates. Fill in your details and download as PDF. Invoices, resumes, NDAs, leases, letters, and more.",
+  "description": "Free document templates. Fill in your details and download as PDF, Word, or text. Invoices, resumes, NDAs, leases, letters, and more.",
   "applicationCategory": "UtilityApplication",
   "operatingSystem": "Any",
   "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
@@ -79,6 +79,7 @@
   .download-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
   .reset-btn { padding: 14px 20px; border: 1px solid var(--card-border); border-radius: var(--radius-sm); background: var(--btn-bg); color: var(--text-dim); font-size: 14px; font-family: inherit; cursor: pointer; transition: all 0.2s; }
   .reset-btn:hover { border-color: var(--accent2); color: var(--accent2); }
+  .tool-disclaimer { font-size: 11px; color: var(--text-dim); text-align: center; line-height: 1.4; opacity: 0.7; }
 
   @media (max-width: 480px) {
     .form-row { flex-direction: column; gap: 6px; }
@@ -112,9 +113,11 @@
     </div>
     <div class="template-form" id="templateForm"></div>
     <div class="action-btns">
-      <button id="downloadBtn" class="download-btn">Download PDF</button>
-      <button id="resetBtn" class="reset-btn">Reset</button>
+      <button class="download-btn" id="downloadPdf">PDF</button>
+      <button class="download-btn" id="downloadWord">Word</button>
+      <button class="reset-btn" id="resetBtn">Reset</button>
     </div>
+    <p class="tool-disclaimer">Templates are for informational purposes only and do not constitute legal advice.</p>
   </div>
 
   <div class="ad-slot ad-bottom ad-slot--placeholder"><span class="ad-size-label">Responsive</span></div>
@@ -164,11 +167,7 @@ const H = {
     doc.setFontSize(8); doc.setFont('helvetica','normal'); doc.setTextColor(80);
     doc.text(lbl, x, y + 4); doc.setTextColor(0); return y + 12;
   },
-  disclaimer(doc) {
-    doc.setFontSize(7); doc.setFont('helvetica','italic'); doc.setTextColor(140);
-    doc.text('This document is a general template for informational purposes only and does not constitute legal advice. Consult a licensed professional for your specific situation.', 105, 288, {align:'center', maxWidth: 170});
-    doc.setTextColor(0);
-  },
+  disclaimer() {},
   pageCheck(doc, y, need) { if (y + (need||25) > 275) { doc.addPage(); return 20; } return y; },
   today() { return new Date().toLocaleDateString('en-US', {month:'long', day:'numeric', year:'numeric'}); }
 };
@@ -263,6 +262,25 @@ const LEGAL = {
       {t:'GOVERNING LAW', b:'This Power of Attorney shall be governed by the laws of the State of {{state}}.'}
     ]
   }
+};
+
+/* ── Moving Checklist Data ── */
+const CHECKLISTS = {
+  '8+ Weeks Before': ['Research moving companies and get quotes','Create a moving budget','Start decluttering room by room','Begin using up frozen and pantry food','Order packing supplies'],
+  '4-6 Weeks Before': ['Notify landlord / list property if needed','File change of address with USPS','Transfer or set up utilities at new home','Notify bank, insurance, subscriptions of address change','Start packing non-essential items','Arrange time off work for moving day'],
+  '2-3 Weeks Before': ['Confirm moving company or truck rental','Pack room by room, labeling all boxes','Arrange childcare or pet care for moving day','Refill prescriptions and transfer medical records','Clean out storage areas, garage, attic','Donate or sell unwanted items'],
+  '1 Week Before': ['Pack a moving-day essentials box','Defrost and clean refrigerator','Disassemble furniture as needed','Confirm delivery address and time with movers','Back up important computer files','Charge all devices and battery packs'],
+  'Moving Day': ['Do a final walkthrough of old home','Check all closets, cabinets, and drawers','Read utility meters and take photos','Lock up and hand over keys','Verify all boxes are loaded','Check nothing left behind in vehicles'],
+  'After the Move': ['Unpack essentials box first','Check that utilities are working','Update driver\'s license and vehicle registration','Register to vote at new address','Introduce yourself to neighbors','Locate nearest hospital and emergency services']
+};
+
+/* ── Legal Parties Map ── */
+const LEGAL_PARTIES = {
+  billOfSale: ['Seller', 'Buyer'],
+  nda: ['Disclosing Party', 'Receiving Party'],
+  lease: ['Landlord', 'Tenant'],
+  iou: ['Borrower', 'Lender'],
+  poa: ['Principal', 'Agent']
 };
 
 /* ── Template Definitions ── */
@@ -800,15 +818,7 @@ const TEMPLATES = [
       doc.text('From: '+(d.fromAddress||'___')+'  \u2192  To: '+(d.toAddress||'___'), 105, y, {align:'center'}); y += 4;
       if(d.movingCo) { doc.text('Moving Company: '+d.movingCo, 105, y, {align:'center'}); y += 4; }
       y = H.line(doc, y);
-      const checklists = {
-        '8+ Weeks Before': ['Research moving companies and get quotes','Create a moving budget','Start decluttering room by room','Begin using up frozen and pantry food','Order packing supplies'],
-        '4-6 Weeks Before': ['Notify landlord / list property if needed','File change of address with USPS','Transfer or set up utilities at new home','Notify bank, insurance, subscriptions of address change','Start packing non-essential items','Arrange time off work for moving day'],
-        '2-3 Weeks Before': ['Confirm moving company or truck rental','Pack room by room, labeling all boxes','Arrange childcare or pet care for moving day','Refill prescriptions and transfer medical records','Clean out storage areas, garage, attic','Donate or sell unwanted items'],
-        '1 Week Before': ['Pack a moving-day essentials box','Defrost and clean refrigerator','Disassemble furniture as needed','Confirm delivery address and time with movers','Back up important computer files','Charge all devices and battery packs'],
-        'Moving Day': ['Do a final walkthrough of old home','Check all closets, cabinets, and drawers','Read utility meters and take photos','Lock up and hand over keys','Verify all boxes are loaded','Check nothing left behind in vehicles'],
-        'After the Move': ['Unpack essentials box first','Check that utilities are working','Update driver\'s license and vehicle registration','Register to vote at new address','Introduce yourself to neighbors','Locate nearest hospital and emergency services']
-      };
-      Object.entries(checklists).forEach(([section, items]) => {
+      Object.entries(CHECKLISTS).forEach(([section, items]) => {
         y = H.pageCheck(doc, y, 20);
         y = H.section(doc, section, y);
         items.forEach(item => {
@@ -896,12 +906,493 @@ const TEMPLATES = [
   }
 ];
 
+/* ── Download Utilities ── */
+function escHtml(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+function downloadBlob(content, filename, mimeType) {
+  const blob = new Blob(['\ufeff', content], { type: mimeType });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = filename;
+  document.body.appendChild(a); a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+function makeSlug(tmpl, data) {
+  const name = data.name || data.fromName || data.yourName || data.personName || '';
+  const suffix = name ? '_' + name.replace(/\s+/g, '_') : '';
+  return tmpl.name.replace(/\s+/g, '_') + suffix;
+}
+
+function getFieldLabel(tmpl, fieldId) {
+  const f = tmpl.fields.find(x => x.id === fieldId);
+  return f ? f.label : fieldId;
+}
+
+/* ── HTML Document Generator (for Word downloads) ── */
+function htmlCSS() {
+  let c = '<style>';
+  c += 'body{font-family:Calibri,Arial,sans-serif;max-width:700px;margin:40px auto;padding:0 20px;color:#222;line-height:1.5;font-size:11pt}';
+  c += 'h1{text-align:center;font-size:20pt;border-bottom:2px solid #222;padding-bottom:8px;margin-bottom:16px;letter-spacing:1px}';
+  c += 'h3{font-size:11pt;color:#333;border-bottom:1px solid #ccc;padding-bottom:3px;margin:16px 0 6px;text-transform:uppercase;letter-spacing:0.5px}';
+  c += 'table{width:100%;border-collapse:collapse;margin:10px 0}';
+  c += 'th,td{border:1px solid #bbb;padding:6px 8px;text-align:left;font-size:10pt}';
+  c += 'th{background:#f0f0f0;font-size:9pt;font-weight:bold}';
+  c += 'p{margin:4px 0;font-size:10pt}';
+  c += '.sig{border-top:1px solid #000;width:250px;margin-top:40px;padding-top:4px;font-size:9pt;color:#666}';
+  c += '.small{font-size:9pt;color:#555}';
+  c += '.right{text-align:right}';
+  c += '.bold{font-weight:bold}';
+  c += '.total{text-align:right;font-weight:bold;font-size:13pt;margin:8px 0}';
+  c += '.sep{border:none;border-top:1px solid #ccc;margin:10px 0}';
+  c += '.bf{margin:10px 0 14px}';
+  c += '.bf-line{border-bottom:1px solid #000;width:100%;height:18px}';
+  c += '.bf-label{font-size:8pt;color:#888;margin-top:2px}';
+  c += '.ib{display:inline-block;border-bottom:1px solid #000;min-width:120px;padding:0 8px}';
+  c += '.il{font-size:7pt;color:#888}';
+  c += '</style>';
+  return c;
+}
+
+function generateHTML(tmpl, data, blank) {
+  const d = blank ? {} : data;
+  let h = '<!DOCTYPE html><html><head><meta charset="utf-8">' + htmlCSS() + '</head><body>';
+
+  const lk = LEGAL[tmpl.id] ? tmpl.id : null;
+  if (lk) {
+    h += '<h1>' + escHtml(tmpl.name.toUpperCase()) + '</h1>';
+    h += htmlLegal(tmpl, d, lk, blank);
+  } else if (tmpl.id === 'invoice') {
+    h += htmlInvoice(d, blank);
+  } else if (tmpl.id === 'receipt') {
+    h += htmlReceipt(d, blank);
+  } else if (tmpl.id === 'resume') {
+    h += htmlResume(d, blank);
+  } else if (tmpl.id === 'movingChecklist') {
+    h += '<h1>' + escHtml(tmpl.name.toUpperCase()) + '</h1>';
+    h += htmlFields(tmpl, d, blank);
+    h += htmlChecklist();
+  } else {
+    h += '<h1>' + escHtml(tmpl.name.toUpperCase()) + '</h1>';
+    h += htmlFields(tmpl, d, blank);
+    if (tmpl.id === 'budget' && !blank) h += htmlBudgetSummary(d);
+  }
+
+  h += '</body></html>';
+  return h;
+}
+
+/* Custom Invoice HTML — mirrors PDF layout */
+function htmlInvoice(d, blank) {
+  const v = (id) => d[id] || '';
+  let h = '';
+  h += '<table style="border:none;margin-bottom:10px"><tr style="vertical-align:top"><td style="border:none;width:60%">';
+  if (blank) {
+    h += htmlBlankField('Your Name / Company') + htmlBlankField('Address') + htmlBlankField('Email') + htmlBlankField('Phone');
+  } else {
+    if (v('fromName')) h += '<p class="bold" style="font-size:12pt">' + escHtml(v('fromName')) + '</p>';
+    if (v('fromAddress')) h += '<p class="small">' + escHtml(v('fromAddress')) + '</p>';
+    if (v('fromEmail')) h += '<p class="small">' + escHtml(v('fromEmail')) + '</p>';
+    if (v('fromPhone')) h += '<p class="small">' + escHtml(v('fromPhone')) + '</p>';
+  }
+  h += '</td><td style="border:none;text-align:right">';
+  h += '<p style="font-size:24pt;font-weight:bold;margin:0;letter-spacing:2px">INVOICE</p>';
+  if (blank) {
+    h += htmlBlankField('Invoice #') + htmlBlankField('Date') + htmlBlankField('Due Date');
+  } else {
+    h += '<p class="small">Invoice #: ' + escHtml(v('invoiceNum') || '___') + '</p>';
+    h += '<p class="small">Date: ' + escHtml(v('date') || H.today()) + '</p>';
+    if (v('dueDate')) h += '<p class="small">Due: ' + escHtml(v('dueDate')) + '</p>';
+  }
+  h += '</td></tr></table>';
+  h += '<hr class="sep">';
+  h += '<p style="font-size:9pt;font-weight:bold;color:#666;text-transform:uppercase;letter-spacing:0.5px">Bill To</p>';
+  if (blank) {
+    h += htmlBlankField('Client Name') + htmlBlankField('Client Address');
+  } else {
+    if (v('toName')) h += '<p class="bold">' + escHtml(v('toName')) + '</p>';
+    if (v('toAddress')) h += '<p>' + escHtml(v('toAddress')) + '</p>';
+  }
+  h += '<hr class="sep">';
+  // Items table
+  h += '<table><tr style="background:#f0f0f0"><th style="width:50%">Description</th><th style="width:12%">Qty</th><th style="width:18%">Rate</th><th style="width:20%">Amount</th></tr>';
+  if (blank) {
+    for (let r = 0; r < 5; r++) h += '<tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>';
+  } else {
+    (d.items||[]).forEach(item => {
+      if (!item.col0) return;
+      const qty = parseFloat(item.col1)||0, rate = parseFloat(item.col2)||0;
+      h += '<tr><td>' + escHtml(item.col0) + '</td><td>' + qty + '</td><td>$' + rate.toFixed(2) + '</td><td>$' + (qty*rate).toFixed(2) + '</td></tr>';
+    });
+  }
+  h += '</table>';
+  if (!blank) {
+    let sub = 0;
+    (d.items||[]).forEach(i => { if(i.col0) sub += (parseFloat(i.col1)||0)*(parseFloat(i.col2)||0); });
+    const tax = sub * (parseFloat(d.taxRate)||0) / 100;
+    h += '<p class="right">Subtotal: $' + sub.toFixed(2) + '</p>';
+    if (tax > 0) h += '<p class="right">Tax: $' + tax.toFixed(2) + '</p>';
+    h += '<p class="total">TOTAL: $' + (sub+tax).toFixed(2) + '</p>';
+  }
+  if (!blank && v('notes')) {
+    h += '<h3>Notes</h3><p>' + escHtml(v('notes')).replace(/\n/g,'<br>') + '</p>';
+  }
+  return h;
+}
+
+/* Custom Receipt HTML — mirrors PDF layout */
+function htmlReceipt(d, blank) {
+  const v = (id) => d[id] || '';
+  let h = '<h1>RECEIPT</h1>';
+  if (blank) {
+    h += htmlBlankField('Business Name') + htmlBlankField('Address');
+  } else {
+    if (v('bizName')) h += '<p class="bold" style="font-size:12pt">' + escHtml(v('bizName')) + '</p>';
+    if (v('bizAddress')) h += '<p>' + escHtml(v('bizAddress')) + '</p>';
+  }
+  h += '<table style="border:none;margin:8px 0"><tr style="vertical-align:top"><td style="border:none">';
+  if (blank) { h += htmlBlankField('Receipt #'); } else { h += '<p class="small">Receipt #: ' + escHtml(v('receiptNum')||'___') + '</p>'; }
+  h += '</td><td style="border:none;text-align:right">';
+  if (blank) { h += htmlBlankField('Date'); } else { h += '<p class="small">Date: ' + escHtml(v('date')||H.today()) + '</p>'; }
+  h += '</td></tr></table>';
+  h += '<hr class="sep">';
+  h += '<table><tr style="background:#f0f0f0"><th style="width:70%">Description</th><th style="width:30%">Amount</th></tr>';
+  if (blank) {
+    for (let r = 0; r < 5; r++) h += '<tr><td>&nbsp;</td><td>&nbsp;</td></tr>';
+  } else {
+    (d.items||[]).forEach(item => {
+      if (!item.col0) return;
+      const amt = parseFloat(item.col1)||0;
+      h += '<tr><td>' + escHtml(item.col0) + '</td><td>$' + amt.toFixed(2) + '</td></tr>';
+    });
+  }
+  h += '</table>';
+  if (!blank) {
+    let total = 0;
+    (d.items||[]).forEach(i => { if(i.col0) total += parseFloat(i.col1)||0; });
+    h += '<p class="total">TOTAL: $' + total.toFixed(2) + '</p>';
+    if (v('payMethod')) h += '<p class="small">Payment Method: ' + escHtml(v('payMethod')) + '</p>';
+    if (v('notes')) { h += '<h3>Notes</h3><p>' + escHtml(v('notes')).replace(/\n/g,'<br>') + '</p>'; }
+  }
+  return h;
+}
+
+/* Custom Resume HTML — mirrors PDF layout */
+function htmlResume(d, blank) {
+  const v = (id) => d[id] || '';
+  let h = '';
+  if (blank) {
+    h += '<div style="text-align:center;margin-bottom:10px">';
+    h += htmlBlankField('Full Name');
+    h += '<p class="small">';
+    h += htmlBlankField('Email') + htmlBlankField('Phone') + htmlBlankField('City, State');
+    h += '</p></div>';
+  } else {
+    h += '<p style="text-align:center;font-size:20pt;font-weight:bold;margin:0">' + escHtml(v('name') || 'Your Name') + '</p>';
+    const contact = [v('email'),v('phone'),v('location'),v('linkedin')].filter(Boolean).join('  |  ');
+    if (contact) h += '<p style="text-align:center" class="small">' + escHtml(contact) + '</p>';
+  }
+  h += '<hr class="sep">';
+  if (blank || v('summary')) {
+    h += '<h3>Professional Summary</h3>';
+    if (blank) h += htmlBlankField('Professional Summary');
+    else h += '<p>' + escHtml(v('summary')) + '</p>';
+  }
+  // Experience
+  const exps = blank ? [[1],[2],[3]] : [[v('e1Title'),v('e1Company'),v('e1Dates'),v('e1Desc')],[v('e2Title'),v('e2Company'),v('e2Dates'),v('e2Desc')],[v('e3Title'),v('e3Company'),v('e3Dates'),v('e3Desc')]].filter(e => e[0]);
+  if (exps.length) {
+    h += '<h3>Experience</h3>';
+    if (blank) {
+      for (let i = 0; i < 2; i++) {
+        h += htmlBlankField('Job Title') + htmlBlankField('Company') + htmlBlankField('Dates') + htmlBlankField('Description');
+        h += '<hr class="sep" style="border-top:1px dashed #ddd">';
+      }
+    } else {
+      exps.forEach(([title,co,dates,desc]) => {
+        h += '<table style="border:none;margin:4px 0"><tr><td style="border:none"><p class="bold">' + escHtml(title) + '</p></td><td style="border:none;text-align:right" class="small">' + escHtml(dates||'') + '</td></tr></table>';
+        if (co) h += '<p style="font-style:italic" class="small">' + escHtml(co) + '</p>';
+        if (desc) {
+          desc.split('\n').forEach(line => {
+            if (line.trim()) h += '<p style="margin-left:16px">\u2022 ' + escHtml(line.trim()) + '</p>';
+          });
+        }
+      });
+    }
+  }
+  // Education
+  if (blank || v('ed1Degree')) {
+    h += '<h3>Education</h3>';
+    if (blank) {
+      h += htmlBlankField('Degree') + htmlBlankField('School') + htmlBlankField('Year');
+    } else {
+      [[v('ed1Degree'),v('ed1School'),v('ed1Year')],[v('ed2Degree'),v('ed2School'),v('ed2Year2')]].forEach(([deg,sch,yr]) => {
+        if (!deg) return;
+        h += '<table style="border:none;margin:2px 0"><tr><td style="border:none"><p class="bold">' + escHtml(deg) + '</p></td><td style="border:none;text-align:right" class="small">' + escHtml(yr||'') + '</td></tr></table>';
+        if (sch) h += '<p style="font-style:italic" class="small">' + escHtml(sch) + '</p>';
+      });
+    }
+  }
+  // Skills
+  if (blank || v('skills')) {
+    h += '<h3>Skills</h3>';
+    if (blank) h += htmlBlankField('Skills');
+    else h += '<p>' + escHtml(v('skills')) + '</p>';
+  }
+  return h;
+}
+
+function htmlBlankField(label) {
+  return '<div class="bf"><div class="bf-line"></div><div class="bf-label">' + escHtml(label) + '</div></div>';
+}
+
+function htmlFields(tmpl, d, blank) {
+  let h = '';
+  tmpl.fields.forEach(f => {
+    if (f.type === 'heading') { h += '<h3>' + escHtml(f.label) + '</h3>'; return; }
+    if (f.type === 'items') { h += htmlItemsTable(f, d, blank, tmpl.id); return; }
+    if (blank) { h += htmlBlankField(f.label); return; }
+    const val = d[f.id] || '';
+    if (!val) return;
+    if (f.type === 'textarea') {
+      h += '<p><strong>' + escHtml(f.label) + ':</strong></p><p>' + escHtml(val).replace(/\n/g, '<br>') + '</p>';
+    } else {
+      h += '<p><strong>' + escHtml(f.label) + ':</strong> ' + escHtml(val) + '</p>';
+    }
+  });
+  return h;
+}
+
+function htmlItemsTable(f, d, blank, tmplId) {
+  let h = '<h3>' + escHtml(f.label) + '</h3><table><tr>';
+  f.cols.forEach(c => { h += '<th>' + escHtml(c) + '</th>'; });
+  if (tmplId === 'invoice') h += '<th>Amount</th>';
+  h += '</tr>';
+  if (blank) {
+    for (let r = 0; r < (f.rows || 5); r++) {
+      h += '<tr>';
+      for (let c = 0; c < f.cols.length; c++) h += '<td>&nbsp;</td>';
+      if (tmplId === 'invoice') h += '<td>&nbsp;</td>';
+      h += '</tr>';
+    }
+  } else {
+    (d[f.id] || []).forEach(item => {
+      if (!item.col0) return;
+      h += '<tr><td>' + escHtml(item.col0) + '</td>';
+      if (tmplId === 'invoice') {
+        const qty = parseFloat(item.col1)||0, rate = parseFloat(item.col2)||0;
+        h += '<td>' + qty + '</td><td>$' + rate.toFixed(2) + '</td><td>$' + (qty*rate).toFixed(2) + '</td>';
+      } else {
+        for (let c = 1; c < f.cols.length; c++) {
+          const v = item['col'+c]||'';
+          const n = parseFloat(v);
+          h += '<td>' + (isNaN(n) ? escHtml(v) : '$'+n.toFixed(2)) + '</td>';
+        }
+      }
+      h += '</tr>';
+    });
+  }
+  return h + '</table>';
+}
+
+
+function htmlBudgetSummary(d) {
+  let totalInc = 0, totalExp = 0;
+  [[d.inc1Src,d.inc1Amt],[d.inc2Src,d.inc2Amt],[d.inc3Src,d.inc3Amt]].forEach(([s,a]) => { if(s||a) totalInc += parseFloat(a)||0; });
+  [d.expHousing,d.expUtilities,d.expFood,d.expTransport,d.expInsurance,d.expHealth,d.expEntertain,d.expSavings,d.expDebt,d.expOther].forEach(a => { totalExp += parseFloat(a)||0; });
+  const rem = totalInc - totalExp;
+  let h = '<h3>Summary</h3>';
+  h += '<p>Total Income: <strong>$' + totalInc.toFixed(2) + '</strong></p>';
+  h += '<p>Total Expenses: <strong>$' + totalExp.toFixed(2) + '</strong></p>';
+  h += '<p style="font-weight:bold;font-size:16px;color:' + (rem>=0?'#008000':'#cc0000') + '">Remaining: $' + rem.toFixed(2) + '</p>';
+  return h;
+}
+
+function htmlChecklist() {
+  let h = '';
+  Object.entries(CHECKLISTS).forEach(([section, items]) => {
+    h += '<h3>' + escHtml(section) + '</h3>';
+    items.forEach(item => { h += '<p>\u2610 ' + escHtml(item) + '</p>'; });
+  });
+  return h;
+}
+
+function htmlLegal(tmpl, d, lk, blank) {
+  const legal = LEGAL[lk];
+  const fillHtml = (text) => {
+    if (blank) {
+      return text.replace(/\{\{(\w+)\}\}/g, (_, k) => {
+        const label = getFieldLabel(tmpl, k);
+        return '<span class="ib">&nbsp;</span> <span class="il">(' + escHtml(label) + ')</span>';
+      });
+    }
+    return escHtml(fill(text, d));
+  };
+
+  let h = '';
+  if (legal.intro) h += '<p>' + fillHtml(legal.intro) + '</p>';
+  legal.sections.forEach((s, i) => {
+    h += '<h3>' + (i+1) + '. ' + escHtml(s.t) + '</h3>';
+    h += '<p>' + fillHtml(s.b) + '</p>';
+  });
+  h += '<p style="margin-top:20px"><em>IN WITNESS WHEREOF, the parties have executed this agreement as of the date written above.</em></p>';
+  const parties = LEGAL_PARTIES[lk] || ['Party 1', 'Party 2'];
+  h += '<div style="margin-top:30px">';
+  parties.forEach(p => {
+    h += '<div style="display:inline-block;width:45%;margin-right:5%;vertical-align:top"><div class="sig">' + escHtml(p) + ' \u2014 Signature</div><div class="sig" style="margin-top:15px">Date</div></div>';
+  });
+  h += '</div>';
+  return h;
+}
+
+/* ── Plain Text Generator ── */
+function generateText(tmpl, data, blank) {
+  const d = blank ? {} : data;
+  let t = tmpl.name.toUpperCase() + '\n' + '='.repeat(tmpl.name.length) + '\n\n';
+
+  const lk = LEGAL[tmpl.id] ? tmpl.id : null;
+  if (lk) {
+    t += textLegal(tmpl, d, lk, blank);
+  } else if (tmpl.id === 'movingChecklist') {
+    t += textFields(tmpl, d, blank);
+    t += textChecklist();
+  } else {
+    t += textFields(tmpl, d, blank);
+    if (tmpl.id === 'invoice' && !blank) t += textInvoiceTotals(d);
+    else if (tmpl.id === 'receipt' && !blank) t += textReceiptTotal(d);
+    if (tmpl.id === 'budget' && !blank) t += textBudgetSummary(d);
+  }
+
+  t += '\n' + '-'.repeat(50) + '\nThis document is a general template for informational purposes only.\n';
+  return t;
+}
+
+function textFields(tmpl, d, blank) {
+  let t = '';
+  tmpl.fields.forEach(f => {
+    if (f.type === 'heading') { t += '\n' + f.label.toUpperCase() + '\n' + '-'.repeat(f.label.length) + '\n'; return; }
+    if (f.type === 'items') { t += textItemsTable(f, d, blank, tmpl.id); return; }
+    if (blank) { t += '\n' + '_'.repeat(40) + '\n' + f.label + '\n'; return; }
+    const val = d[f.id] || '';
+    if (!val) return;
+    t += f.label + ': ' + val + '\n';
+  });
+  return t;
+}
+
+function textItemsTable(f, d, blank, tmplId) {
+  let t = '\n';
+  const cols = [...f.cols];
+  if (tmplId === 'invoice') cols.push('Amount');
+  t += cols.join(' | ') + '\n';
+  t += cols.map(c => '-'.repeat(Math.max(c.length, 8))).join('-+-') + '\n';
+  if (blank) {
+    for (let r = 0; r < (f.rows || 5); r++) {
+      t += cols.map(c => ' '.repeat(Math.max(c.length, 8))).join(' | ') + '\n';
+    }
+  } else {
+    (d[f.id] || []).forEach(item => {
+      if (!item.col0) return;
+      if (tmplId === 'invoice') {
+        const qty = parseFloat(item.col1)||0, rate = parseFloat(item.col2)||0;
+        t += item.col0 + ' | ' + qty + ' | $' + rate.toFixed(2) + ' | $' + (qty*rate).toFixed(2) + '\n';
+      } else {
+        let row = item.col0;
+        for (let c = 1; c < f.cols.length; c++) {
+          const v = item['col'+c]||'';
+          const n = parseFloat(v);
+          row += ' | ' + (isNaN(n) ? v : '$'+n.toFixed(2));
+        }
+        t += row + '\n';
+      }
+    });
+  }
+  return t + '\n';
+}
+
+function textInvoiceTotals(d) {
+  let sub = 0;
+  (d.items||[]).forEach(i => { if(i.col0) sub += (parseFloat(i.col1)||0)*(parseFloat(i.col2)||0); });
+  const tax = sub * (parseFloat(d.taxRate)||0) / 100;
+  let t = '\nSubtotal: $' + sub.toFixed(2) + '\n';
+  if (tax > 0) t += 'Tax: $' + tax.toFixed(2) + '\n';
+  t += 'TOTAL: $' + (sub+tax).toFixed(2) + '\n';
+  return t;
+}
+
+function textReceiptTotal(d) {
+  let total = 0;
+  (d.items||[]).forEach(i => { if(i.col0) total += parseFloat(i.col1)||0; });
+  return '\nTOTAL: $' + total.toFixed(2) + '\n';
+}
+
+function textBudgetSummary(d) {
+  let totalInc = 0, totalExp = 0;
+  [[d.inc1Src,d.inc1Amt],[d.inc2Src,d.inc2Amt],[d.inc3Src,d.inc3Amt]].forEach(([s,a]) => { if(s||a) totalInc += parseFloat(a)||0; });
+  [d.expHousing,d.expUtilities,d.expFood,d.expTransport,d.expInsurance,d.expHealth,d.expEntertain,d.expSavings,d.expDebt,d.expOther].forEach(a => { totalExp += parseFloat(a)||0; });
+  const rem = totalInc - totalExp;
+  return '\nSUMMARY\n-------\nTotal Income: $' + totalInc.toFixed(2) + '\nTotal Expenses: $' + totalExp.toFixed(2) + '\nRemaining: $' + rem.toFixed(2) + '\n';
+}
+
+function textChecklist() {
+  let t = '';
+  Object.entries(CHECKLISTS).forEach(([section, items]) => {
+    t += '\n' + section.toUpperCase() + '\n' + '-'.repeat(section.length) + '\n';
+    items.forEach(item => { t += '[ ] ' + item + '\n'; });
+  });
+  return t;
+}
+
+function textLegal(tmpl, d, lk, blank) {
+  const legal = LEGAL[lk];
+  const fillTxt = (text) => {
+    if (blank) {
+      return text.replace(/\{\{(\w+)\}\}/g, (_, k) => {
+        const label = getFieldLabel(tmpl, k);
+        return '______________________ (' + label + ')';
+      });
+    }
+    return fill(text, d);
+  };
+  let t = '';
+  if (legal.intro) t += fillTxt(legal.intro) + '\n\n';
+  legal.sections.forEach((s, i) => {
+    t += (i+1) + '. ' + s.t + '\n';
+    t += fillTxt(s.b) + '\n\n';
+  });
+  t += 'IN WITNESS WHEREOF, the parties have executed this agreement as of the date written above.\n\n';
+  const parties = LEGAL_PARTIES[lk] || ['Party 1', 'Party 2'];
+  parties.forEach(p => {
+    t += '\n' + '_'.repeat(30) + '\n' + p + ' \u2014 Signature\n\n' + '_'.repeat(30) + '\nDate\n';
+  });
+  return t;
+}
+
+/* ── Download Functions ── */
+function downloadWord() {
+  const tmpl = getTemplate(templateSelect.value);
+  if (!tmpl) return;
+  const data = getData(tmpl);
+  downloadBlob(generateHTML(tmpl, data, false), makeSlug(tmpl, data) + '.doc', 'application/msword');
+}
+
+function downloadText() {
+  const tmpl = getTemplate(templateSelect.value);
+  if (!tmpl) return;
+  const data = getData(tmpl);
+  downloadBlob(generateText(tmpl, data, false), makeSlug(tmpl, data) + '.txt', 'text/plain;charset=utf-8');
+}
+
+function downloadBlank() {
+  const tmpl = getTemplate(templateSelect.value);
+  if (!tmpl) return;
+  downloadBlob(generateHTML(tmpl, {}, true), tmpl.name.replace(/\s+/g, '_') + '_Blank.doc', 'application/msword');
+}
+
 /* ── UI Logic ── */
 const templateSelect = document.getElementById('templateSelect');
 const templateDesc = document.getElementById('templateDesc');
 const templateForm = document.getElementById('templateForm');
-const downloadBtn = document.getElementById('downloadBtn');
-const resetBtn = document.getElementById('resetBtn');
 
 function populateSelector() {
   const cats = {};
@@ -1062,9 +1553,7 @@ function generatePDF() {
   const data = getData(tmpl);
   const doc = new jspdf.jsPDF();
   tmpl.render(doc, data);
-  const name = data.name || data.fromName || data.yourName || data.personName || '';
-  const slug = name ? '_' + name.replace(/\s+/g, '_') : '';
-  doc.save(tmpl.name.replace(/\s+/g, '_') + slug + '.pdf');
+  doc.save(makeSlug(tmpl, data) + '.pdf');
 }
 
 /* ── Events ── */
@@ -1073,9 +1562,9 @@ templateSelect.addEventListener('change', () => {
   if (tmpl) renderForm(tmpl);
 });
 
-downloadBtn.addEventListener('click', generatePDF);
-
-resetBtn.addEventListener('click', () => {
+document.getElementById('downloadPdf').addEventListener('click', generatePDF);
+document.getElementById('downloadWord').addEventListener('click', downloadWord);
+document.getElementById('resetBtn').addEventListener('click', () => {
   const tmpl = getTemplate(templateSelect.value);
   if (tmpl) renderForm(tmpl);
 });
