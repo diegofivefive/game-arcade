@@ -44,6 +44,7 @@
 <link rel="stylesheet" href="theme.css">
 <style>
   .game-page { padding-bottom: 32px; }
+  .game-page.playing { touch-action: none; overflow: hidden; }
   .game-header { max-width: 860px; margin: 0 auto; }
   #gameArea { width: 100%; }
 
@@ -427,12 +428,15 @@ function highlightHint(cards, duration = 1500) {
 let dragState = null;
 
 let dragInited = false;
+function blockTouchMove(e) { if (dragState) e.preventDefault(); }
 function initDrag() {
   if (dragInited) return;
   dragInited = true;
   $board.addEventListener('pointerdown', onDragStart, { passive: false });
   document.addEventListener('pointermove', onDragMove, { passive: false });
   document.addEventListener('pointerup', onDragEnd);
+  // iOS Safari: block native back-swipe gesture during card drags
+  document.addEventListener('touchmove', blockTouchMove, { passive: false });
 }
 
 function onDragStart(e) {
@@ -1612,6 +1616,7 @@ function showMenu() {
   $headerTitle.textContent = 'Solitaire Collection';
   $statsBtn.style.display = 'none';
   currentGame = null;
+  document.querySelector('.game-page').classList.remove('playing');
 }
 
 function startGame(game) {
@@ -1619,6 +1624,7 @@ function startGame(game) {
   $select.style.display = 'none';
   $area.style.display = '';
   $statsBtn.style.display = '';
+  document.querySelector('.game-page').classList.add('playing');
 
   const titles = { klondike: 'Klondike', spider: 'Spider', freecell: 'FreeCell' };
   $headerTitle.textContent = titles[game];
