@@ -77,7 +77,11 @@
   .filename-row label { font-size: 13px; color: var(--text-dim); white-space: nowrap; }
   .filename-row input { flex: 1; background: var(--btn-bg); border: 1px solid var(--card-border); border-radius: var(--radius-sm); padding: 10px 12px; font-size: 14px; color: var(--text); font-family: inherit; outline: none; }
   .filename-row input:focus { border-color: var(--accent); }
-  .action-btns { display: flex; gap: 10px; width: 100%; }
+  .action-btns { display: flex; gap: 10px; width: 100%; align-items: stretch; }
+  .share-btn { width: 48px; min-width: 48px; padding: 0; border: 1px solid var(--card-border); border-radius: var(--radius-sm); background: var(--btn-bg); color: var(--text); font-size: 20px; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; }
+  .share-btn:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-1px); }
+  .share-btn:active { transform: translateY(0); }
+  .share-btn svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
   .download-btn { flex: 1; padding: 14px; border: none; border-radius: var(--radius-sm); background: var(--accent); color: #fff; font-size: 15px; font-weight: 700; font-family: inherit; cursor: pointer; transition: all 0.2s; }
   .download-btn:hover { opacity: 0.9; transform: translateY(-1px); }
   .download-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
@@ -121,6 +125,7 @@
       <input type="text" id="filenameInput" placeholder="Document">
     </div>
     <div class="action-btns">
+      <button class="share-btn" id="shareBtn" title="Share as PDF"><svg viewBox="0 0 24 24"><path d="M4 12v7a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg></button>
       <button class="download-btn" id="downloadPdf">PDF</button>
       <button class="download-btn" id="downloadWord">Word</button>
       <button class="reset-btn" id="resetBtn">Reset</button>
@@ -1587,10 +1592,39 @@ templateSelect.addEventListener('change', () => {
 
 document.getElementById('downloadPdf').addEventListener('click', generatePDF);
 document.getElementById('downloadWord').addEventListener('click', downloadWord);
+document.getElementById('shareBtn').addEventListener('click', sharePDF);
 document.getElementById('resetBtn').addEventListener('click', () => {
   const tmpl = getTemplate(templateSelect.value);
   if (tmpl) { renderForm(tmpl); updateFilenamePreview(); }
 });
+
+// Hide share button if Web Share API not supported
+if (!navigator.canShare) document.getElementById('shareBtn').style.display = 'none';
+
+async function sharePDF() {
+  if (typeof jspdf === 'undefined') {
+    alert('PDF library is still loading. Please try again in a moment.');
+    return;
+  }
+  const tmpl = getTemplate(templateSelect.value);
+  if (!tmpl) return;
+  const data = getData(tmpl);
+  const doc = new jspdf.jsPDF();
+  tmpl.render(doc, data);
+  const filename = getFilename(tmpl, data) + '.pdf';
+  const blob = doc.output('blob');
+  const file = new File([blob], filename, { type: 'application/pdf' });
+
+  if (navigator.canShare && navigator.canShare({ files: [file] })) {
+    try {
+      await navigator.share({ files: [file], title: filename });
+    } catch (err) {
+      if (err.name !== 'AbortError') doc.save(filename);
+    }
+  } else {
+    doc.save(filename);
+  }
+}
 
 // Update filename preview when form fields change
 templateForm.addEventListener('input', updateFilenamePreview);
