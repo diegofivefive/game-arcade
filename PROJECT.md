@@ -43,8 +43,10 @@ thefreefix.com/                  ← Hub page (2 cards: Games, Tools)
 │   │   └── solitaire-info.html  ← Solitaire info/how-to-play page
 │   ├── nonograms.html           ← Nonograms (Picross picture logic puzzles)
 │   │   └── nonograms-info.html  ← Nonograms info/how-to-play page
-│   └── brick-smash.html       ← Brick Smash (classic Breakout-style arcade)
-│       └── brick-smash-info.html ← Brick Smash info/how-to-play page
+│   ├── brick-smash.html       ← Brick Smash (classic Breakout-style arcade)
+│   │   └── brick-smash-info.html ← Brick Smash info/how-to-play page
+│   └── bubble-shooter.html       ← Bubble Shooter (aim-and-match arcade puzzle)
+│       └── bubble-shooter-info.html ← Bubble Shooter info/how-to-play page
 ├── tools.html                   ← Tools listing
 │   ├── qr-code-generator.html   ← QR Code Generator tool
 │   │   └── qr-code-generator-info.html ← QR Generator info/how-to-use page
@@ -145,6 +147,7 @@ thefreefix.com/                  ← Hub page (2 cards: Games, Tools)
 8. **Solitaire Collection** — Three classic solitaire card games: Klondike, Spider, and FreeCell.
 9. **Nonograms** — Picross/Griddlers picture logic puzzles. Fill cells based on row and column number clues. Four difficulty levels (5x5, 10x10, 15x15, 20x20), auto-cross completed clues, error checking, undo, timer, stats tracking, keyboard support.
 10. **Brick Smash** — Classic Breakout-style arcade game. Canvas-based with requestAnimationFrame game loop. Paddle follows mouse/touch/keyboard. 3 brick types (normal, strong, unbreakable), 3 power-ups (wide paddle, multi-ball, extra life). 10 handcrafted levels plus procedural generation for 11+. Particle effects, ball glow trail, responsive sizing.
+11. **Bubble Shooter** — Classic aim-and-match arcade puzzle. Canvas-based with hex grid layout. Shoot colored bubbles to match 3+ and pop them. Disconnected clusters fall for bonus points. Ceiling descends every N shots. 6 bubble colors introduced progressively, combo scoring, glossy bubble rendering with radial gradients and glow effects. Mouse/touch/keyboard controls with trajectory preview line.
 
 ## Planned Games
 - (None currently listed)
