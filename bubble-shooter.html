@@ -297,6 +297,9 @@ let shotsUntilDescent = BASE_SHOTS;
 let particles = [];
 let popAnims = [];
 let fallingBubbles = [];
+let floatingTexts = [];
+let snapAnims = [];
+let descentAnim = null; // { progress: 0..1 } for ceiling slide-in
 let stats = null;
 
 // --- Sizing ---
@@ -496,21 +499,34 @@ function findDisconnected() {
 
 // --- Pop Bubbles ---
 function popBubbles(matches) {
+  // Calculate center of popped cluster for score text
+  let cx = 0, cy = 0;
   for (const { row, col } of matches) {
     const b = grid[row][col];
     if (!b) continue;
+    cx += b.x; cy += b.y;
     popAnims.push({ x: b.x, y: b.y, color: b.color, r: BUBBLE_R, scale: 1, opacity: 1, time: 0 });
-    spawnParticles(b.x, b.y, b.color, 6);
+    spawnParticles(b.x, b.y, b.color, 8);
     grid[row][col] = null;
   }
   const pts = Math.floor(matches.length * 10 * (1 + comboCount * 0.5));
   score += pts;
   totalPopped += matches.length;
+
+  // Floating score text at center of cluster
+  cx /= matches.length; cy /= matches.length;
+  floatingTexts.push({
+    x: cx, y: cy, text: '+' + pts,
+    color: comboCount > 0 ? '#ffd666' : '#fff',
+    time: 0, fontSize: Math.min(18, 12 + comboCount * 2)
+  });
 }
 
 // --- Drop Disconnected ---
 function dropBubbles(disconnected) {
+  let cx = 0, cy = 0;
   for (const { bubble } of disconnected) {
+    cx += bubble.x; cy += bubble.y;
     fallingBubbles.push({
       x: bubble.x, y: bubble.y,
       vx: (Math.random() - 0.5) * 0.5,
@@ -519,6 +535,13 @@ function dropBubbles(disconnected) {
     score += 15;
     totalPopped++;
   }
+  // Floating text for fall bonus
+  const fallPts = disconnected.length * 15;
+  cx /= disconnected.length; cy /= disconnected.length;
+  floatingTexts.push({
+    x: cx, y: cy, text: '+' + fallPts,
+    color: '#00e6b8', time: 0, fontSize: 14
+  });
 }
 
 // --- Ceiling Descent ---
@@ -572,6 +595,7 @@ function descendCeiling() {
     }
   }
   shotsUntilDescent = getShotsPerDescent();
+  descentAnim = { progress: 0 };
 }
 
 // --- Snap Bubble to Grid ---
@@ -607,6 +631,9 @@ function snapBubble(bubble) {
   const pos = cellToPixel(row, col);
   grid[row][col] = { color: bubble.color, row, col, x: pos.x, y: pos.y };
   activeBubble = null;
+
+  // Snap bounce animation
+  snapAnims.push({ x: pos.x, y: pos.y, time: 0, color: bubble.color });
 
   // Match check
   const matches = findMatches(row, col);
@@ -647,7 +674,7 @@ function snapBubble(bubble) {
 // --- Shooting ---
 function shoot() {
   if (activeBubble || gameState !== 'playing') return;
-  const speed = CANVAS_H * 0.018;
+  const speed = CANVAS_H * 0.008;
   activeBubble = {
     x: CANVAS_W / 2,
     y: SHOOTER_Y,
@@ -658,41 +685,53 @@ function shoot() {
   };
 }
 
-function updateActiveBubble(dt) {
-  if (!activeBubble) return;
-
-  activeBubble.x += activeBubble.vx * dt;
-  activeBubble.y += activeBubble.vy * dt;
-
-  // Wall bounce
-  if (activeBubble.x - BUBBLE_R <= 0) {
-    activeBubble.x = BUBBLE_R;
-    activeBubble.vx = Math.abs(activeBubble.vx);
-  }
-  if (activeBubble.x + BUBBLE_R >= CANVAS_W) {
-    activeBubble.x = CANVAS_W - BUBBLE_R;
-    activeBubble.vx = -Math.abs(activeBubble.vx);
-  }
-
+function checkBubbleCollision(bx, by) {
   // Ceiling
-  if (activeBubble.y - BUBBLE_R <= 0) {
-    activeBubble.y = BUBBLE_R;
-    snapBubble(activeBubble);
-    return;
-  }
-
-  // Collision with grid bubbles
+  if (by - BUBBLE_R <= 0) return true;
+  // Grid bubbles
+  const threshold = BUBBLE_R * 1.85;
+  const threshSq = threshold * threshold;
   for (let r = 0; r < grid.length; r++) {
     if (!grid[r]) continue;
     for (let c = 0; c < grid[r].length; c++) {
       const b = grid[r][c];
       if (!b) continue;
-      const dx = activeBubble.x - b.x;
-      const dy = activeBubble.y - b.y;
-      if (dx * dx + dy * dy < (BUBBLE_R * 1.85) * (BUBBLE_R * 1.85)) {
-        snapBubble(activeBubble);
-        return;
-      }
+      const dx = bx - b.x, dy = by - b.y;
+      if (dx * dx + dy * dy < threshSq) return true;
+    }
+  }
+  return false;
+}
+
+function updateActiveBubble(dt) {
+  if (!activeBubble) return;
+
+  // Sub-step to prevent tunneling through bubbles
+  const totalDx = activeBubble.vx * dt;
+  const totalDy = activeBubble.vy * dt;
+  const dist = Math.sqrt(totalDx * totalDx + totalDy * totalDy);
+  const stepSize = BUBBLE_R * 0.8;
+  const steps = Math.max(1, Math.ceil(dist / stepSize));
+
+  for (let s = 0; s < steps; s++) {
+    activeBubble.x += totalDx / steps;
+    activeBubble.y += totalDy / steps;
+
+    // Wall bounce
+    if (activeBubble.x - BUBBLE_R <= 0) {
+      activeBubble.x = BUBBLE_R;
+      activeBubble.vx = Math.abs(activeBubble.vx);
+    }
+    if (activeBubble.x + BUBBLE_R >= CANVAS_W) {
+      activeBubble.x = CANVAS_W - BUBBLE_R;
+      activeBubble.vx = -Math.abs(activeBubble.vx);
+    }
+
+    // Check collision
+    if (checkBubbleCollision(activeBubble.x, activeBubble.y)) {
+      if (activeBubble.y - BUBBLE_R <= 0) activeBubble.y = BUBBLE_R;
+      snapBubble(activeBubble);
+      return;
     }
   }
 }
@@ -760,6 +799,29 @@ function updateFalling(dt) {
     fb.opacity -= 0.0015 * dt;
     if (fb.opacity <= 0 || fb.y > CANVAS_H + BUBBLE_R * 2) fallingBubbles.splice(i, 1);
   }
+}
+
+function updateFloatingTexts(dt) {
+  for (let i = floatingTexts.length - 1; i >= 0; i--) {
+    const ft = floatingTexts[i];
+    ft.time += dt;
+    ft.y -= 0.04 * dt;
+    if (ft.time > 800) floatingTexts.splice(i, 1);
+  }
+}
+
+function updateSnapAnims(dt) {
+  for (let i = snapAnims.length - 1; i >= 0; i--) {
+    const sa = snapAnims[i];
+    sa.time += dt;
+    if (sa.time > 250) snapAnims.splice(i, 1);
+  }
+}
+
+function updateDescentAnim(dt) {
+  if (!descentAnim) return;
+  descentAnim.progress += dt / 400;
+  if (descentAnim.progress >= 1) descentAnim = null;
 }
 
 // --- Drawing ---
@@ -873,13 +935,42 @@ function draw() {
   // Danger line
   drawDangerLine();
 
-  // Grid bubbles
+  // Grid bubbles (with descent animation on row 0)
   for (let r = 0; r < grid.length; r++) {
     if (!grid[r]) continue;
     for (let c = 0; c < grid[r].length; c++) {
       const b = grid[r][c];
-      if (b) drawBubble(b.x, b.y, b.color, BUBBLE_R);
+      if (!b) continue;
+      // Descent animation: new row (r=0) slides in from above
+      let drawY = b.y;
+      let drawAlpha = 1;
+      if (descentAnim && r === 0) {
+        const p = descentAnim.progress;
+        const ease = 1 - Math.pow(1 - p, 3); // ease-out cubic
+        drawY = b.y - ROW_H * (1 - ease);
+        drawAlpha = ease;
+      }
+      ctx.globalAlpha = drawAlpha;
+      drawBubble(b.x, drawY, b.color, BUBBLE_R);
+      ctx.globalAlpha = 1;
     }
+  }
+
+  // Snap animations (bounce ring)
+  for (const sa of snapAnims) {
+    const t = sa.time / 250;
+    const scale = 1 + 0.35 * Math.sin(t * Math.PI);
+    const alpha = 1 - t;
+    ctx.save();
+    ctx.globalAlpha = Math.max(0, alpha * 0.5);
+    ctx.strokeStyle = sa.color;
+    ctx.lineWidth = 2;
+    ctx.shadowColor = sa.color;
+    ctx.shadowBlur = 10;
+    ctx.beginPath();
+    ctx.arc(sa.x, sa.y, BUBBLE_R * scale, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.restore();
   }
 
   // Pop animations
@@ -903,6 +994,20 @@ function draw() {
     ctx.beginPath();
     ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
     ctx.fill();
+  }
+  ctx.globalAlpha = 1;
+
+  // Floating score texts
+  for (const ft of floatingTexts) {
+    const alpha = Math.max(0, 1 - ft.time / 800);
+    ctx.globalAlpha = alpha;
+    ctx.fillStyle = ft.color;
+    ctx.font = 'bold ' + ft.fontSize + 'px system-ui';
+    ctx.textAlign = 'center';
+    ctx.shadowColor = 'rgba(0,0,0,0.6)';
+    ctx.shadowBlur = 4;
+    ctx.fillText(ft.text, ft.x, ft.y);
+    ctx.shadowBlur = 0;
   }
   ctx.globalAlpha = 1;
 
@@ -960,6 +1065,9 @@ function startGame() {
   particles = [];
   popAnims = [];
   fallingBubbles = [];
+  floatingTexts = [];
+  snapAnims = [];
+  descentAnim = null;
   aimAngle = -Math.PI / 2;
 
   sizeBoard();
@@ -1030,6 +1138,9 @@ function gameLoop(now = performance.now()) {
   updatePopAnims(dt);
   updateFalling(dt);
   updateParticles(dt);
+  updateFloatingTexts(dt);
+  updateSnapAnims(dt);
+  updateDescentAnim(dt);
 
   draw();
 }
