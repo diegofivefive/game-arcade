@@ -390,8 +390,16 @@
     width: 100%;
     display: flex;
     gap: 8px;
+    align-items: stretch;
   }
   .btn-row .action-btn { flex: 1; }
+  .share-btn {
+    width: 48px; min-width: 48px; padding: 0; border: 1px solid var(--card-border);
+    border-radius: var(--radius-md); background: var(--btn-bg); color: var(--text);
+    cursor: pointer; transition: all 0.15s; display: flex; align-items: center; justify-content: center;
+  }
+  .share-btn:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-1px); }
+  .share-btn svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 
   /* Status messages */
   .status-msg {
@@ -527,6 +535,7 @@
     <button class="action-btn" id="compressBtn" disabled>Compress All</button>
 
     <div class="btn-row" id="downloadRow" style="display:none">
+      <button class="share-btn" id="shareBtn" title="Share compressed images"><svg viewBox="0 0 24 24"><path d="M4 12v7a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg></button>
       <button class="action-btn" id="downloadAllBtn">Download All</button>
       <button class="action-btn secondary" id="addMoreBtn">Add More</button>
     </div>
@@ -576,7 +585,9 @@ var clearAllBtn = document.getElementById('clearAllBtn');
 var compressBtn = document.getElementById('compressBtn');
 var downloadRow = document.getElementById('downloadRow');
 var downloadAllBtn = document.getElementById('downloadAllBtn');
+var shareBtn = document.getElementById('shareBtn');
 var addMoreBtn = document.getElementById('addMoreBtn');
+if (!navigator.canShare) shareBtn.style.display = 'none';
 
 // === Utilities ===
 function formatSize(bytes) {
@@ -1006,6 +1017,22 @@ downloadAllBtn.addEventListener('click', function() {
   done.forEach(function(img, i) {
     setTimeout(function() { downloadSingle(img); }, i * 200);
   });
+});
+
+shareBtn.addEventListener('click', async function() {
+  var done = images.filter(function(img) { return img.status === 'done'; });
+  if (done.length === 0) return;
+  var files = done.map(function(img) {
+    var ext = getExtForMime(img.compBlob.type);
+    var baseName = img.name.replace(/\.[^.]+$/, '');
+    return new File([img.compBlob], baseName + '-compressed' + ext, { type: img.compBlob.type });
+  });
+  if (navigator.canShare && navigator.canShare({ files: files })) {
+    try { await navigator.share({ files: files, title: 'Compressed Images' }); }
+    catch (err) { if (err.name !== 'AbortError') done.forEach(function(img, i) { setTimeout(function() { downloadSingle(img); }, i * 200); }); }
+  } else {
+    done.forEach(function(img, i) { setTimeout(function() { downloadSingle(img); }, i * 200); });
+  }
 });
 
 // === Load image dimensions on add (for display) ===

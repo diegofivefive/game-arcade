@@ -161,7 +161,16 @@
   .download-group {
     display: flex;
     gap: 6px;
+    align-items: stretch;
   }
+  .share-btn {
+    width: 42px; min-width: 42px; padding: 0; border: 1px solid var(--card-border);
+    border-radius: var(--radius-md); background: var(--btn-bg); color: var(--text);
+    cursor: pointer; transition: all 0.15s; display: flex; align-items: center; justify-content: center;
+  }
+  .share-btn:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-1px); }
+  .share-btn:disabled { opacity: 0.4; pointer-events: none; }
+  .share-btn svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
   .download-btn {
     display: flex;
     align-items: center;
@@ -444,6 +453,7 @@
       </div>
 
       <div class="download-group">
+        <button class="share-btn" id="shareBtn" disabled title="Share QR code"><svg viewBox="0 0 24 24"><path d="M4 12v7a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg></button>
         <button class="download-btn" id="downloadBtn" disabled>&#x2B07; PNG</button>
         <button class="download-btn download-btn--secondary" id="downloadSvgBtn" disabled>&#x2B07; SVG</button>
       </div>
@@ -962,6 +972,8 @@ const placeholder = document.getElementById('qrPlaceholder');
 const canvasWrap = document.getElementById('canvasWrap');
 const downloadBtn = document.getElementById('downloadBtn');
 const downloadSvgBtn = document.getElementById('downloadSvgBtn');
+const shareBtn = document.getElementById('shareBtn');
+if (!navigator.canShare) shareBtn.style.display = 'none';
 const fgColorInput = document.getElementById('fgColor');
 const bgColorInput = document.getElementById('bgColor');
 const charCountEl = document.getElementById('charCount');
@@ -976,7 +988,7 @@ function generate(rawText) {
     placeholder.textContent = currentMode === 'text'
       ? 'Type something above to generate a QR code'
       : 'Fill in the form above to generate a QR code';
-    downloadBtn.disabled = downloadSvgBtn.disabled = true;
+    downloadBtn.disabled = downloadSvgBtn.disabled = shareBtn.disabled = true;
     currentMatrix = null;
     canvasWrap.style.background = '';
     return;
@@ -985,14 +997,14 @@ function generate(rawText) {
     currentMatrix = QR.generate(text);
     canvas.style.display = 'block';
     placeholder.style.display = 'none';
-    downloadBtn.disabled = downloadSvgBtn.disabled = false;
+    downloadBtn.disabled = downloadSvgBtn.disabled = shareBtn.disabled = false;
     canvasWrap.style.background = bgColorInput.value;
     renderQR(currentMatrix, canvas, SIZES[currentSize], fgColorInput.value, bgColorInput.value);
   } catch (e) {
     canvas.style.display = 'none';
     placeholder.style.display = 'flex';
     placeholder.textContent = 'Text is too long for a QR code. Try shortening it.';
-    downloadBtn.disabled = downloadSvgBtn.disabled = true;
+    downloadBtn.disabled = downloadSvgBtn.disabled = shareBtn.disabled = true;
     currentMatrix = null;
     canvasWrap.style.background = '';
   }
@@ -1042,6 +1054,19 @@ downloadSvgBtn.addEventListener('click', () => {
   link.href = URL.createObjectURL(blob);
   link.click();
   URL.revokeObjectURL(link.href);
+});
+
+shareBtn.addEventListener('click', async () => {
+  if (!currentMatrix) return;
+  canvas.toBlob(async (blob) => {
+    const file = new File([blob], 'qrcode.png', { type: 'image/png' });
+    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+      try { await navigator.share({ files: [file], title: 'QR Code' }); }
+      catch (err) { if (err.name !== 'AbortError') { const a = document.createElement('a'); a.download = 'qrcode.png'; a.href = canvas.toDataURL('image/png'); a.click(); } }
+    } else {
+      const a = document.createElement('a'); a.download = 'qrcode.png'; a.href = canvas.toDataURL('image/png'); a.click();
+    }
+  }, 'image/png');
 });
 
 // ── Quick-Action Mode Switching ──
