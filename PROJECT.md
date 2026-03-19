@@ -62,8 +62,10 @@ thefreefix.com/                  ← Hub page (2 cards: Games, Tools)
 │   │   └── currency-converter-info.html ← Currency Converter info/how-to-use page
 │   ├── document-templates.html  ← Document Templates tool (20+ PDF templates)
 │   │   └── document-templates-info.html ← Document Templates info/how-to-use page
-│   └── pomodoro-timer.html     ← Pomodoro Timer tool
-│       └── pomodoro-timer-info.html ← Pomodoro Timer info/how-to-use page
+│   ├── pomodoro-timer.html     ← Pomodoro Timer tool
+│   │   └── pomodoro-timer-info.html ← Pomodoro Timer info/how-to-use page
+│   └── password-generator.html ← Password Generator tool
+│       └── password-generator-info.html ← Password Generator info/how-to-use page
 ├── templates/                   ← SEO landing pages for individual templates
 │   ├── invoice-template.html
 │   ├── receipt-template.html
@@ -154,7 +156,8 @@ thefreefix.com/                  ← Hub page (2 cards: Games, Tools)
 6. **JSON Formatter & Validator** — Format, validate, and minify JSON with instant syntax highlighting and error detection.
 7. **Currency Converter** — Convert between 30+ world currencies with daily exchange rates from the European Central Bank (ECB) via Frankfurter API. Two-way conversion (type in either field), swap button, popular currency quick picks, rate caching in localStorage for offline use, status indicator (green=fresh, yellow=cached). No API key required.
 8. **Document Templates** — Generate professional PDF documents from 20+ templates across 4 categories (Business, Personal, Legal, Everyday). Templates include Invoice, Receipt, Business Letter, Resume, Cover Letter, NDA, Lease Agreement, Bill of Sale, and more. Dynamic form fields, line items for invoices/receipts, legal document variable substitution. Uses jsPDF (CDN) for client-side PDF generation. All processing in-browser, no data sent to any server. Each template has an individual SEO landing page in the `templates/` folder targeting specific search queries (e.g., "free invoice template"). Landing pages link to the tool with `?t=templateId` to auto-select the template.
-9. **Pomodoro Timer** — Stay focused with customizable Pomodoro sessions. Features: circular SVG progress ring countdown, three session types (focus/short break/long break), automatic session cycling (4 pomodoros then long break), customizable durations via settings modal, focus task label, auto-start toggle, completion chime via Web Audio API, browser notifications, keyboard shortcuts (Space/S/R), dynamic favicon with progress ring, tab title countdown, stats tracking (sessions, focus minutes, daily streak, best day, full cycles), confetti on full cycle completion. All data stored in localStorage, no server required.
+9. **Pomodoro Timer** — Stay focused with customizable Pomodoro sessions.
+10. **Password Generator** — Generate strong, secure passwords instantly. Customizable length (4-128 chars), character type toggles (uppercase, lowercase, numbers, symbols), exclude ambiguous characters option, entropy-based strength meter, bulk generation (5 at once), session-only history (last 10). Uses crypto.getRandomValues() for cryptographically secure randomness. All processing in-browser, no passwords sent to any server.
 
 ## Key Implementation Details
 - **Minesweeper board overflow**: Expert mode (16×30) exceeds mobile viewport. Uses `overflow-x: auto` on `.board-wrap` with `width: 100%` to enable horizontal scrolling without clipping.
