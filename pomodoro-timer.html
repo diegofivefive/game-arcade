@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-adsense-account" content="ca-pub-7700405385978151">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7700405385978151"
+     crossorigin="anonymous"></script>
+<title>Pomodoro Timer - TheFreeFix.com</title>
+<meta name="description" content="Free online Pomodoro Timer for focused productivity. Customizable work and break intervals, session tracking, stats, and browser notifications. No downloads or sign-ups needed.">
+<link rel="canonical" href="https://thefreefix.com/pomodoro-timer.html">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#0a0a1a">
+<!-- Open Graph -->
+<meta property="og:title" content="Pomodoro Timer - Free Online Tool">
+<meta property="og:description" content="Free online Pomodoro Timer for focused productivity. Customizable work and break intervals, session tracking, stats, and browser notifications.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://thefreefix.com/pomodoro-timer.html">
+<meta property="og:site_name" content="TheFreeFix.com">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://thefreefix.com/og-image.png">
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@TheFreeFix">
+<meta name="twitter:title" content="Pomodoro Timer - Free Online Tool">
+<meta name="twitter:image" content="https://thefreefix.com/og-image.png">
+<meta name="twitter:description" content="Free online Pomodoro Timer for focused productivity. Customizable work and break intervals, session tracking, stats, and browser notifications.">
+<!-- Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Pomodoro Timer",
+  "url": "https://thefreefix.com/pomodoro-timer.html",
+  "description": "Free online Pomodoro Timer for focused productivity. Customizable work and break intervals, session tracking, stats, and browser notifications.",
+  "applicationCategory": "UtilityApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "isPartOf": { "@type": "WebSite", "name": "TheFreeFix.com", "url": "https://thefreefix.com/" }
+}
+</script>
+<link rel="stylesheet" href="theme.css">
+<style>
+  .game-page { padding-bottom: 32px; }
+  .game-header { max-width: 560px; margin: 0 auto; }
+
+  .tool-content {
+    width: 100%;
+    max-width: 560px;
+    padding: 0 16px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+
+  /* Focus task input */
+  .focus-input {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-md);
+    background: var(--card);
+    color: var(--text);
+    font-size: 14px;
+    font-family: inherit;
+    text-align: center;
+    outline: none;
+    transition: border-color var(--transition);
+    box-sizing: border-box;
+  }
+  .focus-input:focus { border-color: var(--accent); }
+  .focus-input::placeholder { color: var(--text-dim); }
+
+  /* Timer ring */
+  .timer-ring-container {
+    position: relative;
+    width: 240px;
+    height: 240px;
+  }
+  .timer-ring-svg {
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+  }
+  .timer-ring-bg {
+    fill: none;
+    stroke: var(--card-border);
+    stroke-width: 8;
+  }
+  .timer-ring-progress {
+    fill: none;
+    stroke: var(--accent);
+    stroke-width: 8;
+    stroke-linecap: round;
+    transition: stroke-dashoffset 0.5s linear, stroke 0.3s ease;
+  }
+  .timer-ring-progress.break {
+    stroke: var(--accent3);
+  }
+  .timer-time {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .timer-digits {
+    font-size: 48px;
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 2px;
+    color: var(--text);
+  }
+  .timer-session-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-dim);
+    margin-top: 4px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  /* Session dots */
+  .session-dots {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+  .session-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--card-border);
+    transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+  }
+  .session-dot.completed {
+    background: var(--accent);
+  }
+  .session-dot.active {
+    background: var(--accent);
+    transform: scale(1.3);
+    box-shadow: 0 0 8px rgba(123,111,255,0.35);
+  }
+
+  /* Controls */
+  .timer-controls {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+  }
+  .ctrl-btn {
+    width: 48px;
+    height: 48px;
+    border: 1px solid var(--card-border);
+    border-radius: 50%;
+    background: var(--card);
+    color: var(--text);
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition);
+  }
+  .ctrl-btn:hover {
+    background: var(--btn-hover);
+    transform: translateY(-2px);
+  }
+  .ctrl-btn.primary {
+    width: 64px;
+    height: 64px;
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+    font-size: 24px;
+  }
+  .ctrl-btn.primary:hover {
+    filter: brightness(1.15);
+    background: var(--accent);
+  }
+
+  /* Stats row */
+  .pomo-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    width: 100%;
+  }
+
+  /* Settings modal */
+  .setting-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--card-border);
+  }
+  .setting-row:last-child { border-bottom: none; }
+  .setting-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+  }
+  .setting-input {
+    width: 60px;
+    padding: 6px 8px;
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-sm);
+    background: var(--cell-bg, var(--card));
+    color: var(--text);
+    font-size: 14px;
+    font-weight: 700;
+    text-align: center;
+    outline: none;
+    font-family: inherit;
+  }
+  .setting-input:focus { border-color: var(--accent); }
+
+  /* Stats modal grid */
+  .stats-modal-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin: 16px 0;
+  }
+  .stats-modal-card {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-md);
+    padding: 12px;
+    text-align: center;
+  }
+  .stats-modal-card .s-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-dim);
+    font-weight: 600;
+  }
+  .stats-modal-card .s-value {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--accent);
+    margin-top: 4px;
+  }
+
+  .modal h2 {
+    font-size: 18px;
+    font-weight: 800;
+    margin: 0 0 8px 0;
+    color: var(--text);
+  }
+
+  .modal-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 16px;
+  }
+
+  /* Keyboard hint */
+  .kb-hints {
+    display: flex;
+    gap: 16px;
+    font-size: 11px;
+    color: var(--text-dim);
+  }
+  .kb-hints kbd {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 4px;
+    padding: 1px 5px;
+    font-size: 10px;
+    font-family: inherit;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  @media (max-width: 400px) {
+    .tool-content { padding: 0 12px; }
+    .timer-ring-container { width: 200px; height: 200px; }
+    .timer-digits { font-size: 40px; }
+    .pomo-stats { grid-template-columns: repeat(2, 1fr); }
+    .kb-hints { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="game-page">
+
+  <a href="index.html" class="site-brand">TheFreeFix.com</a>
+
+  <!-- Ad Slot 1: Top Banner -->
+  <div class="ad-slot ad-content ad-slot--placeholder">
+    <span class="ad-size-label">Responsive</span>
+  </div>
+
+  <div class="game-header">
+    <div class="header-left">
+      <a href="tools.html" class="back-btn" title="Back">&#x2190;</a>
+      <span class="logo">Pomodoro</span>
+    </div>
+    <div class="header-btns">
+      <a href="pomodoro-timer-info.html" class="info-btn" title="Info">i</a>
+      <button class="icon-btn" id="statsBtn" title="Statistics">&#x1f4ca;</button>
+      <button class="icon-btn" id="settingsBtn" title="Settings">&#x2699;&#xfe0f;</button>
+      <button class="icon-btn" id="themeBtn" title="Toggle theme">&#x1f319;</button>
+    </div>
+  </div>
+
+  <div class="tool-content">
+
+    <!-- Focus task input -->
+    <input type="text" class="focus-input" id="focusInput"
+           placeholder="What are you working on?" maxlength="60">
+
+    <!-- Circular progress timer -->
+    <div class="timer-ring-container">
+      <svg class="timer-ring-svg" viewBox="0 0 260 260">
+        <circle class="timer-ring-bg" cx="130" cy="130" r="115"/>
+        <circle class="timer-ring-progress" id="progressRing"
+                cx="130" cy="130" r="115"
+                stroke-dasharray="722.57"
+                stroke-dashoffset="0"/>
+      </svg>
+      <div class="timer-time">
+        <div class="timer-digits" id="timerDisplay">25:00</div>
+        <div class="timer-session-label" id="sessionLabel">Focus</div>
+      </div>
+    </div>
+
+    <!-- Session dots -->
+    <div class="session-dots" id="sessionDots">
+      <div class="session-dot active"></div>
+      <div class="session-dot"></div>
+      <div class="session-dot"></div>
+      <div class="session-dot"></div>
+    </div>
+
+    <!-- Controls -->
+    <div class="timer-controls">
+      <button class="ctrl-btn" id="resetBtn" title="Reset (R)">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/>
+        </svg>
+      </button>
+      <button class="ctrl-btn primary" id="playPauseBtn" title="Start / Pause (Space)">
+        <svg id="playIcon" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><polygon points="6,3 20,12 6,21"/></svg>
+        <svg id="pauseIcon" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" style="display:none"><rect x="5" y="3" width="4" height="18" rx="1"/><rect x="15" y="3" width="4" height="18" rx="1"/></svg>
+      </button>
+      <button class="ctrl-btn" id="skipBtn" title="Skip (S)">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 15,12 5,21"/><rect x="17" y="3" width="3" height="18" rx="1"/></svg>
+      </button>
+    </div>
+
+    <!-- Keyboard hints -->
+    <div class="kb-hints">
+      <span><kbd>Space</kbd> Play/Pause</span>
+      <span><kbd>S</kbd> Skip</span>
+      <span><kbd>R</kbd> Reset</span>
+    </div>
+
+    <!-- Stats row -->
+    <div class="pomo-stats">
+      <div class="stat-chip">
+        <div class="label">Sessions</div>
+        <div class="value" id="statSessions">0</div>
+      </div>
+      <div class="stat-chip">
+        <div class="label">Focus Min</div>
+        <div class="value" id="statMinutes">0</div>
+      </div>
+      <div class="stat-chip">
+        <div class="label">Streak</div>
+        <div class="value" id="statStreak">0</div>
+      </div>
+      <div class="stat-chip">
+        <div class="label">Best Day</div>
+        <div class="value" id="statBestDay">0</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Settings Modal -->
+  <div class="modal-overlay" id="settingsModal">
+    <div class="modal">
+      <button class="modal-close" id="closeSettings">&times;</button>
+      <h2>Settings</h2>
+      <div class="setting-row">
+        <span class="setting-label">Focus (min)</span>
+        <input type="number" class="setting-input" id="setWork" min="1" max="90" value="25">
+      </div>
+      <div class="setting-row">
+        <span class="setting-label">Short Break (min)</span>
+        <input type="number" class="setting-input" id="setShort" min="1" max="30" value="5">
+      </div>
+      <div class="setting-row">
+        <span class="setting-label">Long Break (min)</span>
+        <input type="number" class="setting-input" id="setLong" min="1" max="60" value="15">
+      </div>
+      <div class="setting-row">
+        <span class="setting-label">Auto-start next</span>
+        <div class="toggle-chip" id="toggleAutoStart"><span class="dot"></span> Auto</div>
+      </div>
+      <div class="setting-row">
+        <span class="setting-label">Notifications</span>
+        <div class="toggle-chip" id="toggleNotify"><span class="dot"></span> Notify</div>
+      </div>
+      <div class="setting-row">
+        <span class="setting-label">Sound</span>
+        <div class="toggle-chip" id="toggleSound"><span class="dot"></span> Sound</div>
+      </div>
+      <div class="modal-actions">
+        <button class="modal-btn primary" id="saveSettingsBtn">Save</button>
+        <button class="modal-btn secondary" id="cancelSettingsBtn">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stats Modal -->
+  <div class="modal-overlay" id="statsModal">
+    <div class="modal">
+      <button class="modal-close" id="closeStats">&times;</button>
+      <h2>Statistics</h2>
+      <div class="stats-modal-grid">
+        <div class="stats-modal-card"><div class="s-label">Total Sessions</div><div class="s-value" id="modalSessions">0</div></div>
+        <div class="stats-modal-card"><div class="s-label">Focus Minutes</div><div class="s-value" id="modalMinutes">0</div></div>
+        <div class="stats-modal-card"><div class="s-label">Today</div><div class="s-value" id="modalToday">0</div></div>
+        <div class="stats-modal-card"><div class="s-label">Daily Streak</div><div class="s-value" id="modalStreak">0</div></div>
+        <div class="stats-modal-card"><div class="s-label">Best Day</div><div class="s-value" id="modalBestDay">0</div></div>
+        <div class="stats-modal-card"><div class="s-label">Full Cycles</div><div class="s-value" id="modalCycles">0</div></div>
+      </div>
+      <div class="modal-actions">
+        <button class="modal-btn secondary" id="closeStatsBtn">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ad Slot 2: Bottom Banner -->
+  <div class="ad-slot ad-bottom ad-slot--placeholder">
+    <span class="ad-size-label">Responsive</span>
+  </div>
+
+  <footer class="site-footer">
+    <a href="about.html">About</a>
+    <span class="footer-sep">&middot;</span>
+    <a href="contact.html">Contact</a>
+    <span class="footer-sep">&middot;</span>
+    <a href="terms.html">Terms</a>
+    <span class="footer-sep">&middot;</span>
+    <a href="privacy.html">Privacy</a>
+    <span class="footer-sep">&middot;</span>
+    <a href="https://x.com/TheFreeFix" target="_blank" rel="noopener">X</a>
+  </footer>
+</div>
+
+<script src="theme.js"></script>
+<script>
+GameTheme.init();
+Modal.bindOverlayClose();
+
+const Pomo = {
+  // State
+  sessionType: 'work',       // 'work' | 'shortBreak' | 'longBreak'
+  timerState: 'idle',         // 'idle' | 'running' | 'paused'
+  completedInCycle: 0,        // 0-3 within current cycle of 4
+  totalSeconds: 25 * 60,
+  maxSeconds: 25 * 60,
+  intervalId: null,
+  startedAt: 0,
+  secondsAtStart: 0,
+  originalTitle: 'Pomodoro Timer - TheFreeFix.com',
+  audioCtx: null,
+  faviconEl: null,
+  faviconOriginal: 'favicon.svg',
+
+  // Settings defaults
+  defaults: { workMin: 25, shortBreakMin: 5, longBreakMin: 15, autoStart: false, notifications: false, sound: true },
+
+  // DOM refs
+  el: {},
+
+  init() {
+    // Cache DOM
+    this.el = {
+      display: document.getElementById('timerDisplay'),
+      label: document.getElementById('sessionLabel'),
+      ring: document.getElementById('progressRing'),
+      dots: document.getElementById('sessionDots'),
+      playPause: document.getElementById('playPauseBtn'),
+      playIcon: document.getElementById('playIcon'),
+      pauseIcon: document.getElementById('pauseIcon'),
+      reset: document.getElementById('resetBtn'),
+      skip: document.getElementById('skipBtn'),
+      focus: document.getElementById('focusInput'),
+      statSessions: document.getElementById('statSessions'),
+      statMinutes: document.getElementById('statMinutes'),
+      statStreak: document.getElementById('statStreak'),
+      statBestDay: document.getElementById('statBestDay'),
+    };
+
+    this.faviconEl = document.querySelector('link[rel="icon"]');
+
+    // Load settings
+    this.settings = this.loadSettings();
+    this.stats = this.loadStats();
+
+    // Set initial timer
+    this.setSession('work');
+    this.updateStatsDisplay();
+
+    // Bind controls
+    this.el.playPause.addEventListener('click', () => {
+      if (this.timerState === 'running') this.pauseTimer();
+      else this.startTimer();
+    });
+    this.el.reset.addEventListener('click', () => this.resetTimer());
+    this.el.skip.addEventListener('click', () => this.skipSession());
+
+    // Header buttons
+    document.getElementById('settingsBtn').addEventListener('click', () => this.openSettings());
+    document.getElementById('statsBtn').addEventListener('click', () => this.openStatsModal());
+
+    // Settings modal
+    document.getElementById('saveSettingsBtn').addEventListener('click', () => this.saveSettingsFromModal());
+    document.getElementById('cancelSettingsBtn').addEventListener('click', () => Modal.hide('settingsModal'));
+    document.getElementById('closeSettings').addEventListener('click', () => Modal.hide('settingsModal'));
+
+    // Stats modal
+    document.getElementById('closeStatsBtn').addEventListener('click', () => Modal.hide('statsModal'));
+    document.getElementById('closeStats').addEventListener('click', () => Modal.hide('statsModal'));
+
+    // Settings toggles in modal
+    document.getElementById('toggleAutoStart').addEventListener('click', () => this.toggleModalChip('toggleAutoStart'));
+    document.getElementById('toggleNotify').addEventListener('click', () => this.toggleModalChip('toggleNotify'));
+    document.getElementById('toggleSound').addEventListener('click', () => this.toggleModalChip('toggleSound'));
+
+    // Keyboard shortcuts
+    document.addEventListener('keydown', (e) => {
+      if (e.target.tagName === 'INPUT') return;
+      if (e.code === 'Space') { e.preventDefault(); if (this.timerState === 'running') this.pauseTimer(); else this.startTimer(); }
+      else if (e.key === 's' || e.key === 'S') this.skipSession();
+      else if (e.key === 'r' || e.key === 'R') this.resetTimer();
+    });
+  },
+
+  // ── Timer Core ──
+
+  startTimer() {
+    if (this.totalSeconds <= 0) return;
+    this.timerState = 'running';
+    this.startedAt = Date.now();
+    this.secondsAtStart = this.totalSeconds;
+    this.intervalId = setInterval(() => this.tick(), 250);
+    this.el.playIcon.style.display = 'none';
+    this.el.pauseIcon.style.display = '';
+    // Init audio context on first user gesture
+    if (!this.audioCtx) {
+      try { this.audioCtx = new (window.AudioContext || window.webkitAudioContext)(); } catch(e) {}
+    }
+  },
+
+  pauseTimer() {
+    this.timerState = 'paused';
+    clearInterval(this.intervalId);
+    this.intervalId = null;
+    this.el.playIcon.style.display = '';
+    this.el.pauseIcon.style.display = 'none';
+    this.updateTabTitle();
+  },
+
+  resetTimer() {
+    clearInterval(this.intervalId);
+    this.intervalId = null;
+    this.timerState = 'idle';
+    this.setSession(this.sessionType);
+    this.el.playIcon.style.display = '';
+    this.el.pauseIcon.style.display = 'none';
+    this.updateTabTitle();
+  },
+
+  skipSession() {
+    clearInterval(this.intervalId);
+    this.intervalId = null;
+    this.timerState = 'idle';
+    this.el.playIcon.style.display = '';
+    this.el.pauseIcon.style.display = 'none';
+    this.advanceSession();
+  },
+
+  tick() {
+    var elapsed = Math.floor((Date.now() - this.startedAt) / 1000);
+    var newRemaining = Math.max(0, this.secondsAtStart - elapsed);
+    if (newRemaining !== this.totalSeconds) {
+      this.totalSeconds = newRemaining;
+      this.updateDisplay();
+      this.updateRing(this.totalSeconds / this.maxSeconds);
+      this.updateTabTitle();
+      this.updateFavicon(this.totalSeconds / this.maxSeconds);
+    }
+    if (this.totalSeconds <= 0) {
+      this.completeSession();
+    }
+  },
+
+  // ── Session Management ──
+
+  setSession(type) {
+    this.sessionType = type;
+    var mins;
+    if (type === 'work') mins = this.settings.workMin;
+    else if (type === 'shortBreak') mins = this.settings.shortBreakMin;
+    else mins = this.settings.longBreakMin;
+
+    this.maxSeconds = mins * 60;
+    this.totalSeconds = this.maxSeconds;
+
+    // Update ring color
+    if (type === 'work') {
+      this.el.ring.classList.remove('break');
+      this.el.label.textContent = 'Focus';
+    } else if (type === 'shortBreak') {
+      this.el.ring.classList.add('break');
+      this.el.label.textContent = 'Short Break';
+    } else {
+      this.el.ring.classList.add('break');
+      this.el.label.textContent = 'Long Break';
+    }
+
+    this.updateDisplay();
+    this.updateRing(1);
+    this.updateDots();
+    this.updateTabTitle();
+    this.updateFavicon(1);
+  },
+
+  completeSession() {
+    clearInterval(this.intervalId);
+    this.intervalId = null;
+    this.timerState = 'idle';
+    this.el.playIcon.style.display = '';
+    this.el.pauseIcon.style.display = 'none';
+
+    if (this.settings.sound) this.playChime();
+    if (this.settings.notifications) this.sendNotification();
+
+    if (this.sessionType === 'work') {
+      this.completedInCycle++;
+      this.recordWorkSession();
+      this.updateDots();
+
+      if (this.completedInCycle >= 4) {
+        this.completedInCycle = 0;
+        this.recordFullCycle();
+        Confetti.launch();
+        this.setSession('longBreak');
+      } else {
+        this.setSession('shortBreak');
+      }
+    } else {
+      // Break ended → next work
+      this.setSession('work');
+    }
+
+    this.updateStatsDisplay();
+
+    if (this.settings.autoStart) {
+      setTimeout(() => this.startTimer(), 500);
+    }
+  },
+
+  advanceSession() {
+    if (this.sessionType === 'work') {
+      this.completedInCycle++;
+      this.updateDots();
+      if (this.completedInCycle >= 4) {
+        this.completedInCycle = 0;
+        this.setSession('longBreak');
+      } else {
+        this.setSession('shortBreak');
+      }
+    } else {
+      this.setSession('work');
+    }
+    this.updateTabTitle();
+  },
+
+  // ── Display Updates ──
+
+  updateDisplay() {
+    var mm = String(Math.floor(this.totalSeconds / 60)).padStart(2, '0');
+    var ss = String(this.totalSeconds % 60).padStart(2, '0');
+    this.el.display.textContent = mm + ':' + ss;
+  },
+
+  updateRing(fraction) {
+    var circumference = 722.57;
+    var offset = circumference * (1 - fraction);
+    this.el.ring.style.strokeDashoffset = offset;
+  },
+
+  updateDots() {
+    var dots = this.el.dots.children;
+    for (var i = 0; i < 4; i++) {
+      dots[i].className = 'session-dot';
+      if (i < this.completedInCycle) {
+        dots[i].classList.add('completed');
+      } else if (i === this.completedInCycle && this.sessionType === 'work') {
+        dots[i].classList.add('active');
+      }
+    }
+  },
+
+  updateTabTitle() {
+    if (this.timerState === 'running' || this.timerState === 'paused') {
+      var mm = String(Math.floor(this.totalSeconds / 60)).padStart(2, '0');
+      var ss = String(this.totalSeconds % 60).padStart(2, '0');
+      var label = this.sessionType === 'work' ? 'Focus' : this.sessionType === 'shortBreak' ? 'Break' : 'Long Break';
+      document.title = mm + ':' + ss + ' - ' + label + ' | Pomodoro';
+    } else {
+      document.title = this.originalTitle;
+    }
+  },
+
+  updateFavicon(fraction) {
+    try {
+      var size = 32;
+      var canvas = document.createElement('canvas');
+      canvas.width = size;
+      canvas.height = size;
+      var ctx = canvas.getContext('2d');
+      var cx = size / 2, cy = size / 2, r = 13;
+
+      // Background circle
+      ctx.beginPath();
+      ctx.arc(cx, cy, r + 2, 0, Math.PI * 2);
+      ctx.fillStyle = '#0a0a1a';
+      ctx.fill();
+
+      // Track
+      ctx.beginPath();
+      ctx.arc(cx, cy, r, 0, Math.PI * 2);
+      ctx.strokeStyle = '#2c2c58';
+      ctx.lineWidth = 3;
+      ctx.stroke();
+
+      // Progress arc
+      var color = this.sessionType === 'work' ? '#7b6fff' : '#00e6b8';
+      ctx.beginPath();
+      ctx.arc(cx, cy, r, -Math.PI / 2, -Math.PI / 2 + (Math.PI * 2 * fraction));
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 3;
+      ctx.lineCap = 'round';
+      ctx.stroke();
+
+      // Time text
+      var mins = Math.ceil(this.totalSeconds / 60);
+      ctx.fillStyle = '#f0f0ff';
+      ctx.font = 'bold 11px system-ui,sans-serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(mins > 0 ? String(mins) : '0', cx, cy + 1);
+
+      this.faviconEl.href = canvas.toDataURL('image/png');
+    } catch(e) {
+      // Fallback: keep original favicon
+    }
+  },
+
+  updateStatsDisplay() {
+    this.el.statSessions.textContent = this.stats.todaySessions;
+    this.el.statMinutes.textContent = this.stats.totalFocusMinutes;
+    this.el.statStreak.textContent = this.stats.dailyStreak;
+    this.el.statBestDay.textContent = this.stats.bestDaySessions;
+  },
+
+  // ── Audio ──
+
+  playChime() {
+    try {
+      var ctx = this.audioCtx || new (window.AudioContext || window.webkitAudioContext)();
+      if (ctx.state === 'suspended') ctx.resume();
+      var notes = [523.25, 659.25, 783.99]; // C5, E5, G5
+      notes.forEach(function(freq, i) {
+        var osc = ctx.createOscillator();
+        var gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.value = freq;
+        gain.gain.setValueAtTime(0.3, ctx.currentTime + i * 0.15);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.15 + 0.5);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(ctx.currentTime + i * 0.15);
+        osc.stop(ctx.currentTime + i * 0.15 + 0.5);
+      });
+    } catch(e) {}
+  },
+
+  // ── Notifications ──
+
+  requestNotificationPermission() {
+    if ('Notification' in window && Notification.permission === 'default') {
+      Notification.requestPermission();
+    }
+  },
+
+  sendNotification() {
+    if ('Notification' in window && Notification.permission === 'granted') {
+      var task = this.el.focus.value;
+      var title, body;
+      if (this.sessionType === 'work') {
+        title = 'Focus session complete!';
+        body = task ? '"' + task + '" \u2014 Time for a break!' : 'Time for a break!';
+      } else {
+        title = 'Break is over!';
+        body = 'Ready to focus again?';
+      }
+      try { new Notification(title, { body: body, icon: 'favicon.svg' }); } catch(e) {}
+    }
+  },
+
+  // ── Settings ──
+
+  loadSettings() {
+    try {
+      var data = JSON.parse(localStorage.getItem('settings_pomodoro'));
+      if (data) return Object.assign({}, this.defaults, data);
+    } catch(e) {}
+    return Object.assign({}, this.defaults);
+  },
+
+  saveSettings(s) {
+    try { localStorage.setItem('settings_pomodoro', JSON.stringify(s)); } catch(e) {}
+  },
+
+  openSettings() {
+    document.getElementById('setWork').value = this.settings.workMin;
+    document.getElementById('setShort').value = this.settings.shortBreakMin;
+    document.getElementById('setLong').value = this.settings.longBreakMin;
+    this.setChip('toggleAutoStart', this.settings.autoStart);
+    this.setChip('toggleNotify', this.settings.notifications);
+    this.setChip('toggleSound', this.settings.sound);
+    Modal.show('settingsModal');
+  },
+
+  setChip(id, on) {
+    var el = document.getElementById(id);
+    if (on) el.classList.add('on'); else el.classList.remove('on');
+    el._value = on;
+  },
+
+  toggleModalChip(id) {
+    var el = document.getElementById(id);
+    var newVal = !el._value;
+    this.setChip(id, newVal);
+    if (id === 'toggleNotify' && newVal) this.requestNotificationPermission();
+  },
+
+  saveSettingsFromModal() {
+    var workMin = this.clamp(parseInt(document.getElementById('setWork').value) || 25, 1, 90);
+    var shortBreakMin = this.clamp(parseInt(document.getElementById('setShort').value) || 5, 1, 30);
+    var longBreakMin = this.clamp(parseInt(document.getElementById('setLong').value) || 15, 1, 60);
+
+    this.settings = {
+      workMin: workMin,
+      shortBreakMin: shortBreakMin,
+      longBreakMin: longBreakMin,
+      autoStart: !!document.getElementById('toggleAutoStart')._value,
+      notifications: !!document.getElementById('toggleNotify')._value,
+      sound: !!document.getElementById('toggleSound')._value,
+    };
+
+    this.saveSettings(this.settings);
+    Modal.hide('settingsModal');
+
+    // Reset timer with new durations if idle
+    if (this.timerState === 'idle') {
+      this.setSession(this.sessionType);
+    }
+  },
+
+  clamp(val, min, max) { return Math.max(min, Math.min(max, val)); },
+
+  // ── Stats ──
+
+  loadStats() {
+    try {
+      var data = JSON.parse(localStorage.getItem('stats_pomodoro')) || {};
+      var today = new Date().toISOString().slice(0, 10);
+
+      if (data.todayDate !== today) {
+        // Check streak
+        if (data.lastActiveDate) {
+          var last = new Date(data.lastActiveDate);
+          var now = new Date(today);
+          var diff = Math.floor((now - last) / 86400000);
+          if (diff > 1) data.dailyStreak = 0;
+        }
+        data.todaySessions = 0;
+        data.todayDate = today;
+      }
+
+      return {
+        totalSessions: data.totalSessions || 0,
+        totalFocusMinutes: data.totalFocusMinutes || 0,
+        fullCycles: data.fullCycles || 0,
+        todaySessions: data.todaySessions || 0,
+        todayDate: data.todayDate || today,
+        dailyStreak: data.dailyStreak || 0,
+        lastActiveDate: data.lastActiveDate || '',
+        bestDaySessions: data.bestDaySessions || 0,
+      };
+    } catch(e) {
+      return { totalSessions:0, totalFocusMinutes:0, fullCycles:0,
+               todaySessions:0, todayDate:'', dailyStreak:0,
+               lastActiveDate:'', bestDaySessions:0 };
+    }
+  },
+
+  saveStatsData() {
+    try { localStorage.setItem('stats_pomodoro', JSON.stringify(this.stats)); } catch(e) {}
+  },
+
+  recordWorkSession() {
+    var today = new Date().toISOString().slice(0, 10);
+    this.stats.totalSessions++;
+    this.stats.totalFocusMinutes += this.settings.workMin;
+    this.stats.todaySessions++;
+
+    // Daily streak
+    if (this.stats.lastActiveDate !== today) {
+      if (this.stats.lastActiveDate) {
+        var last = new Date(this.stats.lastActiveDate);
+        var now = new Date(today);
+        var diff = Math.floor((now - last) / 86400000);
+        if (diff === 1) this.stats.dailyStreak++;
+        else if (diff > 1) this.stats.dailyStreak = 1;
+      } else {
+        this.stats.dailyStreak = 1;
+      }
+      this.stats.lastActiveDate = today;
+      this.stats.todayDate = today;
+    }
+
+    if (this.stats.todaySessions > this.stats.bestDaySessions) {
+      this.stats.bestDaySessions = this.stats.todaySessions;
+    }
+
+    this.saveStatsData();
+  },
+
+  recordFullCycle() {
+    this.stats.fullCycles++;
+    this.saveStatsData();
+  },
+
+  openStatsModal() {
+    document.getElementById('modalSessions').textContent = this.stats.totalSessions;
+    document.getElementById('modalMinutes').textContent = this.stats.totalFocusMinutes;
+    document.getElementById('modalToday').textContent = this.stats.todaySessions;
+    document.getElementById('modalStreak').textContent = this.stats.dailyStreak;
+    document.getElementById('modalBestDay').textContent = this.stats.bestDaySessions;
+    document.getElementById('modalCycles').textContent = this.stats.fullCycles;
+    Modal.show('statsModal');
+  },
+};
+
+Pomo.init();
+</script>
+</body>
+</html>

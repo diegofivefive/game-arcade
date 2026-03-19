@@ -3,8 +3,8 @@
   "configurations": [
     {
       "name": "dev-server",
-      "runtimeExecutable": "C:/Users/jimbo/AppData/Roaming/npm/http-server.cmd",
-      "runtimeArgs": ["-p", "8081", "-c-1", "--cors"],
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["http-server", "-p", "8081", "-c-1", "--cors"],
       "port": 8081
     }
   ]
