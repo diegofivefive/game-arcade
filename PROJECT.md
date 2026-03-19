@@ -64,8 +64,10 @@ thefreefix.com/                  ← Hub page (2 cards: Games, Tools)
 │   │   └── document-templates-info.html ← Document Templates info/how-to-use page
 │   ├── pomodoro-timer.html     ← Pomodoro Timer tool
 │   │   └── pomodoro-timer-info.html ← Pomodoro Timer info/how-to-use page
-│   └── password-generator.html ← Password Generator tool
-│       └── password-generator-info.html ← Password Generator info/how-to-use page
+│   ├── password-generator.html ← Password Generator tool
+│   │   └── password-generator-info.html ← Password Generator info/how-to-use page
+│   └── unit-converter.html    ← Unit Converter tool
+│       └── unit-converter-info.html ← Unit Converter info/how-to-use page
 ├── templates/                   ← SEO landing pages for individual templates
 │   ├── invoice-template.html
 │   ├── receipt-template.html
@@ -158,6 +160,7 @@ thefreefix.com/                  ← Hub page (2 cards: Games, Tools)
 8. **Document Templates** — Generate professional PDF documents from 20+ templates across 4 categories (Business, Personal, Legal, Everyday). Templates include Invoice, Receipt, Business Letter, Resume, Cover Letter, NDA, Lease Agreement, Bill of Sale, and more. Dynamic form fields, line items for invoices/receipts, legal document variable substitution. Uses jsPDF (CDN) for client-side PDF generation. All processing in-browser, no data sent to any server. Each template has an individual SEO landing page in the `templates/` folder targeting specific search queries (e.g., "free invoice template"). Landing pages link to the tool with `?t=templateId` to auto-select the template.
 9. **Pomodoro Timer** — Stay focused with customizable Pomodoro sessions.
 10. **Password Generator** — Generate strong, secure passwords instantly. Customizable length (4-128 chars), character type toggles (uppercase, lowercase, numbers, symbols), exclude ambiguous characters option, entropy-based strength meter, bulk generation (5 at once), session-only history (last 10). Uses crypto.getRandomValues() for cryptographically secure randomness. All processing in-browser, no passwords sent to any server.
+11. **Unit Converter** — Convert between 80+ units across 10 categories (Length, Weight, Temperature, Volume, Area, Speed, Time, Data, Energy, Pressure). Real-time conversion as you type, swap button, conversion formula display, popular quick-pick shortcuts. Temperature uses exact formulas. Data includes both decimal (KB/MB/GB) and binary (KiB/MiB/GiB) units. All processing in-browser.
 
 ## Key Implementation Details
 - **Minesweeper board overflow**: Expert mode (16×30) exceeds mobile viewport. Uses `overflow-x: auto` on `.board-wrap` with `width: 100%` to enable horizontal scrolling without clipping.

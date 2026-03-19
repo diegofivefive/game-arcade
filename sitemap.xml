@@ -216,6 +216,16 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://thefreefix.com/unit-converter.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://thefreefix.com/unit-converter-info.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://thefreefix.com/templates/invoice-template.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
