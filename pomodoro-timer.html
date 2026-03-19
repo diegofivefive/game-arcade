@@ -413,6 +413,10 @@
         <span class="setting-label">Sound</span>
         <div class="toggle-chip" id="toggleSound"><span class="dot"></span> Sound</div>
       </div>
+      <div class="setting-row" id="wakeLockRow" style="display:none">
+        <span class="setting-label">Keep Screen On</span>
+        <div class="toggle-chip" id="toggleWakeLock"><span class="dot"></span> Screen</div>
+      </div>
       <div class="modal-actions">
         <button class="modal-btn primary" id="saveSettingsBtn">Save</button>
         <button class="modal-btn secondary" id="cancelSettingsBtn">Cancel</button>
@@ -478,7 +482,8 @@ const Pomo = {
   faviconOriginal: 'favicon.svg',
 
   // Settings defaults
-  defaults: { workMin: 25, shortBreakMin: 5, longBreakMin: 15, autoStart: false, notifications: false, sound: true },
+  defaults: { workMin: 25, shortBreakMin: 5, longBreakMin: 15, autoStart: false, notifications: false, sound: true, wakeLock: true },
+  wakeLockSentinel: null,
 
   // DOM refs
   el: {},
@@ -537,6 +542,18 @@ const Pomo = {
     document.getElementById('toggleAutoStart').addEventListener('click', () => this.toggleModalChip('toggleAutoStart'));
     document.getElementById('toggleNotify').addEventListener('click', () => this.toggleModalChip('toggleNotify'));
     document.getElementById('toggleSound').addEventListener('click', () => this.toggleModalChip('toggleSound'));
+    document.getElementById('toggleWakeLock').addEventListener('click', () => this.toggleModalChip('toggleWakeLock'));
+
+    // Show wake lock setting only if supported
+    if ('wakeLock' in navigator) {
+      document.getElementById('wakeLockRow').style.display = '';
+      // Re-acquire wake lock when returning to tab
+      document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'visible' && this.timerState === 'running') {
+          this.acquireWakeLock();
+        }
+      });
+    }
 
     // Keyboard shortcuts
     document.addEventListener('keydown', (e) => {
@@ -561,6 +578,7 @@ const Pomo = {
     if (!this.audioCtx) {
       try { this.audioCtx = new (window.AudioContext || window.webkitAudioContext)(); } catch(e) {}
     }
+    this.acquireWakeLock();
   },
 
   pauseTimer() {
@@ -570,6 +588,7 @@ const Pomo = {
     this.el.playIcon.style.display = '';
     this.el.pauseIcon.style.display = 'none';
     this.updateTabTitle();
+    this.releaseWakeLock();
   },
 
   resetTimer() {
@@ -580,6 +599,7 @@ const Pomo = {
     this.el.playIcon.style.display = '';
     this.el.pauseIcon.style.display = 'none';
     this.updateTabTitle();
+    this.releaseWakeLock();
   },
 
   skipSession() {
@@ -669,6 +689,8 @@ const Pomo = {
 
     if (this.settings.autoStart) {
       setTimeout(() => this.startTimer(), 500);
+    } else {
+      this.releaseWakeLock();
     }
   },
 
@@ -777,6 +799,23 @@ const Pomo = {
     this.el.statBestDay.textContent = this.stats.bestDaySessions;
   },
 
+  // ── Wake Lock ──
+
+  async acquireWakeLock() {
+    if (!('wakeLock' in navigator) || !this.settings.wakeLock) return;
+    try {
+      this.wakeLockSentinel = await navigator.wakeLock.request('screen');
+      this.wakeLockSentinel.addEventListener('release', () => { this.wakeLockSentinel = null; });
+    } catch(e) {}
+  },
+
+  releaseWakeLock() {
+    if (this.wakeLockSentinel) {
+      this.wakeLockSentinel.release().catch(function(){});
+      this.wakeLockSentinel = null;
+    }
+  },
+
   // ── Audio ──
 
   playChime() {
@@ -843,6 +882,7 @@ const Pomo = {
     this.setChip('toggleAutoStart', this.settings.autoStart);
     this.setChip('toggleNotify', this.settings.notifications);
     this.setChip('toggleSound', this.settings.sound);
+    this.setChip('toggleWakeLock', this.settings.wakeLock);
     Modal.show('settingsModal');
   },
 
@@ -871,6 +911,7 @@ const Pomo = {
       autoStart: !!document.getElementById('toggleAutoStart')._value,
       notifications: !!document.getElementById('toggleNotify')._value,
       sound: !!document.getElementById('toggleSound')._value,
+      wakeLock: !!document.getElementById('toggleWakeLock')._value,
     };
 
     this.saveSettings(this.settings);
@@ -879,6 +920,12 @@ const Pomo = {
     // Reset timer with new durations if idle
     if (this.timerState === 'idle') {
       this.setSession(this.sessionType);
+    }
+
+    // Update wake lock state if timer is running
+    if (this.timerState === 'running') {
+      if (this.settings.wakeLock) this.acquireWakeLock();
+      else this.releaseWakeLock();
     }
   },
 
