@@ -428,15 +428,15 @@ function highlightHint(cards, duration = 1500) {
 let dragState = null;
 
 let dragInited = false;
-function blockTouchMove(e) { if (dragState) e.preventDefault(); }
 function initDrag() {
   if (dragInited) return;
   dragInited = true;
   $board.addEventListener('pointerdown', onDragStart, { passive: false });
   document.addEventListener('pointermove', onDragMove, { passive: false });
   document.addEventListener('pointerup', onDragEnd);
-  // iOS Safari: block native back-swipe gesture during card drags
-  document.addEventListener('touchmove', blockTouchMove, { passive: false });
+  // Block all touch events on board to prevent Chrome/Safari back-swipe gesture
+  $board.addEventListener('touchstart', e => e.preventDefault(), { passive: false });
+  $board.addEventListener('touchmove', e => e.preventDefault(), { passive: false });
 }
 
 function onDragStart(e) {
