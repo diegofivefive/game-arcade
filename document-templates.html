@@ -73,6 +73,10 @@
   .items-row input[type="number"] { -moz-appearance: textfield; }
   .items-row input::-webkit-outer-spin-button, .items-row input::-webkit-inner-spin-button { -webkit-appearance: none; }
 
+  .filename-row { display: flex; align-items: center; gap: 8px; width: 100%; margin-bottom: 10px; }
+  .filename-row label { font-size: 13px; color: var(--text-dim); white-space: nowrap; }
+  .filename-row input { flex: 1; background: var(--btn-bg); border: 1px solid var(--card-border); border-radius: var(--radius-sm); padding: 10px 12px; font-size: 14px; color: var(--text); font-family: inherit; outline: none; }
+  .filename-row input:focus { border-color: var(--accent); }
   .action-btns { display: flex; gap: 10px; width: 100%; }
   .download-btn { flex: 1; padding: 14px; border: none; border-radius: var(--radius-sm); background: var(--accent); color: #fff; font-size: 15px; font-weight: 700; font-family: inherit; cursor: pointer; transition: all 0.2s; }
   .download-btn:hover { opacity: 0.9; transform: translateY(-1px); }
@@ -112,6 +116,10 @@
       <p class="template-desc" id="templateDesc"></p>
     </div>
     <div class="template-form" id="templateForm"></div>
+    <div class="filename-row">
+      <label for="filenameInput">File name:</label>
+      <input type="text" id="filenameInput" placeholder="Document">
+    </div>
     <div class="action-btns">
       <button class="download-btn" id="downloadPdf">PDF</button>
       <button class="download-btn" id="downloadWord">Word</button>
@@ -919,10 +927,25 @@ function downloadBlob(content, filename, mimeType) {
   URL.revokeObjectURL(url);
 }
 
+const filenameInput = document.getElementById('filenameInput');
+
 function makeSlug(tmpl, data) {
   const name = data.name || data.fromName || data.yourName || data.personName || '';
   const suffix = name ? '_' + name.replace(/\s+/g, '_') : '';
   return tmpl.name.replace(/\s+/g, '_') + suffix;
+}
+
+function getFilename(tmpl, data) {
+  const custom = filenameInput.value.trim();
+  if (custom) return custom;
+  return makeSlug(tmpl, data);
+}
+
+function updateFilenamePreview() {
+  const tmpl = getTemplate(templateSelect.value);
+  if (!tmpl) return;
+  const data = getData(tmpl);
+  filenameInput.value = makeSlug(tmpl, data);
 }
 
 function getFieldLabel(tmpl, fieldId) {
@@ -1373,14 +1396,14 @@ function downloadWord() {
   const tmpl = getTemplate(templateSelect.value);
   if (!tmpl) return;
   const data = getData(tmpl);
-  downloadBlob(generateHTML(tmpl, data, false), makeSlug(tmpl, data) + '.doc', 'application/msword');
+  downloadBlob(generateHTML(tmpl, data, false), getFilename(tmpl, data) + '.doc', 'application/msword');
 }
 
 function downloadText() {
   const tmpl = getTemplate(templateSelect.value);
   if (!tmpl) return;
   const data = getData(tmpl);
-  downloadBlob(generateText(tmpl, data, false), makeSlug(tmpl, data) + '.txt', 'text/plain;charset=utf-8');
+  downloadBlob(generateText(tmpl, data, false), getFilename(tmpl, data) + '.txt', 'text/plain;charset=utf-8');
 }
 
 function downloadBlank() {
@@ -1553,27 +1576,30 @@ function generatePDF() {
   const data = getData(tmpl);
   const doc = new jspdf.jsPDF();
   tmpl.render(doc, data);
-  doc.save(makeSlug(tmpl, data) + '.pdf');
+  doc.save(getFilename(tmpl, data) + '.pdf');
 }
 
 /* ── Events ── */
 templateSelect.addEventListener('change', () => {
   const tmpl = getTemplate(templateSelect.value);
-  if (tmpl) renderForm(tmpl);
+  if (tmpl) { renderForm(tmpl); updateFilenamePreview(); }
 });
 
 document.getElementById('downloadPdf').addEventListener('click', generatePDF);
 document.getElementById('downloadWord').addEventListener('click', downloadWord);
 document.getElementById('resetBtn').addEventListener('click', () => {
   const tmpl = getTemplate(templateSelect.value);
-  if (tmpl) renderForm(tmpl);
+  if (tmpl) { renderForm(tmpl); updateFilenamePreview(); }
 });
+
+// Update filename preview when form fields change
+templateForm.addEventListener('input', updateFilenamePreview);
 
 /* ── Init ── */
 populateSelector();
 const urlT = new URLSearchParams(location.search).get('t');
 const initial = (urlT && getTemplate(urlT)) || TEMPLATES[0];
-if (initial) { templateSelect.value = initial.id; renderForm(initial); }
+if (initial) { templateSelect.value = initial.id; renderForm(initial); updateFilenamePreview(); }
 </script>
 </body>
 </html>
