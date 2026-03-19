@@ -3,9 +3,9 @@
   "configurations": [
     {
       "name": "dev-server",
-      "runtimeExecutable": "node",
-      "runtimeArgs": ["C:/Users/jimbo/AppData/Roaming/npm/node_modules/http-server/bin/http-server", "-p", "8080", "-c-1", "--cors"],
-      "port": 8080
+      "runtimeExecutable": "C:/Users/jimbo/AppData/Roaming/npm/http-server.cmd",
+      "runtimeArgs": ["-p", "8081", "-c-1", "--cors"],
+      "port": 8081
     }
   ]
 }

@@ -89,6 +89,10 @@
    =========================== */
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
+html {
+  overscroll-behavior: none;
+}
+
 body {
   font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
   background: var(--bg);
@@ -98,7 +102,7 @@ body {
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   touch-action: manipulation;
-  overscroll-behavior-x: none;
+  overscroll-behavior: none;
 }
 
 /* ===========================

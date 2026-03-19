@@ -180,9 +180,27 @@
     .stat-display { font-size: 11px; }
     .toggle-chip { padding: 3px 8px; font-size: 10px; }
   }
+
+  /* ── Landscape lock overlay (mobile only) ── */
+  .rotate-overlay {
+    display: none;
+    position: fixed; inset: 0; z-index: 9999;
+    background: var(--bg); color: var(--text);
+    flex-direction: column; align-items: center; justify-content: center;
+    gap: 16px; text-align: center; padding: 24px;
+  }
+  .rotate-overlay .rotate-icon { font-size: 48px; }
+  .rotate-overlay p { font-size: 16px; color: var(--text-dim); }
+  @media (orientation: landscape) and (max-height: 500px) {
+    .rotate-overlay { display: flex; }
+  }
 </style>
 </head>
 <body>
+<div class="rotate-overlay">
+  <div class="rotate-icon">&#x1f4f1;</div>
+  <p>Please rotate your device to portrait mode to play.</p>
+</div>
 <div class="game-page">
 
   <a href="index.html" class="site-brand">TheFreeFix.com</a>
@@ -430,6 +448,7 @@ function onDragStart(e) {
   if (!gameStarted) { gameStarted = true; startTimer(); stats.addPlay(); }
 
   e.preventDefault();
+  $board.setPointerCapture(e.pointerId);
   const boardRect = $board.getBoundingClientRect();
   const startX = (e.clientX || e.touches?.[0]?.clientX) - boardRect.left;
   const startY = (e.clientY || e.touches?.[0]?.clientY) - boardRect.top;
@@ -437,6 +456,7 @@ function onDragStart(e) {
   dragState = {
     cards: draggable,
     startX, startY,
+    pointerId: e.pointerId,
     offsets: draggable.map(c => ({
       x: parseFloat(c.el.style.left) - startX,
       y: parseFloat(c.el.style.top) - startY,
@@ -471,6 +491,9 @@ function onDragEnd(e) {
   if (!dragState) return;
   const ds = dragState;
   dragState = null;
+  if (ds.pointerId != null) {
+    try { $board.releasePointerCapture(ds.pointerId); } catch(ex) {}
+  }
   ds.cards.forEach(c => c.el.classList.remove('dragging'));
 
   if (!ds.moved) {
