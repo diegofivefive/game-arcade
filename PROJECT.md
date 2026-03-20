@@ -1,76 +1,66 @@
 # TheFreeFix.com — Project Reference
 
 ## What It Is
-TheFreeFix.com is a free online games and tools website. No accounts, no downloads, no paywalls — everything runs in the browser. The site is static HTML/CSS/JS hosted on GitHub Pages with a custom domain via Cloudflare.
+TheFreeFix.com is a free online games and tools website. No accounts, no downloads, no paywalls — everything runs in the browser. Static HTML/CSS/JS hosted on GitHub Pages with a custom domain via Cloudflare.
 
-## Live URLs
+## URLs
 - **Production**: https://thefreefix.com
 - **GitHub Pages**: https://diegofivefive.github.io/game-arcade (redirects to custom domain)
 - **Repo**: https://github.com/diegofivefive/game-arcade
+- **Twitter/X**: https://x.com/TheFreeFix
 
 ## Hosting & Infrastructure
-- **Hosting**: GitHub Pages (static site, deploys from `main` branch)
-- **Domain**: thefreefix.com — DNS managed by Cloudflare, CNAME file in repo root
-- **SSL**: Handled by Cloudflare (proxied)
-- **Deployment**: Push/merge to `main` → GitHub Pages auto-builds (~40s)
+- **Hosting**: GitHub Pages (static site, deploys from `main` branch, ~40s)
+- **Domain**: thefreefix.com — DNS managed by Cloudflare (proxied), CNAME file in repo root
+- **SSL**: Handled by Cloudflare
+- **Dev USB**: `F:\freefixDEV`
 
 ## Goals
 1. Build a library of free browser-based games and tools
-2. Monetize with Google AdSense ads (standard IAB sizes, moderate density — 2 ad slots per page)
-3. Rank in search engines for "free online [game name]" and "free online [tool name]" queries
-4. Clean, modern dark-mode-first UI that works well on mobile and desktop
+2. Monetize with Google AdSense (2 ad slots per page, moderate density)
+3. Rank in search for "free online [game/tool name]" queries
+4. Clean, modern dark-mode-first UI that works on mobile and desktop
+
+## Tech Stack
+- Pure HTML/CSS/JS — no frameworks, no build step
+- CSS custom properties for dark/light theme (dark mode default, `[data-theme="light"]` for light)
+- All game/tool logic is vanilla JS inline in each page's HTML file
+- Shared utilities in `theme.js`: GameTheme, GameTimer, GameStatsManager, GameSettings, Confetti, Modal
+- Shared design system in `theme.css` (665 lines)
+- **CDN dependencies** (tools only):
+  - jsPDF 3.0.3 — document-templates.html (PDF generation)
+  - pdf-lib 1.17.1 — pdf-merge-split.html (PDF manipulation)
+  - JSZip 3.10.1 — pdf-merge-split.html (ZIP creation)
 
 ## Site Structure
 
 ```
-thefreefix.com/                  ← Hub page (2 cards: Games, Tools)
-├── games.html                   ← Games listing (cards for each game)
-│   ├── sudoku.html              ← Sudoku game (4 difficulty levels)
-│   │   └── sudoku-info.html     ← Sudoku info/how-to-play page
-│   ├── minesweeper.html         ← Minesweeper game (3 difficulty levels)
-│   │   └── minesweeper-info.html ← Minesweeper info/how-to-play page
-│   ├── 2048.html                ← 2048 game (slide and merge tiles)
-│   │   └── 2048-info.html       ← 2048 info/how-to-play page
-│   ├── word-leap.html           ← Word Leap game (5-letter word puzzle)
-│   │   └── word-leap-info.html  ← Word Leap info/how-to-play page
-│   ├── block-drop.html          ← Block Drop game (falling-blocks puzzle)
-│   │   └── block-drop-info.html ← Block Drop info/how-to-play page
-│   ├── chess-puzzles.html       ← Chess Puzzles game (20,000 tactical puzzles)
-│   │   └── chess-puzzles-info.html ← Chess Puzzles info/how-to-play page
-│   ├── memory-match.html        ← Memory Match game (card-matching)
-│   │   └── memory-match-info.html ← Memory Match info/how-to-play page
-│   ├── solitaire.html           ← Solitaire Collection (Klondike, Spider, FreeCell)
-│   │   └── solitaire-info.html  ← Solitaire info/how-to-play page
-│   ├── nonograms.html           ← Nonograms (Picross picture logic puzzles)
-│   │   └── nonograms-info.html  ← Nonograms info/how-to-play page
-│   ├── brick-smash.html       ← Brick Smash (classic Breakout-style arcade)
-│   │   └── brick-smash-info.html ← Brick Smash info/how-to-play page
-│   └── bubble-shooter.html       ← Bubble Shooter (aim-and-match arcade puzzle)
-│       └── bubble-shooter-info.html ← Bubble Shooter info/how-to-play page
-├── tools.html                   ← Tools listing
-│   ├── qr-code-generator.html   ← QR Code Generator tool
-│   │   └── qr-code-generator-info.html ← QR Generator info/how-to-use page
-│   ├── word-counter.html        ← Word Counter tool
-│   │   └── word-counter-info.html ← Word Counter info/how-to-use page
-│   ├── pdf-merge-split.html     ← PDF Merge & Split tool
-│   │   └── pdf-merge-split-info.html ← PDF Merge & Split info/how-to-use page
-│   ├── color-palette-generator.html ← Color Palette Generator tool
-│   │   └── color-palette-generator-info.html ← Color Palette info/how-to-use page
-│   ├── image-compressor.html    ← Image Compressor tool
-│   │   └── image-compressor-info.html ← Image Compressor info/how-to-use page
-│   ├── json-formatter.html      ← JSON Formatter & Validator tool
-│   │   └── json-formatter-info.html ← JSON Formatter info/how-to-use page
-│   ├── currency-converter.html  ← Currency Converter tool
-│   │   └── currency-converter-info.html ← Currency Converter info/how-to-use page
-│   ├── document-templates.html  ← Document Templates tool (20+ PDF templates)
-│   │   └── document-templates-info.html ← Document Templates info/how-to-use page
-│   ├── pomodoro-timer.html     ← Pomodoro Timer tool
-│   │   └── pomodoro-timer-info.html ← Pomodoro Timer info/how-to-use page
-│   ├── password-generator.html ← Password Generator tool
-│   │   └── password-generator-info.html ← Password Generator info/how-to-use page
-│   └── unit-converter.html    ← Unit Converter tool
-│       └── unit-converter-info.html ← Unit Converter info/how-to-use page
-├── templates/                   ← SEO landing pages for individual templates
+thefreefix.com/                    ← Hub page (2 cards: Games, Tools)
+├── games.html                     ← Games listing (11 game cards)
+│   ├── sudoku.html                + sudoku-info.html
+│   ├── minesweeper.html           + minesweeper-info.html
+│   ├── 2048.html                  + 2048-info.html
+│   ├── word-leap.html             + word-leap-info.html
+│   ├── block-drop.html            + block-drop-info.html
+│   ├── chess-puzzles.html         + chess-puzzles-info.html
+│   ├── memory-match.html          + memory-match-info.html
+│   ├── solitaire.html             + solitaire-info.html
+│   ├── nonograms.html             + nonograms-info.html
+│   ├── brick-smash.html           + brick-smash-info.html
+│   └── bubble-shooter.html        + bubble-shooter-info.html
+├── tools.html                     ← Tools listing (11 tool cards)
+│   ├── qr-code-generator.html     + qr-code-generator-info.html
+│   ├── word-counter.html          + word-counter-info.html
+│   ├── pdf-merge-split.html       + pdf-merge-split-info.html
+│   ├── color-palette-generator.html + color-palette-generator-info.html
+│   ├── image-compressor.html      + image-compressor-info.html
+│   ├── json-formatter.html        + json-formatter-info.html
+│   ├── currency-converter.html    + currency-converter-info.html
+│   ├── document-templates.html    + document-templates-info.html
+│   ├── pomodoro-timer.html        + pomodoro-timer-info.html
+│   ├── password-generator.html    + password-generator-info.html
+│   └── unit-converter.html        + unit-converter-info.html
+├── templates/                     ← SEO landing pages (20 pages, link to document-templates.html?t=id)
 │   ├── invoice-template.html
 │   ├── receipt-template.html
 │   ├── business-letter-template.html
@@ -91,88 +81,90 @@ thefreefix.com/                  ← Hub page (2 cards: Games, Tools)
 │   ├── moving-checklist-template.html
 │   ├── emergency-contact-sheet-template.html
 │   └── pet-sitter-instructions-template.html
-├── theme.css                    ← Shared stylesheet (all CSS variables, components)
-├── theme.js                     ← Shared JS utilities (theme toggle, timer, stats, confetti, modals)
-├── privacy.html                 ← Privacy policy page
-├── about.html                   ← About page
-├── contact.html                 ← Contact page
-├── terms.html                   ← Terms of Service page
-├── robots.txt                   ← Search engine crawling directives
-├── sitemap.xml                  ← XML sitemap for all pages
-├── ads.txt                      ← Google AdSense authorization
-└── CNAME                        ← GitHub Pages custom domain config
+├── theme.css                      ← Shared design system (CSS variables, components, responsive)
+├── theme.js                       ← Shared JS utilities (theme, timer, stats, settings, confetti, modals)
+├── _template-game.html            ← Scaffold for new games
+├── _template-tool.html            ← Scaffold for new tools
+├── _template-info.html            ← Scaffold for new info/how-to pages
+├── favicon.svg                    ← Site favicon
+├── og-image.png                   ← Shared Open Graph image
+├── 404.html                       ← Custom 404 page
+├── privacy.html                   ← Privacy policy
+├── about.html                     ← About page
+├── contact.html                   ← Contact page
+├── terms.html                     ← Terms of Service
+├── robots.txt                     ← Crawling directives
+├── sitemap.xml                    ← XML sitemap (58 URLs)
+├── ads.txt                        ← AdSense authorization
+├── CNAME                          ← GitHub Pages custom domain (thefreefix.com)
+├── CLAUDE.md                      ← Claude Code instructions
+└── PROJECT.md                     ← This file
 ```
 
-## Navigation Flow
-- **Homepage** → Games card → games.html → individual game page
-- **Homepage** → Tools card → tools.html → individual tool page (future)
-- Every page has a small "TheFreeFix.com" brand link at top → links to homepage
-- Game/tool pages have a back arrow → links to their listing page (games.html or tools.html)
+**Total: ~80 files** (22 game/tool pages + 22 info pages + 20 template landing pages + core files)
 
-## Tech Stack
-- Pure HTML/CSS/JS — no frameworks, no build step, no dependencies
-- CSS custom properties for dark/light theme (dark mode default)
-- All game logic is vanilla JS in each game's HTML file
-- Shared utilities in theme.js: `GameTheme`, `GameTimer`, `GameStatsManager`, `GameSettings`, `Confetti`, `Modal`
+## Navigation Flow
+- **Homepage** → Games card → games.html → individual game → game-info.html
+- **Homepage** → Tools card → tools.html → individual tool → tool-info.html
+- Every page has "TheFreeFix.com" brand link at top → homepage
+- Game/tool pages have back arrow → their listing page (games.html or tools.html)
+- Info pages have back arrow → their parent game/tool page
+- Template landing pages have back arrow + CTA → document-templates.html?t=templateId
 
 ## Design System (theme.css)
-- **Dark mode** (default): Deep purple/navy palette (#0a0a1a bg, #7b6fff accent, #ff5e94 accent2, #00e6b8 accent3)
-- **Light mode**: Clean white/gray with same accent colors adjusted
+- **Dark mode** (default): Deep purple/navy (#0a0a1a bg, #7b6fff accent, #ff5e94 accent2, #00e6b8 accent3)
+- **Light mode** (`[data-theme="light"]`): Clean white/gray (#e4e8f4 bg) with darker accent variants
 - **Font**: System font stack (Segoe UI, system-ui, -apple-system, sans-serif)
-- **Components**: `.icon-btn`, `.pill-selector`/`.pill-btn`, `.stat-chip`, `.tool-btn`, `.toggle-chip`, `.modal-overlay`/`.modal`, `.card`, `.site-brand`, `.game-header`, `.site-footer`
-- **Responsive breakpoints**: 400px (small mobile), 480px (mobile), 768px (tablet), 800px (landscape games)
+- **Radius**: sm 8px, md 12px, lg 16px, xl 20px
+- **Components**: `.icon-btn`, `.pill-selector`/`.pill-btn`, `.stat-chip`, `.toggle-chip`, `.modal-overlay`/`.modal`, `.site-brand`, `.game-header`, `.site-footer`, `.ad-slot`
+- **Responsive breakpoints**: 400px (small phones), 768px (mobile/tablet), 800px+500px (landscape games)
+- **Animations**: fadeIn, slideUp, confettiFall, shake, pop
 
-## SEO (implemented)
-- Meta descriptions, Open Graph, Twitter Cards on all pages
+## SEO (all pages)
+- Meta descriptions, Open Graph, Twitter Cards (`@TheFreeFix`)
 - Canonical URLs pointing to thefreefix.com
-- Schema.org JSON-LD: `WebSite` (homepage), `CollectionPage` + `ItemList` (listings), `VideoGame` (games)
-- robots.txt + sitemap.xml
+- Schema.org JSON-LD: `WebSite` (homepage), `CollectionPage`+`ItemList` (listings), `VideoGame` (games), `WebApplication` (tools), `Article` (info & template pages)
 - Semantic titles: "[Page] - TheFreeFix.com"
+- robots.txt + sitemap.xml (58 URLs)
+- Shared og-image.png across all pages
 
-## Ads (implemented — placeholder containers)
-- 2 ad slots per page (moderate density)
-- Standard IAB sizes: 728×90 desktop, 320×50 mobile (responsive)
-- CSS classes: `.ad-slot`, `.ad-banner`, `.ad-sidebar`, `.ad-sticky`, `.ad-slot--placeholder`
-- Placeholders show dashed borders with size labels
-- Ad network: Google AdSense (script integrated on all pages, ads.txt in repo root)
+## Ads (Google AdSense)
+- Account: `ca-pub-7700405385978151`
+- 2 ad slots per page (placeholder containers during development)
+- Desktop: 728x90 leaderboard, Mobile: 320x50 banner
+- CSS classes: `.ad-slot` + `.ad-content` (top) or `.ad-bottom` (bottom), `.ad-slot--placeholder`
+- ads.txt in repo root
 
-## Current Games
-1. **Sudoku** — Full-featured: 4 difficulty levels (easy/medium/hard/expert), notes mode, hints (3 per game), undo, error checking, stats tracking, best times per difficulty, keyboard support, landscape layout on wide screens
-2. **Minesweeper** — 3 difficulty levels (beginner 9×9, intermediate 16×16, expert 16×30), flagging, chord clicking, timer, stats tracking, best times per difficulty
-3. **2048** — Slide and merge tiles to reach 2048. Arrow keys + swipe controls, score tracking, best score persistence, timer, stats tracking, keep playing after win
-4. **Word Leap** — Guess the 5-letter word in 6 tries. Animated tile reveals, on-screen keyboard with color-coded letter states, stats tracking with guess distribution, physical keyboard support. ~700 answer words, ~2500 valid guesses.
-5. **Block Drop** — Classic falling-blocks puzzle game. Stack, rotate, and clear lines to rack up points. Touch and keyboard controls.
-6. **Chess Puzzles** — Solve 20,000 chess puzzles from real Lichess games. Four difficulty levels from beginner to master.
-7. **Memory Match** — Classic card-matching memory game. Flip cards, find pairs, and test your memory across multiple difficulty levels.
-8. **Solitaire Collection** — Three classic solitaire card games: Klondike, Spider, and FreeCell.
-9. **Nonograms** — Picross/Griddlers picture logic puzzles. Fill cells based on row and column number clues. Four difficulty levels (5x5, 10x10, 15x15, 20x20), auto-cross completed clues, error checking, undo, timer, stats tracking, keyboard support.
-10. **Brick Smash** — Classic Breakout-style arcade game. Canvas-based with requestAnimationFrame game loop. Paddle follows mouse/touch/keyboard. 3 brick types (normal, strong, unbreakable), 3 power-ups (wide paddle, multi-ball, extra life). 10 handcrafted levels plus procedural generation for 11+. Particle effects, ball glow trail, responsive sizing.
-11. **Bubble Shooter** — Classic aim-and-match arcade puzzle. Canvas-based with hex grid layout. Shoot colored bubbles to match 3+ and pop them. Disconnected clusters fall for bonus points. Ceiling descends every N shots. 6 bubble colors introduced progressively, combo scoring, glossy bubble rendering with radial gradients and glow effects. Mouse/touch/keyboard controls with trajectory preview line.
+## Current Games (11)
+1. **Sudoku** — 4 difficulty levels (easy/medium/hard/expert), notes mode, hints (3/game), undo, error checking, stats tracking, best times, keyboard support, landscape layout on wide screens
+2. **Minesweeper** — 3 difficulty levels (beginner 9x9, intermediate 16x16, expert 16x30), flagging, chord clicking, timer, stats, best times. Expert board uses horizontal scroll on mobile.
+3. **2048** — Slide and merge tiles. Arrow keys + swipe controls, score tracking, best score persistence, timer, stats, keep playing after win
+4. **Word Leap** — 5-letter word guessing in 6 tries. Animated tile reveals, on-screen keyboard with color states, stats with guess distribution, physical keyboard support. ~700 answers, ~2500 valid guesses.
+5. **Block Drop** — Falling-blocks puzzle. Stack, rotate, clear lines. Touch and keyboard controls.
+6. **Chess Puzzles** — 20,000 tactical puzzles from real Lichess games. Four difficulty levels (beginner to master).
+7. **Memory Match** — Card-matching memory game across multiple difficulty levels.
+8. **Solitaire Collection** — Three variants: Klondike, Spider, FreeCell.
+9. **Nonograms** — Picross picture logic puzzles. Four difficulty levels (5x5 to 20x20), auto-cross completed clues, error checking, undo, timer, stats, keyboard support.
+10. **Brick Smash** — Breakout-style arcade. Canvas-based, requestAnimationFrame loop. Mouse/touch/keyboard. 3 brick types, 3 power-ups, 10 handcrafted levels + procedural generation for 11+. Particle effects, ball glow trail.
+11. **Bubble Shooter** — Aim-and-match arcade puzzle. Canvas-based, hex grid. Match 3+ to pop. Disconnected clusters fall for bonus. Ceiling descends every N shots. 6 colors introduced progressively, combo scoring, glossy rendering. Mouse/touch/keyboard with trajectory preview.
 
-## Planned Games
-- (None currently listed)
+## Current Tools (11)
+1. **QR Code Generator** — Auto-generation with debounce, custom FG/BG colors, 3 sizes (S/M/L), download as PNG. Self-contained QR encoder (byte mode, EC level M, versions 1-40, Reed-Solomon).
+2. **Word Counter** — Words, characters (with/without spaces), sentences, paragraphs, reading time (238 WPM). Live updates, responsive 3-column stat grid.
+3. **PDF Merge & Split** — Drag-and-drop upload, drag-to-reorder merge, extract pages by range, split all to ZIP. Uses pdf-lib + JSZip (CDN). All in-browser.
+4. **Color Palette Generator** — Harmony modes, lock colors, adjust hues, export to CSS or JSON.
+5. **Image Compressor** — Compress JPEG/PNG/WebP in-browser. No server uploads.
+6. **JSON Formatter & Validator** — Format, validate, minify with syntax highlighting and error detection.
+7. **Currency Converter** — 30+ currencies via Frankfurter API (ECB rates). Two-way conversion, swap, quick picks, localStorage caching, status indicator. No API key.
+8. **Document Templates** — 20+ PDF templates across 4 categories (Business, Personal, Legal, Everyday). Dynamic forms, line items, legal variable substitution. Uses jsPDF (CDN). Each template has an SEO landing page in `templates/` linking to `document-templates.html?t=templateId`.
+9. **Pomodoro Timer** — Customizable Pomodoro sessions with focus tracking.
+10. **Password Generator** — Length 4-128, character type toggles, exclude ambiguous, entropy strength meter, bulk generation (5), session history (10). Uses crypto.getRandomValues(). All in-browser.
+11. **Unit Converter** — 80+ units across 10 categories (Length, Weight, Temperature, Volume, Area, Speed, Time, Data, Energy, Pressure). Real-time conversion, swap, formula display, quick-pick shortcuts. Decimal + binary data units.
 
-## Current Tools
-1. **QR Code Generator** — Generate QR codes for any URL or text. Features: auto-generation on input with debounce, customizable foreground/background colors, three size options (S/M/L), download as PNG. Self-contained QR encoder in vanilla JS (byte mode, EC level M, versions 1-40, Reed-Solomon error correction).
-2. **Word Counter** — Count words, characters (with/without spaces), sentences, paragraphs, and estimate reading time. Live updates on input, reading speed based on 238 WPM average. Responsive 3-column stat grid (2 columns on small phones).
-3. **PDF Merge & Split** — Merge multiple PDFs into one or split a PDF into separate files. Features: drag-and-drop file upload, drag-to-reorder for merge, extract specific pages by range, split all pages into a ZIP archive. Uses pdf-lib (CDN) for PDF manipulation and JSZip (CDN) for ZIP creation. All processing in-browser, no server uploads.
-4. **Color Palette Generator** — Generate beautiful color palettes for designs. Harmony modes, lock colors, adjust hues, export to CSS or JSON.
-5. **Image Compressor** — Compress JPEG, PNG, and WebP images in-browser. No uploads to any server.
-6. **JSON Formatter & Validator** — Format, validate, and minify JSON with instant syntax highlighting and error detection.
-7. **Currency Converter** — Convert between 30+ world currencies with daily exchange rates from the European Central Bank (ECB) via Frankfurter API. Two-way conversion (type in either field), swap button, popular currency quick picks, rate caching in localStorage for offline use, status indicator (green=fresh, yellow=cached). No API key required.
-8. **Document Templates** — Generate professional PDF documents from 20+ templates across 4 categories (Business, Personal, Legal, Everyday). Templates include Invoice, Receipt, Business Letter, Resume, Cover Letter, NDA, Lease Agreement, Bill of Sale, and more. Dynamic form fields, line items for invoices/receipts, legal document variable substitution. Uses jsPDF (CDN) for client-side PDF generation. All processing in-browser, no data sent to any server. Each template has an individual SEO landing page in the `templates/` folder targeting specific search queries (e.g., "free invoice template"). Landing pages link to the tool with `?t=templateId` to auto-select the template.
-9. **Pomodoro Timer** — Stay focused with customizable Pomodoro sessions.
-10. **Password Generator** — Generate strong, secure passwords instantly. Customizable length (4-128 chars), character type toggles (uppercase, lowercase, numbers, symbols), exclude ambiguous characters option, entropy-based strength meter, bulk generation (5 at once), session-only history (last 10). Uses crypto.getRandomValues() for cryptographically secure randomness. All processing in-browser, no passwords sent to any server.
-11. **Unit Converter** — Convert between 80+ units across 10 categories (Length, Weight, Temperature, Volume, Area, Speed, Time, Data, Energy, Pressure). Real-time conversion as you type, swap button, conversion formula display, popular quick-pick shortcuts. Temperature uses exact formulas. Data includes both decimal (KB/MB/GB) and binary (KiB/MiB/GiB) units. All processing in-browser.
-
-## Key Implementation Details
-- **Minesweeper board overflow**: Expert mode (16×30) exceeds mobile viewport. Uses `overflow-x: auto` on `.board-wrap` with `width: 100%` to enable horizontal scrolling without clipping.
-- **Sudoku landscape**: At 800px+ width and 500px+ height, switches to side-by-side layout (board left, controls right)
-- **Timer management**: Old timer interval must be stopped before creating new `GameTimer` to prevent multiple intervals fighting
-- **Stats persistence**: All game stats stored in localStorage per game and difficulty level
-- **Theme persistence**: Dark/light preference stored in localStorage, applied on page load
-
-## Git Workflow
-- Development happens on the dev USB (F:\games)
-- Push directly to `main` on GitHub for deployment
-- GitHub Pages auto-deploys from `main` branch (~40s)
+## Key Implementation Notes
+- **localStorage**: All stats, settings, theme preference, and best times persist per game/difficulty
+- **Timer management**: Stop old GameTimer interval before creating a new one to prevent conflicts
+- **Minesweeper overflow**: Expert 16x30 board uses `overflow-x: auto` on `.board-wrap` for mobile horizontal scroll
+- **Sudoku landscape**: 800px+ width + 500px+ height triggers side-by-side layout (board left, controls right)
+- **Canvas games** (Brick Smash, Bubble Shooter): Use requestAnimationFrame loop, responsive canvas sizing
+- **All processing in-browser**: No data leaves the client (PDF tools, password generator, image compressor, etc.)
