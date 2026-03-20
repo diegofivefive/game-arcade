@@ -90,13 +90,11 @@
   }
   .board-container {
     position: relative;
-    display: flex;
-    justify-content: center;
+    flex-shrink: 1;
+    min-width: 0;
   }
   #gameCanvas {
     display: block;
-    width: 100%;
-    height: auto;
     background: var(--bg2);
     border: 2px solid var(--card-border);
     border-radius: var(--radius-md);
@@ -350,6 +348,9 @@ function sizeBoard() {
   CANVAS_H = Math.floor(Math.max(h, 270));
   canvas.width = CANVAS_W;
   canvas.height = CANVAS_H;
+  // Set CSS display size to match exactly — prevents white bar
+  canvas.style.width = CANVAS_W + 'px';
+  canvas.style.height = CANVAS_H + 'px';
 
   BUBBLE_R = Math.floor(CANVAS_W / (GRID_COLS * 2 + 1));
   if (BUBBLE_R < 8) BUBBLE_R = 8;
