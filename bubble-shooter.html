@@ -1245,6 +1245,8 @@ function drawShooter() {
 }
 
 function draw() {
+  // Always reset to origin — prevents shake drift
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
   ctx.clearRect(0, 0, CANVAS_W, CANVAS_H);
 
   // Screen shake transform
@@ -1412,6 +1414,8 @@ function draw() {
 
   // End screen shake transform
   ctx.restore();
+  // Hard reset to origin — ensures no residual offset
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
 }
 
 // --- Game State ---
