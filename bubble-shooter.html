@@ -63,6 +63,9 @@
     width: 72px;
     flex-shrink: 0;
   }
+  .combo-box { background: linear-gradient(135deg, var(--accent), var(--accent2)); }
+  .combo-box .p-label { color: rgba(255,255,255,0.7); }
+  .combo-box .p-value { color: #fff; }
   .panel-box {
     background: var(--card);
     border: 1px solid var(--card-border);
@@ -213,6 +216,10 @@
         <div class="p-label">Shots</div>
         <div class="p-value" id="shotsDisplay">8</div>
       </div>
+      <div class="panel-box combo-box" id="comboBox" style="display:none;">
+        <div class="p-label">Combo</div>
+        <div class="p-value" id="comboDisplay">x2</div>
+      </div>
     </div>
 
     <div class="board-container">
@@ -269,7 +276,7 @@ GameTheme.init();
 
 // --- Constants ---
 const GRID_COLS = 10;
-const BUBBLE_COLORS = ['#7b6fff','#ff5e94','#00e6b8','#ffd666','#ff9f43','#54a0ff'];
+const BUBBLE_COLORS = ['#7b6fff','#ff5e94','#00e6b8','#ffd666','#ff9f43','#40cfff'];
 const BASE_SHOTS = 8;
 
 // --- DOM ---
@@ -300,7 +307,24 @@ let fallingBubbles = [];
 let floatingTexts = [];
 let snapAnims = [];
 let descentAnim = null; // { progress: 0..1 } for ceiling slide-in
+let ringWaves = [];       // expanding ring shockwaves
+let comboBanner = null;   // { text, time, color }
+let screenShake = { x: 0, y: 0, intensity: 0, time: 0 };
+let trailParticles = [];  // trail behind shot bubble
+let dangerPulse = 0;      // 0..1 pulse phase for danger warning
 let stats = null;
+
+// Special bubble types
+const SPECIAL_RAINBOW = 'rainbow';
+const SPECIAL_BOMB = 'bomb';
+const COMBO_LABELS = [
+  null, null,
+  { text: 'NICE!', color: '#ffd666' },
+  { text: 'GREAT!', color: '#ff9f43' },
+  { text: 'AMAZING!', color: '#ff5e94' },
+  { text: 'INCREDIBLE!', color: '#7b6fff' },
+  { text: 'UNSTOPPABLE!', color: '#00e6b8' }
+];
 
 // --- Sizing ---
 function sizeBoard() {
@@ -406,7 +430,15 @@ function getGridBubble(row, col) {
 
 // --- Color Helpers ---
 function pickRandomColor() {
+  // ~3% chance rainbow, ~2% chance bomb (only after level 2)
+  const roll = Math.random();
+  if (roll < 0.03) return SPECIAL_RAINBOW;
+  if (currentLevel >= 2 && roll < 0.05) return SPECIAL_BOMB;
   return BUBBLE_COLORS[Math.floor(Math.random() * activeColorCount)];
+}
+
+function isSpecial(color) {
+  return color === SPECIAL_RAINBOW || color === SPECIAL_BOMB;
 }
 
 function darken(hex, amt) {
@@ -424,6 +456,11 @@ function lighten(hex, amt) {
 }
 
 // --- Init Grid ---
+function pickGridColor() {
+  // Grid bubbles never get special types
+  return BUBBLE_COLORS[Math.floor(Math.random() * activeColorCount)];
+}
+
 function initGrid() {
   grid = [];
   const initialRows = 6;
@@ -431,7 +468,7 @@ function initGrid() {
     const maxC = colsForRow(r);
     grid[r] = [];
     for (let c = 0; c < maxC; c++) {
-      const color = pickRandomColor();
+      const color = pickGridColor();
       const pos = cellToPixel(r, c);
       grid[r][c] = { color, row: r, col: c, x: pos.x, y: pos.y };
     }
@@ -443,6 +480,24 @@ function findMatches(startRow, startCol) {
   const bubble = getGridBubble(startRow, startCol);
   if (!bubble) return [];
   const color = bubble.color;
+
+  // Rainbow matches whatever it lands next to — find dominant neighbor color
+  let matchColor = color;
+  if (color === SPECIAL_RAINBOW) {
+    const colorCounts = {};
+    for (const n of getNeighbors(startRow, startCol)) {
+      const nb = getGridBubble(n.row, n.col);
+      if (nb && !isSpecial(nb.color)) {
+        colorCounts[nb.color] = (colorCounts[nb.color] || 0) + 1;
+      }
+    }
+    let maxCount = 0;
+    for (const [c, cnt] of Object.entries(colorCounts)) {
+      if (cnt > maxCount) { maxCount = cnt; matchColor = c; }
+    }
+    if (maxCount === 0) return []; // no neighbors
+  }
+
   const visited = new Set();
   const queue = [{ row: startRow, col: startCol }];
   const matched = [];
@@ -456,7 +511,7 @@ function findMatches(startRow, startCol) {
       if (visited.has(key)) continue;
       visited.add(key);
       const nb = getGridBubble(n.row, n.col);
-      if (nb && nb.color === color) queue.push(n);
+      if (nb && (nb.color === matchColor || nb.color === SPECIAL_RAINBOW)) queue.push(n);
     }
   }
   return matched;
@@ -505,21 +560,73 @@ function popBubbles(matches) {
     const b = grid[row][col];
     if (!b) continue;
     cx += b.x; cy += b.y;
-    popAnims.push({ x: b.x, y: b.y, color: b.color, r: BUBBLE_R, scale: 1, opacity: 1, time: 0 });
-    spawnParticles(b.x, b.y, b.color, 8);
+    const popColor = isSpecial(b.color) ? '#fff' : b.color;
+    popAnims.push({ x: b.x, y: b.y, color: popColor, r: BUBBLE_R, scale: 1, opacity: 1, time: 0 });
+    spawnParticles(b.x, b.y, popColor, 8);
     grid[row][col] = null;
   }
   const pts = Math.floor(matches.length * 10 * (1 + comboCount * 0.5));
   score += pts;
   totalPopped += matches.length;
 
-  // Floating score text at center of cluster
   cx /= matches.length; cy /= matches.length;
   floatingTexts.push({
     x: cx, y: cy, text: '+' + pts,
     color: comboCount > 0 ? '#ffd666' : '#fff',
     time: 0, fontSize: Math.min(18, 12 + comboCount * 2)
   });
+
+  // Ring wave shockwave at center
+  ringWaves.push({ x: cx, y: cy, time: 0, maxR: BUBBLE_R * (2 + matches.length * 0.5), color: matches.length >= 5 ? '#ffd666' : '#fff' });
+
+  // Screen shake — scales with pop size
+  if (matches.length >= 3) {
+    screenShake.intensity = Math.min(8, 2 + matches.length);
+    screenShake.time = 200;
+  }
+}
+
+// Bomb explosion — clear all bubbles within a radius
+function explodeBomb(row, col) {
+  const center = cellToPixel(row, col);
+  const blastR = BUBBLE_R * 5;
+  const blastSq = blastR * blastR;
+  const exploded = [];
+
+  for (let r = 0; r < grid.length; r++) {
+    if (!grid[r]) continue;
+    for (let c = 0; c < grid[r].length; c++) {
+      const b = grid[r][c];
+      if (!b) continue;
+      const dx = b.x - center.x, dy = b.y - center.y;
+      if (dx * dx + dy * dy <= blastSq) {
+        exploded.push({ row: r, col: c });
+      }
+    }
+  }
+
+  // Remove + animate
+  let cx = 0, cy = 0;
+  for (const { row: er, col: ec } of exploded) {
+    const b = grid[er][ec];
+    cx += b.x; cy += b.y;
+    popAnims.push({ x: b.x, y: b.y, color: '#ff4444', r: BUBBLE_R, scale: 1, opacity: 1, time: 0 });
+    spawnParticles(b.x, b.y, '#ff9f43', 6);
+    grid[er][ec] = null;
+  }
+  if (exploded.length === 0) return 0;
+
+  const pts = exploded.length * 15;
+  score += pts;
+  totalPopped += exploded.length;
+
+  cx /= exploded.length; cy /= exploded.length;
+  floatingTexts.push({ x: cx, y: cy, text: 'BOOM +' + pts, color: '#ff4444', time: 0, fontSize: 18 });
+  ringWaves.push({ x: cx, y: cy, time: 0, maxR: blastR, color: '#ff4444' });
+  screenShake.intensity = 10;
+  screenShake.time = 350;
+
+  return exploded.length;
 }
 
 // --- Drop Disconnected ---
@@ -560,7 +667,7 @@ function descendCeiling() {
   // old row 0 (even) becomes row 1 (odd), etc.
   // So new row at index 0 gets colsForRow(0) = GRID_COLS
   for (let c = 0; c < GRID_COLS; c++) {
-    const color = pickRandomColor();
+    const color = pickGridColor();
     newRow.push({ color, row: 0, col: c, x: 0, y: 0 });
   }
   grid.unshift(newRow);
@@ -633,24 +740,43 @@ function snapBubble(bubble) {
   activeBubble = null;
 
   // Snap bounce animation
-  snapAnims.push({ x: pos.x, y: pos.y, time: 0, color: bubble.color });
+  const snapColor = isSpecial(bubble.color) ? '#fff' : bubble.color;
+  snapAnims.push({ x: pos.x, y: pos.y, time: 0, color: snapColor });
 
-  // Match check
-  const matches = findMatches(row, col);
-  if (matches.length >= 3) {
-    popBubbles(matches);
+  // Bomb special — explode area instead of matching
+  if (bubble.color === SPECIAL_BOMB) {
+    grid[row][col] = null; // remove the bomb itself
+    explodeBomb(row, col);
     const disconnected = findDisconnected();
     if (disconnected.length > 0) dropBubbles(disconnected);
     comboCount++;
-    // Level progression
-    const newLevel = Math.floor(score / 500) + 1;
-    if (newLevel > currentLevel) {
-      currentLevel = newLevel;
-      activeColorCount = Math.min(6, 4 + Math.floor((currentLevel - 1) / 2));
-      Confetti.launch(25);
-    }
+    showComboBanner();
   } else {
-    comboCount = 0;
+    // Match check
+    const matches = findMatches(row, col);
+    if (matches.length >= 3) {
+      popBubbles(matches);
+      const disconnected = findDisconnected();
+      if (disconnected.length > 0) {
+        dropBubbles(disconnected);
+        // Extra shake for big cascade drops
+        if (disconnected.length >= 4) {
+          screenShake.intensity = Math.min(10, 3 + disconnected.length);
+          screenShake.time = 250;
+        }
+      }
+      comboCount++;
+      showComboBanner();
+      // Level progression
+      const newLevel = Math.floor(score / 500) + 1;
+      if (newLevel > currentLevel) {
+        currentLevel = newLevel;
+        activeColorCount = Math.min(6, 4 + Math.floor((currentLevel - 1) / 2));
+        Confetti.launch(25);
+      }
+    } else {
+      comboCount = 0;
+    }
   }
 
   // Shots countdown
@@ -669,6 +795,14 @@ function snapBubble(bubble) {
   currentColor = nextColor;
   nextColor = pickRandomColor();
   updateDisplay();
+}
+
+function showComboBanner() {
+  const idx = Math.min(comboCount, COMBO_LABELS.length - 1);
+  const label = COMBO_LABELS[idx];
+  if (label) {
+    comboBanner = { text: label.text, color: label.color, time: 0 };
+  }
 }
 
 // --- Shooting ---
@@ -824,24 +958,151 @@ function updateDescentAnim(dt) {
   if (descentAnim.progress >= 1) descentAnim = null;
 }
 
+function updateRingWaves(dt) {
+  for (let i = ringWaves.length - 1; i >= 0; i--) {
+    const rw = ringWaves[i];
+    rw.time += dt;
+    if (rw.time > 400) ringWaves.splice(i, 1);
+  }
+}
+
+function updateScreenShake(dt) {
+  if (screenShake.time <= 0) { screenShake.x = 0; screenShake.y = 0; return; }
+  screenShake.time -= dt;
+  const decay = screenShake.time / 200;
+  const intensity = screenShake.intensity * decay;
+  screenShake.x = (Math.random() - 0.5) * intensity * 2;
+  screenShake.y = (Math.random() - 0.5) * intensity * 2;
+}
+
+function updateTrailParticles(dt) {
+  // Spawn trail behind active bubble
+  if (activeBubble) {
+    if (trailParticles.length < 80) {
+      const trailColor = isSpecial(activeBubble.color) ? '#fff' : activeBubble.color;
+      trailParticles.push({
+        x: activeBubble.x + (Math.random() - 0.5) * BUBBLE_R * 0.5,
+        y: activeBubble.y + (Math.random() - 0.5) * BUBBLE_R * 0.5,
+        life: 200, maxLife: 200,
+        color: trailColor,
+        size: 1.5 + Math.random() * 2.5
+      });
+    }
+  }
+  for (let i = trailParticles.length - 1; i >= 0; i--) {
+    const tp = trailParticles[i];
+    tp.life -= dt;
+    tp.size *= 0.985;
+    if (tp.life <= 0) trailParticles.splice(i, 1);
+  }
+}
+
+function updateComboBanner(dt) {
+  if (!comboBanner) return;
+  comboBanner.time += dt;
+  if (comboBanner.time > 1200) comboBanner = null;
+}
+
+function updateDangerPulse(dt) {
+  // Check if any bubble is near danger line
+  let nearDanger = false;
+  for (let r = 0; r < grid.length; r++) {
+    if (!grid[r]) continue;
+    for (let c = 0; c < grid[r].length; c++) {
+      if (grid[r][c] && grid[r][c].y + BUBBLE_R * 2 >= DANGER_Y) {
+        nearDanger = true;
+        break;
+      }
+    }
+    if (nearDanger) break;
+  }
+  if (nearDanger) {
+    dangerPulse += dt * 0.004;
+    if (dangerPulse > Math.PI * 2) dangerPulse -= Math.PI * 2;
+  } else {
+    dangerPulse = 0;
+  }
+}
+
 // --- Drawing ---
 function drawBubble(x, y, color, r) {
   ctx.save();
+
+  // Special: Rainbow bubble
+  if (color === SPECIAL_RAINBOW) {
+    const t = performance.now() / 600;
+    const rainbowGrad = ctx.createConicGradient(t, x, y);
+    rainbowGrad.addColorStop(0, '#ff5e94');
+    rainbowGrad.addColorStop(0.17, '#ffd666');
+    rainbowGrad.addColorStop(0.33, '#00e6b8');
+    rainbowGrad.addColorStop(0.5, '#40cfff');
+    rainbowGrad.addColorStop(0.67, '#7b6fff');
+    rainbowGrad.addColorStop(0.83, '#ff9f43');
+    rainbowGrad.addColorStop(1, '#ff5e94');
+    ctx.beginPath();
+    ctx.arc(x, y, r * 0.92, 0, Math.PI * 2);
+    ctx.fillStyle = rainbowGrad;
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(255,255,255,0.5)';
+    ctx.lineWidth = 1.2;
+    ctx.stroke();
+    // White star highlight
+    ctx.beginPath();
+    ctx.arc(x - r * 0.2, y - r * 0.25, r * 0.18, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(255,255,255,0.6)';
+    ctx.fill();
+    ctx.restore();
+    return;
+  }
+
+  // Special: Bomb bubble
+  if (color === SPECIAL_BOMB) {
+    ctx.shadowColor = '#ff3333';
+    ctx.shadowBlur = r * 0.3;
+    const grad = ctx.createRadialGradient(x - r * 0.2, y - r * 0.2, r * 0.1, x, y, r);
+    grad.addColorStop(0, '#ff6666');
+    grad.addColorStop(0.4, '#cc2222');
+    grad.addColorStop(1, '#660000');
+    ctx.beginPath();
+    ctx.arc(x, y, r * 0.92, 0, Math.PI * 2);
+    ctx.fillStyle = grad;
+    ctx.fill();
+    ctx.shadowBlur = 0;
+    ctx.strokeStyle = '#ff4444';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+    // Bomb icon (small star/spark)
+    ctx.fillStyle = '#ffd666';
+    ctx.font = 'bold ' + (r * 0.8) + 'px system-ui';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('\u2733', x, y);
+    ctx.restore();
+    return;
+  }
+
+  // Normal bubble
   ctx.shadowColor = color;
-  ctx.shadowBlur = r * 0.4;
+  ctx.shadowBlur = r * 0.15;
   const grad = ctx.createRadialGradient(x - r * 0.3, y - r * 0.3, r * 0.1, x, y, r);
-  grad.addColorStop(0, lighten(color, 0.45));
-  grad.addColorStop(0.5, color);
-  grad.addColorStop(1, darken(color, 0.35));
+  grad.addColorStop(0, lighten(color, 0.5));
+  grad.addColorStop(0.45, color);
+  grad.addColorStop(1, darken(color, 0.4));
   ctx.beginPath();
   ctx.arc(x, y, r * 0.92, 0, Math.PI * 2);
   ctx.fillStyle = grad;
   ctx.fill();
   ctx.shadowBlur = 0;
+  // Crisp edge ring for definition
+  ctx.beginPath();
+  ctx.arc(x, y, r * 0.92, 0, Math.PI * 2);
+  ctx.strokeStyle = darken(color, 0.25);
+  ctx.lineWidth = 0.8;
+  ctx.stroke();
   // Highlight
   ctx.beginPath();
   ctx.arc(x - r * 0.25, y - r * 0.3, r * 0.22, 0, Math.PI * 2);
-  ctx.fillStyle = 'rgba(255,255,255,0.38)';
+  ctx.fillStyle = 'rgba(255,255,255,0.4)';
   ctx.fill();
   ctx.restore();
 }
@@ -886,14 +1147,25 @@ function drawTrajectory() {
 
 function drawDangerLine() {
   ctx.save();
+  const pulseAlpha = dangerPulse > 0 ? 0.15 + Math.sin(dangerPulse) * 0.2 : 0.15;
   ctx.setLineDash([6, 5]);
-  ctx.strokeStyle = 'rgba(255,94,148,0.15)';
-  ctx.lineWidth = 1;
+  ctx.strokeStyle = `rgba(255,94,148,${pulseAlpha.toFixed(2)})`;
+  ctx.lineWidth = dangerPulse > 0 ? 2 : 1;
   ctx.beginPath();
   ctx.moveTo(0, DANGER_Y);
   ctx.lineTo(CANVAS_W, DANGER_Y);
   ctx.stroke();
   ctx.setLineDash([]);
+
+  // Danger zone glow when pulsing
+  if (dangerPulse > 0) {
+    const glowAlpha = Math.max(0, Math.sin(dangerPulse) * 0.08);
+    const grad = ctx.createLinearGradient(0, DANGER_Y - BUBBLE_R * 3, 0, DANGER_Y);
+    grad.addColorStop(0, 'rgba(255,94,148,0)');
+    grad.addColorStop(1, `rgba(255,94,148,${glowAlpha.toFixed(3)})`);
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, DANGER_Y - BUBBLE_R * 3, CANVAS_W, BUBBLE_R * 3);
+  }
   ctx.restore();
 }
 
@@ -925,12 +1197,18 @@ function drawShooter() {
 function draw() {
   ctx.clearRect(0, 0, CANVAS_W, CANVAS_H);
 
+  // Screen shake transform
+  ctx.save();
+  if (screenShake.time > 0) {
+    ctx.translate(screenShake.x, screenShake.y);
+  }
+
   // Background
   const bgGrad = ctx.createLinearGradient(0, 0, 0, CANVAS_H);
   bgGrad.addColorStop(0, '#0d0d22');
   bgGrad.addColorStop(1, '#111128');
   ctx.fillStyle = bgGrad;
-  ctx.fillRect(0, 0, CANVAS_W, CANVAS_H);
+  ctx.fillRect(-10, -10, CANVAS_W + 20, CANVAS_H + 20);
 
   // Danger line
   drawDangerLine();
@@ -1011,14 +1289,79 @@ function draw() {
   }
   ctx.globalAlpha = 1;
 
+  // Trail particles (behind active bubble)
+  for (const tp of trailParticles) {
+    const alpha = Math.max(0, tp.life / tp.maxLife) * 0.6;
+    ctx.globalAlpha = alpha;
+    ctx.fillStyle = tp.color;
+    ctx.beginPath();
+    ctx.arc(tp.x, tp.y, tp.size, 0, Math.PI * 2);
+    ctx.fill();
+  }
+  ctx.globalAlpha = 1;
+
   // Trajectory
   if (gameState === 'playing') drawTrajectory();
 
   // Active bubble
   if (activeBubble) drawBubble(activeBubble.x, activeBubble.y, activeBubble.color, BUBBLE_R);
 
+  // Ring wave shockwaves
+  for (const rw of ringWaves) {
+    const t = rw.time / 400;
+    const r = rw.maxR * t;
+    const alpha = 1 - t;
+    ctx.save();
+    ctx.globalAlpha = alpha * 0.5;
+    ctx.strokeStyle = rw.color;
+    ctx.lineWidth = 2.5 * (1 - t) + 0.5;
+    ctx.shadowColor = rw.color;
+    ctx.shadowBlur = 8;
+    ctx.beginPath();
+    ctx.arc(rw.x, rw.y, r, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.restore();
+  }
+
+  // Combo banner
+  if (comboBanner) {
+    const t = comboBanner.time;
+    let alpha = 1;
+    let scale = 1;
+    if (t < 150) {
+      // Pop in
+      const p = t / 150;
+      scale = 0.3 + 0.7 * (1 - Math.pow(1 - p, 3));
+      alpha = p;
+    } else if (t > 900) {
+      // Fade out
+      alpha = 1 - (t - 900) / 300;
+    }
+    const fontSize = Math.min(32, CANVAS_W * 0.09);
+    ctx.save();
+    ctx.globalAlpha = Math.max(0, alpha);
+    ctx.translate(CANVAS_W / 2, CANVAS_H * 0.42);
+    ctx.scale(scale, scale);
+    ctx.font = 'bold ' + fontSize + 'px system-ui';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    // Shadow
+    ctx.shadowColor = 'rgba(0,0,0,0.7)';
+    ctx.shadowBlur = 8;
+    // Text with gradient-like outline
+    ctx.strokeStyle = 'rgba(0,0,0,0.5)';
+    ctx.lineWidth = 3;
+    ctx.strokeText(comboBanner.text, 0, 0);
+    ctx.fillStyle = comboBanner.color;
+    ctx.fillText(comboBanner.text, 0, 0);
+    ctx.restore();
+  }
+
   // Shooter
   drawShooter();
+
+  // End screen shake transform
+  ctx.restore();
 }
 
 // --- Game State ---
@@ -1068,6 +1411,11 @@ function startGame() {
   floatingTexts = [];
   snapAnims = [];
   descentAnim = null;
+  ringWaves = [];
+  comboBanner = null;
+  screenShake = { x: 0, y: 0, intensity: 0, time: 0 };
+  trailParticles = [];
+  dangerPulse = 0;
   aimAngle = -Math.PI / 2;
 
   sizeBoard();
@@ -1120,6 +1468,14 @@ function updateDisplay() {
   document.getElementById('bestDisplay').textContent = bestScore.toLocaleString();
   document.getElementById('levelDisplay').textContent = currentLevel;
   document.getElementById('shotsDisplay').textContent = Math.max(0, shotsUntilDescent);
+  // Combo multiplier
+  const comboBox = document.getElementById('comboBox');
+  if (comboCount >= 2) {
+    comboBox.style.display = '';
+    document.getElementById('comboDisplay').textContent = 'x' + comboCount;
+  } else {
+    comboBox.style.display = 'none';
+  }
 }
 
 // --- Game Loop ---
@@ -1141,6 +1497,11 @@ function gameLoop(now = performance.now()) {
   updateFloatingTexts(dt);
   updateSnapAnims(dt);
   updateDescentAnim(dt);
+  updateRingWaves(dt);
+  updateScreenShake(dt);
+  updateTrailParticles(dt);
+  updateComboBanner(dt);
+  updateDangerPulse(dt);
 
   draw();
 }
