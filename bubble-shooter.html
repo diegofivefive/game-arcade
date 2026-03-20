@@ -95,7 +95,7 @@
   }
   #gameCanvas {
     display: block;
-    background: var(--bg2);
+    background: #0d0d22;
     border: 2px solid var(--card-border);
     border-radius: var(--radius-md);
     touch-action: none;
@@ -710,14 +710,31 @@ function descendCeiling() {
   }
   shotsUntilDescent = getShotsPerDescent();
   descentAnim = { progress: 0 };
+
+  // Check for disconnected clusters after parity shift
+  const disconnected = findDisconnected();
+  if (disconnected.length > 0) dropBubbles(disconnected);
 }
 
 // --- Snap Bubble to Grid ---
 function findBestEmptyCell(px, py) {
   const primary = pixelToCell(px, py);
-  // Check primary and all neighbors for closest empty cell
+  // Check primary, all neighbors, and neighbors-of-neighbors for closest empty cell
+  const seen = new Set();
   const candidates = [primary, ...getNeighbors(primary.row, primary.col)];
-  let bestDist = Infinity, bestR = primary.row, bestC = primary.col;
+  // Also check second ring of neighbors for edge cases near walls
+  const firstNeighbors = getNeighbors(primary.row, primary.col);
+  for (const n of firstNeighbors) {
+    for (const nn of getNeighbors(n.row, n.col)) {
+      const key = nn.row + ',' + nn.col;
+      if (!seen.has(key)) {
+        seen.add(key);
+        candidates.push(nn);
+      }
+    }
+  }
+
+  let bestDist = Infinity, bestR = -1, bestC = -1;
 
   for (const { row, col } of candidates) {
     // Ensure row exists
@@ -726,12 +743,26 @@ function findBestEmptyCell(px, py) {
       grid.push(new Array(mc).fill(null));
     }
     if (col < 0 || col >= colsForRow(row)) continue;
-    if (grid[row][col]) continue; // occupied
+    if (grid[row][col]) continue; // occupied — never pick this
     const pos = cellToPixel(row, col);
     const dx = px - pos.x, dy = py - pos.y;
     const dist = dx * dx + dy * dy;
     if (dist < bestDist) { bestDist = dist; bestR = row; bestC = col; }
   }
+
+  // Fallback: if somehow no empty cell found, find ANY empty cell nearby
+  if (bestR === -1) {
+    for (let r = 0; r < grid.length + 1; r++) {
+      while (grid.length <= r) {
+        const mc = colsForRow(grid.length);
+        grid.push(new Array(mc).fill(null));
+      }
+      for (let c = 0; c < colsForRow(r); c++) {
+        if (!grid[r][c]) return { row: r, col: c };
+      }
+    }
+  }
+
   return { row: bestR, col: bestC };
 }
 
@@ -974,12 +1005,24 @@ function updateRingWaves(dt) {
 }
 
 function updateScreenShake(dt) {
-  if (screenShake.time <= 0) { screenShake.x = 0; screenShake.y = 0; return; }
-  screenShake.time -= dt;
+  if (screenShake.time <= 0) {
+    screenShake.x = 0;
+    screenShake.y = 0;
+    screenShake.intensity = 0;
+    screenShake.time = 0;
+    return;
+  }
+  screenShake.time = Math.max(0, screenShake.time - dt);
+  if (screenShake.time <= 0) {
+    screenShake.x = 0;
+    screenShake.y = 0;
+    screenShake.intensity = 0;
+    return;
+  }
   const decay = screenShake.time / 200;
-  const intensity = screenShake.intensity * decay;
-  screenShake.x = (Math.random() - 0.5) * intensity * 2;
-  screenShake.y = (Math.random() - 0.5) * intensity * 2;
+  const intensity = screenShake.intensity * Math.min(1, decay);
+  screenShake.x = Math.round((Math.random() - 0.5) * intensity * 2);
+  screenShake.y = Math.round((Math.random() - 0.5) * intensity * 2);
 }
 
 function updateTrailParticles(dt) {
@@ -1215,7 +1258,7 @@ function draw() {
   bgGrad.addColorStop(0, '#0d0d22');
   bgGrad.addColorStop(1, '#111128');
   ctx.fillStyle = bgGrad;
-  ctx.fillRect(-10, -10, CANVAS_W + 20, CANVAS_H + 20);
+  ctx.fillRect(-20, -20, CANVAS_W + 40, CANVAS_H + 40);
 
   // Danger line
   drawDangerLine();
