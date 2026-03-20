@@ -178,6 +178,7 @@ body {
   -webkit-text-fill-color: transparent;
   background-clip: text;
   text-decoration: none;
+  margin: 0;
 }
 .header-btns { display: flex; gap: 6px; }
 

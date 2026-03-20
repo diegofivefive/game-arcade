@@ -88,7 +88,7 @@
 **Breakpoints**: 400px (small phones), 768px (mobile/tablet), 800px+500px (landscape)
 
 ## Schema.org Types
-- Homepage: `WebSite` with `SearchAction`
+- Homepage: `WebSite` with `sameAs` (social links)
 - Listing pages: `CollectionPage` + `ItemList`
 - Games: `VideoGame` with genre array
 - Tools: `WebApplication`

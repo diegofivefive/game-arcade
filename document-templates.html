@@ -37,7 +37,7 @@
 }
 </script>
 <link rel="stylesheet" href="theme.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/3.0.3/jspdf.umd.min.js" integrity="sha384-GwHhSt8QjC7J+v0zZ0Flfho/T76YHEcCL9w4rvjTIUHauh6gWJeBSIi3vWXxNhtA" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/3.0.3/jspdf.umd.min.js" integrity="sha384-GwHhSt8QjC7J+v0zZ0Flfho/T76YHEcCL9w4rvjTIUHauh6gWJeBSIi3vWXxNhtA" crossorigin="anonymous" defer></script>
 <style>
   .game-page { padding-bottom: 32px; }
   .game-header { max-width: 600px; margin: 0 auto; }
@@ -94,6 +94,21 @@
     .items-table { min-width: 340px; }
   }
   @media (max-width: 400px) { .tool-content { padding: 0 12px; } }
+
+  .template-browse { margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--card-border); }
+  .browse-heading { font-size: 15px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.5px; margin: 0 0 14px; }
+  .browse-grid { display: flex; flex-wrap: wrap; gap: 8px; }
+  .browse-link {
+    padding: 6px 14px;
+    font-size: 13px;
+    color: var(--text-dim);
+    background: var(--btn-bg);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    transition: var(--transition);
+  }
+  .browse-link:hover { color: var(--text); border-color: var(--accent); background: var(--btn-hover); }
 </style>
 </head>
 <body>
@@ -103,7 +118,7 @@
   <div class="game-header">
     <div class="header-left">
       <a href="tools.html" class="back-btn" title="Back">&#x2190;</a>
-      <span class="logo">Templates</span>
+      <h1 class="logo">Templates</h1>
     </div>
     <div class="header-btns">
       <a href="document-templates-info.html" class="info-btn" title="Info">i</a>
@@ -131,6 +146,32 @@
       <button class="reset-btn" id="resetBtn">Reset</button>
     </div>
     <p class="tool-disclaimer">Templates are for informational purposes only and do not constitute legal advice.</p>
+
+    <div class="template-browse">
+      <h2 class="browse-heading">Browse All Templates</h2>
+      <div class="browse-grid">
+        <a href="templates/invoice-template.html" class="browse-link">Invoice</a>
+        <a href="templates/receipt-template.html" class="browse-link">Receipt</a>
+        <a href="templates/business-letter-template.html" class="browse-link">Business Letter</a>
+        <a href="templates/meeting-agenda-template.html" class="browse-link">Meeting Agenda</a>
+        <a href="templates/meeting-minutes-template.html" class="browse-link">Meeting Minutes</a>
+        <a href="templates/letter-of-resignation-template.html" class="browse-link">Resignation Letter</a>
+        <a href="templates/employment-offer-letter-template.html" class="browse-link">Offer Letter</a>
+        <a href="templates/resume-template.html" class="browse-link">Resume</a>
+        <a href="templates/cover-letter-template.html" class="browse-link">Cover Letter</a>
+        <a href="templates/bill-of-sale-template.html" class="browse-link">Bill of Sale</a>
+        <a href="templates/nda-template.html" class="browse-link">NDA</a>
+        <a href="templates/lease-agreement-template.html" class="browse-link">Lease Agreement</a>
+        <a href="templates/promissory-note-template.html" class="browse-link">Promissory Note</a>
+        <a href="templates/power-of-attorney-template.html" class="browse-link">Power of Attorney</a>
+        <a href="templates/permission-slip-template.html" class="browse-link">Permission Slip</a>
+        <a href="templates/rent-receipt-template.html" class="browse-link">Rent Receipt</a>
+        <a href="templates/personal-budget-template.html" class="browse-link">Personal Budget</a>
+        <a href="templates/moving-checklist-template.html" class="browse-link">Moving Checklist</a>
+        <a href="templates/emergency-contact-sheet-template.html" class="browse-link">Emergency Contacts</a>
+        <a href="templates/pet-sitter-instructions-template.html" class="browse-link">Pet Sitter Instructions</a>
+      </div>
+    </div>
   </div>
 
   <div class="ad-slot ad-bottom ad-slot--placeholder"><span class="ad-size-label">Responsive</span></div>
