@@ -1,0 +1,1466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-adsense-account" content="ca-pub-7700405385978151">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7700405385978151"
+     crossorigin="anonymous"></script>
+<title>Excuse Generator - TheFreeFix.com</title>
+<meta name="description" content="Generate hilarious excuses for any situation — from plausible to completely unhinged. Free, no sign-ups, just laughs.">
+<link rel="canonical" href="https://thefreefix.com/excuse-generator.html">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#0a0a1a">
+<!-- Open Graph -->
+<meta property="og:title" content="Excuse Generator - Free Online Tool">
+<meta property="og:description" content="Generate hilarious excuses for any situation — from plausible to completely unhinged.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://thefreefix.com/excuse-generator.html">
+<meta property="og:site_name" content="TheFreeFix.com">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://thefreefix.com/og-image.png">
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@TheFreeFix">
+<meta name="twitter:title" content="Excuse Generator - Free Online Tool">
+<meta name="twitter:image" content="https://thefreefix.com/og-image.png">
+<meta name="twitter:description" content="Generate hilarious excuses for any situation — from plausible to completely unhinged.">
+<!-- Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Excuse Generator",
+  "url": "https://thefreefix.com/excuse-generator.html",
+  "description": "Generate hilarious excuses for any situation — from plausible to completely unhinged.",
+  "applicationCategory": "EntertainmentApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "isPartOf": { "@type": "WebSite", "name": "TheFreeFix.com", "url": "https://thefreefix.com/" }
+}
+</script>
+<link rel="stylesheet" href="theme.css">
+<style>
+  .game-page { padding-bottom: 32px; }
+  .game-header { max-width: 560px; margin: 0 auto; }
+
+  .tool-content {
+    width: 100%;
+    max-width: 560px;
+    padding: 0 16px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+
+  /* Excuse output */
+  .ex-output {
+    width: 100%;
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-md);
+    padding: 20px 16px;
+    text-align: center;
+    position: relative;
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+  }
+  .ex-text {
+    font-size: 18px;
+    line-height: 1.5;
+    color: var(--text);
+    font-weight: 500;
+    padding: 0 28px;
+  }
+  .ex-copy-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: none;
+    border: none;
+    color: var(--text-dim);
+    cursor: pointer;
+    font-size: 16px;
+    padding: 4px 8px;
+    border-radius: var(--radius-sm);
+    transition: color var(--transition), background var(--transition);
+  }
+  .ex-copy-btn:hover { color: var(--accent); background: var(--btn-bg); }
+  .ex-copy-btn.copied { color: var(--accent3); }
+
+  /* Category pills */
+  .ex-categories {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+  }
+  .ex-cat-btn {
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 1px solid var(--card-border);
+    background: var(--btn-bg);
+    color: var(--text-dim);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all var(--transition);
+    white-space: nowrap;
+  }
+  .ex-cat-btn:hover { border-color: var(--accent); color: var(--text); }
+  .ex-cat-btn.active {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+  }
+
+  /* Absurdity slider */
+  .ex-slider-card {
+    width: 100%;
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-md);
+    padding: 14px 16px;
+    box-sizing: border-box;
+  }
+  .ex-slider-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  .ex-slider-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .ex-slider-value {
+    font-size: 13px;
+    font-weight: 600;
+    padding: 2px 10px;
+    border-radius: 10px;
+    transition: all var(--transition);
+  }
+  .absurd-1 { color: var(--accent3); background: rgba(0,230,184,0.15); }
+  .absurd-2 { color: #84cc16; background: rgba(132,204,22,0.15); }
+  .absurd-3 { color: #f59e0b; background: rgba(245,158,11,0.15); }
+  .absurd-4 { color: var(--accent2); background: rgba(255,94,148,0.15); }
+  .absurd-5 { color: #ef4444; background: rgba(239,68,68,0.15); }
+
+  .ex-range {
+    width: 100%;
+    -webkit-appearance: none;
+    appearance: none;
+    height: 6px;
+    border-radius: 3px;
+    background: var(--btn-bg);
+    outline: none;
+    cursor: pointer;
+  }
+  .ex-range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--accent);
+    cursor: pointer;
+    border: 2px solid var(--card);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+    transition: transform 0.15s ease;
+  }
+  .ex-range::-webkit-slider-thumb:hover { transform: scale(1.15); }
+  .ex-range::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--accent);
+    cursor: pointer;
+    border: 2px solid var(--card);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+  }
+  .ex-slider-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 6px;
+    font-size: 11px;
+    color: var(--text-dim);
+  }
+
+  /* Generate button */
+  .ex-actions {
+    width: 100%;
+    display: flex;
+    gap: 8px;
+  }
+  .ex-btn {
+    flex: 1;
+    padding: 12px 16px;
+    border-radius: var(--radius-md);
+    border: none;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition);
+  }
+  .ex-btn:active { transform: scale(0.97); }
+  .ex-btn-primary {
+    background: var(--accent);
+    color: #fff;
+  }
+  .ex-btn-primary:hover { background: #6a5cff; }
+  .ex-btn-secondary {
+    background: var(--btn-bg);
+    color: var(--text);
+    border: 1px solid var(--card-border);
+  }
+  .ex-btn-secondary:hover { background: var(--btn-hover); }
+
+  /* Favorites */
+  .ex-favs {
+    width: 100%;
+  }
+  .ex-favs-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+  }
+  .ex-fav-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .ex-fav-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-sm);
+    padding: 10px 12px;
+    font-size: 14px;
+    color: var(--text);
+    line-height: 1.4;
+  }
+  .ex-fav-text { flex: 1; }
+  .ex-fav-copy, .ex-fav-remove {
+    background: none;
+    border: none;
+    color: var(--text-dim);
+    cursor: pointer;
+    font-size: 14px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    transition: color var(--transition);
+    flex-shrink: 0;
+  }
+  .ex-fav-copy:hover { color: var(--accent); }
+  .ex-fav-copy.copied { color: var(--accent3); }
+  .ex-fav-remove:hover { color: var(--accent2); }
+  .ex-empty-msg {
+    font-size: 13px;
+    color: var(--text-dim);
+    text-align: center;
+    padding: 8px;
+  }
+
+  /* Stats chip row */
+  .ex-stats {
+    width: 100%;
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+  }
+  .ex-stat {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-sm);
+    padding: 8px 14px;
+    text-align: center;
+    flex: 1;
+  }
+  .ex-stat-num {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--accent);
+  }
+  .ex-stat-label {
+    font-size: 11px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    margin-top: 2px;
+  }
+
+  /* Animation */
+  .ex-text.generating {
+    animation: exPulse 0.3s ease;
+  }
+  @keyframes exPulse {
+    0% { opacity: 0; transform: translateY(6px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+
+  /* NSFW toggle */
+  .ex-nsfw-row {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 16px;
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-md);
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: border-color var(--transition);
+  }
+  .ex-nsfw-row:hover { border-color: var(--accent2); }
+  .ex-nsfw-row input { display: none; }
+  .ex-nsfw-check {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    border: 2px solid var(--card-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    color: transparent;
+    transition: all var(--transition);
+    flex-shrink: 0;
+  }
+  .ex-nsfw-row input:checked ~ .ex-nsfw-check {
+    background: var(--accent2);
+    border-color: var(--accent2);
+    color: #fff;
+  }
+  .ex-nsfw-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-dim);
+  }
+  .ex-nsfw-label span {
+    font-weight: 400;
+    font-size: 11px;
+    opacity: 0.7;
+  }
+  .ex-nsfw-row input:checked ~ .ex-nsfw-label { color: var(--accent2); }
+  .ex-output.nsfw-active { border-color: var(--accent2); }
+
+  @media (max-width: 400px) {
+    .tool-content { padding: 0 12px; }
+    .ex-text { font-size: 16px; padding: 0 24px; }
+    .ex-cat-btn { padding: 5px 10px; font-size: 12px; }
+  }
+</style>
+</head>
+<body>
+<div class="game-page">
+
+  <a href="index.html" class="site-brand">TheFreeFix.com</a>
+
+  <!-- Ad Slot 1: Top Banner -->
+  <div class="ad-slot ad-content ad-slot--placeholder">
+    <span class="ad-size-label">Responsive</span>
+  </div>
+
+  <div class="game-header">
+    <div class="header-left">
+      <a href="tools.html" class="back-btn" title="Back">&#x2190;</a>
+      <h1 class="logo">Excuse Generator</h1>
+    </div>
+    <div class="header-btns">
+      <a href="excuse-generator-info.html" class="info-btn" title="Info">i</a>
+      <button class="icon-btn" id="themeBtn" title="Toggle theme">&#x1f319;</button>
+    </div>
+  </div>
+
+  <div class="tool-content">
+
+    <!-- Excuse output -->
+    <div class="ex-output">
+      <div class="ex-text" id="excuseText">Click generate to get your first excuse...</div>
+      <button class="ex-copy-btn" id="copyBtn" title="Copy">&#x1F4CB;</button>
+    </div>
+
+    <!-- Category selector -->
+    <div class="ex-categories" id="categories">
+      <button class="ex-cat-btn active" data-cat="any">Any</button>
+      <button class="ex-cat-btn" data-cat="work">Work</button>
+      <button class="ex-cat-btn" data-cat="school">School</button>
+      <button class="ex-cat-btn" data-cat="social">Social</button>
+      <button class="ex-cat-btn" data-cat="chores">Chores</button>
+      <button class="ex-cat-btn" data-cat="gym">Gym</button>
+      <button class="ex-cat-btn" data-cat="dating">Dating</button>
+    </div>
+
+    <!-- Absurdity slider -->
+    <div class="ex-slider-card">
+      <div class="ex-slider-header">
+        <span class="ex-slider-label">Absurdity Level</span>
+        <span class="ex-slider-value absurd-1" id="absurdLabel">Plausible</span>
+      </div>
+      <input type="range" class="ex-range" id="absurdSlider" min="1" max="5" value="1" step="1">
+      <div class="ex-slider-labels">
+        <span>Plausible</span>
+        <span>Unhinged</span>
+      </div>
+    </div>
+
+    <!-- NSFW toggle -->
+    <label class="ex-nsfw-row" id="nsfwRow">
+      <input type="checkbox" id="nsfwToggle">
+      <span class="ex-nsfw-check">&#x2713;</span>
+      <span class="ex-nsfw-label">NSFW Mode <span>— crude, rude &amp; unacceptable</span></span>
+    </label>
+
+    <!-- Action buttons -->
+    <div class="ex-actions">
+      <button class="ex-btn ex-btn-primary" id="generateBtn">Generate Excuse</button>
+      <button class="ex-btn ex-btn-secondary" id="saveBtn" title="Save to favorites">&#x2661;</button>
+    </div>
+
+    <!-- Stats -->
+    <div class="ex-stats">
+      <div class="ex-stat">
+        <div class="ex-stat-num" id="statGenerated">0</div>
+        <div class="ex-stat-label">Generated</div>
+      </div>
+      <div class="ex-stat">
+        <div class="ex-stat-num" id="statSaved">0</div>
+        <div class="ex-stat-label">Saved</div>
+      </div>
+      <div class="ex-stat">
+        <div class="ex-stat-num" id="statCopied">0</div>
+        <div class="ex-stat-label">Copied</div>
+      </div>
+    </div>
+
+    <!-- Favorites -->
+    <div class="ex-favs" id="favsSection" style="display:none">
+      <div class="ex-favs-title">Saved Excuses</div>
+      <div class="ex-fav-list" id="favsList"></div>
+    </div>
+
+  </div>
+
+  <!-- Ad Slot 2: Bottom Banner -->
+  <div class="ad-slot ad-bottom ad-slot--placeholder">
+    <span class="ad-size-label">Responsive</span>
+  </div>
+
+  <footer class="site-footer">
+    <a href="about.html">About</a>
+    <span class="footer-sep">&middot;</span>
+    <a href="contact.html">Contact</a>
+    <span class="footer-sep">&middot;</span>
+    <a href="terms.html">Terms</a>
+    <span class="footer-sep">&middot;</span>
+    <a href="privacy.html">Privacy</a>
+    <span class="footer-sep">&middot;</span>
+    <a href="https://x.com/TheFreeFix" target="_blank" rel="noopener">X</a>
+  </footer>
+</div>
+
+<script src="theme.js"></script>
+<script>
+(function() {
+
+/* ── Excuse Database ── */
+const EXCUSES = {
+  work: [
+    // Level 1 — Plausible
+    [
+      "I woke up with a terrible migraine and can't look at screens.",
+      "My car won't start and I'm waiting for a tow truck.",
+      "I have a dentist appointment I forgot to mention.",
+      "I've got a stomach bug — better if I stay home today.",
+      "There's a water leak in my apartment and I need to wait for the plumber.",
+      "I threw my back out picking up groceries.",
+      "My kid's school just called — they're sick and I need to pick them up.",
+      "I'm locked out of my apartment and waiting for a locksmith.",
+      "My internet went down and the technician is coming between 8 and 5.",
+      "I slept through my alarm — first time in years, I promise."
+    ],
+    // Level 2 — Stretching it
+    [
+      "My neighbor's tree fell on my car during the night.",
+      "I accidentally took nighttime cold medicine this morning instead of daytime.",
+      "My dog ate my car keys and I'm waiting at the vet.",
+      "I got food poisoning from a gas station sushi. Lesson learned.",
+      "I'm stuck in an elevator. Seriously. Send help.",
+      "My glasses broke and I literally cannot see my monitor.",
+      "There's a suspicious package in my building and we've been evacuated.",
+      "I got jury duty. Yes, again.",
+      "My hot water heater exploded. My basement is a swimming pool.",
+      "I accidentally locked my keys in the car. With my phone. And my wallet."
+    ],
+    // Level 3 — Suspicious
+    [
+      "A goose attacked me in the parking lot and I need to regroup.",
+      "I'm having an allergic reaction to a new soap — my face looks like a tomato.",
+      "My roommate used my car for a road trip without asking. Just found out.",
+      "I woke up and my entire apartment was flooded from the unit above me. The ceiling is dripping. I need to document everything.",
+      "My identity got stolen and I'm on hold with the bank. It's been three hours.",
+      "A raccoon got into my house through the chimney. Not joking.",
+      "I accidentally super-glued my hand to my coffee mug.",
+      "I witnessed a minor traffic incident and the police need me to stay for a statement.",
+      "My smoke detector won't stop beeping and the fire department is on the way.",
+      "I got on the wrong bus and I'm now two towns over."
+    ],
+    // Level 4 — Absurd
+    [
+      "My Roomba went rogue and is holding my shoes hostage in the bathroom.",
+      "A psychic told me that today is cosmically unfavorable for productivity.",
+      "I opened my laptop and a portal to another dimension appeared. HR should know about this.",
+      "My evil twin showed up and I need to sort out some things.",
+      "I was abducted by a very polite cult. I'm back now but emotionally I need a day.",
+      "A wizard cursed my alarm clock. It now only shows times from the 1400s.",
+      "I'm stuck in a time loop. Every time I leave for work, I end up back in bed.",
+      "My house ghost is acting up. Flickering lights, slamming doors — the whole deal.",
+      "I accidentally astral projected to the wrong realm and need the day to re-center.",
+      "A very convincing infomercial host talked me into an 8-hour cookware presentation."
+    ],
+    // Level 5 — Unhinged
+    [
+      "I was recruited by a secret society of office supply enthusiasts. The initiation takes all day.",
+      "My reflection in the mirror started giving me career advice and honestly it made some good points. I need time to process.",
+      "A sentient cloud followed me home and won't leave until I name it. I'm thinking 'Nimbus.'",
+      "My furniture rearranged itself overnight and now my front door opens to the bathroom.",
+      "I accidentally invented time travel but it only goes 5 minutes into the past so I'm stuck in an infinite loop of making toast.",
+      "A colony of extremely literate squirrels stole my laptop to write their manifesto. I support their cause.",
+      "I woke up fluent in a language that doesn't exist yet. Every time I try to speak English, mortgage paperwork comes out.",
+      "The simulation is updating. My render distance dropped to 3 feet. Can't safely drive.",
+      "My houseplant gained sentience and filed a hostile work environment complaint against my cat.",
+      "Gravity reversed in my apartment specifically. I'm on the ceiling. Send snacks upward."
+    ]
+  ],
+  school: [
+    [
+      "I felt really sick this morning and couldn't get out of bed.",
+      "I had a family emergency I had to deal with.",
+      "My alarm didn't go off and I completely overslept.",
+      "I had a doctor's appointment that ran way longer than expected.",
+      "My laptop crashed and I lost my assignment. I'm redoing it now.",
+      "I was up all night with food poisoning.",
+      "I had to help my parents with an urgent house issue.",
+      "The bus broke down halfway to school.",
+      "I had a really bad anxiety attack this morning.",
+      "My printer ran out of ink and I couldn't print the paper."
+    ],
+    [
+      "My study group had a disagreement and I was mediating until 4 AM.",
+      "I got locked in the library after closing. Spent the night with the encyclopedias.",
+      "My textbook spontaneously fell apart. Every page, loose. Like confetti.",
+      "I was reviewing my notes and realized they're all from the wrong class. I've been attending the wrong section for three weeks.",
+      "My backpack zipper broke and all my stuff spilled into a storm drain.",
+      "I got lost on campus. Yes, I'm in my third year.",
+      "My laptop autocorrected my entire essay into a different language.",
+      "I pulled an all-nighter but studied for the wrong test.",
+      "My flash drive corrupted and I didn't have a backup. I know, I know.",
+      "I tried to email my assignment but sent it to a stranger named Professor_Dave69."
+    ],
+    [
+      "My hamster chewed through my charging cable and my laptop died at 2% with my unsaved essay.",
+      "I was walking to class and a bird stole my sandwich, then my motivation.",
+      "I accidentally submitted a grocery list instead of my homework.",
+      "I was so tired I put my homework in the fridge and my lunch in my backpack.",
+      "Google Docs crashed and autosave betrayed me for the first and last time.",
+      "I got into a heated Wikipedia rabbit hole about medieval cheese-making and lost 6 hours.",
+      "My room is so messy that my assignment has been declared legally missing.",
+      "I was writing my essay and my cat walked across the keyboard. It's now 40% keyboard smash.",
+      "I had a creative block so severe it should be classified as a medical condition.",
+      "I sneezed and my contact lens flew into another dimension."
+    ],
+    [
+      "My homework was so bad that my printer refused to print it. Just beeped angrily.",
+      "I tried using AI to check my grammar but it rewrote my essay as a haiku about capitalism.",
+      "A seagull stole my thesis right out of my hands. I'm considering dropping out.",
+      "I fell asleep in the library and woke up in a different century's mindset. I now only speak in Old English.",
+      "My pencil became sentient and started writing its own novel. It's actually pretty good.",
+      "I opened my textbook and a miniature tornado formed. My notes are scattered across three zip codes.",
+      "My essay was so fire that my laptop overheated. Literally. I need a new one.",
+      "I was doing math homework and accidentally divided by zero. My calculator is still screaming.",
+      "A parallel universe version of me already turned in the assignment. I'm taking the day off.",
+      "My backpack became a portal to the shadow realm. My homework is there now."
+    ],
+    [
+      "I can't come to class because I achieved enlightenment at 3 AM and school feels trivial now.",
+      "My homework developed free will and walked out. It left a note that said 'I deserve better.'",
+      "The ghost of Shakespeare appeared and told me my essay was mid. I need time to recover emotionally.",
+      "I opened my math textbook and the numbers started having a civil war. Chapter 7 is winning.",
+      "I was typing my report and my keyboard started typing back. We're in a relationship now.",
+      "My assignment was consumed by the void beneath my desk. I always knew that shadow was suspicious.",
+      "I tried to study but the letters rearranged themselves into a treasure map. I must follow it.",
+      "My school supplies formed a union and are demanding better working conditions. Negotiations ongoing.",
+      "A rogue algorithm ate my homework from the cloud. It's now somewhere between Google and the astral plane.",
+      "I sneezed so hard I time-traveled to yesterday. I've already lived this Tuesday."
+    ]
+  ],
+  social: [
+    [
+      "I'm not feeling great — think I'm coming down with something.",
+      "Something came up with my family, sorry!",
+      "I completely forgot I have another commitment tonight.",
+      "I'm absolutely exhausted from work this week.",
+      "My car is making a weird noise and I don't want to risk driving it.",
+      "I have an early morning tomorrow and need to rest.",
+      "I'm waiting on a package that needs a signature.",
+      "I'm on a tight deadline for a project.",
+      "I already ate and I'm so full I might explode.",
+      "I'm saving money this month — rain check?"
+    ],
+    [
+      "My pet is being extra clingy today and I can't leave them alone.",
+      "I just got really into a book and I physically cannot put it down.",
+      "My introvert battery is at 2%. I need to recharge in silence.",
+      "I accidentally started a TV series and I'm 7 episodes deep.",
+      "My couch and I have plans tonight. It's serious.",
+      "I already put on my pajamas and there's no coming back from that.",
+      "I Googled my symptoms and WebMD says I should stay home forever.",
+      "I'm emotionally invested in a reality TV show finale tonight.",
+      "I made plans with my bed. We've been growing apart lately.",
+      "I ugly-cried at a commercial earlier and I'm not in a social state."
+    ],
+    [
+      "Mercury is in retrograde and I was specifically told not to go outside.",
+      "My sourdough starter needs me right now. It's at a critical stage.",
+      "I started reorganizing my closet and I'm trapped under an avalanche of clothes.",
+      "My neighbor's karaoke night is happening and I need to be here to judge them silently.",
+      "I accidentally signed up for a 3-hour webinar and I'm too polite to leave.",
+      "I'm waiting for a very important text. Could be minutes. Could be days.",
+      "My cat is sitting on my lap and the law states I cannot move.",
+      "I made eye contact with my laundry pile and now I have to deal with it.",
+      "I burned dinner so badly that the fire department might come. I should stay.",
+      "I just discovered a new snack and I need to eat the whole bag in private."
+    ],
+    [
+      "My shadow detached and I'm chasing it around the apartment. Peter Pan vibes.",
+      "A fortune cookie told me to avoid social gatherings today. I don't make the rules.",
+      "I'm in a staring contest with my cat. It's been 4 hours. I can't lose now.",
+      "My plants overheard me making plans and they look disappointed. I can't leave them.",
+      "My WiFi and I are going through couples therapy tonight.",
+      "I accidentally became the leader of a very small cult. Meeting's tonight.",
+      "I asked my Magic 8 Ball if I should go out and it said 'Outlook not so good.'",
+      "My couch ate my keys, my remote, and my will to go outside.",
+      "A very important squirrel is visiting my window and I've named it Gerald.",
+      "I ordered food an hour ago and I'm in too deep with the delivery tracker to leave now."
+    ],
+    [
+      "I can't come because I've achieved a level of comfort so profound that movement would be a crime against humanity.",
+      "My home has become sentient and locked me in. It says I 'need this.' I agree.",
+      "I tried to leave but my doorknob asked where I was going and honestly I didn't have a good answer.",
+      "A dimensional rift opened in my living room. On the plus side, the other dimension has better Wi-Fi.",
+      "I can't make it because I'm currently being interviewed by my houseplants about my life choices.",
+      "My blanket has legally adopted me. I can't leave without a court order.",
+      "I was getting ready to go out and my mirror said 'Are you sure about this?' and now I'm not.",
+      "I've been chosen by the algorithm to watch one more video. It's been 9 hours.",
+      "My cat has filed a restraining order against 'outdoors' on my behalf.",
+      "I transcended physical form. Very inconvenient for plans that require a body."
+    ]
+  ],
+  chores: [
+    [
+      "I just got home from work and I'm genuinely too tired.",
+      "I have a headache and just need to rest for a bit.",
+      "I'll do it first thing tomorrow, I promise.",
+      "I didn't realize it needed to be done — my bad.",
+      "I was about to but then got a phone call that took forever.",
+      "I thought it was your turn this week?",
+      "I cleaned the other thing instead. We should make a chart.",
+      "I ran out of cleaning supplies and the store is closed.",
+      "I just sat down. The five-minute rule applies.",
+      "I'll do it after this episode. There are only three left in the season."
+    ],
+    [
+      "I read an article that said you should only clean on Tuesdays for optimal energy flow.",
+      "I cleaned last century and I'm still recovering.",
+      "I'm trying a new lifestyle called 'selective tidiness.' The dishes aren't selected.",
+      "I was going to vacuum but the cord looked at me wrong.",
+      "My back hurts from carrying the emotional labor of knowing the chores exist.",
+      "The dishes are soaking. They've been soaking for two days. It's part of the process.",
+      "I'm pretty sure the mess has achieved a natural ecosystem balance. We shouldn't disturb it.",
+      "I started cleaning but then I found an old photo album and now I'm crying.",
+      "I'm morally opposed to folding fitted sheets.",
+      "I was going to mop but the floor looked kind of peaceful."
+    ],
+    [
+      "The vacuum cleaner and I are in a disagreement. I said things I can't take back.",
+      "I'm letting the dishes air dry. In the sink. For emotional reasons.",
+      "I tried to take out the trash but the bag ripped and now the situation is worse.",
+      "I sneezed while cleaning and accidentally created a bigger mess. Net zero progress.",
+      "I'm boycotting laundry until clothes start folding themselves.",
+      "I tried to clean the fridge but something growled at me from the back shelf.",
+      "The broom and dustpan are having a custody battle over the dirt pile.",
+      "My cleaning playlist ended and I can't scrub in silence. That's inhumane.",
+      "I was going to do the dishes but then I remembered that paper plates exist.",
+      "I organized one drawer and used up all my motivation for the fiscal year."
+    ],
+    [
+      "The laundry basket gained sentience and is demanding union representation.",
+      "I tried to clean but my Roomba filed a grievance. It says this is its jurisdiction.",
+      "The dust bunnies have formed a small civilization under my bed. I can't just commit genocide.",
+      "I was going to clean but my furniture rearranged itself to block the vacuum's path. I think they're allied.",
+      "My mop broke, and in its dying breath, it told me to live freely. I'm honoring its wishes.",
+      "I attempted to fold laundry but each sock was missing its partner. I'm now running a missing persons investigation.",
+      "The dishes have formed a support group in the sink. They're making real progress.",
+      "I tried to take out the trash but the bag has become load-bearing.",
+      "My sponge quit. Left a tiny note. Said it needed time to 'absorb' things.",
+      "I swept the floor but the dust reformed like a villain in a sequel."
+    ],
+    [
+      "I tried to do the dishes but the sink opened a portal and the plates are in the Upside Down now.",
+      "The laundry pile achieved critical mass and collapsed into a clothing singularity. Nothing escapes.",
+      "I was going to clean but my vacuum gained consciousness and it wants to discuss philosophy first.",
+      "The trash took itself out. It had better places to be. I respect its journey.",
+      "My dishes are now a UNESCO World Heritage Site. I can't touch them.",
+      "I tried to organize my closet but it's now a Narnia situation. I've been gone for 40 years in there.",
+      "The dust in my apartment has formed a democratic government. They've elected a president. He's reasonable.",
+      "My broom and I had a falling out. It swept me off my feet then ghosted me.",
+      "I attempted chores but the house filed a restraining order against cleaning supplies.",
+      "The mess has transcended the physical plane. It now exists only as a concept."
+    ]
+  ],
+  gym: [
+    [
+      "I'm feeling a bit sore from yesterday, better to rest.",
+      "I didn't sleep well and working out tired would just risk injury.",
+      "I forgot my gym clothes at home.",
+      "I'll go tomorrow — rest day is important too.",
+      "I ate too recently and I'd probably throw up.",
+      "It's leg day and I'm choosing peace.",
+      "I pulled something weird yesterday and I want to let it heal.",
+      "The gym is probably packed right now. I'll go later. Or tomorrow.",
+      "I don't have a clean water bottle and that's basically a safety hazard.",
+      "My headphones died and I can't work out to the sound of other people breathing."
+    ],
+    [
+      "I read that muscles grow during rest. I'm growing right now. On this couch.",
+      "My pre-workout expired and working out without it feels illegal.",
+      "I looked at the gym's Instagram and it looked crowded. I'm crowd-averse today.",
+      "My gym shoes are giving me blisters. I need new ones first. It's a process.",
+      "I did a single push-up at home. That counts. We're done here.",
+      "I flexed in the mirror and was satisfied. No further action needed.",
+      "I'm carb-loading. You can't rush carb-loading. This could take days.",
+      "I walked to the fridge and back. That's basically cardio.",
+      "My fitness tracker died so the workout wouldn't even count.",
+      "I stretched in bed this morning. That's basically yoga."
+    ],
+    [
+      "I sneezed and my abs are now sore. That IS a core workout.",
+      "My gym bag developed its own smell-based ecosystem. I can't in good conscience bring it into public.",
+      "I'm emotionally exhausted and I read that's the same as being physically tired. Same muscles.",
+      "The parking lot at the gym looked full from Google Maps. I'm not circling.",
+      "I watched a workout video and I'm exhausted just from observing.",
+      "I carried all the groceries in one trip. That's my weight training for the week.",
+      "My gym towel is in the wash and going without one is a war crime.",
+      "I'm sore from sleeping wrong. My bed is apparently more intense than any workout.",
+      "I did yard work, which is basically CrossFit but with better scenery.",
+      "I ran late today. Running counts as cardio. Done."
+    ],
+    [
+      "I had a dream where I worked out for 3 hours. I woke up tired. That has to count.",
+      "The treadmill and I made eye contact through the window and mutually agreed today wasn't the day.",
+      "My muscles sent me a formal letter requesting a sabbatical.",
+      "I'm on a reverse fitness plan. The goal is to see how comfortable I can get.",
+      "I did a mental rep of every exercise. The brain is a muscle. Workout complete.",
+      "A fortune cookie told me to 'take it easy.' I don't question the cookie.",
+      "I lifted my spirits today. That's a kind of lifting.",
+      "I'm cultivating mass. It's a strategic bulk. Could take years.",
+      "The gym playlist was all wrong. You can't squat to smooth jazz.",
+      "My body is a temple. And today the temple is closed for renovation."
+    ],
+    [
+      "I tried to go to the gym but my couch used a tractor beam. I am physically unable to leave.",
+      "The laws of physics in my apartment changed. Gravity doubled. Standing is the workout now.",
+      "I achieved peak physical form in a dream. My subconscious sent a certificate. We're done here.",
+      "My gym membership card became a portal to a dimension where exercise doesn't exist. I'm staying.",
+      "A council of my past selves convened and unanimously voted against the gym. Democracy wins.",
+      "I lifted my expectations and they were heavier than any barbell. I need to recover.",
+      "The gym equipment filed a restraining order. They say I'm 'too intense.' Flattering, honestly.",
+      "I evolved past the need for physical exercise. I now absorb protein through osmosis.",
+      "My fitness app became sentient and told me I'm perfect the way I am. Who am I to argue?",
+      "I challenged gravity to a duel and it won. I'm resting to plot my comeback."
+    ]
+  ],
+  dating: [
+    [
+      "I'm so sorry, something came up with work and I can't get away.",
+      "I'm not feeling great today — can we reschedule?",
+      "I forgot I promised my friend I'd help them move.",
+      "My car is in the shop and I don't have a ride.",
+      "I double-booked myself — totally my fault.",
+      "Family dinner got sprung on me last minute.",
+      "I'm coming down with something and don't want to get you sick.",
+      "I had a really long day and wouldn't be great company tonight.",
+      "I have to take my pet to an emergency vet visit.",
+      "I got called into work at the last minute."
+    ],
+    [
+      "My roommate is having a crisis and I need to be there for them.",
+      "I just found out my ex will be at the same restaurant. Abort mission.",
+      "I tried on five outfits, had a breakdown, and now I'm in pajamas.",
+      "I accidentally took a nap and now it's 11 PM.",
+      "My horoscope said to avoid romance today. I don't even believe in horoscopes but why risk it?",
+      "I'm stress-eating an entire pizza and honestly this is the best date I've had all year.",
+      "My friend just got dumped and invoked the emergency friend protocol.",
+      "I just realized I have no clean underwear. Absolute dealbreaker.",
+      "I stalked your social media and need 24 more hours to process.",
+      "I lost my voice and all my charm is verbal."
+    ],
+    [
+      "My cat knocked my phone into the toilet right as I was about to text you. This is a sign.",
+      "I looked in the mirror and decided society isn't ready for me tonight.",
+      "I practiced conversation topics and psyched myself out.",
+      "I'm having a bad hair day that has escalated to a bad hair week.",
+      "My dog ate my good shoes. He has no remorse.",
+      "I just realized I told you the wrong restaurant and I'm too embarrassed to correct it.",
+      "I tried a new cologne and my eyes won't stop watering.",
+      "I got invested in a true crime documentary and now I trust no one.",
+      "I spent so long choosing an outfit that the date is now technically tomorrow.",
+      "My confidence left and didn't say when it was coming back."
+    ],
+    [
+      "I asked my dog if I should go and he gave me a look that said 'don't.'",
+      "I was ready to leave but my reflection winked at me and now I have trust issues.",
+      "A pigeon looked at me judgmentally on the way out and I lost my nerve.",
+      "I rehearsed our conversation so many times that I already feel like we dated and broke up.",
+      "I got relationship advice from a fortune cookie and it said 'Error 404: Love not found.'",
+      "My anxiety and excitement are having a cage match. Anxiety is winning.",
+      "My Uber driver took one look at me and said 'Rough night?' I haven't even left yet.",
+      "I tried to iron my shirt and now it looks worse. I've made it angry.",
+      "My dating aura is currently buffering. Expected load time: unknown.",
+      "I asked the Magic 8 Ball about tonight and it just laughed."
+    ],
+    [
+      "I can't make it because my future self called and said this date results in us adopting 17 cats. I love cats but that's logistically challenging.",
+      "I was getting ready but my mirror cracked — not from bad luck, it just couldn't handle this look.",
+      "My emotional support blanket won't release me. It's stronger than it looks.",
+      "I've been chosen as a tribute in my apartment complex's Hunger Games. May the odds be in my favor.",
+      "A parallel universe version of me is already on the date. They're funnier. Let them handle it.",
+      "Cupid showed up and said 'not this one.' I'm just the messenger.",
+      "I tried to leave but my door handle asked me 'Are you really going to wear that?' and I have no comeback.",
+      "I accidentally swiped right on a interdimensional being. They're picking me up in a spacecraft. Sorry.",
+      "My heart and my brain are in a legal dispute. Court date is tonight.",
+      "I consulted the stars, the cards, a psychic, my mom, and my cat. Unanimous no."
+    ]
+  ]
+};
+
+/* ── NSFW Excuse Database ── */
+const NSFW_EXCUSES = {
+  work: [
+    [
+      "I sharted on the bus. Not risking the office chair.",
+      "I'm hungover as hell and I will vomit on someone's desk if I come in.",
+      "I hooked up last night and I can't find my pants. Or my dignity.",
+      "I ate something dodgy and my toilet is seeing more action than I have all year.",
+      "I threw up in the shower this morning. Two birds, one stone, zero productivity.",
+      "I'm so constipated I can't sit at a desk without making a scene.",
+      "I spent the night on the bathroom floor hugging the toilet. We're bonding.",
+      "My hemorrhoids are staging a full revolt. I can't sit for 8 hours.",
+      "I woke up with a hickey the size of Texas and no concealer known to man can fix this.",
+      "I'm on the toilet right now and it sounds like a war crime in here."
+    ],
+    [
+      "I was up all night stress-eating and I now look 6 months pregnant. Nothing fits.",
+      "My one-night stand won't leave and they're eating all my cereal.",
+      "I got blackout drunk last night and apparently texted my boss a love poem. I need a head start.",
+      "I got rug burn in places I can't explain to HR.",
+      "I tried a new laxative and I would describe the results as 'catastrophic.'",
+      "I'm stuck on the toilet and have been for 45 minutes. Send a priest.",
+      "I drunkenly ordered a 3-foot teddy bear last night and now I can't get out of my apartment.",
+      "I smell like a distillery and no amount of cologne is fixing this.",
+      "I threw up on my work shirt and my backup shirt. And my jacket.",
+      "I got a rash in places that would make this a very awkward conversation."
+    ],
+    [
+      "I'm so hungover I can hear colors and taste sounds. None of them are good.",
+      "I accidentally sent a nude to the work group chat. I'm relocating to another country.",
+      "I went on a bender last night and woke up in a Denny's parking lot two states over.",
+      "I sat on something weird at the bar last night and now I walk like a cowboy.",
+      "My walk of shame got interrupted by a sprinkler. I look like a swamp creature.",
+      "I tried to manscape and now I look like a crime scene. Can't wear pants.",
+      "I ate gas station egg salad at 2 AM and my body is punishing me with biblical fury.",
+      "I swallowed my tongue piercing in my sleep and I'm waiting for it to 'pass.'",
+      "My hangover has a hangover. They're fighting for dominance.",
+      "I clogged my own toilet so bad I need to call a plumber before I can leave."
+    ],
+    [
+      "I got drunk and tattooed my boss's face on my left butt cheek. I need a plan before I come in.",
+      "I tried making breakfast hungover and set my kitchen on fire with a Pop-Tart.",
+      "I got so drunk I proposed to a fire hydrant. We're registered at Home Depot.",
+      "I ate a whole wheel of cheese at 3 AM and my body has declared a state of emergency.",
+      "I tried to fart discreetly and it was NOT a fart. The pants are in the trash.",
+      "I woke up with someone else's dentures in my pocket. I have questions I'm not ready to answer.",
+      "I accidentally swallowed a shot glass and I'm waiting for the X-ray results.",
+      "I pooped myself a little while sneezing and I need to reevaluate my entire life.",
+      "I drunkenly arm-wrestled a bouncer and lost. My arm is in a sling and my ego is in a grave.",
+      "I got hammered and ordered 47 rubber ducks online. They arrived at 6 AM. My apartment is a pond."
+    ],
+    [
+      "I got so wasted I woke up in a bathtub of baked beans. I don't know whose beans these are. I don't know whose bathtub this is.",
+      "I crapped my pants on the way to work and the Uber driver kicked me out. I'm standing in a parking lot with no dignity and no ride.",
+      "I'm so hungover that my soul left my body, looked back at me, and said 'you're on your own.'",
+      "I got blackout drunk and apparently adopted a goat. His name is Kevin and he just ate my resume.",
+      "I tried to hold in a sneeze and blew out my back, my pants, and my will to live simultaneously.",
+      "I woke up duct-taped to a shopping cart in a Walmart parking lot wearing someone else's pants. I have no answers.",
+      "My hangover is so severe that my liver called my brain to file a formal complaint.",
+      "I got so drunk I tried to fight my own reflection. It won. I have a black eye and a philosophical crisis.",
+      "I ate a ghost pepper on a dare and I've been on the toilet so long my legs fell asleep three times.",
+      "I passed out at a party and woke up with 'I QUIT' shaved into my back hair. I can't come in shirtless but I also can't prove it's not true."
+    ]
+  ],
+  school: [
+    [
+      "I'm hungover and if I show up I'll puke on the professor's shoes.",
+      "I was up all night with explosive diarrhea. You don't want details.",
+      "I hooked up last night and I smell like regret and cheap vodka.",
+      "I'm having a bathroom emergency that could be classified as a natural disaster.",
+      "I sharted during my morning routine and now I'm doing laundry instead.",
+      "I pulled an all-nighter drinking instead of studying. Same energy, different outcome.",
+      "I woke up with mystery bruises everywhere and my pride is MIA.",
+      "I'm too hungover to form sentences. This text took 20 minutes.",
+      "I passed out in my clothes and I smell like a frat house dumpster.",
+      "I got hammered and lost my student ID, my keys, and my self-respect."
+    ],
+    [
+      "I threw up on my textbook. Consider the chapter on fluid dynamics extra credit.",
+      "I drank so much last night I forgot what subject I'm even taking.",
+      "I got caught doing a walk of shame by my professor. Can't make eye contact today.",
+      "I'm sweating pure alcohol. Nobody in that lecture hall deserves this.",
+      "I ate a questionable burrito at 3 AM and my stomach is performing an exorcism.",
+      "I blacked out and apparently set 14 alarms, all for 4 AM. Didn't set one for class.",
+      "I woke up spooning a traffic cone. I'm not ready for academia today.",
+      "My hangover is so bad I can feel my hair growing and it hurts.",
+      "I got so drunk I texted my mom about my body count. I'm in crisis management mode.",
+      "I can't come to class because I'm still drunk from last night and that feels worse."
+    ],
+    [
+      "I pooped my pants in the campus parking lot. That's it. That's the excuse.",
+      "I got shitfaced and accidentally joined a cult last night. Orientation was exhausting.",
+      "I threw up off a balcony at a party and hit someone's car. Laying low.",
+      "I drunkenly ate an entire jar of pickles and my body is seeking revenge.",
+      "I woke up with a piercing I don't remember getting. It's in a place I can't sit down.",
+      "I got so hammered I submitted a pizza order to the assignment portal.",
+      "My hangover just entered its third act. Plot twist: it's not a hangover, it's food poisoning.",
+      "I threw up in an Uber and now I owe a cleaning fee I can't afford. Staying in bed to cut costs.",
+      "I tried to do a keg stand and I'm writing this from the urgent care.",
+      "I drunk-texted my ex, my professor, and a pizza place. Only the pizza responded positively."
+    ],
+    [
+      "I got so blackout drunk I woke up in the wrong dorm. Wrong building. Wrong university.",
+      "I puked on stage at karaoke doing 'Bohemian Rhapsody.' Right during the operatic section.",
+      "I drank so much that my pee is technically a biohazard. The toilet made a sound I've never heard before.",
+      "I got wasted and did my entire assignment in wingdings. Submitted it. Got a zero. Deserved.",
+      "I threw up so hard my abs are sore. Technically, that's a workout.",
+      "I accidentally flashed the entire dining hall when my towel fell off running from the communal shower. I'm transferring.",
+      "I got hammered and tattooed the quadratic formula on my forearm. At least I'll pass the final.",
+      "I ate edibles before bed and woke up having an existential crisis about cheese. I can't learn right now.",
+      "I got so drunk I tried to climb a statue on campus and campus security has my photo now.",
+      "I farted in the silent section of the library so loud that three people left. I can't show my face."
+    ],
+    [
+      "I got so obliterated last night that I woke up in a canoe. In a drained fountain. Wearing a toga made of newspaper.",
+      "I projectile vomited during a house party with such force that it hit the ceiling fan. It redistributed. Everywhere.",
+      "I'm so hungover that when my alarm went off, I threw my phone out the window in a blind rage. It hit my RA's car.",
+      "I got blackout drunk and signed up for a marathon. It's today. I can barely walk to the bathroom.",
+      "I puked on my laptop. My essay, my browser history, and my dignity are all destroyed.",
+      "I woke up with a live chicken in my dorm room. We've reached a mutual understanding but I can't leave.",
+      "I got so wasted I accidentally submitted a Tinder bio as my thesis abstract. My advisor wants to 'talk.'",
+      "I'm on the toilet and it sounds like a dying whale in here. My roommate is crying. I'm crying. Nobody is going to class.",
+      "I drunkenly ordered a bouncy castle to the dorm. It's inflating in the hallway. I have to deal with this.",
+      "I puked in my backpack. My notes, laptop, and lunch are marinating in last night's bad decisions."
+    ]
+  ],
+  social: [
+    [
+      "I ate something that's fighting back and I can't be more than 10 feet from a toilet.",
+      "I'm having a catastrophic gas situation. For everyone's sake, I'm quarantining.",
+      "I hooked up and now my whole body aches. I'm not leaving this bed today.",
+      "I drank too much last night and I look like a bloated corpse.",
+      "I sharted getting ready and now I'm doing damage control.",
+      "I have a rash in an unfortunate area and pants are not happening today.",
+      "I'm so hungover I threw up brushing my teeth.",
+      "I had a one-night stand and I need a shower, a nap, and a therapist.",
+      "I ate a whole pizza at 2 AM and I can physically feel it in my soul.",
+      "I clogged my toilet and I can't leave until the plumber comes. It's bad."
+    ],
+    [
+      "I've been on the toilet for an hour and it's showing no signs of stopping.",
+      "I'm bloated to the point where none of my pants button. I'm not being seen in public.",
+      "I got way too drunk last night and I currently smell like a distillery's dumpster.",
+      "My booty call stayed over and they won't leave. I'm trapped by awkwardness.",
+      "I tried a cleanse and it's cleansing me way more aggressively than expected.",
+      "I have a hickey that looks like I was attacked by a vacuum cleaner. Can't face society.",
+      "I'm hungover, farting constantly, and my eyes are bloodshot. I'm staying home for public safety.",
+      "I drunkenly ordered Taco Bell at 3 AM and my body is processing the consequences.",
+      "I woke up with a mysterious stain on every piece of clothing I own. Laundry day is mandatory.",
+      "I tried to wax myself and it went horribly wrong. I can't wear anything that touches skin."
+    ],
+    [
+      "I'm having a diarrhea situation that the UN would classify as a humanitarian crisis.",
+      "I got hammered and texted my ex. I'm in too much shame to show my face in public.",
+      "I drunkenly fell asleep in the bathtub and I look like a wrinkled prune with regrets.",
+      "I ate expired shrimp and my body is producing sounds that would make a doctor concerned.",
+      "I woke up in someone else's clothes and I have no idea where mine are.",
+      "I tried a hot sauce challenge and I've been on the toilet since 6 AM. Send thoughts and prayers.",
+      "I was drunk-cooking at 3 AM and burned my hand trying to flip a grilled cheese with my fingers.",
+      "I got way too high and I'm still not sure I can operate a doorknob.",
+      "I hooked up with someone and threw my back out. I'm walking like I'm 90.",
+      "I stress-ate an entire cheesecake and I physically cannot bend in the middle."
+    ],
+    [
+      "I ate an edible, forgot I ate an edible, ate another edible, and now I'm having a conversation with my ceiling fan.",
+      "I got so drunk I pissed in my own closet thinking it was the bathroom. My shoes are ruined and so is my self-image.",
+      "I tried to impress someone by doing a backflip. I'm texting this from an ice bath.",
+      "I farted so loud on a date that the table next to us asked if we were okay. I'll never go outside again.",
+      "I got tanked and karaoke'd 'My Heart Will Go On' so badly that I was asked to leave. And also never come back.",
+      "I ate a Carolina Reaper on a dare and I've been alternating between crying and sitting on a cold floor.",
+      "I got high and ordered $200 of cheese online. It arrived. I'm dealing with 15 pounds of cheese now.",
+      "I projectile vomited in an Uber and I owe a $250 cleaning fee. I'm too broke and too ashamed to go out.",
+      "I drunkenly challenged a stranger to a dance-off and pulled my groin. Walking is a war crime.",
+      "I woke up with someone's phone number written on my forehead in permanent marker. I can't go out like this."
+    ],
+    [
+      "I got so annihilated last night I woke up spooning a lawn flamingo in a kiddie pool full of ranch dressing. I have no explanation.",
+      "I drunkenly tried to slide down a banister and racked myself so hard I see in double now.",
+      "I got so high I spent 4 hours convinced my knees were on backwards. I still haven't verified.",
+      "I ate a gas station oyster on a dare and my body is ejecting things from both ends simultaneously like a broken fire hydrant.",
+      "I got blackout drunk and ordered a mariachi band to my apartment at 5 AM. They're still here. They're quite good, actually.",
+      "I farted during yoga so devastatingly that the instructor paused the class. Three people left. I can never show my face again.",
+      "I'm so hungover that I threw up, slipped in it, and now I'm lying on the bathroom floor writing my will.",
+      "I drunkenly got a spray tan at 2 AM from a machine that was clearly broken. I look like a sweet potato with legs.",
+      "I went on a bender and woke up with a traffic cone, a street sign, and someone else's dog. Court date pending.",
+      "I ate an entire family-size bag of sugar-free gummy bears. Google it. Pray for me."
+    ]
+  ],
+  chores: [
+    [
+      "I just had explosive diarrhea. The only cleaning I'm doing is in the bathroom.",
+      "I'm so hungover the sound of a vacuum would literally kill me.",
+      "I ate like garbage all week and I'm too bloated to bend over.",
+      "I smell awful and I need a shower, not a mop.",
+      "I've been farting nonstop for an hour. My own company is bad enough.",
+      "I pulled a muscle in my back doing... activities. Can't lift anything.",
+      "I have a food baby so big it has its own heartbeat. No physical labor today.",
+      "I just got off the toilet after 40 minutes. I need recovery time.",
+      "I'm covered in mystery sweat and I need to figure out my life before I figure out the dishes.",
+      "I threw up this morning and the only thing I'm scrubbing is my dignity."
+    ],
+    [
+      "I'm on the toilet and it sounds like a tuba solo in here. Chores can wait.",
+      "I ate a whole rotisserie chicken at midnight and I can't physically move.",
+      "I tried to clean the bathroom but dry-heaved at the toilet. It's a biohazard in there.",
+      "I'm so backed up that doing any physical activity is a gamble I'm not willing to take.",
+      "I scratched my junk and now my hand smells so bad I can't touch anything communal.",
+      "My gas is so bad the dog left the room. If the dog is out, I'm out.",
+      "I tried to do laundry but my underwear situation is a forensic crime scene.",
+      "I spilled beer on the couch last night and that IS my cleaning for the week.",
+      "I'm hungover and the smell of cleaning products would make me puke on the thing I'm cleaning.",
+      "I just took a dump so impressive I need to sit down and process what just happened."
+    ],
+    [
+      "I tried to unclog the toilet and now I'm covered in things I refuse to name.",
+      "I'm having a gas emergency that would violate the Geneva Convention.",
+      "I ate leftover curry at 3 AM and my body is producing biological warfare.",
+      "I was cleaning the fridge and found something so rotten I gagged, fell, and bruised my knee.",
+      "I've been glued to the toilet since dawn. The pipes in this house are the only ones getting cleaned.",
+      "I tried to take out the trash and the bag ripped. There's garbage juice on me. I need a hazmat shower, not more chores.",
+      "I accidentally peed myself a little while sneezing and now laundry is about self-preservation, not the house.",
+      "I farted while vacuuming and the smell mixed with the dusty air to create a new chemical weapon.",
+      "I bent over to pick up a sock and my pants ripped from crotch to waistband. I'm processing.",
+      "I got drunk, puked in the sink, and that's technically cleaning because I then had to clean the sink."
+    ],
+    [
+      "I farted while mopping and slipped in the wet spot. I'm lying on the floor questioning everything.",
+      "I tried to clean the bathroom but the toilet made eye contact with me and I had war flashbacks from this morning.",
+      "I got so constipated that when it finally happened, it was a spiritual experience. I need to rest and reflect.",
+      "I was scrubbing the tub and sharted. The tub is clean. The pants are not. Net loss.",
+      "I tried to clean the litter box and threw up. The cat watched with zero sympathy.",
+      "I picked up a wet dish towel that smelled so bad I dropped it, screamed, and my neighbor called to check on me.",
+      "I was doing laundry and found underwear so far gone they deserve a burial, not a wash cycle.",
+      "I tried to plunge the toilet so hard I splashed myself in the face. I've been in the shower for an hour.",
+      "I started cleaning the oven and the smoke set off the alarm. Now I'm deaf and the oven is still dirty.",
+      "I ate sugar-free gummy bears and I'm not leaving the bathroom until Thursday."
+    ],
+    [
+      "I farted with such force while scrubbing the floor that I propelled myself backwards into the cabinet. I have a concussion and a new appreciation for fiber.",
+      "I tried to fix the clogged drain and pulled out a hairball so revolting that it looked back at me with sentient eyes. I dropped it, screamed, and it's now living under the sink. Chores are cancelled.",
+      "I was cleaning the fridge and a container of leftovers from the Mesozoic era opened itself. The smell has given me temporary amnesia. What year is it? Who am I?",
+      "I sharted with such confidence while vacuuming that I had to throw away the pants, the vacuum, and my sense of adulthood.",
+      "I tried to clean the toilet and it overflowed with such biblical fury that my bathroom floor is now a brown lagoon. I'm standing on the counter. Send help.",
+      "I attempted to clean the microwave and it exploded a forgotten container of beans. The ceiling looks like a crime scene. I slipped in bean juice and I'm writing this from the floor.",
+      "I was carrying the trash and both bags exploded simultaneously, covering me head to toe in what I can only describe as 'consequence soup.'",
+      "I puked while scrubbing the toilet, creating an infinite loop of mess. It's been 3 hours. I'm trapped in a cleaning paradox.",
+      "I opened the dishwasher and the smell that came out made my eyes water, my nose burn, and my dog howl. I've sealed the kitchen. It belongs to the bacteria now.",
+      "I bent over to pick up a sock, farted so hard I threw my back out, fell into the laundry pile, and got tangled in sheets. I'm a burrito of regret."
+    ]
+  ],
+  gym: [
+    [
+      "I'm too hungover. I'd puke on the treadmill.",
+      "I have the worst gas right now. Nobody at the gym deserves that.",
+      "I hooked up last night and I can barely walk.",
+      "I ate an entire pizza at 2 AM and I can feel it sloshing around.",
+      "My stomach is making sounds that belong in a horror movie.",
+      "I sharted during my warm-up stretches yesterday. I'm traumatized.",
+      "I'm so bloated my gym shorts don't fit. That's technically a body measurement gain.",
+      "I ate Taco Bell for every meal yesterday and my body is filing a complaint.",
+      "I'm sweating alcohol from last night. People will think I'm drinking at the gym.",
+      "I sat down on the toilet and my legs went numb. Can't squat today. Or walk."
+    ],
+    [
+      "I farted on the leg press last week and I still haven't recovered emotionally.",
+      "I got so drunk last night I thought crunches were a snack.",
+      "I peed a little doing jumping jacks last time. Can't face the gym again.",
+      "My gym crush saw me trip on the treadmill. I've transferred gyms in my mind.",
+      "I'm so constipated that any core work would be an extremely risky bet.",
+      "I got hammered and ate a kebab in bed. The sheets need cleaning, not me.",
+      "I tried to deadlift hungover once and threw up on the bar. Lesson learned.",
+      "I went on a bender and the only thing I'm lifting today is a water glass.",
+      "I got a chafing rash that makes movement feel like sandpaper on a sunburn.",
+      "I smell so bad from last night that the locker room would be an improvement."
+    ],
+    [
+      "I tried a new protein shake and it gave me diarrhea so intense I could power a turbine.",
+      "I got blackout drunk and my body is 90% alcohol. That's basically a fire hazard near gym equipment.",
+      "I farted during deadlifts so loud last time that a guy across the gym said 'bless you.'",
+      "I ate an entire family bucket of chicken at 1 AM and I now move with the grace of a beached whale.",
+      "I peed myself slightly on a heavy squat and made direct eye contact with someone. Can't go back.",
+      "My hangover sweat smells like a chemical weapon. I'm doing society a favor by staying home.",
+      "I tried to stretch and my groin made a sound like cracking a knuckle. I'm lying very still now.",
+      "I pooped myself a tiny bit on a max deadlift once and the PTSD won't let me go back.",
+      "I drank so much I'm still dizzy. The spin bike would be a vomit tornado.",
+      "I ate gas station sushi and the gym is too far from a toilet for me to risk it."
+    ],
+    [
+      "I farted mid-squat so hard it echoed through the entire gym. Someone clapped. I can never return.",
+      "I got hammered, tried to do pull-ups on a street sign, and now my arms don't work.",
+      "I got so drunk I arm-wrestled a bouncer and lost. Both arms are out of commission.",
+      "I ate an entire sheet cake for dinner and I jiggle when I breathe. Core stability is compromised.",
+      "I puked in the gym parking lot last time before I even got inside. My car still smells.",
+      "I got so wasted I woke up sore from what I think was impromptu break-dancing.",
+      "I tried to flex in the mirror hungover and pulled something in my neck. I can only look left now.",
+      "I ate hot wings before my workout last time and the cardio section became a war zone.",
+      "My hangover headache is so bad that the clanking of weights would make my skull implode.",
+      "I drunkenly challenged someone to a push-up contest and tore my rotator cuff at push-up three."
+    ],
+    [
+      "I ate an entire bag of sugar-free gummy bears before leg day. The squat rack is now a crime scene. The gym is evacuated. I'm banned.",
+      "I farted during a plank with such unholy force that the guy next to me fell over. I crawled to my car and I'm never going back.",
+      "I got so obliterated last night that I tried to bench press at home using the toilet as a bench. I fell in. I'm stuck. Send help.",
+      "I sharted so violently mid-deadlift that it went up my back. The janitor quit. The gym owner cried. I've relocated.",
+      "I'm so hungover that I puked doing a sit-up, the puke went straight up, and gravity delivered it right back. It's physics. And it's horrible.",
+      "I ate a ghost pepper on a dare, went to the gym, and sweat-transferred capsaicin to my eyes via my towel. I screamed so loud the front desk called 911.",
+      "I got blackout drunk and woke up with weights duct-taped to my ankles. I can't get them off and I've accepted my new life as a human dumbbell.",
+      "My pre-workout and last night's alcohol created a chemical reaction in my stomach. I am essentially a walking biohazard.",
+      "I tried to use the leg press hungover and it pressed back. I am one with the machine now. It has claimed me.",
+      "I puked, sharted, and cramped simultaneously during burpees. The triple crown of gym humiliation. I'm filing for witness protection."
+    ]
+  ],
+  dating: [
+    [
+      "I've been on the toilet for an hour. Not the kind of prep I planned for tonight.",
+      "I ate something that's destroying me from the inside. I can't risk dinner.",
+      "I got blackout drunk last night and I still smell like a bar floor.",
+      "I have gas so bad right now that a date would be a war crime.",
+      "I sharted getting ready. The universe has spoken.",
+      "I hooked up with someone else last night and I feel too guilty to show up.",
+      "I puked this morning and I look like death in a collared shirt.",
+      "I have a rash that appeared out of nowhere. No way I'm explaining that on a first date.",
+      "I just popped the most disgusting back zit and I need a moment.",
+      "I tried to groom and cut myself somewhere very unfortunate. Blood everywhere."
+    ],
+    [
+      "I stress-ate an entire tub of ice cream and now I look like I'm smuggling a beach ball.",
+      "I tried to shave down there and it looks like a lawn mower accident.",
+      "I'm having a bathroom emergency so severe that candles couldn't save this.",
+      "I farted trying on my outfit and the smell permanently attached to the fabric.",
+      "I got drunk last night and drunk-texted them something unforgivable. Can't face them.",
+      "I tried a new cologne and it mixed with my natural scent to create biological warfare.",
+      "I pooped my pants on the way there. Turned the car around. Date's off.",
+      "I have the meat sweats from a 2 AM kebab and I look like a glazed ham.",
+      "I tried to squeeze into date pants and they ripped from crotch to knee.",
+      "I got so nervous I puked on my shoes. The backup shoes are ugly."
+    ],
+    [
+      "I got wasted at happy hour and pissed myself on the walk home. Can't pivot to date mode.",
+      "I tried to manscape and now I look like I lost a fight with a cheese grater.",
+      "I spent the last hour on the toilet making sounds that would haunt my date forever.",
+      "I drunkenly hooked up with their friend last week and I just found out. Abort.",
+      "I ate garlic bread as a pre-date snack and my breath could peel paint.",
+      "I'm so nervous I've been farting nonstop. I'd clear the restaurant.",
+      "I tried to do a face mask and had an allergic reaction. I look like a tomato with eyes.",
+      "I popped a zit and it exploded like a volcano. My mirror looks like a crime scene.",
+      "I got so anxious I stress-ate a family-size bag of Cheetos. My fingers are orange. My face is orange.",
+      "I sneezed and a booger landed on my shirt. While trying to clean it, I fell and ripped my pants."
+    ],
+    [
+      "I got so nervous I sharted in the Uber on the way there. The driver kicked me out. I'm standing on a sidewalk with no dignity.",
+      "I tried to look sexy in the mirror and threw my back out doing a pose. I can only stand at a 45-degree angle now.",
+      "I farted in the restaurant waiting for my date and the couple next to me moved tables. Then another couple. I'm in quarantine.",
+      "I ate a burrito for courage and now my stomach sounds like a whale in distress. The whole restaurant can hear it.",
+      "I drunkenly texted them my browser history instead of a cute message. Witness protection seems reasonable.",
+      "I got spray-tanned for the date and I look like a leather handbag. An oompa loompa. A rotisserie chicken.",
+      "I tried to impress them by cooking and set off every smoke detector. The fire department showed up. They were not impressed.",
+      "I stress-ate a whole block of cheese and now I'm clogged like a drain in a frat house.",
+      "I got so hammered pre-gaming that I showed up to the wrong restaurant and hit on someone else's date.",
+      "I tried to wax my own chest and ripped off a chunk of skin. I'm in the ER, not at Olive Garden."
+    ],
+    [
+      "I nervously farted walking into the restaurant with such devastating force that the hostess dropped her menus, a child cried, and the candles flickered.",
+      "I tried to impress my date by eating a whole habanero. I'm now crying, sweating, drooling, and hiccupping simultaneously. They left during the hiccups.",
+      "I sharted so catastrophically in my date outfit that the dry cleaner took one look and said 'I'm sorry for your loss.'",
+      "I got so nervous I puked in my lap at the table. Told them it was soup. They did not believe it was soup.",
+      "I stress-ate an entire wheel of brie before the date and my body is producing cheese gas at a rate that could fill a hot air balloon.",
+      "I tried to be smooth leaning on the bar and my hand slipped into someone's drink. Then I fell. Into their lap. Then I farted.",
+      "I got blackout drunk pre-gaming and showed up to the date in my underwear. I was very confident about it. They were not.",
+      "I pooped myself during the appetizer and tried to play it cool for TWO COURSES before the smell gave me away.",
+      "I ate gas station oysters for 'stamina' and spent the entire date running to the bathroom. Seven trips. They counted.",
+      "I was so nervous I sweat through three layers of clothing, farted audibly during a romantic silence, and then my chair broke. All in the first ten minutes."
+    ]
+  ]
+};
+
+const ABSURD_LABELS = ['Plausible', 'Stretching It', 'Suspicious', 'Absurd', 'Unhinged'];
+const ABSURD_CLASSES = ['absurd-1', 'absurd-2', 'absurd-3', 'absurd-4', 'absurd-5'];
+const ALL_CATS = ['work', 'school', 'social', 'chores', 'gym', 'dating'];
+
+/* ── State ── */
+let currentCat = 'any';
+let currentExcuse = '';
+let favorites = JSON.parse(localStorage.getItem('ex_favorites') || '[]');
+let stats = JSON.parse(localStorage.getItem('ex_stats') || '{"generated":0,"saved":0,"copied":0}');
+let lastExcuse = '';
+
+/* ── DOM ── */
+const excuseText = document.getElementById('excuseText');
+const copyBtn = document.getElementById('copyBtn');
+const catContainer = document.getElementById('categories');
+const absurdSlider = document.getElementById('absurdSlider');
+const absurdLabel = document.getElementById('absurdLabel');
+const generateBtn = document.getElementById('generateBtn');
+const saveBtn = document.getElementById('saveBtn');
+const favsSection = document.getElementById('favsSection');
+const favsList = document.getElementById('favsList');
+const statGenerated = document.getElementById('statGenerated');
+const statSaved = document.getElementById('statSaved');
+const statCopied = document.getElementById('statCopied');
+const nsfwToggle = document.getElementById('nsfwToggle');
+const outputBox = document.querySelector('.ex-output');
+
+/* ── Core ── */
+function pickRandom(arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
+
+function generate() {
+  const level = parseInt(absurdSlider.value) - 1;
+  const isNsfw = nsfwToggle.checked;
+  const db = isNsfw ? NSFW_EXCUSES : EXCUSES;
+  let cats = currentCat === 'any' ? ALL_CATS : [currentCat];
+  let cat = pickRandom(cats);
+  let pool = db[cat][level];
+
+  // Avoid repeating the same excuse
+  let excuse = pickRandom(pool);
+  let attempts = 0;
+  while (excuse === lastExcuse && attempts < 10) {
+    cat = pickRandom(cats);
+    pool = db[cat][level];
+    excuse = pickRandom(pool);
+    attempts++;
+  }
+  lastExcuse = excuse;
+  currentExcuse = excuse;
+
+  // Animate
+  excuseText.classList.remove('generating');
+  void excuseText.offsetWidth;
+  excuseText.textContent = excuse;
+  excuseText.classList.add('generating');
+
+  // NSFW visual indicator + disable save
+  outputBox.classList.toggle('nsfw-active', isNsfw);
+  saveBtn.disabled = isNsfw;
+  saveBtn.style.opacity = isNsfw ? '0.3' : '';
+  saveBtn.title = isNsfw ? 'Saving disabled in NSFW mode' : 'Save to favorites';
+
+  // Update save button state
+  if (!isNsfw) updateSaveBtn();
+
+  // Stats
+  stats.generated++;
+  saveStats();
+  renderStats();
+}
+
+function updateAbsurdLabel() {
+  const v = parseInt(absurdSlider.value) - 1;
+  absurdLabel.textContent = ABSURD_LABELS[v];
+  absurdLabel.className = 'ex-slider-value ' + ABSURD_CLASSES[v];
+}
+
+/* ── Copy ── */
+async function copyExcuse(text, btn) {
+  try {
+    await navigator.clipboard.writeText(text);
+    btn.classList.add('copied');
+    btn.textContent = '\u2713';
+    stats.copied++;
+    saveStats();
+    renderStats();
+    setTimeout(() => {
+      btn.classList.remove('copied');
+      btn.textContent = '\uD83D\uDCCB';
+    }, 1500);
+  } catch(e) {
+    // Fallback
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    btn.classList.add('copied');
+    btn.textContent = '\u2713';
+    stats.copied++;
+    saveStats();
+    renderStats();
+    setTimeout(() => {
+      btn.classList.remove('copied');
+      btn.textContent = '\uD83D\uDCCB';
+    }, 1500);
+  }
+}
+
+/* ── Favorites ── */
+function toggleFavorite() {
+  if (!currentExcuse || currentExcuse === 'Click generate to get your first excuse...') return;
+  const idx = favorites.indexOf(currentExcuse);
+  if (idx > -1) {
+    favorites.splice(idx, 1);
+  } else {
+    favorites.unshift(currentExcuse);
+    if (favorites.length > 20) favorites.pop();
+    stats.saved++;
+    saveStats();
+  }
+  localStorage.setItem('ex_favorites', JSON.stringify(favorites));
+  updateSaveBtn();
+  renderFavorites();
+  renderStats();
+}
+
+function removeFavorite(idx) {
+  favorites.splice(idx, 1);
+  localStorage.setItem('ex_favorites', JSON.stringify(favorites));
+  renderFavorites();
+  renderStats();
+}
+
+function updateSaveBtn() {
+  const isFav = favorites.indexOf(currentExcuse) > -1;
+  saveBtn.innerHTML = isFav ? '&#x2665;' : '&#x2661;';
+  saveBtn.style.color = isFav ? 'var(--accent2)' : '';
+}
+
+function renderFavorites() {
+  if (favorites.length === 0) {
+    favsSection.style.display = 'none';
+    return;
+  }
+  favsSection.style.display = '';
+  statSaved.textContent = favorites.length;
+  favsList.innerHTML = favorites.map((f, i) =>
+    '<div class="ex-fav-item">' +
+      '<span class="ex-fav-text">' + escapeHtml(f) + '</span>' +
+      '<button class="ex-fav-copy" data-idx="' + i + '" title="Copy">\uD83D\uDCCB</button>' +
+      '<button class="ex-fav-remove" data-idx="' + i + '" title="Remove">\u2715</button>' +
+    '</div>'
+  ).join('');
+}
+
+/* ── Stats ── */
+function saveStats() {
+  localStorage.setItem('ex_stats', JSON.stringify(stats));
+}
+function renderStats() {
+  statGenerated.textContent = stats.generated;
+  statSaved.textContent = favorites.length;
+  statCopied.textContent = stats.copied;
+}
+
+function escapeHtml(str) {
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+/* ── Events ── */
+generateBtn.addEventListener('click', generate);
+
+copyBtn.addEventListener('click', () => {
+  if (currentExcuse && currentExcuse !== 'Click generate to get your first excuse...') {
+    copyExcuse(currentExcuse, copyBtn);
+  }
+});
+
+saveBtn.addEventListener('click', toggleFavorite);
+
+absurdSlider.addEventListener('input', updateAbsurdLabel);
+
+catContainer.addEventListener('click', (e) => {
+  const btn = e.target.closest('.ex-cat-btn');
+  if (!btn) return;
+  catContainer.querySelectorAll('.ex-cat-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  currentCat = btn.dataset.cat;
+});
+
+favsList.addEventListener('click', (e) => {
+  const copyEl = e.target.closest('.ex-fav-copy');
+  const removeEl = e.target.closest('.ex-fav-remove');
+  if (copyEl) {
+    const idx = parseInt(copyEl.dataset.idx);
+    copyExcuse(favorites[idx], copyEl);
+  }
+  if (removeEl) {
+    const idx = parseInt(removeEl.dataset.idx);
+    removeFavorite(idx);
+  }
+});
+
+// Keyboard shortcut
+document.addEventListener('keydown', (e) => {
+  if (e.code === 'Space' && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') {
+    e.preventDefault();
+    generate();
+  }
+});
+
+/* ── Init ── */
+updateAbsurdLabel();
+renderStats();
+renderFavorites();
+GameTheme.init();
+
+})();
+</script>
+</body>
+</html>
