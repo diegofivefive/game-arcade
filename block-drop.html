@@ -201,46 +201,26 @@
     text-align: center;
   }
 
-  /* Touch controls */
-  .touch-controls {
-    display: none;
-    width: 100%;
-    max-width: 560px;
-    padding: 8px 8px 0;
-    gap: 6px;
-  }
-  .touch-row {
-    display: flex;
-    gap: 6px;
-    justify-content: center;
-  }
-  .touch-btn {
-    width: 52px;
-    height: 46px;
-    border: none;
-    border-radius: var(--radius-md);
+  /* Panel buttons (Hold/Pause) */
+  .panel-btn {
     background: var(--card);
     border: 1px solid var(--card-border);
+    border-radius: var(--radius-md);
+    padding: 8px 4px;
     color: var(--text);
-    font-size: 20px;
+    font-size: 11px;
     font-weight: 700;
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    text-align: center;
     transition: all 0.1s;
     user-select: none;
     -webkit-user-select: none;
     touch-action: manipulation;
   }
-  .touch-btn:active {
+  .panel-btn:active {
     background: var(--accent);
     color: #fff;
     transform: scale(0.95);
-  }
-  .touch-btn.text {
-    font-size: 14px;
-    letter-spacing: 0.5px;
   }
 
   /* Line clear flash */
@@ -248,11 +228,6 @@
     0% { opacity: 1; }
     50% { opacity: 0.2; }
     100% { opacity: 0; }
-  }
-
-  /* Show touch controls on touch devices */
-  @media (pointer: coarse) {
-    .touch-controls { display: flex; flex-direction: column; align-items: center; }
   }
 
   @media (max-width: 480px) {
@@ -264,7 +239,7 @@
     .panel-box { padding: 4px; border-radius: var(--radius-sm); }
     .panel-box .p-label { font-size: 8px; margin-bottom: 2px; }
     .panel-box .p-value { font-size: 13px; }
-    .touch-btn { width: 48px; height: 42px; font-size: 18px; }
+    .panel-btn { padding: 6px 3px; font-size: 10px; border-radius: var(--radius-sm); }
     .ad-content { min-height: 60px; padding: 6px 8px; }
   }
 </style>
@@ -313,6 +288,8 @@
         <div class="p-label">Lines</div>
         <div class="p-value" id="lines">0</div>
       </div>
+      <button class="panel-btn" id="tHold" aria-label="Hold">Hold</button>
+      <button class="panel-btn" id="tPause" aria-label="Pause">&#x23F8;</button>
     </div>
 
     <!-- Board -->
@@ -360,19 +337,6 @@
 
   </div>
 
-  <!-- Touch controls -->
-  <div class="touch-controls" id="touchControls">
-    <div class="touch-row">
-      <button class="touch-btn" id="tRotate" aria-label="Rotate">&#x21BB;</button>
-      <button class="touch-btn" id="tHold" aria-label="Hold">H</button>
-      <button class="touch-btn" id="tPause" aria-label="Pause">&#x23F8;</button>
-    </div>
-    <div class="touch-row">
-      <button class="touch-btn" id="tLeft" aria-label="Move left">&#x2190;</button>
-      <button class="touch-btn text" id="tDrop" aria-label="Hard drop">Drop</button>
-      <button class="touch-btn" id="tRight" aria-label="Move right">&#x2192;</button>
-    </div>
-  </div>
 
   <!-- Ad Slot 2: Bottom Banner -->
   <div class="ad-slot ad-bottom ad-slot--placeholder">
@@ -418,7 +382,6 @@ function sizeBoard() {
   const vw = window.innerWidth;
   const vh = window.innerHeight;
   const isMobile = vw <= 480;
-  const isTouch = window.matchMedia('(pointer: coarse)').matches;
 
   // Width constraint: viewport - single side panel - gaps - padding
   const sidePanelW = isMobile ? 54 : 72;
@@ -427,10 +390,9 @@ function sizeBoard() {
   const maxBlockW = Math.floor(availW / COLS);
 
   // Height constraint: viewport minus UI chrome
-  // brand(25) + ad(70) + header(45) + gaps(16) = ~156 on mobile, ~140 desktop
-  // Touch controls: 2 rows of buttons + padding = ~110
+  // brand(25) + ad(70) + header(45) + gaps(16) + bottom ad/footer(~90)
   const topChrome = isMobile ? 156 : 140;
-  const bottomChrome = isTouch ? 110 : 16;
+  const bottomChrome = 16;
   const availH = vh - topChrome - bottomChrome;
   const maxBlockH = Math.floor(availH / ROWS);
 
@@ -969,14 +931,81 @@ document.addEventListener('keydown', e => {
 });
 
 // ===========================
-// INPUT: TOUCH BUTTONS
+// INPUT: PANEL BUTTONS
 // ===========================
-document.getElementById('tLeft').addEventListener('click', () => { if (gameState === 'playing') movePiece(0, -1); });
-document.getElementById('tRight').addEventListener('click', () => { if (gameState === 'playing') movePiece(0, 1); });
-document.getElementById('tRotate').addEventListener('click', () => { if (gameState === 'playing') rotatePiece(); });
-document.getElementById('tDrop').addEventListener('click', () => { if (gameState === 'playing') hardDrop(); });
 document.getElementById('tHold').addEventListener('click', () => { if (gameState === 'playing') holdSwap(); });
 document.getElementById('tPause').addEventListener('click', () => togglePause());
+
+// ===========================
+// INPUT: TOUCH GESTURES ON CANVAS
+// ===========================
+(function() {
+  const SWIPE_THRESHOLD = 20; // min px to count as swipe
+  const TAP_THRESHOLD = 10;   // max movement for a tap
+  const MOVE_STEP = BLOCK;    // px per horizontal move trigger
+  let touchId = null;
+  let startX = 0, startY = 0;
+  let lastMoveX = 0;
+  let hasMoved = false;
+  let swipedDown = false;
+
+  canvas.addEventListener('touchstart', e => {
+    if (touchId !== null) return;
+    const t = e.changedTouches[0];
+    touchId = t.identifier;
+    startX = lastMoveX = t.clientX;
+    startY = t.clientY;
+    hasMoved = false;
+    swipedDown = false;
+    e.preventDefault();
+  }, { passive: false });
+
+  canvas.addEventListener('touchmove', e => {
+    const t = Array.from(e.changedTouches).find(ct => ct.identifier === touchId);
+    if (!t) return;
+    e.preventDefault();
+    if (gameState !== 'playing' || clearingRows.length > 0) return;
+
+    const dx = t.clientX - lastMoveX;
+    const dy = t.clientY - startY;
+
+    // Swipe down → hard drop (once per gesture)
+    if (!swipedDown && dy > SWIPE_THRESHOLD * 3) {
+      swipedDown = true;
+      hasMoved = true;
+      hardDrop();
+      return;
+    }
+
+    // Horizontal movement: trigger a move for each BLOCK-width of drag
+    if (Math.abs(dx) >= MOVE_STEP) {
+      const steps = Math.floor(Math.abs(dx) / MOVE_STEP);
+      const dir = dx > 0 ? 1 : -1;
+      for (let i = 0; i < steps; i++) movePiece(0, dir);
+      lastMoveX += dir * steps * MOVE_STEP;
+      hasMoved = true;
+    }
+  }, { passive: false });
+
+  canvas.addEventListener('touchend', e => {
+    const t = Array.from(e.changedTouches).find(ct => ct.identifier === touchId);
+    if (!t) return;
+    touchId = null;
+    e.preventDefault();
+
+    // Tap → rotate (if finger barely moved)
+    const totalDx = Math.abs(t.clientX - startX);
+    const totalDy = Math.abs(t.clientY - startY);
+    if (!hasMoved && totalDx < TAP_THRESHOLD && totalDy < TAP_THRESHOLD) {
+      if (gameState === 'playing' && clearingRows.length === 0) rotatePiece();
+    }
+  }, { passive: false });
+
+  canvas.addEventListener('touchcancel', e => {
+    const t = Array.from(e.changedTouches).find(ct => ct.identifier === touchId);
+    if (t) touchId = null;
+  });
+})();
 
 // ===========================
 // BUTTONS
