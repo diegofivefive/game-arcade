@@ -90,35 +90,6 @@
     font-variant-numeric: tabular-nums;
   }
 
-  /* ── Countdown overlay ── */
-  .pipe-countdown {
-    position: absolute;
-    top: 6px;
-    right: 6px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 10;
-    background: rgba(10, 10, 26, 0.85);
-    border: 1px solid var(--card-border);
-    border-radius: var(--radius-sm);
-    padding: 4px 12px;
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 0.3s;
-  }
-  .pipe-countdown.active { opacity: 1; }
-  .pipe-countdown-num {
-    font-size: 1.3rem;
-    font-weight: 800;
-    color: var(--accent);
-    text-shadow: 0 0 12px var(--accent-glow);
-  }
-  .pipe-countdown-num.urgent {
-    color: #ff5e94;
-    text-shadow: 0 0 12px rgba(255, 94, 148, 0.5);
-  }
-
   /* ── Game area ── */
   .pipe-game-wrap {
     position: relative;
@@ -172,8 +143,8 @@
   }
   .pipe-grid {
     display: grid;
-    gap: 2px;
-    background: var(--card-border);
+    gap: 0;
+    background: var(--bg2);
     border: 2px solid var(--card-border);
     border-radius: var(--radius-sm);
     overflow: hidden;
@@ -452,10 +423,6 @@
       <!-- Grid -->
       <div class="pipe-grid-wrap">
         <div class="pipe-grid" id="pipeGrid"></div>
-        <!-- Countdown overlay -->
-        <div class="pipe-countdown" id="countdown">
-          <span class="pipe-countdown-num" id="countdownNum">30</span>
-        </div>
         <!-- Game over overlay -->
         <div class="pipe-game-over" id="gameOver">
           <h2 id="goTitle">Game Over</h2>
@@ -613,8 +580,6 @@ const levelEl = document.getElementById('levelVal');
 const timerEl = document.getElementById('timerVal');
 const pipesEl = document.getElementById('pipesVal');
 const flowFill = document.getElementById('flowFill');
-const countdownEl = document.getElementById('countdown');
-const countdownNumEl = document.getElementById('countdownNum');
 const gameOverEl = document.getElementById('gameOver');
 const goTitle = document.getElementById('goTitle');
 const goScore = document.getElementById('goScore');
@@ -623,135 +588,152 @@ const replaceBtn = document.getElementById('replaceBtn');
 const bombBtn = document.getElementById('bombBtn');
 
 // ── Drawing helpers ──
+function createCylinderGradient(ctx, x, y, w, h, isVertical, baseColor, highlightColor, shadowColor) {
+  let grad;
+  if (isVertical) {
+    grad = ctx.createLinearGradient(x, y, x + w, y);
+  } else {
+    grad = ctx.createLinearGradient(x, y, x, y + h);
+  }
+  grad.addColorStop(0, shadowColor);
+  grad.addColorStop(0.25, baseColor);
+  grad.addColorStop(0.5, highlightColor);
+  grad.addColorStop(0.75, baseColor);
+  grad.addColorStop(1, shadowColor);
+  return grad;
+}
+
+function drawPipeChannel(ctx, x, y, w, h, isVertical) {
+  // Outer rim
+  const rimGrad = createCylinderGradient(ctx, x, y, w, h, isVertical, '#4a4a7a', '#6a6aaa', '#2a2a50');
+  ctx.fillStyle = rimGrad;
+  ctx.fillRect(x, y, w, h);
+
+  // Inner bore
+  const inset = isVertical ? Math.max(2, w * 0.15) : Math.max(2, h * 0.15);
+  const ix = isVertical ? x + inset : x;
+  const iy = isVertical ? y : y + inset;
+  const iw = isVertical ? w - inset * 2 : w;
+  const ih = isVertical ? h : h - inset * 2;
+  const innerGrad = createCylinderGradient(ctx, ix, iy, iw, ih, isVertical, '#1e1e44', '#2e2e5e', '#12122e');
+  ctx.fillStyle = innerGrad;
+  ctx.fillRect(ix, iy, iw, ih);
+}
+
 function drawPipe(canvas, pipeType, waterLevel, waterFrom, waterTo, isCrossSecond) {
   const ctx = canvas.getContext('2d');
   const s = canvas.width;
   ctx.clearRect(0, 0, s, s);
 
   const opens = pipeType.openings;
-  const pw = s * 0.32;  // pipe width
+  const pw = s * 0.38;  // pipe width
   const cx = s / 2;
   const cy = s / 2;
-
-  // Draw pipe body
-  ctx.lineCap = 'round';
-  ctx.lineJoin = 'round';
-
-  // Background fill for pipe channels
-  ctx.fillStyle = COLORS.pipeFill;
-  ctx.strokeStyle = COLORS.pipeStroke;
-  ctx.lineWidth = 1.5;
-
-  // Draw each opening as a channel from center to edge
   const halfPw = pw / 2;
 
-  // For cross pipes, draw the two channels
+  // Draw pipe channels with cylindrical gradient
   if (pipeType.name === 'cross') {
-    // Vertical channel
-    ctx.fillRect(cx - halfPw, 0, pw, s);
-    ctx.strokeRect(cx - halfPw, 0, pw, s);
-    // Horizontal channel
-    ctx.fillRect(0, cy - halfPw, s, pw);
-    ctx.strokeRect(0, cy - halfPw, s, pw);
-  } else {
-    // Draw center junction
+    drawPipeChannel(ctx, cx - halfPw, 0, pw, s, true);   // vertical
+    drawPipeChannel(ctx, 0, cy - halfPw, s, pw, false);   // horizontal
+    // Junction overlay
+    const jGrad = ctx.createRadialGradient(cx, cy, 0, cx, cy, halfPw * 1.2);
+    jGrad.addColorStop(0, '#2e2e5e');
+    jGrad.addColorStop(1, '#1e1e44');
+    ctx.fillStyle = jGrad;
     ctx.fillRect(cx - halfPw, cy - halfPw, pw, pw);
+  } else {
+    // Draw center junction first with radial gradient
+    const jGrad = ctx.createRadialGradient(cx, cy, 0, cx, cy, halfPw * 1.1);
+    jGrad.addColorStop(0, '#2e2e5e');
+    jGrad.addColorStop(1, '#1e1e44');
 
-    // Draw channels to edges
-    if (opens[0]) { ctx.fillRect(cx - halfPw, 0, pw, cy); ctx.strokeRect(cx - halfPw, 0, pw, cy + halfPw); }
-    if (opens[2]) { ctx.fillRect(cx - halfPw, cy, pw, cy); ctx.strokeRect(cx - halfPw, cy - halfPw, pw, cy + halfPw); }
-    if (opens[3]) { ctx.fillRect(0, cy - halfPw, cx, pw); ctx.strokeRect(0, cy - halfPw, cx + halfPw, pw); }
-    if (opens[1]) { ctx.fillRect(cx, cy - halfPw, cx, pw); ctx.strokeRect(cx - halfPw, cy - halfPw, cx + halfPw, pw); }
+    // Draw channels to edges (edge-to-edge: from 0 or center to s or center)
+    if (opens[0]) drawPipeChannel(ctx, cx - halfPw, 0, pw, cy + halfPw, true);
+    if (opens[2]) drawPipeChannel(ctx, cx - halfPw, cy - halfPw, pw, cy + halfPw, true);
+    if (opens[3]) drawPipeChannel(ctx, 0, cy - halfPw, cx + halfPw, pw, false);
+    if (opens[1]) drawPipeChannel(ctx, cx - halfPw, cy - halfPw, cx + halfPw, pw, false);
 
-    // Redraw center to clean up overlaps
-    ctx.fillStyle = COLORS.pipeFill;
-    ctx.fillRect(cx - halfPw + 1, cy - halfPw + 1, pw - 2, pw - 2);
+    // Smooth center junction
+    ctx.fillStyle = jGrad;
+    ctx.beginPath();
+    ctx.arc(cx, cy, halfPw * 0.85, 0, Math.PI * 2);
+    ctx.fill();
   }
+
+  // Rim highlights at openings (metallic cap effect)
+  ctx.strokeStyle = 'rgba(120, 120, 180, 0.4)';
+  ctx.lineWidth = 1.5;
+  if (opens[0]) { ctx.beginPath(); ctx.moveTo(cx - halfPw, 0); ctx.lineTo(cx + halfPw, 0); ctx.stroke(); }
+  if (opens[2]) { ctx.beginPath(); ctx.moveTo(cx - halfPw, s); ctx.lineTo(cx + halfPw, s); ctx.stroke(); }
+  if (opens[3]) { ctx.beginPath(); ctx.moveTo(0, cy - halfPw); ctx.lineTo(0, cy + halfPw); ctx.stroke(); }
+  if (opens[1]) { ctx.beginPath(); ctx.moveTo(s, cy - halfPw); ctx.lineTo(s, cy + halfPw); ctx.stroke(); }
 
   // Draw water
   if (waterLevel > 0 && waterFrom !== undefined) {
-    const wc = isCrossSecond ? COLORS.cross2 : COLORS.water;
-    ctx.fillStyle = wc;
-    ctx.globalAlpha = 0.85;
+    drawWaterInPipe(ctx, pipeType, waterLevel, waterFrom, waterTo, isCrossSecond, s, cx, cy, pw);
+  }
+}
 
-    const wp = pw * 0.6; // water width
-    const halfWp = wp / 2;
+function drawWaterInPipe(ctx, pipeType, waterLevel, waterFrom, waterTo, isCrossSecond, s, cx, cy, pw) {
+  const wc = isCrossSecond ? COLORS.cross2 : COLORS.water;
+  const halfPw = pw / 2;
+  const wp = pw * 0.5;
+  const halfWp = wp / 2;
 
-    if (pipeType.name === 'cross') {
-      // Cross pipe: fill the relevant channel
-      if (waterFrom === 0 || waterFrom === 2) {
-        // Vertical flow
-        if (waterFrom === 0) {
-          ctx.fillRect(cx - halfWp, 0, wp, waterLevel * s);
-        } else {
-          ctx.fillRect(cx - halfWp, s - waterLevel * s, wp, waterLevel * s);
-        }
-      } else {
-        // Horizontal flow
-        if (waterFrom === 3) {
-          ctx.fillRect(0, cy - halfWp, waterLevel * s, wp);
-        } else {
-          ctx.fillRect(s - waterLevel * s, cy - halfWp, waterLevel * s, wp);
-        }
-      }
+  ctx.globalAlpha = 0.9;
+
+  if (pipeType.name === 'cross') {
+    if (waterFrom === 0 || waterFrom === 2) {
+      const wGrad = createCylinderGradient(ctx, cx - halfWp, 0, wp, s, true, wc, '#66d4ff', '#0070aa');
+      ctx.fillStyle = wGrad;
+      if (waterFrom === 0) ctx.fillRect(cx - halfWp, 0, wp, waterLevel * s);
+      else ctx.fillRect(cx - halfWp, s - waterLevel * s, wp, waterLevel * s);
     } else {
-      // Non-cross: draw water from entry direction toward center, then center to exit
-      const totalLen = getPathLength(pipeType, waterFrom, waterTo, s);
-      const filledLen = waterLevel * totalLen;
-
-      drawWaterPath(ctx, pipeType, waterFrom, waterTo, s, cx, cy, halfWp, wp, filledLen, totalLen);
+      const wGrad = createCylinderGradient(ctx, 0, cy - halfWp, s, wp, false, wc, '#66d4ff', '#0070aa');
+      ctx.fillStyle = wGrad;
+      if (waterFrom === 3) ctx.fillRect(0, cy - halfWp, waterLevel * s, wp);
+      else ctx.fillRect(s - waterLevel * s, cy - halfWp, waterLevel * s, wp);
     }
-    ctx.globalAlpha = 1;
-  }
-}
-
-function getPathLength(pipeType, from, to, s) {
-  // Approximate total path length through the pipe
-  const cx = s / 2;
-  if (from === undefined || to === undefined) return s;
-  // Straight pipe or through center
-  return s;
-}
-
-function drawWaterPath(ctx, pipeType, from, to, s, cx, cy, halfWp, wp, filledLen, totalLen) {
-  const halfS = s / 2;
-  const progress = Math.min(filledLen / totalLen, 1);
-
-  // Calculate entry point and exit point
-  // Water flows from edge (from direction) through center to edge (to direction)
-  // We split into two halves: edge->center = 0..0.5, center->edge = 0.5..1
-
-  if (progress <= 0.5) {
-    // Drawing from entry edge toward center
-    const segProgress = progress * 2; // 0..1 within this segment
-    drawWaterSegment(ctx, from, segProgress, s, cx, cy, halfWp, wp, false);
   } else {
-    // Full entry segment + partial exit segment
-    drawWaterSegment(ctx, from, 1, s, cx, cy, halfWp, wp, false);
-    const segProgress = (progress - 0.5) * 2;
-    drawWaterSegment(ctx, to, segProgress, s, cx, cy, halfWp, wp, true);
+    const progress = Math.min(waterLevel, 1);
+    if (progress <= 0.5) {
+      const seg = progress * 2;
+      drawWaterSeg(ctx, waterFrom, seg, s, cx, cy, halfWp, wp, false, wc);
+    } else {
+      drawWaterSeg(ctx, waterFrom, 1, s, cx, cy, halfWp, wp, false, wc);
+      drawWaterSeg(ctx, waterTo, (progress - 0.5) * 2, s, cx, cy, halfWp, wp, true, wc);
+    }
   }
+  ctx.globalAlpha = 1;
 }
 
-function drawWaterSegment(ctx, dir, progress, s, cx, cy, halfWp, wp, fromCenter) {
-  // dir: 0=top, 1=right, 2=bottom, 3=left
-  // fromCenter: if true, draw from center outward; if false, from edge toward center
+function drawWaterSeg(ctx, dir, progress, s, cx, cy, halfWp, wp, fromCenter, color) {
   const halfS = s / 2;
   const len = halfS * progress;
+  if (len <= 0) return;
 
-  if (dir === 0) { // top
-    if (fromCenter) ctx.fillRect(cx - halfWp, cy - len, wp, len);
-    else ctx.fillRect(cx - halfWp, halfS - len, wp, len);
-  } else if (dir === 2) { // bottom
-    if (fromCenter) ctx.fillRect(cx - halfWp, cy, wp, len);
-    else ctx.fillRect(cx - halfWp, s - halfS, wp, len);
-  } else if (dir === 3) { // left
-    if (fromCenter) ctx.fillRect(cx - len, cy - halfWp, len, wp);
-    else ctx.fillRect(halfS - len, cy - halfWp, len, wp);
-  } else if (dir === 1) { // right
-    if (fromCenter) ctx.fillRect(cx, cy - halfWp, len, wp);
-    else ctx.fillRect(s - halfS, cy - halfWp, len, wp);
+  let x, y, w, h, isV;
+  if (dir === 0) {
+    isV = true;
+    if (fromCenter) { x = cx - halfWp; y = cy - len; w = wp; h = len; }
+    else { x = cx - halfWp; y = halfS - len; w = wp; h = len; }
+  } else if (dir === 2) {
+    isV = true;
+    if (fromCenter) { x = cx - halfWp; y = cy; w = wp; h = len; }
+    else { x = cx - halfWp; y = s - halfS; w = wp; h = len; }
+  } else if (dir === 3) {
+    isV = false;
+    if (fromCenter) { x = cx - len; y = cy - halfWp; w = len; h = wp; }
+    else { x = halfS - len; y = cy - halfWp; w = len; h = wp; }
+  } else {
+    isV = false;
+    if (fromCenter) { x = cx; y = cy - halfWp; w = len; h = wp; }
+    else { x = s - halfS; y = cy - halfWp; w = len; h = wp; }
   }
+
+  const wGrad = createCylinderGradient(ctx, x, y, w, h, isV, color, '#66d4ff', '#0070aa');
+  ctx.fillStyle = wGrad;
+  ctx.fillRect(x, y, w, h);
 }
 
 function drawStartPipe(canvas, exitDir) {
@@ -761,33 +743,34 @@ function drawStartPipe(canvas, exitDir) {
 
   const cx = s / 2;
   const cy = s / 2;
-  const pw = s * 0.32;
+  const pw = s * 0.38;
   const halfPw = pw / 2;
+
+  // Exit channel with cylindrical gradient
+  const isV = (exitDir === 0 || exitDir === 2);
+  if (exitDir === 0) drawPipeChannel(ctx, cx - halfPw, 0, pw, cy, isV);
+  if (exitDir === 1) drawPipeChannel(ctx, cx, cy - halfPw, cx, pw, isV);
+  if (exitDir === 2) drawPipeChannel(ctx, cx - halfPw, cy, pw, cy, isV);
+  if (exitDir === 3) drawPipeChannel(ctx, 0, cy - halfPw, cx, pw, isV);
 
   // Glow
   ctx.shadowColor = COLORS.startGlow;
-  ctx.shadowBlur = 8;
+  ctx.shadowBlur = 10;
 
-  // Draw start marker
-  ctx.fillStyle = COLORS.start;
+  // Start marker with gradient
+  const sGrad = ctx.createRadialGradient(cx, cy, 0, cx, cy, pw * 0.7);
+  sGrad.addColorStop(0, '#ff8cb4');
+  sGrad.addColorStop(0.6, COLORS.start);
+  sGrad.addColorStop(1, '#cc3a6a');
+  ctx.fillStyle = sGrad;
   ctx.beginPath();
-  ctx.arc(cx, cy, pw * 0.7, 0, Math.PI * 2);
+  ctx.arc(cx, cy, pw * 0.65, 0, Math.PI * 2);
   ctx.fill();
   ctx.shadowBlur = 0;
 
-  // Draw exit channel
-  ctx.fillStyle = COLORS.pipeFill;
-  ctx.strokeStyle = COLORS.start;
-  ctx.lineWidth = 1.5;
-
-  if (exitDir === 0) { ctx.fillRect(cx - halfPw, 0, pw, cy); ctx.strokeRect(cx - halfPw, 0, pw, cy); }
-  if (exitDir === 1) { ctx.fillRect(cx, cy - halfPw, cx, pw); ctx.strokeRect(cx, cy - halfPw, cx, pw); }
-  if (exitDir === 2) { ctx.fillRect(cx - halfPw, cy, pw, cy); ctx.strokeRect(cx - halfPw, cy, pw, cy); }
-  if (exitDir === 3) { ctx.fillRect(0, cy - halfPw, cx, pw); ctx.strokeRect(0, cy - halfPw, cx, pw); }
-
   // S label
   ctx.fillStyle = '#fff';
-  ctx.font = `bold ${s * 0.3}px system-ui, sans-serif`;
+  ctx.font = `bold ${s * 0.28}px system-ui, sans-serif`;
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
   ctx.fillText('S', cx, cy + 1);
@@ -813,11 +796,11 @@ function buildGrid() {
   // Calculate cell size to maximize screen usage
   const availWidth = Math.min(560, window.innerWidth) - 70; // minus queue width + padding
   const availHeight = window.innerHeight - 340; // minus header/footer/controls
-  const maxCellW = Math.floor(availWidth / config.cols) - 2;
-  const maxCellH = Math.floor(availHeight / config.rows) - 2;
+  const maxCellW = Math.floor(availWidth / config.cols);
+  const maxCellH = Math.floor(availHeight / config.rows);
   const cellSize = Math.max(28, Math.min(maxCellW, maxCellH, 56));
 
-  gridEl.style.width = (cellSize + 2) * config.cols + 2 + 'px';
+  gridEl.style.width = cellSize * config.cols + 4 + 'px';
 
   for (let r = 0; r < config.rows; r++) {
     grid[r] = [];
@@ -950,23 +933,19 @@ function onCellClick(r, c) {
 function startPreflow() {
   preflowTimer = config.preflow;
   timerEl.textContent = preflowTimer;
-  countdownEl.classList.add('active');
-  countdownNumEl.textContent = preflowTimer;
 
   preflowInterval = setInterval(() => {
     preflowTimer--;
     timerEl.textContent = preflowTimer;
-    countdownNumEl.textContent = preflowTimer;
 
     if (preflowTimer <= 5) {
-      countdownNumEl.classList.add('urgent');
+      timerEl.style.color = '#ff5e94';
     }
 
     if (preflowTimer <= 0) {
       clearInterval(preflowInterval);
       preflowInterval = null;
-      countdownEl.classList.remove('active');
-      countdownNumEl.classList.remove('urgent');
+      timerEl.style.color = '';
       startFlow();
     }
   }, 1000);
@@ -990,9 +969,7 @@ function startFlow() {
   startCell.waterFrom = OPPOSITE[startDir]; // dummy
   startCell.waterTo = startDir;
 
-  // Draw start with water
   drawStartPipeWater(startCell.canvas, startDir);
-
   advanceFlow(curRow, curCol, entryDir);
 }
 
@@ -1003,13 +980,17 @@ function drawStartPipeWater(canvas, exitDir) {
   const cx = s / 2;
   const cy = s / 2;
   const wp = s * 0.19;
+  const isV = (exitDir === 0 || exitDir === 2);
 
-  ctx.fillStyle = COLORS.water;
-  ctx.globalAlpha = 0.85;
-  if (exitDir === 0) ctx.fillRect(cx - wp, 0, wp * 2, cy);
-  if (exitDir === 1) ctx.fillRect(cx, cy - wp, cx, wp * 2);
-  if (exitDir === 2) ctx.fillRect(cx - wp, cy, wp * 2, cy);
-  if (exitDir === 3) ctx.fillRect(0, cy - wp, cx, wp * 2);
+  ctx.globalAlpha = 0.9;
+  let x, y, w, h;
+  if (exitDir === 0) { x = cx - wp; y = 0; w = wp * 2; h = cy; }
+  else if (exitDir === 1) { x = cx; y = cy - wp; w = cx; h = wp * 2; }
+  else if (exitDir === 2) { x = cx - wp; y = cy; w = wp * 2; h = cy; }
+  else { x = 0; y = cy - wp; w = cx; h = wp * 2; }
+  const wGrad = createCylinderGradient(ctx, x, y, w, h, isV, COLORS.water, '#66d4ff', '#0070aa');
+  ctx.fillStyle = wGrad;
+  ctx.fillRect(x, y, w, h);
   ctx.globalAlpha = 1;
 }
 
@@ -1242,7 +1223,7 @@ function startGame(keepScore) {
   bombBtn.classList.remove('active');
   document.body.style.cursor = '';
   gameOverEl.classList.remove('active');
-  countdownEl.classList.remove('active');
+  timerEl.style.color = '';
 
   if (!keepScore) { score = 0; level = 1; }
   pipesPlaced = 0;
