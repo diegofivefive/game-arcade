@@ -48,7 +48,7 @@ thefreefix.com/                    ← Hub page (2 cards: Games, Tools)
 │   ├── nonograms.html             + nonograms-info.html
 │   ├── brick-smash.html           + brick-smash-info.html
 │   └── bubble-shooter.html        + bubble-shooter-info.html
-├── tools.html                     ← Tools listing (11 tool cards)
+├── tools.html                     ← Tools listing (13 tool cards)
 │   ├── qr-code-generator.html     + qr-code-generator-info.html
 │   ├── word-counter.html          + word-counter-info.html
 │   ├── pdf-merge-split.html       + pdf-merge-split-info.html
@@ -59,7 +59,8 @@ thefreefix.com/                    ← Hub page (2 cards: Games, Tools)
 │   ├── document-templates.html    + document-templates-info.html
 │   ├── pomodoro-timer.html        + pomodoro-timer-info.html
 │   ├── password-generator.html    + password-generator-info.html
-│   └── unit-converter.html        + unit-converter-info.html
+│   ├── unit-converter.html        + unit-converter-info.html
+│   └── ascii-art-generator.html  + ascii-art-generator-info.html
 ├── templates/                     ← SEO landing pages (20 pages, link to document-templates.html?t=id)
 │   ├── invoice-template.html
 │   ├── receipt-template.html
@@ -101,7 +102,7 @@ thefreefix.com/                    ← Hub page (2 cards: Games, Tools)
 └── PROJECT.md                     ← This file
 ```
 
-**Total: ~80 files** (22 game/tool pages + 22 info pages + 20 template landing pages + core files)
+**Total: ~82 files** (24 game/tool pages + 24 info pages + 20 template landing pages + core files)
 
 ## Navigation Flow
 - **Homepage** → Games card → games.html → individual game → game-info.html
@@ -148,7 +149,7 @@ thefreefix.com/                    ← Hub page (2 cards: Games, Tools)
 10. **Brick Smash** — Breakout-style arcade. Canvas-based, requestAnimationFrame loop. Mouse/touch/keyboard. 3 brick types, 3 power-ups, 10 handcrafted levels + procedural generation for 11+. Particle effects, ball glow trail.
 11. **Bubble Shooter** — Aim-and-match arcade puzzle. Canvas-based, hex grid. Match 3+ to pop. Disconnected clusters fall for bonus. Ceiling descends every N shots. 6 colors introduced progressively, combo scoring, glossy rendering. Mouse/touch/keyboard with trajectory preview.
 
-## Current Tools (11)
+## Current Tools (12)
 1. **QR Code Generator** — Auto-generation with debounce, custom FG/BG colors, 3 sizes (S/M/L), download as PNG. Self-contained QR encoder (byte mode, EC level M, versions 1-40, Reed-Solomon).
 2. **Word Counter** — Words, characters (with/without spaces), sentences, paragraphs, reading time (238 WPM). Live updates, responsive 3-column stat grid.
 3. **PDF Merge & Split** — Drag-and-drop upload, drag-to-reorder merge, extract pages by range, split all to ZIP. Uses pdf-lib + JSZip (CDN). All in-browser.
@@ -160,6 +161,7 @@ thefreefix.com/                    ← Hub page (2 cards: Games, Tools)
 9. **Pomodoro Timer** — Customizable Pomodoro sessions with focus tracking.
 10. **Password Generator** — Length 4-128, character type toggles, exclude ambiguous, entropy strength meter, bulk generation (5), session history (10). Uses crypto.getRandomValues(). All in-browser.
 11. **Unit Converter** — 80+ units across 10 categories (Length, Weight, Temperature, Volume, Area, Speed, Time, Data, Energy, Pressure). Real-time conversion, swap, formula display, quick-pick shortcuts. Decimal + binary data units.
+12. **ASCII Art Generator** — Convert images to ASCII art in-browser. Drag-and-drop upload, adjustable width (40-200 columns), 4 character set presets (Standard, Detailed, Blocks, Simple), invert toggle, color mode (monochrome/colored), live preview, auto-sizing font. Copy to clipboard or download as .txt. Uses Canvas API + getImageData() for pixel-to-character mapping. All processing in-browser.
 
 ## Key Implementation Notes
 - **localStorage**: All stats, settings, theme preference, and best times persist per game/difficulty

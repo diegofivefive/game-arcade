@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-adsense-account" content="ca-pub-7700405385978151">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7700405385978151"
+     crossorigin="anonymous"></script>
+<title>ASCII Art Generator - TheFreeFix.com</title>
+<meta name="description" content="Convert images to ASCII art instantly in your browser. Upload any image, customize width, character set, and color mode. Free, private, no uploads. No downloads or sign-ups needed.">
+<link rel="canonical" href="https://thefreefix.com/ascii-art-generator.html">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#0a0a1a">
+<!-- Open Graph -->
+<meta property="og:title" content="ASCII Art Generator - Free Online Tool">
+<meta property="og:description" content="Convert images to ASCII art instantly in your browser. Upload any image, customize width, character set, and color mode. Free, private, no uploads.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://thefreefix.com/ascii-art-generator.html">
+<meta property="og:site_name" content="TheFreeFix.com">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://thefreefix.com/og-image.png">
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@TheFreeFix">
+<meta name="twitter:title" content="ASCII Art Generator - Free Online Tool">
+<meta name="twitter:image" content="https://thefreefix.com/og-image.png">
+<meta name="twitter:description" content="Convert images to ASCII art instantly in your browser. Upload any image, customize width, character set, and color mode. Free, private, no uploads.">
+<!-- Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "ASCII Art Generator",
+  "url": "https://thefreefix.com/ascii-art-generator.html",
+  "description": "Convert images to ASCII art instantly in your browser. Upload any image, customize width, character set, and color mode. Free, private, no uploads.",
+  "applicationCategory": "UtilityApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "isPartOf": { "@type": "WebSite", "name": "TheFreeFix.com", "url": "https://thefreefix.com/" }
+}
+</script>
+<link rel="stylesheet" href="theme.css">
+<style>
+  .game-page { padding-bottom: 32px; }
+  .game-header { max-width: 560px; margin: 0 auto; }
+
+  .tool-content {
+    width: 100%;
+    max-width: 560px;
+    padding: 0 16px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+
+  /* Drop zone */
+  .drop-zone {
+    width: 100%;
+    border: 2px dashed var(--card-border);
+    border-radius: var(--radius-lg);
+    background: var(--card);
+    padding: 28px 16px;
+    text-align: center;
+    cursor: pointer;
+    transition: all var(--transition);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+  .drop-zone:hover, .drop-zone.dragover {
+    border-color: var(--accent);
+    background: var(--bg2);
+  }
+  .drop-zone.dragover {
+    box-shadow: inset 0 0 24px var(--accent-glow);
+  }
+  .drop-icon {
+    width: 48px; height: 48px;
+    border-radius: var(--radius-md);
+    background: var(--btn-bg);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 4px;
+    color: var(--accent);
+  }
+  .drop-icon svg { display: block; }
+  .drop-text { font-size: 14px; font-weight: 700; color: var(--text); }
+  .drop-subtext { font-size: 12px; color: var(--text-dim); }
+  .drop-privacy { font-size: 10px; color: var(--text-dim); margin-top: 2px; opacity: 0.7; }
+
+  /* Image preview row */
+  .image-preview-row {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-md);
+    padding: 10px 12px;
+  }
+  .preview-thumb {
+    width: 44px; height: 44px;
+    border-radius: 6px;
+    object-fit: cover;
+    flex-shrink: 0;
+    background: var(--bg2);
+  }
+  .preview-info {
+    flex: 1; min-width: 0;
+    font-size: 12px;
+    color: var(--text-dim);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .change-btn {
+    border: none;
+    background: transparent;
+    color: var(--accent);
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 4px 10px;
+    border-radius: 6px;
+    transition: all var(--transition);
+    flex-shrink: 0;
+  }
+  .change-btn:hover { background: var(--btn-bg); }
+
+  /* Controls panel */
+  .controls-panel {
+    width: 100%;
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-lg);
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .setting-row {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .setting-label {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-dim);
+  }
+  .setting-row-inner {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .ascii-slider {
+    flex: 1;
+    -webkit-appearance: none; appearance: none;
+    height: 6px;
+    border-radius: 3px;
+    background: var(--btn-bg);
+    outline: none;
+  }
+  .ascii-slider::-webkit-slider-thumb {
+    -webkit-appearance: none; appearance: none;
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    background: var(--accent);
+    cursor: pointer;
+    border: 2px solid var(--card);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+  }
+  .ascii-slider::-moz-range-thumb {
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    background: var(--accent);
+    cursor: pointer;
+    border: 2px solid var(--card);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+  }
+  .ascii-num {
+    width: 56px;
+    padding: 6px 8px;
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-sm);
+    background: var(--bg2);
+    color: var(--text);
+    font-size: 14px;
+    font-family: inherit;
+    text-align: center;
+    outline: none;
+    box-sizing: border-box;
+  }
+  .ascii-num:focus { border-color: var(--accent); }
+  /* Hide number input spinners */
+  .ascii-num::-webkit-outer-spin-button,
+  .ascii-num::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+  .ascii-num[type=number] { -moz-appearance: textfield; }
+
+  .toggle-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  /* ASCII output */
+  .ascii-output-wrap {
+    width: 100%;
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-md);
+    overflow-x: auto;
+    overflow-y: auto;
+    max-height: 65vh;
+    -webkit-overflow-scrolling: touch;
+  }
+  .ascii-output {
+    margin: 0;
+    padding: 12px;
+    font-family: 'Consolas', 'Courier New', 'Liberation Mono', monospace;
+    font-size: 5px;
+    line-height: 1;
+    letter-spacing: 0;
+    white-space: pre;
+    color: var(--text);
+    user-select: all;
+    -webkit-user-select: all;
+    tab-size: 1;
+  }
+
+  /* Action buttons */
+  .btn-row {
+    width: 100%;
+    display: flex;
+    gap: 8px;
+  }
+  .action-btn {
+    flex: 1;
+    padding: 12px 16px;
+    border: none;
+    border-radius: var(--radius-md);
+    background: var(--accent);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.15s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-family: inherit;
+  }
+  .action-btn:hover {
+    filter: brightness(1.15);
+    transform: translateY(-1px);
+  }
+  .action-btn:active { transform: translateY(0); }
+  .action-btn.secondary {
+    background: var(--btn-bg);
+    color: var(--text);
+    border: 1px solid var(--card-border);
+  }
+  .action-btn.secondary:hover {
+    background: var(--btn-hover);
+    filter: none;
+  }
+  .action-btn.copied {
+    background: var(--accent3);
+  }
+
+  /* Status message */
+  .status-msg {
+    width: 100%;
+    padding: 10px 14px;
+    border-radius: var(--radius-md);
+    font-size: 13px;
+    text-align: center;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  .status-msg.visible { display: flex; }
+  .status-msg.error {
+    background: rgba(255,51,85,0.1);
+    color: #ff3355;
+    border: 1px solid rgba(255,51,85,0.2);
+  }
+
+  @media (max-width: 400px) {
+    .tool-content { padding: 0 12px; }
+    .drop-zone { padding: 22px 12px; }
+    .controls-panel { padding: 12px; }
+    .action-btn { padding: 10px 14px; font-size: 13px; }
+  }
+</style>
+</head>
+<body>
+<div class="game-page">
+
+  <a href="index.html" class="site-brand">TheFreeFix.com</a>
+
+  <!-- Ad Slot 1: Top Banner -->
+  <div class="ad-slot ad-content ad-slot--placeholder">
+    <span class="ad-size-label">Responsive</span>
+  </div>
+
+  <div class="game-header">
+    <div class="header-left">
+      <a href="tools.html" class="back-btn" title="Back">&#x2190;</a>
+      <h1 class="logo">ASCII Art</h1>
+    </div>
+    <div class="header-btns">
+      <a href="ascii-art-generator-info.html" class="info-btn" title="Info">i</a>
+      <button class="icon-btn" id="themeBtn" title="Toggle theme">&#x1f319;</button>
+    </div>
+  </div>
+
+  <div class="tool-content">
+
+    <!-- Drop zone -->
+    <div class="drop-zone" id="dropZone">
+      <div class="drop-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+             stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+          <circle cx="8.5" cy="8.5" r="1.5"/>
+          <polyline points="21 15 16 10 5 21"/>
+        </svg>
+      </div>
+      <div class="drop-text">Drop an image here</div>
+      <div class="drop-subtext">or click to browse &mdash; JPEG, PNG, WebP, GIF</div>
+      <div class="drop-privacy">Files never leave your browser</div>
+      <input type="file" id="fileInput"
+             accept="image/jpeg,image/png,image/webp,image/gif,.jpg,.jpeg,.png,.webp,.gif" hidden>
+    </div>
+
+    <!-- Image preview row -->
+    <div class="image-preview-row" id="previewRow" style="display:none">
+      <img class="preview-thumb" id="previewThumb" alt="Uploaded image preview">
+      <div class="preview-info" id="previewInfo"></div>
+      <button class="change-btn" id="changeBtn" title="Change image">Change</button>
+    </div>
+
+    <!-- Status message -->
+    <div class="status-msg" id="statusMsg" role="status" aria-live="polite"></div>
+
+    <!-- Controls panel -->
+    <div class="controls-panel" id="controlsPanel" style="display:none">
+
+      <!-- Width slider -->
+      <div class="setting-row">
+        <div class="setting-label">Width (columns)</div>
+        <div class="setting-row-inner">
+          <input type="range" class="ascii-slider" id="widthSlider" min="40" max="200" value="100">
+          <input type="number" class="ascii-num" id="widthNum" min="40" max="200" value="100">
+        </div>
+      </div>
+
+      <!-- Character set -->
+      <div class="setting-row">
+        <div class="setting-label">Character Set</div>
+        <div class="pill-selector" id="charsetSelector">
+          <button class="pill-btn active" data-charset="standard">Standard</button>
+          <button class="pill-btn" data-charset="detailed">Detailed</button>
+          <button class="pill-btn" data-charset="blocks">Blocks</button>
+          <button class="pill-btn" data-charset="simple">Simple</button>
+        </div>
+      </div>
+
+      <!-- Toggles -->
+      <div class="toggle-row">
+        <button class="toggle-chip" id="invertToggle">
+          <span class="dot"></span> Invert
+        </button>
+        <button class="toggle-chip" id="colorToggle">
+          <span class="dot"></span> Color
+        </button>
+      </div>
+
+    </div>
+
+    <!-- ASCII output -->
+    <div class="ascii-output-wrap" id="asciiWrap" style="display:none">
+      <pre class="ascii-output" id="asciiOutput"></pre>
+    </div>
+
+    <!-- Action buttons -->
+    <div class="btn-row" id="actionRow" style="display:none">
+      <button class="action-btn" id="copyBtn">
+        <span id="copyIcon">&#x1f4cb;</span> Copy
+      </button>
+      <button class="action-btn secondary" id="downloadBtn">
+        <span>&#x2b07;&#xfe0e;</span> Download .txt
+      </button>
+    </div>
+
+  </div>
+
+  <!-- Ad Slot 2: Bottom Banner -->
+  <div class="ad-slot ad-bottom ad-slot--placeholder">
+    <span class="ad-size-label">Responsive</span>
+  </div>
+
+  <footer class="site-footer">
+    <a href="about.html">About</a>
+    <span class="footer-sep">&middot;</span>
+    <a href="contact.html">Contact</a>
+    <span class="footer-sep">&middot;</span>
+    <a href="terms.html">Terms</a>
+    <span class="footer-sep">&middot;</span>
+    <a href="privacy.html">Privacy</a>
+    <span class="footer-sep">&middot;</span>
+    <a href="https://x.com/TheFreeFix" target="_blank" rel="noopener">X</a>
+  </footer>
+</div>
+
+<!-- Hidden canvas for pixel processing -->
+<canvas id="hiddenCanvas" style="display:none"></canvas>
+
+<script src="theme.js"></script>
+<script>
+(function() {
+  // === State ===
+  var currentImage = null;
+  var currentFile = null;
+  var currentUrl = null;
+  var asciiWidth = 100;
+  var currentCharset = 'standard';
+  var inverted = false;
+  var colorMode = false;
+  var generateTimer = null;
+
+  // Character ramps (darkest to lightest)
+  var CHARSETS = {
+    standard:  '@#S%?*+;:,. ',
+    detailed:  '$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\\|()1{}[]?-_+~<>i!lI;:,"^`\'. ',
+    blocks:    '\u2588\u2593\u2592\u2591 ',
+    simple:    '@%#*+=-:. '
+  };
+
+  // === DOM refs ===
+  var dropZone = document.getElementById('dropZone');
+  var fileInput = document.getElementById('fileInput');
+  var previewRow = document.getElementById('previewRow');
+  var previewThumb = document.getElementById('previewThumb');
+  var previewInfo = document.getElementById('previewInfo');
+  var changeBtn = document.getElementById('changeBtn');
+  var statusMsg = document.getElementById('statusMsg');
+  var controlsPanel = document.getElementById('controlsPanel');
+  var widthSlider = document.getElementById('widthSlider');
+  var widthNum = document.getElementById('widthNum');
+  var charsetSelector = document.getElementById('charsetSelector');
+  var invertToggle = document.getElementById('invertToggle');
+  var colorToggle = document.getElementById('colorToggle');
+  var asciiWrap = document.getElementById('asciiWrap');
+  var asciiOutput = document.getElementById('asciiOutput');
+  var actionRow = document.getElementById('actionRow');
+  var copyBtn = document.getElementById('copyBtn');
+  var copyIcon = document.getElementById('copyIcon');
+  var downloadBtn = document.getElementById('downloadBtn');
+  var hiddenCanvas = document.getElementById('hiddenCanvas');
+  var ctx = hiddenCanvas.getContext('2d', { willReadFrequently: true });
+
+  // === Utilities ===
+  function showError(text) {
+    statusMsg.className = 'status-msg visible error';
+    statusMsg.textContent = text;
+  }
+
+  function hideStatus() {
+    statusMsg.className = 'status-msg';
+    statusMsg.textContent = '';
+  }
+
+  function isImageFile(file) {
+    return /^image\/(jpeg|png|webp|gif)$/.test(file.type);
+  }
+
+  function hasFiles(dt) {
+    return dt.types && Array.prototype.indexOf.call(dt.types, 'Files') !== -1;
+  }
+
+  function formatSize(bytes) {
+    if (bytes < 1024) return bytes + ' B';
+    if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
+    return (bytes / 1048576).toFixed(1) + ' MB';
+  }
+
+  // === Drop zone events ===
+  dropZone.addEventListener('click', function() { fileInput.click(); });
+
+  dropZone.addEventListener('dragover', function(e) {
+    if (!hasFiles(e.dataTransfer)) return;
+    e.preventDefault();
+    dropZone.classList.add('dragover');
+  });
+
+  dropZone.addEventListener('dragleave', function(e) {
+    if (!dropZone.contains(e.relatedTarget)) {
+      dropZone.classList.remove('dragover');
+    }
+  });
+
+  dropZone.addEventListener('drop', function(e) {
+    e.preventDefault();
+    dropZone.classList.remove('dragover');
+    if (!hasFiles(e.dataTransfer)) return;
+    var file = null;
+    for (var i = 0; i < e.dataTransfer.files.length; i++) {
+      if (isImageFile(e.dataTransfer.files[i])) {
+        file = e.dataTransfer.files[i];
+        break;
+      }
+    }
+    if (!file) {
+      showError('Please drop a JPEG, PNG, WebP, or GIF image.');
+      return;
+    }
+    loadImage(file);
+  });
+
+  fileInput.addEventListener('change', function() {
+    if (fileInput.files.length > 0) {
+      loadImage(fileInput.files[0]);
+    }
+    fileInput.value = '';
+  });
+
+  changeBtn.addEventListener('click', function() { fileInput.click(); });
+
+  // === Load image ===
+  function loadImage(file) {
+    hideStatus();
+    if (!isImageFile(file)) {
+      showError('Unsupported format. Use JPEG, PNG, WebP, or GIF.');
+      return;
+    }
+
+    if (currentUrl) URL.revokeObjectURL(currentUrl);
+
+    currentFile = file;
+    currentUrl = URL.createObjectURL(file);
+
+    var img = new Image();
+    img.onload = function() {
+      currentImage = img;
+
+      // Update UI
+      dropZone.style.display = 'none';
+      previewRow.style.display = 'flex';
+      previewThumb.src = currentUrl;
+      previewInfo.textContent = file.name + ' \u2022 ' +
+        img.naturalWidth + '\u00D7' + img.naturalHeight + ' \u2022 ' +
+        formatSize(file.size);
+
+      controlsPanel.style.display = 'flex';
+      asciiWrap.style.display = 'block';
+      actionRow.style.display = 'flex';
+
+      generateAscii();
+    };
+    img.onerror = function() {
+      showError('Failed to load image. Try a different file.');
+    };
+    img.src = currentUrl;
+  }
+
+  // === Core ASCII generation ===
+  function generateAscii() {
+    if (!currentImage) return;
+
+    var img = currentImage;
+    var cols = asciiWidth;
+
+    // Monospace chars are ~2x taller than wide
+    var charAspect = 0.5;
+
+    var imgW = img.naturalWidth;
+    var imgH = img.naturalHeight;
+
+    var canvasW = cols;
+    var canvasH = Math.round((imgH / imgW) * cols * charAspect);
+    if (canvasH < 1) canvasH = 1;
+
+    // Draw image to hidden canvas at target size
+    hiddenCanvas.width = canvasW;
+    hiddenCanvas.height = canvasH;
+    ctx.drawImage(img, 0, 0, canvasW, canvasH);
+
+    // Read pixel data
+    var imageData = ctx.getImageData(0, 0, canvasW, canvasH);
+    var pixels = imageData.data;
+
+    var ramp = CHARSETS[currentCharset] || CHARSETS.standard;
+    var rampLen = ramp.length;
+    var useColor = colorMode;
+    var lines = [];
+
+    for (var y = 0; y < canvasH; y++) {
+      var line = '';
+      for (var x = 0; x < canvasW; x++) {
+        var idx = (y * canvasW + x) * 4;
+        var r = pixels[idx];
+        var g = pixels[idx + 1];
+        var b = pixels[idx + 2];
+        var a = pixels[idx + 3];
+
+        // Transparent pixels → white
+        if (a < 128) { r = g = b = 255; }
+
+        // Grayscale (perceptual luminance)
+        var gray = 0.299 * r + 0.587 * g + 0.114 * b;
+
+        // Map to character
+        var charIdx;
+        if (inverted) {
+          charIdx = Math.floor(((255 - gray) / 255) * (rampLen - 1));
+        } else {
+          charIdx = Math.floor((gray / 255) * (rampLen - 1));
+        }
+        charIdx = Math.max(0, Math.min(rampLen - 1, charIdx));
+
+        var ch = ramp[charIdx];
+
+        if (useColor && a >= 128) {
+          var safeChar = ch === '<' ? '&lt;' : ch === '>' ? '&gt;' : ch === '&' ? '&amp;' : ch === '"' ? '&quot;' : ch;
+          line += '<span style="color:rgb(' + r + ',' + g + ',' + b + ')">' + safeChar + '</span>';
+        } else {
+          line += ch;
+        }
+      }
+      lines.push(line);
+    }
+
+    if (useColor) {
+      asciiOutput.innerHTML = lines.join('\n');
+    } else {
+      asciiOutput.textContent = lines.join('\n');
+    }
+
+    autoSizeFont();
+  }
+
+  // Auto-size font so ASCII fits container width
+  function autoSizeFont() {
+    var wrapWidth = asciiWrap.clientWidth - 24; // subtract padding
+    if (wrapWidth <= 0) return;
+    var charWidth = wrapWidth / asciiWidth;
+    // Monospace char width is ~0.6 of font-size
+    var fontSize = charWidth / 0.6;
+    fontSize = Math.max(2, Math.min(14, fontSize));
+    asciiOutput.style.fontSize = fontSize.toFixed(1) + 'px';
+    asciiOutput.style.lineHeight = '1';
+  }
+
+  // Debounced generate
+  function scheduleGenerate() {
+    clearTimeout(generateTimer);
+    generateTimer = setTimeout(generateAscii, 50);
+  }
+
+  // === Get plain text (for copy/download) ===
+  function getPlainAscii() {
+    if (!currentImage) return '';
+
+    var img = currentImage;
+    var cols = asciiWidth;
+    var charAspect = 0.5;
+    var imgW = img.naturalWidth;
+    var imgH = img.naturalHeight;
+    var canvasW = cols;
+    var canvasH = Math.round((imgH / imgW) * cols * charAspect);
+    if (canvasH < 1) canvasH = 1;
+
+    hiddenCanvas.width = canvasW;
+    hiddenCanvas.height = canvasH;
+    ctx.drawImage(img, 0, 0, canvasW, canvasH);
+
+    var imageData = ctx.getImageData(0, 0, canvasW, canvasH);
+    var pixels = imageData.data;
+    var ramp = CHARSETS[currentCharset] || CHARSETS.standard;
+    var rampLen = ramp.length;
+    var lines = [];
+
+    for (var y = 0; y < canvasH; y++) {
+      var line = '';
+      for (var x = 0; x < canvasW; x++) {
+        var idx = (y * canvasW + x) * 4;
+        var r = pixels[idx], g = pixels[idx + 1], b = pixels[idx + 2], a = pixels[idx + 3];
+        if (a < 128) { r = g = b = 255; }
+        var gray = 0.299 * r + 0.587 * g + 0.114 * b;
+        var charIdx = inverted
+          ? Math.floor(((255 - gray) / 255) * (rampLen - 1))
+          : Math.floor((gray / 255) * (rampLen - 1));
+        charIdx = Math.max(0, Math.min(rampLen - 1, charIdx));
+        line += ramp[charIdx];
+      }
+      lines.push(line);
+    }
+    return lines.join('\n');
+  }
+
+  // === Controls ===
+
+  // Width slider + number input sync
+  widthSlider.addEventListener('input', function() {
+    asciiWidth = parseInt(widthSlider.value, 10);
+    widthNum.value = asciiWidth;
+    scheduleGenerate();
+  });
+
+  widthNum.addEventListener('input', function() {
+    var v = parseInt(widthNum.value, 10);
+    if (isNaN(v)) return;
+    if (v < 40) v = 40;
+    if (v > 200) v = 200;
+    widthSlider.value = v;
+  });
+
+  widthNum.addEventListener('change', function() {
+    var v = parseInt(widthNum.value, 10) || 100;
+    if (v < 40) v = 40;
+    if (v > 200) v = 200;
+    widthNum.value = v;
+    widthSlider.value = v;
+    asciiWidth = v;
+    generateAscii();
+  });
+
+  // Character set selector
+  charsetSelector.addEventListener('click', function(e) {
+    var btn = e.target.closest('.pill-btn');
+    if (!btn) return;
+    charsetSelector.querySelectorAll('.pill-btn').forEach(function(b) {
+      b.classList.remove('active');
+    });
+    btn.classList.add('active');
+    currentCharset = btn.dataset.charset;
+    generateAscii();
+  });
+
+  // Invert toggle
+  invertToggle.addEventListener('click', function() {
+    inverted = !inverted;
+    invertToggle.classList.toggle('on', inverted);
+    generateAscii();
+  });
+
+  // Color toggle
+  colorToggle.addEventListener('click', function() {
+    colorMode = !colorMode;
+    colorToggle.classList.toggle('on', colorMode);
+    generateAscii();
+  });
+
+  // Resize: recalculate font
+  window.addEventListener('resize', function() {
+    if (currentImage) autoSizeFont();
+  });
+
+  // === Copy to clipboard ===
+  copyBtn.addEventListener('click', function() {
+    var text = getPlainAscii();
+    if (!text) return;
+
+    navigator.clipboard.writeText(text).then(function() {
+      showCopied();
+    }).catch(function() {
+      // Fallback
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand('copy'); showCopied(); } catch (e) {}
+      document.body.removeChild(ta);
+    });
+
+    function showCopied() {
+      copyBtn.classList.add('copied');
+      copyIcon.innerHTML = '&#x2713;';
+      setTimeout(function() {
+        copyBtn.classList.remove('copied');
+        copyIcon.innerHTML = '&#x1f4cb;';
+      }, 1500);
+    }
+  });
+
+  // === Download as .txt ===
+  downloadBtn.addEventListener('click', function() {
+    var text = getPlainAscii();
+    if (!text) return;
+    var blob = new Blob([text], { type: 'text/plain' });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    var baseName = currentFile
+      ? currentFile.name.replace(/\.[^.]+$/, '')
+      : 'ascii-art';
+    a.download = baseName + '-ascii.txt';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  });
+
+  // === Init ===
+  GameTheme.init();
+})();
+</script>
+</body>
+</html>
