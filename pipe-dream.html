@@ -1,0 +1,1312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="google-adsense-account" content="ca-pub-7700405385978151">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7700405385978151"
+     crossorigin="anonymous"></script>
+<title>Pipe Dream - TheFreeFix.com</title>
+<meta name="description" content="Play Pipe Dream free online. Connect pipes before water flows through in this classic retro puzzle game. No downloads or sign-ups needed.">
+<link rel="canonical" href="https://thefreefix.com/pipe-dream.html">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#0a0a1a">
+<!-- Open Graph -->
+<meta property="og:title" content="Pipe Dream - Play Free Online">
+<meta property="og:description" content="Play Pipe Dream free online. Connect pipes before water flows through in this classic retro puzzle game.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://thefreefix.com/pipe-dream.html">
+<meta property="og:site_name" content="TheFreeFix.com">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://thefreefix.com/og-image.png">
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@TheFreeFix">
+<meta name="twitter:title" content="Pipe Dream - Play Free Online">
+<meta name="twitter:image" content="https://thefreefix.com/og-image.png">
+<meta name="twitter:description" content="Play Pipe Dream free online. Connect pipes before water flows through in this classic retro puzzle game.">
+<!-- Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoGame",
+  "name": "Pipe Dream",
+  "url": "https://thefreefix.com/pipe-dream.html",
+  "description": "Connect pipes before water flows through in this classic retro puzzle game.",
+  "genre": ["Puzzle", "Strategy", "Retro"],
+  "playMode": "SinglePlayer",
+  "applicationCategory": "Game",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "isPartOf": { "@type": "WebSite", "name": "TheFreeFix.com", "url": "https://thefreefix.com/" }
+}
+</script>
+<link rel="stylesheet" href="theme.css">
+<style>
+  .game-page { padding-bottom: 32px; }
+  .game-header { max-width: 560px; margin: 0 auto; }
+
+  /* ── Layout ── */
+  .pipe-container {
+    max-width: 560px;
+    margin: 0 auto;
+    padding: 0 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  /* ── Top bar: score / level / timer ── */
+  .pipe-top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .pipe-stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-sm);
+    padding: 6px 14px;
+    min-width: 70px;
+    flex: 1;
+  }
+  .pipe-stat-label {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-dim);
+  }
+  .pipe-stat-value {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ── Countdown overlay ── */
+  .pipe-countdown {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    background: rgba(10, 10, 26, 0.85);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-sm);
+    padding: 4px 12px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .pipe-countdown.active { opacity: 1; }
+  .pipe-countdown-num {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: var(--accent);
+    text-shadow: 0 0 12px var(--accent-glow);
+  }
+  .pipe-countdown-num.urgent {
+    color: #ff5e94;
+    text-shadow: 0 0 12px rgba(255, 94, 148, 0.5);
+  }
+
+  /* ── Game area ── */
+  .pipe-game-wrap {
+    position: relative;
+    width: 100%;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  /* Queue panel */
+  .pipe-queue {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    flex-shrink: 0;
+  }
+  .pipe-queue-label {
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-dim);
+    margin-bottom: 2px;
+  }
+  .pipe-queue-cell {
+    width: 44px;
+    height: 44px;
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+  }
+  .pipe-queue-cell:first-of-type {
+    border-color: var(--accent);
+    box-shadow: 0 0 10px var(--accent-glow);
+  }
+  .pipe-queue-cell canvas {
+    width: 36px;
+    height: 36px;
+  }
+
+  /* Grid */
+  .pipe-grid-wrap {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    position: relative;
+  }
+  .pipe-grid {
+    display: grid;
+    gap: 2px;
+    background: var(--card-border);
+    border: 2px solid var(--card-border);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+  }
+  .pipe-cell {
+    background: var(--bg2);
+    position: relative;
+    cursor: pointer;
+    transition: background 0.15s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .pipe-cell:hover { background: var(--btn-bg); }
+  .pipe-cell.start-cell { cursor: default; }
+  .pipe-cell.filled { cursor: pointer; }
+  .pipe-cell.blocked {
+    background: var(--bg);
+    cursor: default;
+  }
+  .pipe-cell.blocked::after {
+    content: '';
+    position: absolute;
+    inset: 25%;
+    background: var(--card-border);
+    border-radius: 2px;
+    opacity: 0.5;
+  }
+  .pipe-cell canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  /* Water filled cells glow */
+  .pipe-cell.water-filled {
+    box-shadow: inset 0 0 12px rgba(0, 180, 255, 0.3);
+  }
+
+  /* ── Place animation ── */
+  .pipe-cell.just-placed canvas {
+    animation: pipePop 0.25s ease-out;
+  }
+  @keyframes pipePop {
+    0% { transform: scale(0.5); opacity: 0.5; }
+    60% { transform: scale(1.1); }
+    100% { transform: scale(1); opacity: 1; }
+  }
+
+  /* ── Buttons row ── */
+  .pipe-actions {
+    display: flex;
+    gap: 8px;
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .pipe-btn {
+    background: var(--btn-bg);
+    color: var(--text);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-sm);
+    padding: 10px 18px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    user-select: none;
+  }
+  .pipe-btn:hover { background: var(--btn-hover); }
+  .pipe-btn:active { transform: scale(0.96); }
+  .pipe-btn.primary {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+  }
+  .pipe-btn.primary:hover { filter: brightness(1.15); }
+  .pipe-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  /* ── Difficulty pills ── */
+  .pipe-difficulty {
+    display: flex;
+    gap: 4px;
+    width: 100%;
+    justify-content: center;
+  }
+  .pipe-diff-btn {
+    background: var(--btn-bg);
+    color: var(--text-dim);
+    border: 1px solid var(--card-border);
+    border-radius: 20px;
+    padding: 6px 14px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .pipe-diff-btn:hover { background: var(--btn-hover); color: var(--text); }
+  .pipe-diff-btn.active {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+  }
+
+  /* ── Stats modal ── */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin: 16px 0;
+  }
+  .stats-item {
+    background: var(--bg2);
+    border-radius: var(--radius-sm);
+    padding: 12px;
+    text-align: center;
+  }
+  .stats-item-val {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--accent);
+  }
+  .stats-item-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-top: 2px;
+  }
+
+  /* ── Game Over overlay ── */
+  .pipe-game-over {
+    position: absolute;
+    inset: 0;
+    background: rgba(10, 10, 26, 0.88);
+    border-radius: var(--radius-sm);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    z-index: 15;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s;
+  }
+  .pipe-game-over.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .pipe-game-over h2 {
+    margin: 0;
+    font-size: 1.6rem;
+    color: var(--accent);
+    text-shadow: 0 0 20px var(--accent-glow);
+  }
+  .pipe-game-over .go-score {
+    font-size: 1.1rem;
+    color: var(--text);
+  }
+  .pipe-game-over .go-detail {
+    font-size: 0.8rem;
+    color: var(--text-dim);
+  }
+
+  /* ── Water flow progress bar ── */
+  .pipe-flow-bar {
+    width: 100%;
+    height: 6px;
+    background: var(--card);
+    border-radius: 3px;
+    overflow: hidden;
+    position: relative;
+  }
+  .pipe-flow-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #00b4ff, #00e6b8);
+    border-radius: 3px;
+    width: 0%;
+    transition: width 0.3s ease;
+  }
+
+  /* ── Responsive: maximize mobile screen ── */
+  @media (max-width: 768px) {
+    .pipe-container { padding: 0 4px; gap: 8px; }
+    .pipe-stat { padding: 5px 8px; min-width: 60px; }
+    .pipe-stat-value { font-size: 1rem; }
+    .pipe-queue-cell { width: 38px; height: 38px; }
+    .pipe-queue-cell canvas { width: 30px; height: 30px; }
+    .pipe-btn { padding: 8px 12px; font-size: 0.8rem; }
+  }
+  @media (max-width: 400px) {
+    .pipe-stat { padding: 4px 6px; min-width: 50px; }
+    .pipe-stat-value { font-size: 0.9rem; }
+    .pipe-stat-label { font-size: 0.58rem; }
+    .pipe-queue-cell { width: 34px; height: 34px; }
+    .pipe-queue-cell canvas { width: 26px; height: 26px; }
+    .pipe-diff-btn { padding: 5px 10px; font-size: 0.68rem; }
+  }
+</style>
+</head>
+<body>
+<div class="game-page">
+
+  <a href="index.html" class="site-brand">TheFreeFix.com</a>
+
+  <!-- Ad Slot 1: Top Banner -->
+  <div class="ad-slot ad-content ad-slot--placeholder">
+    <span class="ad-size-label">Responsive</span>
+  </div>
+
+  <div class="game-header">
+    <div class="header-left">
+      <a href="games.html" class="back-btn" title="Back">&#x2190;</a>
+      <h1 class="logo">Pipe Dream</h1>
+    </div>
+    <div class="header-btns">
+      <a href="pipe-dream-info.html" class="info-btn" title="Info">i</a>
+      <button class="icon-btn" id="statsBtn" title="Statistics">&#x1f4ca;</button>
+      <button class="icon-btn" id="themeBtn" title="Toggle theme">&#x1f319;</button>
+    </div>
+  </div>
+
+  <div class="pipe-container">
+    <!-- Difficulty -->
+    <div class="pipe-difficulty">
+      <button class="pipe-diff-btn active" data-diff="easy">Easy</button>
+      <button class="pipe-diff-btn" data-diff="medium">Medium</button>
+      <button class="pipe-diff-btn" data-diff="hard">Hard</button>
+      <button class="pipe-diff-btn" data-diff="expert">Expert</button>
+    </div>
+
+    <!-- Stats bar -->
+    <div class="pipe-top-bar">
+      <div class="pipe-stat">
+        <span class="pipe-stat-label">Score</span>
+        <span class="pipe-stat-value" id="scoreVal">0</span>
+      </div>
+      <div class="pipe-stat">
+        <span class="pipe-stat-label">Level</span>
+        <span class="pipe-stat-value" id="levelVal">1</span>
+      </div>
+      <div class="pipe-stat">
+        <span class="pipe-stat-label">Flow In</span>
+        <span class="pipe-stat-value" id="timerVal">30</span>
+      </div>
+      <div class="pipe-stat">
+        <span class="pipe-stat-label">Pipes</span>
+        <span class="pipe-stat-value" id="pipesVal">0</span>
+      </div>
+    </div>
+
+    <!-- Water flow progress -->
+    <div class="pipe-flow-bar">
+      <div class="pipe-flow-fill" id="flowFill"></div>
+    </div>
+
+    <!-- Game area: queue + grid -->
+    <div class="pipe-game-wrap">
+      <!-- Upcoming pipe queue -->
+      <div class="pipe-queue">
+        <span class="pipe-queue-label">Next</span>
+        <div class="pipe-queue-cell" id="q0"></div>
+        <div class="pipe-queue-cell" id="q1"></div>
+        <div class="pipe-queue-cell" id="q2"></div>
+        <div class="pipe-queue-cell" id="q3"></div>
+        <div class="pipe-queue-cell" id="q4"></div>
+      </div>
+      <!-- Grid -->
+      <div class="pipe-grid-wrap">
+        <div class="pipe-grid" id="pipeGrid"></div>
+        <!-- Countdown overlay -->
+        <div class="pipe-countdown" id="countdown">
+          <span class="pipe-countdown-num" id="countdownNum">30</span>
+        </div>
+        <!-- Game over overlay -->
+        <div class="pipe-game-over" id="gameOver">
+          <h2 id="goTitle">Game Over</h2>
+          <div class="go-score" id="goScore"></div>
+          <div class="go-detail" id="goDetail"></div>
+          <button class="pipe-btn primary" id="goRestart">Play Again</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Action buttons -->
+    <div class="pipe-actions">
+      <button class="pipe-btn" id="replaceBtn" title="Discard current pipe (cost: -50 pts)">Skip Pipe</button>
+      <button class="pipe-btn" id="bombBtn" title="Clear a placed pipe">Bomb</button>
+      <button class="pipe-btn primary" id="newGameBtn">New Game</button>
+    </div>
+  </div>
+
+  <!-- Stats Modal -->
+  <div class="modal-overlay" id="statsModal">
+    <div class="modal">
+      <div class="modal-title">Statistics</div>
+      <div class="stats-grid">
+        <div class="stats-item">
+          <div class="stats-item-val" id="statPlayed">0</div>
+          <div class="stats-item-label">Played</div>
+        </div>
+        <div class="stats-item">
+          <div class="stats-item-val" id="statWon">0</div>
+          <div class="stats-item-label">Won</div>
+        </div>
+        <div class="stats-item">
+          <div class="stats-item-val" id="statStreak">0</div>
+          <div class="stats-item-label">Streak</div>
+        </div>
+        <div class="stats-item">
+          <div class="stats-item-val" id="statBest">0</div>
+          <div class="stats-item-label">Best Score</div>
+        </div>
+        <div class="stats-item">
+          <div class="stats-item-val" id="statPipes">0</div>
+          <div class="stats-item-label">Total Pipes</div>
+        </div>
+        <div class="stats-item">
+          <div class="stats-item-val" id="statLevels">0</div>
+          <div class="stats-item-label">Levels Beat</div>
+        </div>
+      </div>
+      <button class="pipe-btn primary" style="width:100%;justify-content:center;" onclick="Modal.hide('statsModal')">Close</button>
+    </div>
+  </div>
+
+  <!-- Ad Slot 2: Bottom Banner -->
+  <div class="ad-slot ad-bottom ad-slot--placeholder">
+    <span class="ad-size-label">Responsive</span>
+  </div>
+
+  <footer class="site-footer">
+    <a href="about.html">About</a>
+    <span class="footer-sep">&middot;</span>
+    <a href="contact.html">Contact</a>
+    <span class="footer-sep">&middot;</span>
+    <a href="terms.html">Terms</a>
+    <span class="footer-sep">&middot;</span>
+    <a href="privacy.html">Privacy</a>
+    <span class="footer-sep">&middot;</span>
+    <a href="https://x.com/TheFreeFix" target="_blank" rel="noopener">X</a>
+  </footer>
+</div>
+
+<script src="theme.js"></script>
+<script>
+GameTheme.init();
+Modal.bindOverlayClose();
+
+/* ════════════════════════════════════════════
+   PIPE DREAM — Connect pipes before water flows
+   ════════════════════════════════════════════ */
+
+(() => {
+'use strict';
+
+// ── Difficulty configs ──
+const CONFIGS = {
+  easy:   { cols: 7, rows: 7, preflow: 35, flowSpeed: 900, minPipes: 6,  blocks: 0, scoreMult: 1 },
+  medium: { cols: 8, rows: 8, preflow: 28, flowSpeed: 700, minPipes: 10, blocks: 4, scoreMult: 1.5 },
+  hard:   { cols: 9, rows: 9, preflow: 22, flowSpeed: 550, minPipes: 14, blocks: 6, scoreMult: 2 },
+  expert: { cols: 10, rows: 10, preflow: 18, flowSpeed: 420, minPipes: 20, blocks: 10, scoreMult: 3 }
+};
+
+// ── Pipe types ──
+// Each pipe has openings: top, right, bottom, left (TRBL)
+const PIPE_TYPES = [
+  { name: 'vertical',   openings: [1,0,1,0] },
+  { name: 'horizontal', openings: [0,1,0,1] },
+  { name: 'curve-tr',   openings: [1,1,0,0] },
+  { name: 'curve-rb',   openings: [0,1,1,0] },
+  { name: 'curve-bl',   openings: [0,0,1,1] },
+  { name: 'curve-lt',   openings: [1,0,0,1] },
+  { name: 'cross',      openings: [1,1,1,1] },
+  { name: 'tee-trb',    openings: [1,1,1,0] },
+  { name: 'tee-rbl',    openings: [0,1,1,1] },
+  { name: 'tee-blt',    openings: [1,0,1,1] },
+  { name: 'tee-ltr',    openings: [1,1,0,1] }
+];
+
+// Opposite direction index: T->B, R->L, B->T, L->R
+const OPPOSITE = [2, 3, 0, 1];
+// Direction deltas: [row, col] for T, R, B, L
+const DIR_DELTA = [[-1,0],[0,1],[1,0],[0,-1]];
+
+// ── Color palette ──
+const COLORS = {
+  pipe: '#5a5a8a',
+  pipeStroke: '#7b6fff',
+  pipeFill: '#2a2a55',
+  water: '#00b4ff',
+  waterGlow: 'rgba(0, 180, 255, 0.5)',
+  waterTrail: '#00e6b8',
+  start: '#ff5e94',
+  startGlow: 'rgba(255, 94, 148, 0.5)',
+  blocked: '#333355',
+  cross2: '#00e6b8'
+};
+
+// ── State ──
+let difficulty = 'easy';
+let config = CONFIGS.easy;
+let grid = [];         // 2D array of cell objects
+let queue = [];        // upcoming pipe types
+let score = 0;
+let level = 1;
+let pipesPlaced = 0;
+let preflowTimer = 0;
+let preflowInterval = null;
+let flowInterval = null;
+let flowPath = [];     // ordered array of {row, col, fromDir, toDir}
+let flowIndex = 0;
+let waterProgress = 0; // 0-1 within current cell
+let gameActive = false;
+let bombMode = false;
+let startRow = 0, startCol = 0, startDir = 2; // start cell exit direction
+let totalPipesFlowed = 0;
+
+// Stats
+const stats = new GameStatsManager('pipe-dream');
+let bestScore = parseInt(localStorage.getItem('pd-best-score') || '0');
+let totalPipesStat = parseInt(localStorage.getItem('pd-total-pipes') || '0');
+let levelsWon = parseInt(localStorage.getItem('pd-levels-won') || '0');
+
+// ── DOM refs ──
+const gridEl = document.getElementById('pipeGrid');
+const scoreEl = document.getElementById('scoreVal');
+const levelEl = document.getElementById('levelVal');
+const timerEl = document.getElementById('timerVal');
+const pipesEl = document.getElementById('pipesVal');
+const flowFill = document.getElementById('flowFill');
+const countdownEl = document.getElementById('countdown');
+const countdownNumEl = document.getElementById('countdownNum');
+const gameOverEl = document.getElementById('gameOver');
+const goTitle = document.getElementById('goTitle');
+const goScore = document.getElementById('goScore');
+const goDetail = document.getElementById('goDetail');
+const replaceBtn = document.getElementById('replaceBtn');
+const bombBtn = document.getElementById('bombBtn');
+
+// ── Drawing helpers ──
+function drawPipe(canvas, pipeType, waterLevel, waterFrom, waterTo, isCrossSecond) {
+  const ctx = canvas.getContext('2d');
+  const s = canvas.width;
+  ctx.clearRect(0, 0, s, s);
+
+  const opens = pipeType.openings;
+  const pw = s * 0.32;  // pipe width
+  const cx = s / 2;
+  const cy = s / 2;
+
+  // Draw pipe body
+  ctx.lineCap = 'round';
+  ctx.lineJoin = 'round';
+
+  // Background fill for pipe channels
+  ctx.fillStyle = COLORS.pipeFill;
+  ctx.strokeStyle = COLORS.pipeStroke;
+  ctx.lineWidth = 1.5;
+
+  // Draw each opening as a channel from center to edge
+  const halfPw = pw / 2;
+
+  // For cross pipes, draw the two channels
+  if (pipeType.name === 'cross') {
+    // Vertical channel
+    ctx.fillRect(cx - halfPw, 0, pw, s);
+    ctx.strokeRect(cx - halfPw, 0, pw, s);
+    // Horizontal channel
+    ctx.fillRect(0, cy - halfPw, s, pw);
+    ctx.strokeRect(0, cy - halfPw, s, pw);
+  } else {
+    // Draw center junction
+    ctx.fillRect(cx - halfPw, cy - halfPw, pw, pw);
+
+    // Draw channels to edges
+    if (opens[0]) { ctx.fillRect(cx - halfPw, 0, pw, cy); ctx.strokeRect(cx - halfPw, 0, pw, cy + halfPw); }
+    if (opens[2]) { ctx.fillRect(cx - halfPw, cy, pw, cy); ctx.strokeRect(cx - halfPw, cy - halfPw, pw, cy + halfPw); }
+    if (opens[3]) { ctx.fillRect(0, cy - halfPw, cx, pw); ctx.strokeRect(0, cy - halfPw, cx + halfPw, pw); }
+    if (opens[1]) { ctx.fillRect(cx, cy - halfPw, cx, pw); ctx.strokeRect(cx - halfPw, cy - halfPw, cx + halfPw, pw); }
+
+    // Redraw center to clean up overlaps
+    ctx.fillStyle = COLORS.pipeFill;
+    ctx.fillRect(cx - halfPw + 1, cy - halfPw + 1, pw - 2, pw - 2);
+  }
+
+  // Draw water
+  if (waterLevel > 0 && waterFrom !== undefined) {
+    const wc = isCrossSecond ? COLORS.cross2 : COLORS.water;
+    ctx.fillStyle = wc;
+    ctx.globalAlpha = 0.85;
+
+    const wp = pw * 0.6; // water width
+    const halfWp = wp / 2;
+
+    if (pipeType.name === 'cross') {
+      // Cross pipe: fill the relevant channel
+      if (waterFrom === 0 || waterFrom === 2) {
+        // Vertical flow
+        if (waterFrom === 0) {
+          ctx.fillRect(cx - halfWp, 0, wp, waterLevel * s);
+        } else {
+          ctx.fillRect(cx - halfWp, s - waterLevel * s, wp, waterLevel * s);
+        }
+      } else {
+        // Horizontal flow
+        if (waterFrom === 3) {
+          ctx.fillRect(0, cy - halfWp, waterLevel * s, wp);
+        } else {
+          ctx.fillRect(s - waterLevel * s, cy - halfWp, waterLevel * s, wp);
+        }
+      }
+    } else {
+      // Non-cross: draw water from entry direction toward center, then center to exit
+      const totalLen = getPathLength(pipeType, waterFrom, waterTo, s);
+      const filledLen = waterLevel * totalLen;
+
+      drawWaterPath(ctx, pipeType, waterFrom, waterTo, s, cx, cy, halfWp, wp, filledLen, totalLen);
+    }
+    ctx.globalAlpha = 1;
+  }
+}
+
+function getPathLength(pipeType, from, to, s) {
+  // Approximate total path length through the pipe
+  const cx = s / 2;
+  if (from === undefined || to === undefined) return s;
+  // Straight pipe or through center
+  return s;
+}
+
+function drawWaterPath(ctx, pipeType, from, to, s, cx, cy, halfWp, wp, filledLen, totalLen) {
+  const halfS = s / 2;
+  const progress = Math.min(filledLen / totalLen, 1);
+
+  // Calculate entry point and exit point
+  // Water flows from edge (from direction) through center to edge (to direction)
+  // We split into two halves: edge->center = 0..0.5, center->edge = 0.5..1
+
+  if (progress <= 0.5) {
+    // Drawing from entry edge toward center
+    const segProgress = progress * 2; // 0..1 within this segment
+    drawWaterSegment(ctx, from, segProgress, s, cx, cy, halfWp, wp, false);
+  } else {
+    // Full entry segment + partial exit segment
+    drawWaterSegment(ctx, from, 1, s, cx, cy, halfWp, wp, false);
+    const segProgress = (progress - 0.5) * 2;
+    drawWaterSegment(ctx, to, segProgress, s, cx, cy, halfWp, wp, true);
+  }
+}
+
+function drawWaterSegment(ctx, dir, progress, s, cx, cy, halfWp, wp, fromCenter) {
+  // dir: 0=top, 1=right, 2=bottom, 3=left
+  // fromCenter: if true, draw from center outward; if false, from edge toward center
+  const halfS = s / 2;
+  const len = halfS * progress;
+
+  if (dir === 0) { // top
+    if (fromCenter) ctx.fillRect(cx - halfWp, cy - len, wp, len);
+    else ctx.fillRect(cx - halfWp, halfS - len, wp, len);
+  } else if (dir === 2) { // bottom
+    if (fromCenter) ctx.fillRect(cx - halfWp, cy, wp, len);
+    else ctx.fillRect(cx - halfWp, s - halfS, wp, len);
+  } else if (dir === 3) { // left
+    if (fromCenter) ctx.fillRect(cx - len, cy - halfWp, len, wp);
+    else ctx.fillRect(halfS - len, cy - halfWp, len, wp);
+  } else if (dir === 1) { // right
+    if (fromCenter) ctx.fillRect(cx, cy - halfWp, len, wp);
+    else ctx.fillRect(s - halfS, cy - halfWp, len, wp);
+  }
+}
+
+function drawStartPipe(canvas, exitDir) {
+  const ctx = canvas.getContext('2d');
+  const s = canvas.width;
+  ctx.clearRect(0, 0, s, s);
+
+  const cx = s / 2;
+  const cy = s / 2;
+  const pw = s * 0.32;
+  const halfPw = pw / 2;
+
+  // Glow
+  ctx.shadowColor = COLORS.startGlow;
+  ctx.shadowBlur = 8;
+
+  // Draw start marker
+  ctx.fillStyle = COLORS.start;
+  ctx.beginPath();
+  ctx.arc(cx, cy, pw * 0.7, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.shadowBlur = 0;
+
+  // Draw exit channel
+  ctx.fillStyle = COLORS.pipeFill;
+  ctx.strokeStyle = COLORS.start;
+  ctx.lineWidth = 1.5;
+
+  if (exitDir === 0) { ctx.fillRect(cx - halfPw, 0, pw, cy); ctx.strokeRect(cx - halfPw, 0, pw, cy); }
+  if (exitDir === 1) { ctx.fillRect(cx, cy - halfPw, cx, pw); ctx.strokeRect(cx, cy - halfPw, cx, pw); }
+  if (exitDir === 2) { ctx.fillRect(cx - halfPw, cy, pw, cy); ctx.strokeRect(cx - halfPw, cy, pw, cy); }
+  if (exitDir === 3) { ctx.fillRect(0, cy - halfPw, cx, pw); ctx.strokeRect(0, cy - halfPw, cx, pw); }
+
+  // S label
+  ctx.fillStyle = '#fff';
+  ctx.font = `bold ${s * 0.3}px system-ui, sans-serif`;
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText('S', cx, cy + 1);
+}
+
+function drawQueuePipe(index) {
+  const cell = document.getElementById('q' + index);
+  if (!cell || !queue[index]) return;
+  cell.innerHTML = '';
+  const canvas = document.createElement('canvas');
+  canvas.width = 72;
+  canvas.height = 72;
+  cell.appendChild(canvas);
+  drawPipe(canvas, queue[index], 0);
+}
+
+// ── Grid management ──
+function buildGrid() {
+  grid = [];
+  gridEl.innerHTML = '';
+  gridEl.style.gridTemplateColumns = `repeat(${config.cols}, 1fr)`;
+
+  // Calculate cell size to maximize screen usage
+  const availWidth = Math.min(560, window.innerWidth) - 70; // minus queue width + padding
+  const availHeight = window.innerHeight - 340; // minus header/footer/controls
+  const maxCellW = Math.floor(availWidth / config.cols) - 2;
+  const maxCellH = Math.floor(availHeight / config.rows) - 2;
+  const cellSize = Math.max(28, Math.min(maxCellW, maxCellH, 56));
+
+  gridEl.style.width = (cellSize + 2) * config.cols + 2 + 'px';
+
+  for (let r = 0; r < config.rows; r++) {
+    grid[r] = [];
+    for (let c = 0; c < config.cols; c++) {
+      const cell = document.createElement('div');
+      cell.className = 'pipe-cell';
+      cell.style.width = cellSize + 'px';
+      cell.style.height = cellSize + 'px';
+      cell.dataset.row = r;
+      cell.dataset.col = c;
+
+      const canvas = document.createElement('canvas');
+      canvas.width = cellSize * 2; // retina
+      canvas.height = cellSize * 2;
+      cell.appendChild(canvas);
+
+      cell.addEventListener('click', () => onCellClick(r, c));
+
+      gridEl.appendChild(cell);
+      grid[r][c] = {
+        el: cell,
+        canvas: canvas,
+        pipe: null,
+        blocked: false,
+        isStart: false,
+        waterLevel: 0,
+        waterFrom: undefined,
+        waterTo: undefined,
+        isCrossSecond: false
+      };
+    }
+  }
+}
+
+function placeBlocks() {
+  let placed = 0;
+  const attempts = config.blocks * 10;
+  let tries = 0;
+  while (placed < config.blocks && tries < attempts) {
+    tries++;
+    const r = Math.floor(Math.random() * config.rows);
+    const c = Math.floor(Math.random() * config.cols);
+    if (grid[r][c].isStart || grid[r][c].blocked) continue;
+    // Don't block cells adjacent to start
+    if (Math.abs(r - startRow) + Math.abs(c - startCol) <= 1) continue;
+    grid[r][c].blocked = true;
+    grid[r][c].el.classList.add('blocked');
+    grid[r][c].canvas.style.display = 'none';
+    placed++;
+  }
+}
+
+function placeStart() {
+  // Place start on a random edge
+  const edge = Math.floor(Math.random() * 4);
+  if (edge === 0) { startRow = 0; startCol = 1 + Math.floor(Math.random() * (config.cols - 2)); startDir = 2; }
+  else if (edge === 1) { startRow = 1 + Math.floor(Math.random() * (config.rows - 2)); startCol = config.cols - 1; startDir = 3; }
+  else if (edge === 2) { startRow = config.rows - 1; startCol = 1 + Math.floor(Math.random() * (config.cols - 2)); startDir = 0; }
+  else { startRow = 1 + Math.floor(Math.random() * (config.rows - 2)); startCol = 0; startDir = 1; }
+
+  grid[startRow][startCol].isStart = true;
+  grid[startRow][startCol].el.classList.add('start-cell');
+  drawStartPipe(grid[startRow][startCol].canvas, startDir);
+}
+
+// ── Queue ──
+function fillQueue() {
+  while (queue.length < 6) {
+    // Weighted random: straights and curves more common
+    const weights = [3, 3, 2, 2, 2, 2, 1, 1, 1, 1, 1]; // match PIPE_TYPES order
+    const totalW = weights.reduce((a, b) => a + b, 0);
+    let r = Math.random() * totalW;
+    let idx = 0;
+    for (let i = 0; i < weights.length; i++) {
+      r -= weights[i];
+      if (r <= 0) { idx = i; break; }
+    }
+    queue.push(PIPE_TYPES[idx]);
+  }
+  for (let i = 0; i < 5; i++) drawQueuePipe(i);
+}
+
+function nextPipe() {
+  const pipe = queue.shift();
+  fillQueue();
+  return pipe;
+}
+
+// ── Cell interaction ──
+function onCellClick(r, c) {
+  if (!gameActive) return;
+  const cell = grid[r][c];
+
+  if (bombMode) {
+    bombMode = false;
+    bombBtn.classList.remove('active');
+    document.body.style.cursor = '';
+    if (cell.pipe && !cell.isStart && cell.waterLevel === 0) {
+      cell.pipe = null;
+      cell.el.classList.remove('filled');
+      const ctx = cell.canvas.getContext('2d');
+      ctx.clearRect(0, 0, cell.canvas.width, cell.canvas.height);
+      score = Math.max(0, score - 20);
+      updateScore();
+    }
+    return;
+  }
+
+  if (cell.isStart || cell.blocked) return;
+  // Can't place on cells that already have water
+  if (cell.waterLevel > 0) return;
+
+  // Place or replace pipe
+  const isReplace = cell.pipe !== null;
+  if (isReplace) {
+    score = Math.max(0, score - 20);
+  } else {
+    pipesPlaced++;
+  }
+
+  cell.pipe = nextPipe();
+  cell.el.classList.add('filled', 'just-placed');
+  setTimeout(() => cell.el.classList.remove('just-placed'), 300);
+  drawPipe(cell.canvas, cell.pipe, 0);
+  updatePipes();
+  updateScore();
+}
+
+// ── Flow simulation ──
+function startPreflow() {
+  preflowTimer = config.preflow;
+  timerEl.textContent = preflowTimer;
+  countdownEl.classList.add('active');
+  countdownNumEl.textContent = preflowTimer;
+
+  preflowInterval = setInterval(() => {
+    preflowTimer--;
+    timerEl.textContent = preflowTimer;
+    countdownNumEl.textContent = preflowTimer;
+
+    if (preflowTimer <= 5) {
+      countdownNumEl.classList.add('urgent');
+    }
+
+    if (preflowTimer <= 0) {
+      clearInterval(preflowInterval);
+      preflowInterval = null;
+      countdownEl.classList.remove('active');
+      countdownNumEl.classList.remove('urgent');
+      startFlow();
+    }
+  }, 1000);
+}
+
+function startFlow() {
+  // Build flow path starting from start cell
+  flowPath = [];
+  flowIndex = 0;
+  waterProgress = 0;
+  totalPipesFlowed = 0;
+
+  // First step: exit start cell
+  let curRow = startRow + DIR_DELTA[startDir][0];
+  let curCol = startCol + DIR_DELTA[startDir][1];
+  let entryDir = OPPOSITE[startDir]; // direction water enters from
+
+  // Animate water coming out of start cell
+  const startCell = grid[startRow][startCol];
+  startCell.waterLevel = 1;
+  startCell.waterFrom = OPPOSITE[startDir]; // dummy
+  startCell.waterTo = startDir;
+
+  // Draw start with water
+  drawStartPipeWater(startCell.canvas, startDir);
+
+  advanceFlow(curRow, curCol, entryDir);
+}
+
+function drawStartPipeWater(canvas, exitDir) {
+  drawStartPipe(canvas, exitDir);
+  const ctx = canvas.getContext('2d');
+  const s = canvas.width;
+  const cx = s / 2;
+  const cy = s / 2;
+  const wp = s * 0.19;
+
+  ctx.fillStyle = COLORS.water;
+  ctx.globalAlpha = 0.85;
+  if (exitDir === 0) ctx.fillRect(cx - wp, 0, wp * 2, cy);
+  if (exitDir === 1) ctx.fillRect(cx, cy - wp, cx, wp * 2);
+  if (exitDir === 2) ctx.fillRect(cx - wp, cy, wp * 2, cy);
+  if (exitDir === 3) ctx.fillRect(0, cy - wp, cx, wp * 2);
+  ctx.globalAlpha = 1;
+}
+
+function advanceFlow(row, col, entryDir) {
+  // Check bounds
+  if (row < 0 || row >= config.rows || col < 0 || col >= config.cols) {
+    endFlow(false);
+    return;
+  }
+
+  const cell = grid[row][col];
+
+  // No pipe or blocked
+  if (!cell.pipe || cell.blocked || cell.isStart) {
+    endFlow(false);
+    return;
+  }
+
+  // Check if pipe has opening on entry side
+  if (!cell.pipe.openings[entryDir]) {
+    endFlow(false);
+    return;
+  }
+
+  // For cross pipes, check if already partially used
+  if (cell.pipe.name === 'cross' && cell.waterLevel > 0) {
+    // Cross can carry water twice (horizontal + vertical)
+    if ((entryDir === 0 || entryDir === 2) && (cell.waterFrom === 0 || cell.waterFrom === 2)) {
+      endFlow(false); return; // same channel already used
+    }
+    if ((entryDir === 1 || entryDir === 3) && (cell.waterFrom === 1 || cell.waterFrom === 3)) {
+      endFlow(false); return;
+    }
+    cell.isCrossSecond = true;
+  } else if (cell.waterLevel > 0) {
+    // Non-cross pipe already has water
+    endFlow(false);
+    return;
+  }
+
+  // Find exit direction
+  let exitDir = -1;
+  if (cell.pipe.name === 'cross') {
+    // Cross: water goes straight through
+    exitDir = OPPOSITE[entryDir];
+  } else {
+    for (let d = 0; d < 4; d++) {
+      if (d !== entryDir && cell.pipe.openings[d]) {
+        exitDir = d;
+        break;
+      }
+    }
+  }
+
+  if (exitDir === -1) {
+    endFlow(false);
+    return;
+  }
+
+  // Animate water filling this cell
+  cell.waterFrom = entryDir;
+  cell.waterTo = exitDir;
+
+  animateWaterFill(row, col, entryDir, exitDir, () => {
+    totalPipesFlowed++;
+    updateFlowBar();
+    score += Math.round(100 * config.scoreMult);
+    if (cell.isCrossSecond) score += Math.round(50 * config.scoreMult); // bonus for cross
+    updateScore();
+
+    cell.el.classList.add('water-filled');
+
+    // Next cell
+    const nextRow = row + DIR_DELTA[exitDir][0];
+    const nextCol = col + DIR_DELTA[exitDir][1];
+    const nextEntry = OPPOSITE[exitDir];
+
+    advanceFlow(nextRow, nextCol, nextEntry);
+  });
+}
+
+function animateWaterFill(row, col, fromDir, toDir, onComplete) {
+  const cell = grid[row][col];
+  const duration = config.flowSpeed;
+  const startTime = performance.now();
+
+  function tick(now) {
+    if (!gameActive) return;
+    const elapsed = now - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+    cell.waterLevel = progress;
+
+    drawPipe(cell.canvas, cell.pipe, progress, fromDir, toDir, cell.isCrossSecond);
+
+    if (progress < 1) {
+      requestAnimationFrame(tick);
+    } else {
+      cell.waterLevel = 1;
+      onComplete();
+    }
+  }
+  requestAnimationFrame(tick);
+}
+
+function updateFlowBar() {
+  const pct = Math.min((totalPipesFlowed / config.minPipes) * 100, 100);
+  flowFill.style.width = pct + '%';
+  if (pct >= 100) {
+    flowFill.style.background = 'linear-gradient(90deg, #00e6b8, #7b6fff)';
+  }
+}
+
+function endFlow(isWin) {
+  gameActive = false;
+  const won = totalPipesFlowed >= config.minPipes;
+
+  // Record stats
+  stats.addPlay();
+  totalPipesStat += pipesPlaced;
+  localStorage.setItem('pd-total-pipes', totalPipesStat);
+
+  if (won) {
+    stats.addWin();
+    levelsWon++;
+    localStorage.setItem('pd-levels-won', levelsWon);
+    score += Math.round(200 * level * config.scoreMult);
+    updateScore();
+
+    if (score > bestScore) {
+      bestScore = score;
+      localStorage.setItem('pd-best-score', bestScore);
+    }
+
+    Confetti.launch(100);
+    goTitle.textContent = 'Level Complete!';
+    goScore.textContent = `Score: ${score}`;
+    goDetail.textContent = `${totalPipesFlowed} pipes filled (needed ${config.minPipes})`;
+    document.getElementById('goRestart').textContent = 'Next Level';
+    document.getElementById('goRestart').onclick = () => {
+      gameOverEl.classList.remove('active');
+      level++;
+      config = { ...CONFIGS[difficulty] };
+      config.minPipes += level * 2;
+      config.preflow = Math.max(10, config.preflow - level);
+      config.flowSpeed = Math.max(250, config.flowSpeed - level * 20);
+      startGame(true);
+    };
+  } else {
+    stats.resetStreak();
+    if (score > bestScore) {
+      bestScore = score;
+      localStorage.setItem('pd-best-score', bestScore);
+    }
+    goTitle.textContent = 'Game Over';
+    goScore.textContent = `Score: ${score}`;
+    goDetail.textContent = `${totalPipesFlowed}/${config.minPipes} pipes filled`;
+    document.getElementById('goRestart').textContent = 'Play Again';
+    document.getElementById('goRestart').onclick = () => {
+      gameOverEl.classList.remove('active');
+      level = 1;
+      score = 0;
+      startGame(false);
+    };
+  }
+
+  setTimeout(() => gameOverEl.classList.add('active'), 600);
+}
+
+// ── UI updates ──
+function updateScore() { scoreEl.textContent = score; }
+function updatePipes() { pipesEl.textContent = pipesPlaced; }
+
+// ── Stats modal ──
+function updateStatsModal() {
+  document.getElementById('statPlayed').textContent = stats.played;
+  document.getElementById('statWon').textContent = stats.won;
+  document.getElementById('statStreak').textContent = stats.streak;
+  document.getElementById('statBest').textContent = bestScore;
+  document.getElementById('statPipes').textContent = totalPipesStat;
+  document.getElementById('statLevels').textContent = levelsWon;
+}
+
+document.getElementById('statsBtn').addEventListener('click', () => {
+  updateStatsModal();
+  Modal.show('statsModal');
+});
+
+// ── Bomb mode ──
+bombBtn.addEventListener('click', () => {
+  if (!gameActive) return;
+  bombMode = !bombMode;
+  bombBtn.classList.toggle('active', bombMode);
+  document.body.style.cursor = bombMode ? 'crosshair' : '';
+});
+
+// ── Skip pipe ──
+replaceBtn.addEventListener('click', () => {
+  if (!gameActive) return;
+  score = Math.max(0, score - 50);
+  updateScore();
+  nextPipe(); // discard current
+});
+
+// ── Difficulty ──
+document.querySelectorAll('.pipe-diff-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.pipe-diff-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    difficulty = btn.dataset.diff;
+    config = { ...CONFIGS[difficulty] };
+    level = 1;
+    score = 0;
+    startGame(false);
+  });
+});
+
+// ── New game ──
+document.getElementById('newGameBtn').addEventListener('click', () => {
+  level = 1;
+  score = 0;
+  startGame(false);
+});
+
+// ── Start game ──
+function startGame(keepScore) {
+  // Clean up
+  if (preflowInterval) { clearInterval(preflowInterval); preflowInterval = null; }
+  gameActive = false;
+  bombMode = false;
+  bombBtn.classList.remove('active');
+  document.body.style.cursor = '';
+  gameOverEl.classList.remove('active');
+  countdownEl.classList.remove('active');
+
+  if (!keepScore) { score = 0; level = 1; }
+  pipesPlaced = 0;
+  totalPipesFlowed = 0;
+  queue = [];
+
+  updateScore();
+  levelEl.textContent = level;
+  updatePipes();
+  flowFill.style.width = '0%';
+  flowFill.style.background = '';
+
+  buildGrid();
+  placeStart();
+  placeBlocks();
+  fillQueue();
+
+  gameActive = true;
+  startPreflow();
+}
+
+// ── Handle resize ──
+let resizeTimer;
+window.addEventListener('resize', () => {
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(() => {
+    if (gameActive && preflowTimer > 0) {
+      // Only rebuild during preflow (safe)
+      const savedQueue = [...queue];
+      const savedPipes = [];
+      const savedTimer = preflowTimer;
+
+      // Save placed pipes
+      for (let r = 0; r < config.rows; r++) {
+        for (let c = 0; c < config.cols; c++) {
+          if (grid[r] && grid[r][c] && grid[r][c].pipe) {
+            savedPipes.push({ r, c, pipe: grid[r][c].pipe });
+          }
+        }
+      }
+
+      buildGrid();
+      placeStart();
+      placeBlocks();
+
+      // Restore pipes
+      savedPipes.forEach(({ r, c, pipe }) => {
+        if (grid[r] && grid[r][c] && !grid[r][c].blocked && !grid[r][c].isStart) {
+          grid[r][c].pipe = pipe;
+          grid[r][c].el.classList.add('filled');
+          drawPipe(grid[r][c].canvas, pipe, 0);
+        }
+      });
+
+      queue = savedQueue;
+      fillQueue();
+    }
+  }, 300);
+});
+
+// ── Init ──
+startGame(false);
+
+})();
+</script>
+</body>
+</html>

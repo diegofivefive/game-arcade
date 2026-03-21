@@ -36,7 +36,7 @@ TheFreeFix.com is a free online games and tools website. No accounts, no downloa
 
 ```
 thefreefix.com/                    ← Hub page (2 cards: Games, Tools)
-├── games.html                     ← Games listing (11 game cards)
+├── games.html                     ← Games listing (12 game cards)
 │   ├── sudoku.html                + sudoku-info.html
 │   ├── minesweeper.html           + minesweeper-info.html
 │   ├── 2048.html                  + 2048-info.html
@@ -47,7 +47,8 @@ thefreefix.com/                    ← Hub page (2 cards: Games, Tools)
 │   ├── solitaire.html             + solitaire-info.html
 │   ├── nonograms.html             + nonograms-info.html
 │   ├── brick-smash.html           + brick-smash-info.html
-│   └── bubble-shooter.html        + bubble-shooter-info.html
+│   ├── bubble-shooter.html        + bubble-shooter-info.html
+│   └── pipe-dream.html            + pipe-dream-info.html
 ├── tools.html                     ← Tools listing (13 tool cards)
 │   ├── qr-code-generator.html     + qr-code-generator-info.html
 │   ├── word-counter.html          + word-counter-info.html
@@ -136,7 +137,7 @@ thefreefix.com/                    ← Hub page (2 cards: Games, Tools)
 - CSS classes: `.ad-slot` + `.ad-content` (top) or `.ad-bottom` (bottom), `.ad-slot--placeholder`
 - ads.txt in repo root
 
-## Current Games (11)
+## Current Games (12)
 1. **Sudoku** — 4 difficulty levels (easy/medium/hard/expert), notes mode, hints (3/game), undo, error checking, stats tracking, best times, keyboard support, landscape layout on wide screens
 2. **Minesweeper** — 3 difficulty levels (beginner 9x9, intermediate 16x16, expert 16x30), flagging, chord clicking, timer, stats, best times. Expert board uses horizontal scroll on mobile.
 3. **2048** — Slide and merge tiles. Arrow keys + swipe controls, score tracking, best score persistence, timer, stats, keep playing after win
@@ -148,6 +149,7 @@ thefreefix.com/                    ← Hub page (2 cards: Games, Tools)
 9. **Nonograms** — Picross picture logic puzzles. Four difficulty levels (5x5 to 20x20), auto-cross completed clues, error checking, undo, timer, stats, keyboard support.
 10. **Brick Smash** — Breakout-style arcade. Canvas-based, requestAnimationFrame loop. Mouse/touch/keyboard. 3 brick types, 3 power-ups, 10 handcrafted levels + procedural generation for 11+. Particle effects, ball glow trail.
 11. **Bubble Shooter** — Aim-and-match arcade puzzle. Canvas-based, hex grid. Match 3+ to pop. Disconnected clusters fall for bonus. Ceiling descends every N shots. 6 colors introduced progressively, combo scoring, glossy rendering. Mouse/touch/keyboard with trajectory preview.
+12. **Pipe Dream** — Classic retro pipe-connecting puzzle. Place pipe pieces from a queue onto a grid before water flows from the start tile. 11 pipe types (straight, curved, T, cross). 4 difficulty levels (easy 7x7 to expert 10x10). Countdown timer, animated water flow, skip/bomb tools, progressive levels, cross-pipe bonus scoring. Stats tracking with best score, streak, total pipes. Mobile-first canvas rendering.
 
 ## Current Tools (12)
 1. **QR Code Generator** — Auto-generation with debounce, custom FG/BG colors, 3 sizes (S/M/L), download as PNG. Self-contained QR encoder (byte mode, EC level M, versions 1-40, Reed-Solomon).
