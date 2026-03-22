@@ -567,9 +567,9 @@ function gameLoop(now = performance.now()) {
     for (const b of balls) b.fire = false;
   }
 
-  // Progressive speed: ramp up 0.5% per second of level time, capped at +30%
+  // Progressive speed: ramp up 1% per second of level time, capped at +50%
   const levelElapsed = (now - levelStartTime) / 1000;
-  const speedRamp = Math.min(1 + levelElapsed * 0.005, 1.3);
+  const speedRamp = Math.min(1 + levelElapsed * 0.01, 1.5);
   if (!effects.slowBall) {
     const baseSpd = getLevelSpeed(level);
     for (const b of balls) {
