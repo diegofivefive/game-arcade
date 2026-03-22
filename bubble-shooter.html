@@ -195,7 +195,6 @@
     </div>
     <div class="header-btns">
       <a href="bubble-shooter-info.html" class="info-btn" title="Info">i</a>
-      <button class="info-btn" id="pauseBtn" title="Pause" style="display:none;">&#x23f8;&#xfe0e;</button>
       <button class="icon-btn" id="themeBtn" title="Toggle theme">&#x1f319;</button>
     </div>
   </div>
@@ -231,7 +230,7 @@
         <h2>Bubble Shooter</h2>
         <p>Aim, shoot, and match 3+ bubbles to pop them!</p>
         <button class="play-btn" id="startBtn">Play</button>
-        <p class="controls-hint">Mouse / Touch to aim &middot; Click to shoot<br>P or Esc to pause</p>
+        <p class="controls-hint">Mouse / Touch to aim &middot; Click to shoot</p>
       </div>
 
       <div class="game-overlay" id="pauseOverlay">
@@ -284,7 +283,6 @@ const BASE_SHOTS = 8;
 // --- DOM ---
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
-const pauseBtn = document.getElementById('pauseBtn');
 
 // --- State ---
 let CANVAS_W, CANVAS_H, BUBBLE_R, ROW_H, SHOOTER_Y, DANGER_Y;
@@ -1435,7 +1433,6 @@ function checkGameOver() {
 function triggerGameOver() {
   gameState = 'over';
   cancelAnimationFrame(animFrame);
-  pauseBtn.style.display = 'none';
   let isNewBest = false;
   if (score > bestScore) {
     bestScore = score;
@@ -1443,7 +1440,7 @@ function triggerGameOver() {
     isNewBest = true;
   }
   if (stats) stats.setBestTime('score', -score);
-  document.getElementById('finalScore').textContent = score.toLocaleString();
+  document.getElementById('finalScore').textContent = score;
   document.getElementById('finalInfo').textContent = 'Level ' + currentLevel + ' \u2022 ' + totalPopped + ' bubbles popped';
   document.getElementById('bestBadge').style.display = isNewBest ? 'inline-block' : 'none';
   showOverlay('gameOverOverlay');
@@ -1479,7 +1476,6 @@ function startGame() {
   shotsUntilDescent = getShotsPerDescent();
 
   gameState = 'playing';
-  pauseBtn.style.display = '';
   hideAllOverlays();
   updateDisplay();
   lastTime = performance.now();
@@ -1518,8 +1514,8 @@ function hideAllOverlays() {
 
 // --- Display ---
 function updateDisplay() {
-  document.getElementById('scoreDisplay').textContent = score.toLocaleString();
-  document.getElementById('bestDisplay').textContent = bestScore.toLocaleString();
+  document.getElementById('scoreDisplay').textContent = score;
+  document.getElementById('bestDisplay').textContent = bestScore;
   document.getElementById('levelDisplay').textContent = currentLevel;
   document.getElementById('shotsDisplay').textContent = Math.max(0, shotsUntilDescent);
   // Combo multiplier
@@ -1605,7 +1601,6 @@ document.addEventListener('keyup', (e) => { keys[e.key] = false; });
 document.getElementById('startBtn').addEventListener('click', startGame);
 document.getElementById('resumeBtn').addEventListener('click', resumeGame);
 document.getElementById('restartBtn').addEventListener('click', startGame);
-pauseBtn.addEventListener('click', togglePause);
 
 // --- Resize ---
 let resizeTimer;

@@ -717,7 +717,7 @@ function togglePause() {
 function triggerGameOver() {
   gameState = 'over';
   cancelAnimationFrame(animFrame);
-  document.getElementById('finalScore').textContent = score.toLocaleString();
+  document.getElementById('finalScore').textContent = score;
   document.getElementById('finalLines').textContent = `Level ${level} \u2022 ${linesCleared} lines`;
   if (score > 0) {
     const isNewBest = stats.setBestTime('score', -score); // negative so lower is "better"
@@ -883,7 +883,7 @@ function drawNext() {
 // UI UPDATES
 // ===========================
 function updateDisplay() {
-  document.getElementById('score').textContent = score.toLocaleString();
+  document.getElementById('score').textContent = score;
   document.getElementById('level').textContent = level;
   document.getElementById('lines').textContent = linesCleared;
 }
