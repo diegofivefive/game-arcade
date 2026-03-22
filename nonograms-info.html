@@ -52,17 +52,20 @@
     <span class="ad-size-label">Responsive</span>
   </div>
 
-  <div class="game-header">
+  <main>
+
+
+    <header class="game-header">
     <div class="header-left">
-      <a href="nonograms.html" class="back-btn" title="Back to Nonograms">&#x2190;</a>
+      <a href="nonograms.html" class="back-btn" title="Back to Nonograms" aria-label="Back to Nonograms">&#x2190;</a>
       <h1 class="logo">Nonograms</h1>
     </div>
     <div class="header-btns">
-      <button class="icon-btn" id="themeBtn" title="Toggle theme">&#x1f319;</button>
+      <button class="icon-btn" id="themeBtn" title="Toggle theme" aria-label="Toggle theme">&#x1f319;</button>
     </div>
-  </div>
+  </header>
 
-  <div class="info-content">
+  <article class="info-content">
     <h2>How to Play</h2>
     <p>Nonograms (also called Picross or Griddlers) are logic puzzles where you fill in cells on a grid based on number clues. Each row and column has a set of numbers that tell you how many consecutive groups of filled cells exist in that line.</p>
     <p>For example, a clue of <strong>3 1</strong> means there is a group of 3 filled cells, at least one empty cell, then a group of 1 filled cell. Your goal is to figure out exactly which cells to fill and which to leave empty.</p>
@@ -113,6 +116,7 @@
   </div>
 
   <footer class="site-footer">
+    <nav aria-label="Footer">
     <a href="about.html">About</a>
     <span class="footer-sep">&middot;</span>
     <a href="contact.html">Contact</a>
@@ -122,6 +126,7 @@
     <a href="privacy.html">Privacy</a>
     <span class="footer-sep">&middot;</span>
     <a href="https://x.com/TheFreeFix" target="_blank" rel="noopener">X</a>
+    </nav>
   </footer>
 </div>
 

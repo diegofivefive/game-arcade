@@ -297,18 +297,19 @@
     <span class="ad-size-label">Responsive</span>
   </div>
 
-  <div class="game-header">
+  <main>
+  <header class="game-header">
     <div class="header-left">
-      <a href="tools.html" class="back-btn" title="Back">&#x2190;</a>
+      <a href="tools.html" class="back-btn" title="Back to Tools" aria-label="Back to Tools">&#x2190;</a>
       <h1 class="logo">Pomodoro</h1>
     </div>
     <div class="header-btns">
-      <a href="pomodoro-timer-info.html" class="info-btn" title="Info">i</a>
+      <a href="pomodoro-timer-info.html" class="info-btn" title="How to use" aria-label="How to use">i</a>
       <button class="icon-btn" id="statsBtn" title="Statistics">&#x1f4ca;</button>
       <button class="icon-btn" id="settingsBtn" title="Settings">&#x2699;&#xfe0f;</button>
-      <button class="icon-btn" id="themeBtn" title="Toggle theme">&#x1f319;</button>
+      <button class="icon-btn" id="themeBtn" title="Toggle theme" aria-label="Toggle theme">&#x1f319;</button>
     </div>
-  </div>
+  </header>
 
   <div class="tool-content">
 
@@ -443,22 +444,31 @@
     </div>
   </div>
 
+  </main>
   <!-- Ad Slot 2: Bottom Banner -->
   <div class="ad-slot ad-bottom ad-slot--placeholder">
     <span class="ad-size-label">Responsive</span>
   </div>
 
   <footer class="site-footer">
-    <a href="about.html">About</a>
-    <span class="footer-sep">&middot;</span>
-    <a href="contact.html">Contact</a>
-    <span class="footer-sep">&middot;</span>
-    <a href="terms.html">Terms</a>
-    <span class="footer-sep">&middot;</span>
-    <a href="privacy.html">Privacy</a>
-    <span class="footer-sep">&middot;</span>
-    <a href="https://x.com/TheFreeFix" target="_blank" rel="noopener">X</a>
+    <nav aria-label="Footer">
+      <a href="about.html">About</a>
+      <span class="footer-sep">&middot;</span>
+      <a href="contact.html">Contact</a>
+      <span class="footer-sep">&middot;</span>
+      <a href="terms.html">Terms</a>
+      <span class="footer-sep">&middot;</span>
+      <a href="privacy.html">Privacy</a>
+      <span class="footer-sep">&middot;</span>
+      <a href="https://x.com/TheFreeFix" target="_blank" rel="noopener">X</a>
+    </nav>
   </footer>
+  <section class="page-about" aria-label="About Pomodoro Timer">
+    <h2>How to Use the Pomodoro Timer</h2>
+    <p>The Pomodoro Technique is a time management method that breaks work into focused intervals, traditionally 25 minutes, separated by short breaks. Start the timer and focus on your task until it rings. Take a short break, then repeat. After four focus sessions, take a longer break. This rhythm helps maintain concentration and prevents burnout during long work sessions.</p>
+    <h2>Features</h2>
+    <p>Customize your focus duration, short break, and long break intervals to match your working style. The timer tracks your completed sessions so you can see how productive your day has been. Audio notifications alert you when each interval ends. The clean, distraction-free interface keeps the focus on your work, not the tool. Runs entirely in your browser with no account or downloads needed.</p>
+  </section>
 </div>
 
 <script src="theme.js"></script>

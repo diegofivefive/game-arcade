@@ -178,16 +178,17 @@
     <span class="ad-size-label">Responsive</span>
   </div>
 
-  <div class="game-header">
+  <main>
+  <header class="game-header">
     <div class="header-left">
-      <a href="games.html" class="back-btn" title="Back">&#x2190;</a>
+      <a href="games.html" class="back-btn" title="Back to Games" aria-label="Back to Games">&#x2190;</a>
       <h1 class="logo">Memory Match</h1>
     </div>
     <div class="header-btns">
-      <a href="memory-match-info.html" class="info-btn" title="Info">i</a>
-      <button class="icon-btn" id="themeBtn" title="Toggle theme">&#x1f319;</button>
+      <a href="memory-match-info.html" class="info-btn" title="How to play" aria-label="How to play">i</a>
+      <button class="icon-btn" id="themeBtn" title="Toggle theme" aria-label="Toggle theme">&#x1f319;</button>
     </div>
-  </div>
+  </header>
 
   <div class="controls">
     <div class="pill-selector">
@@ -216,22 +217,33 @@
     <div class="board" id="board"></div>
   </div>
 
+  </main>
+
   <!-- Ad Slot 2: Bottom Banner -->
   <div class="ad-slot ad-bottom ad-slot--placeholder">
     <span class="ad-size-label">Responsive</span>
   </div>
 
   <footer class="site-footer">
-    <a href="about.html">About</a>
-    <span class="footer-sep">&middot;</span>
-    <a href="contact.html">Contact</a>
-    <span class="footer-sep">&middot;</span>
-    <a href="terms.html">Terms</a>
-    <span class="footer-sep">&middot;</span>
-    <a href="privacy.html">Privacy</a>
-    <span class="footer-sep">&middot;</span>
-    <a href="https://x.com/TheFreeFix" target="_blank" rel="noopener">X</a>
+    <nav aria-label="Footer">
+      <a href="about.html">About</a>
+      <span class="footer-sep">&middot;</span>
+      <a href="contact.html">Contact</a>
+      <span class="footer-sep">&middot;</span>
+      <a href="terms.html">Terms</a>
+      <span class="footer-sep">&middot;</span>
+      <a href="privacy.html">Privacy</a>
+      <span class="footer-sep">&middot;</span>
+      <a href="https://x.com/TheFreeFix" target="_blank" rel="noopener">X</a>
+    </nav>
   </footer>
+
+  <section class="page-about" aria-label="About Memory Match">
+    <h2>How to Play Memory Match Online</h2>
+    <p>Memory Match is a classic card-flipping game that tests your recall. Cards are placed face down on a grid, and you flip two at a time trying to find matching pairs. If the two cards match, they stay face up. If they do not match, they flip back over and you try again. The goal is to find all matching pairs in as few moves as possible.</p>
+    <h2>Game Features</h2>
+    <p>Choose from multiple difficulty levels with different grid sizes, from small grids for beginners to larger grids that require serious concentration. Your moves, time, and match statistics are tracked for each game. The responsive design adapts to any screen size, making it great for quick sessions on your phone or longer play on desktop. No sign-ups or downloads needed.</p>
+  </section>
 </div>
 
 <!-- Win Modal -->

@@ -43,16 +43,18 @@
 <div class="game-page">
   <a href="index.html" class="site-brand">TheFreeFix.com</a>
   <div class="ad-slot ad-content ad-slot--placeholder"><span class="ad-size-label">Responsive</span></div>
-  <div class="game-header">
+  <main>
+
+    <header class="game-header">
     <div class="header-left">
-      <a href="2048.html" class="back-btn" title="Back to 2048">&#x2190;</a>
+      <a href="2048.html" class="back-btn" title="Back to 2048" aria-label="Back to 2048">&#x2190;</a>
       <h1 class="logo">2048</h1>
     </div>
     <div class="header-btns">
-      <button class="icon-btn" id="themeBtn" title="Toggle theme">&#x1f319;</button>
+      <button class="icon-btn" id="themeBtn" title="Toggle theme" aria-label="Toggle theme">&#x1f319;</button>
     </div>
-  </div>
-  <div class="info-content">
+  </header>
+  <article class="info-content">
     <h2>How to Play</h2>
     <p>Slide numbered tiles on a 4x4 grid. When two tiles with the same number collide, they merge into one tile with their sum. Reach the 2048 tile to win!</p>
     <ul>
@@ -73,14 +75,17 @@
     <h2>About</h2>
     <p>2048 was created by Gabriele Cirulli in 2014 as a weekend project. It quickly went viral and has been played hundreds of millions of times worldwide. The game is inspired by "Threes!" by Asher Vollmer.</p>
     <p>Our version features swipe controls for mobile, arrow key support for desktop, score tracking, best score persistence, a timer, and statistics. It works offline and saves your progress automatically.</p>
-  </div>
+  </article>
+  </main>
   <div class="ad-slot ad-bottom ad-slot--placeholder"><span class="ad-size-label">Responsive</span></div>
   <footer class="site-footer">
+    <nav aria-label="Footer">
     <a href="about.html">About</a> <span class="footer-sep">&middot;</span>
     <a href="contact.html">Contact</a> <span class="footer-sep">&middot;</span>
     <a href="terms.html">Terms</a> <span class="footer-sep">&middot;</span>
     <a href="privacy.html">Privacy</a> <span class="footer-sep">&middot;</span>
     <a href="https://x.com/TheFreeFix" target="_blank" rel="noopener">X</a>
+    </nav>
   </footer>
 </div>
 <script src="theme.js"></script>

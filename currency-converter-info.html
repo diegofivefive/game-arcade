@@ -43,16 +43,18 @@
 <div class="game-page">
   <a href="index.html" class="site-brand">TheFreeFix.com</a>
   <div class="ad-slot ad-content ad-slot--placeholder"><span class="ad-size-label">Responsive</span></div>
-  <div class="game-header">
+  <main>
+
+    <header class="game-header">
     <div class="header-left">
-      <a href="currency-converter.html" class="back-btn" title="Back to Currency Converter">&#x2190;</a>
+      <a href="currency-converter.html" class="back-btn" title="Back to Currency Converter" aria-label="Back to Currency Converter">&#x2190;</a>
       <h1 class="logo">Currency Converter</h1>
     </div>
     <div class="header-btns">
-      <button class="icon-btn" id="themeBtn" title="Toggle theme">&#x1f319;</button>
+      <button class="icon-btn" id="themeBtn" title="Toggle theme" aria-label="Toggle theme">&#x1f319;</button>
     </div>
-  </div>
-  <div class="info-content">
+  </header>
+  <article class="info-content">
     <h2>How to Use</h2>
     <p>Convert between 30+ world currencies instantly. Just enter an amount and pick your currencies.</p>
     <ol>
@@ -78,14 +80,17 @@
     <p>Exchange rates are sourced from the European Central Bank (ECB) via the Frankfurter API. The ECB publishes reference rates once per business day, typically around 16:00 CET. Weekend and holiday rates use the last available business day rates.</p>
     <p>These are mid-market reference rates intended for informational purposes. Actual exchange rates from banks and money transfer services will differ due to spreads and fees.</p>
     <p>All conversion happens entirely in your browser. No personal data or amounts are sent to any server.</p>
-  </div>
+  </article>
+  </main>
   <div class="ad-slot ad-bottom ad-slot--placeholder"><span class="ad-size-label">Responsive</span></div>
   <footer class="site-footer">
+    <nav aria-label="Footer">
     <a href="about.html">About</a> <span class="footer-sep">&middot;</span>
     <a href="contact.html">Contact</a> <span class="footer-sep">&middot;</span>
     <a href="terms.html">Terms</a> <span class="footer-sep">&middot;</span>
     <a href="privacy.html">Privacy</a> <span class="footer-sep">&middot;</span>
     <a href="https://x.com/TheFreeFix" target="_blank" rel="noopener">X</a>
+    </nav>
   </footer>
 </div>
 <script src="theme.js"></script>

@@ -343,17 +343,18 @@
       <span class="ad-size-label">Responsive</span>
     </div>
 
-    <div class="game-header">
+    <main>
+    <header class="game-header">
       <div class="header-left">
-        <a href="games.html" class="back-btn" title="Back">&#x2190;</a>
+        <a href="games.html" class="back-btn" title="Back to Games" aria-label="Back to Games">&#x2190;</a>
         <h1 class="logo">2048</h1>
       </div>
       <div class="header-btns">
-        <a href="2048-info.html" class="info-btn" title="Info">i</a>
+        <a href="2048-info.html" class="info-btn" title="How to play" aria-label="How to play">i</a>
         <button class="icon-btn" id="newGameBtn" title="New game">&#x1f504;</button>
-        <button class="icon-btn" id="themeBtn" title="Toggle theme">&#x1f319;</button>
+        <button class="icon-btn" id="themeBtn" title="Toggle theme" aria-label="Toggle theme">&#x1f319;</button>
       </div>
-    </div>
+    </header>
 
     <!-- Controls: Score + Best + Timer -->
     <div class="controls">
@@ -421,22 +422,33 @@
       </div>
     </div>
 
+    </main>
+
     <!-- Ad Slot 2: Bottom Banner -->
     <div class="ad-slot ad-bottom ad-slot--placeholder">
       <span class="ad-size-label">Responsive</span>
     </div>
 
     <footer class="site-footer">
-      <a href="about.html">About</a>
-      <span class="footer-sep">&middot;</span>
-      <a href="contact.html">Contact</a>
-      <span class="footer-sep">&middot;</span>
-      <a href="terms.html">Terms</a>
-      <span class="footer-sep">&middot;</span>
-      <a href="privacy.html">Privacy</a>
-      <span class="footer-sep">&middot;</span>
-      <a href="https://x.com/TheFreeFix" target="_blank" rel="noopener">X</a>
+      <nav aria-label="Footer">
+        <a href="about.html">About</a>
+        <span class="footer-sep">&middot;</span>
+        <a href="contact.html">Contact</a>
+        <span class="footer-sep">&middot;</span>
+        <a href="terms.html">Terms</a>
+        <span class="footer-sep">&middot;</span>
+        <a href="privacy.html">Privacy</a>
+        <span class="footer-sep">&middot;</span>
+        <a href="https://x.com/TheFreeFix" target="_blank" rel="noopener">X</a>
+      </nav>
     </footer>
+
+    <section class="page-about" aria-label="About 2048">
+      <h2>How to Play 2048 Online</h2>
+      <p>2048 is a sliding tile puzzle game. Use arrow keys or swipe to move all tiles in one direction. When two tiles with the same number collide, they merge into one tile with double the value. The goal is to create a tile with the number 2048. Plan your moves carefully to avoid running out of space on the 4x4 grid.</p>
+      <h2>Game Features</h2>
+      <p>This version supports both keyboard arrow keys and touch swipe controls. Your current score and best score are tracked and saved automatically between sessions. A built-in timer and game statistics help you measure your improvement over time. After reaching 2048, you can keep playing to chase even higher tiles. No downloads or sign-ups needed.</p>
+    </section>
   </div>
 
   <script src="theme.js"></script>

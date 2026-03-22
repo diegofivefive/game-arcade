@@ -188,16 +188,17 @@
     <span class="ad-size-label">Responsive</span>
   </div>
 
-  <div class="game-header">
+  <main>
+  <header class="game-header">
     <div class="header-left">
-      <a href="games.html" class="back-btn" title="Back">&#x2190;</a>
+      <a href="games.html" class="back-btn" title="Back to Games" aria-label="Back to Games">&#x2190;</a>
       <h1 class="logo">Bubble Shooter</h1>
     </div>
     <div class="header-btns">
-      <a href="bubble-shooter-info.html" class="info-btn" title="Info">i</a>
-      <button class="icon-btn" id="themeBtn" title="Toggle theme">&#x1f319;</button>
+      <a href="bubble-shooter-info.html" class="info-btn" title="How to play" aria-label="How to play">i</a>
+      <button class="icon-btn" id="themeBtn" title="Toggle theme" aria-label="Toggle theme">&#x1f319;</button>
     </div>
-  </div>
+  </header>
 
   <div class="game-area">
     <div class="side-panel" id="leftPanel">
@@ -249,22 +250,33 @@
     </div>
   </div>
 
+  </main>
+
   <!-- Ad Slot 2: Bottom Banner -->
   <div class="ad-slot ad-bottom ad-slot--placeholder">
     <span class="ad-size-label">Responsive</span>
   </div>
 
   <footer class="site-footer">
-    <a href="about.html">About</a>
-    <span class="footer-sep">&middot;</span>
-    <a href="contact.html">Contact</a>
-    <span class="footer-sep">&middot;</span>
-    <a href="terms.html">Terms</a>
-    <span class="footer-sep">&middot;</span>
-    <a href="privacy.html">Privacy</a>
-    <span class="footer-sep">&middot;</span>
-    <a href="https://x.com/TheFreeFix" target="_blank" rel="noopener">X</a>
+    <nav aria-label="Footer">
+      <a href="about.html">About</a>
+      <span class="footer-sep">&middot;</span>
+      <a href="contact.html">Contact</a>
+      <span class="footer-sep">&middot;</span>
+      <a href="terms.html">Terms</a>
+      <span class="footer-sep">&middot;</span>
+      <a href="privacy.html">Privacy</a>
+      <span class="footer-sep">&middot;</span>
+      <a href="https://x.com/TheFreeFix" target="_blank" rel="noopener">X</a>
+    </nav>
   </footer>
+
+  <section class="page-about" aria-label="About Bubble Shooter">
+    <h2>How to Play Bubble Shooter Online</h2>
+    <p>Bubble Shooter is an aim-and-match arcade puzzle. Shoot colored bubbles from the bottom of the screen to match three or more of the same color, causing them to pop. Aim carefully by moving your mouse or finger to set the trajectory, then click or tap to shoot. Disconnected bubble clusters fall for bonus points. The ceiling descends after every few shots, so clear bubbles quickly to survive.</p>
+    <h2>Game Features</h2>
+    <p>Six bubble colors are introduced progressively as you advance, keeping early rounds simple and later rounds challenging. Combo scoring rewards chain reactions and cluster drops. A trajectory preview line helps you aim precise shots. The hex grid layout and glossy bubble rendering create a polished visual experience. Play with mouse, touch, or keyboard on any device.</p>
+  </section>
 </div>
 
 <script src="theme.js"></script>

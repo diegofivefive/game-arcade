@@ -373,16 +373,17 @@
     <span class="ad-size-label">Responsive</span>
   </div>
 
-  <div class="game-header">
+  <main>
+  <header class="game-header">
     <div class="header-left">
-      <a href="tools.html" class="back-btn" title="Back">&#x2190;</a>
+      <a href="tools.html" class="back-btn" title="Back to Tools" aria-label="Back to Tools">&#x2190;</a>
       <h1 class="logo">Palette Generator</h1>
     </div>
     <div class="header-btns">
-      <a href="color-palette-generator-info.html" class="info-btn" title="Info">i</a>
-      <button class="icon-btn" id="themeBtn" title="Toggle theme">&#x1f319;</button>
+      <a href="color-palette-generator-info.html" class="info-btn" title="How to use" aria-label="How to use">i</a>
+      <button class="icon-btn" id="themeBtn" title="Toggle theme" aria-label="Toggle theme">&#x1f319;</button>
     </div>
-  </div>
+  </header>
 
   <div class="tool-content">
     <!-- Harmony mode selector -->
@@ -431,6 +432,7 @@
 
   <!-- Copy toast -->
   <div class="copy-toast" id="copyToast">Copied!</div>
+  </main>
 
   <!-- Ad Slot 2: Bottom Banner -->
   <div class="ad-slot ad-bottom ad-slot--placeholder">
@@ -438,16 +440,25 @@
   </div>
 
   <footer class="site-footer">
-    <a href="about.html">About</a>
-    <span class="footer-sep">&middot;</span>
-    <a href="contact.html">Contact</a>
-    <span class="footer-sep">&middot;</span>
-    <a href="terms.html">Terms</a>
-    <span class="footer-sep">&middot;</span>
-    <a href="privacy.html">Privacy</a>
-    <span class="footer-sep">&middot;</span>
-    <a href="https://x.com/TheFreeFix" target="_blank" rel="noopener">X</a>
+    <nav aria-label="Footer">
+      <a href="about.html">About</a>
+      <span class="footer-sep">&middot;</span>
+      <a href="contact.html">Contact</a>
+      <span class="footer-sep">&middot;</span>
+      <a href="terms.html">Terms</a>
+      <span class="footer-sep">&middot;</span>
+      <a href="privacy.html">Privacy</a>
+      <span class="footer-sep">&middot;</span>
+      <a href="https://x.com/TheFreeFix" target="_blank" rel="noopener">X</a>
+    </nav>
   </footer>
+
+  <section class="page-about" aria-label="About Color Palette Generator">
+    <h2>How to Generate Color Palettes Online</h2>
+    <p>Generate harmonious color palettes with a single click. Choose from different harmony modes like complementary, analogous, triadic, and more to get palettes that follow established color theory. Lock individual colors you like and regenerate the rest. Adjust hues and saturation to fine-tune your palette until it matches your design vision.</p>
+    <h2>Features</h2>
+    <p>Export your finished palette as CSS custom properties or JSON for use in any project. Each color displays its hex value for easy copying. Multiple harmony modes ensure your palettes look professionally coordinated. The visual interface lets you see all colors side by side. Perfect for web designers, graphic artists, and anyone choosing colors for a project. Free to use with no account needed.</p>
+  </section>
 </div>
 
 <script src="theme.js"></script>

@@ -211,17 +211,18 @@
     <span class="ad-size-label">Responsive</span>
   </div>
 
-  <div class="game-header">
+  <main>
+  <header class="game-header">
     <div class="header-left">
-      <a href="games.html" class="back-btn" id="backBtn" title="Back">&#x2190;</a>
+      <a href="games.html" class="back-btn" id="backBtn" title="Back to Games" aria-label="Back to Games">&#x2190;</a>
       <h1 class="logo" id="headerTitle">Solitaire Collection</h1>
     </div>
     <div class="header-btns">
-      <a href="solitaire-info.html" class="info-btn" title="Info">i</a>
-      <button class="icon-btn" id="statsBtn" title="Statistics" style="display:none;">&#x1f4ca;</button>
-      <button class="icon-btn" id="themeBtn" title="Toggle theme">&#x1f319;</button>
+      <a href="solitaire-info.html" class="info-btn" title="How to play" aria-label="How to play">i</a>
+      <button class="icon-btn" id="statsBtn" title="Statistics" aria-label="Statistics" style="display:none;">&#x1f4ca;</button>
+      <button class="icon-btn" id="themeBtn" title="Toggle theme" aria-label="Toggle theme">&#x1f319;</button>
     </div>
-  </div>
+  </header>
 
   <!-- Game Selector -->
   <div class="game-select" id="gameSelect">
@@ -262,6 +263,8 @@
     <div class="board-area" id="board"></div>
   </div>
 
+  </main>
+
   <!-- Ad Slot 2: Bottom Banner (floats below cards) -->
   <div class="ad-slot ad-bottom ad-slot--placeholder">
     <span class="ad-size-label">Responsive</span>
@@ -283,16 +286,25 @@
   </div>
 
   <footer class="site-footer">
-    <a href="about.html">About</a>
-    <span class="footer-sep">&middot;</span>
-    <a href="contact.html">Contact</a>
-    <span class="footer-sep">&middot;</span>
-    <a href="terms.html">Terms</a>
-    <span class="footer-sep">&middot;</span>
-    <a href="privacy.html">Privacy</a>
-    <span class="footer-sep">&middot;</span>
-    <a href="https://x.com/TheFreeFix" target="_blank" rel="noopener">X</a>
+    <nav aria-label="Footer">
+      <a href="about.html">About</a>
+      <span class="footer-sep">&middot;</span>
+      <a href="contact.html">Contact</a>
+      <span class="footer-sep">&middot;</span>
+      <a href="terms.html">Terms</a>
+      <span class="footer-sep">&middot;</span>
+      <a href="privacy.html">Privacy</a>
+      <span class="footer-sep">&middot;</span>
+      <a href="https://x.com/TheFreeFix" target="_blank" rel="noopener">X</a>
+    </nav>
   </footer>
+
+  <section class="page-about" aria-label="About Solitaire">
+    <h2>How to Play Solitaire Online</h2>
+    <p>Solitaire is a single-player card game collection featuring three popular variants. In Klondike, build foundation piles from ace to king by suit while arranging cards in alternating-color descending sequences on the tableau. Spider Solitaire uses two decks and challenges you to build complete suited sequences. FreeCell gives you four free cells as temporary storage to help sort all cards to the foundations.</p>
+    <h2>Game Features</h2>
+    <p>Play three different solitaire variants in one place: Klondike, Spider, and FreeCell. Each variant has its own rules and strategy. Drag and drop cards or click to move them automatically. Your game statistics including wins, games played, and win rate are saved for each variant. The card layout adapts to your screen size for comfortable play on any device.</p>
+  </section>
 </div>
 
 <script src="theme.js"></script>

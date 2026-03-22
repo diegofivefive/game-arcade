@@ -193,16 +193,17 @@
     <span class="ad-size-label">Responsive</span>
   </div>
 
-  <div class="game-header">
+  <main>
+  <header class="game-header">
     <div class="header-left">
-      <a href="games.html" class="back-btn" title="Back">&#x2190;</a>
+      <a href="games.html" class="back-btn" title="Back to Games" aria-label="Back to Games">&#x2190;</a>
       <h1 class="logo">Minesweeper</h1>
     </div>
     <div class="header-btns">
-      <a href="minesweeper-info.html" class="info-btn" title="Info">i</a>
-      <button class="icon-btn" id="themeBtn" title="Toggle theme">&#x1f319;</button>
+      <a href="minesweeper-info.html" class="info-btn" title="How to play" aria-label="How to play">i</a>
+      <button class="icon-btn" id="themeBtn" title="Toggle theme" aria-label="Toggle theme">&#x1f319;</button>
     </div>
-  </div>
+  </header>
 
   <div class="controls">
     <div class="pill-selector">
@@ -228,22 +229,33 @@
     <div class="board" id="board"></div>
   </div>
 
+  </main>
+
   <!-- Ad Slot 2: Bottom Banner -->
   <div class="ad-slot ad-bottom ad-slot--placeholder">
     <span class="ad-size-label">Responsive</span>
   </div>
 
   <footer class="site-footer">
-    <a href="about.html">About</a>
-    <span class="footer-sep">&middot;</span>
-    <a href="contact.html">Contact</a>
-    <span class="footer-sep">&middot;</span>
-    <a href="terms.html">Terms</a>
-    <span class="footer-sep">&middot;</span>
-    <a href="privacy.html">Privacy</a>
-    <span class="footer-sep">&middot;</span>
-    <a href="https://x.com/TheFreeFix" target="_blank" rel="noopener">X</a>
+    <nav aria-label="Footer">
+      <a href="about.html">About</a>
+      <span class="footer-sep">&middot;</span>
+      <a href="contact.html">Contact</a>
+      <span class="footer-sep">&middot;</span>
+      <a href="terms.html">Terms</a>
+      <span class="footer-sep">&middot;</span>
+      <a href="privacy.html">Privacy</a>
+      <span class="footer-sep">&middot;</span>
+      <a href="https://x.com/TheFreeFix" target="_blank" rel="noopener">X</a>
+    </nav>
   </footer>
+
+  <section class="page-about" aria-label="About Minesweeper">
+    <h2>How to Play Minesweeper Online</h2>
+    <p>Minesweeper is a classic puzzle game where you uncover tiles on a grid while avoiding hidden mines. Left-click to reveal a tile, and right-click to flag suspected mines. Numbers tell you how many mines are in the surrounding eight tiles. Use logic and deduction to clear the entire board without detonating a mine. Choose from beginner, intermediate, or expert difficulty.</p>
+    <h2>Game Features</h2>
+    <p>Play three difficulty levels: beginner on a 9x9 grid, intermediate on 16x16, and expert on a 16x30 board. Features include flagging, chord clicking to quickly reveal safe neighbors, a built-in timer, and statistics tracking with best times for each level. The expert board supports horizontal scrolling on mobile devices for a comfortable experience on any screen size.</p>
+  </section>
 
 </div>
 

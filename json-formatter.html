@@ -366,16 +366,17 @@
     <span class="ad-size-label">Responsive</span>
   </div>
 
-  <div class="game-header">
+  <main>
+  <header class="game-header">
     <div class="header-left">
-      <a href="tools.html" class="back-btn" title="Back">&#x2190;</a>
+      <a href="tools.html" class="back-btn" title="Back to Tools" aria-label="Back to Tools">&#x2190;</a>
       <h1 class="logo">JSON Formatter</h1>
     </div>
     <div class="header-btns">
-      <a href="json-formatter-info.html" class="info-btn" title="Info">i</a>
-      <button class="icon-btn" id="themeBtn" title="Toggle theme">&#x1f319;</button>
+      <a href="json-formatter-info.html" class="info-btn" title="How to use" aria-label="How to use">i</a>
+      <button class="icon-btn" id="themeBtn" title="Toggle theme" aria-label="Toggle theme">&#x1f319;</button>
     </div>
-  </div>
+  </header>
 
   <div class="tool-content">
     <!-- Toolbar -->
@@ -436,6 +437,7 @@
 
   <!-- Copy toast -->
   <div class="copy-toast" id="copyToast">Copied!</div>
+  </main>
 
   <!-- Ad Slot 2: Bottom Banner -->
   <div class="ad-slot ad-bottom ad-slot--placeholder">
@@ -443,16 +445,25 @@
   </div>
 
   <footer class="site-footer">
-    <a href="about.html">About</a>
-    <span class="footer-sep">&middot;</span>
-    <a href="contact.html">Contact</a>
-    <span class="footer-sep">&middot;</span>
-    <a href="terms.html">Terms</a>
-    <span class="footer-sep">&middot;</span>
-    <a href="privacy.html">Privacy</a>
-    <span class="footer-sep">&middot;</span>
-    <a href="https://x.com/TheFreeFix" target="_blank" rel="noopener">X</a>
+    <nav aria-label="Footer">
+      <a href="about.html">About</a>
+      <span class="footer-sep">&middot;</span>
+      <a href="contact.html">Contact</a>
+      <span class="footer-sep">&middot;</span>
+      <a href="terms.html">Terms</a>
+      <span class="footer-sep">&middot;</span>
+      <a href="privacy.html">Privacy</a>
+      <span class="footer-sep">&middot;</span>
+      <a href="https://x.com/TheFreeFix" target="_blank" rel="noopener">X</a>
+    </nav>
   </footer>
+
+  <section class="page-about" aria-label="About JSON Formatter">
+    <h2>How to Format JSON Online</h2>
+    <p>Paste your JSON data into the input area to instantly format it with proper indentation and syntax highlighting. The tool validates your JSON and highlights any errors with clear messages pointing to the problem. Switch between formatted and minified output with one click. Copy the result to your clipboard or use it directly in your project.</p>
+    <h2>Features</h2>
+    <p>The JSON Formatter supports formatting, validation, and minification in one tool. Syntax highlighting makes the structure easy to read with color-coded keys, strings, numbers, and booleans. Error detection pinpoints exactly where malformed JSON breaks, helping you fix issues quickly. All processing runs locally in your browser with no data sent anywhere. Free for developers, testers, and anyone working with JSON data.</p>
+  </section>
 </div>
 
 <script src="theme.js"></script>

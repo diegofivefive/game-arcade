@@ -292,16 +292,17 @@
     <span class="ad-size-label">Responsive</span>
   </div>
 
-  <div class="game-header">
+  <main>
+  <header class="game-header">
     <div class="header-left">
-      <a href="tools.html" class="back-btn" title="Back">&#x2190;</a>
+      <a href="tools.html" class="back-btn" title="Back to Tools" aria-label="Back to Tools">&#x2190;</a>
       <h1 class="logo">QR Generator</h1>
     </div>
     <div class="header-btns">
-      <a href="qr-code-generator-info.html" class="info-btn" title="Info">i</a>
-      <button class="icon-btn" id="themeBtn" title="Toggle theme">&#x1f319;</button>
+      <a href="qr-code-generator-info.html" class="info-btn" title="How to use" aria-label="How to use">i</a>
+      <button class="icon-btn" id="themeBtn" title="Toggle theme" aria-label="Toggle theme">&#x1f319;</button>
     </div>
-  </div>
+  </header>
 
   <div class="tool-content">
     <div class="mode-selector">
@@ -460,6 +461,7 @@
       </div>
     </div>
   </div>
+  </main>
 
   <!-- Ad Slot 2: Bottom Banner -->
   <div class="ad-slot ad-bottom ad-slot--placeholder">
@@ -467,14 +469,23 @@
   </div>
 
   <footer class="site-footer">
-    <a href="about.html">About</a>
-    <span class="footer-sep">&middot;</span>
-    <a href="contact.html">Contact</a>
-    <span class="footer-sep">&middot;</span>
-    <a href="terms.html">Terms</a>
-    <span class="footer-sep">&middot;</span>
-    <a href="privacy.html">Privacy</a>
+    <nav aria-label="Footer">
+      <a href="about.html">About</a>
+      <span class="footer-sep">&middot;</span>
+      <a href="contact.html">Contact</a>
+      <span class="footer-sep">&middot;</span>
+      <a href="terms.html">Terms</a>
+      <span class="footer-sep">&middot;</span>
+      <a href="privacy.html">Privacy</a>
+    </nav>
   </footer>
+
+  <section class="page-about" aria-label="About QR Code Generator">
+    <h2>How to Generate QR Codes Online</h2>
+    <p>Enter any URL, text, or message into the input field and a QR code is generated instantly. Customize the foreground and background colors to match your brand, and choose from three sizes: small, medium, or large. When you are happy with the result, download the QR code as a PNG image ready to use in print materials, presentations, or websites.</p>
+    <h2>Features</h2>
+    <p>This QR code generator runs entirely in your browser with no data sent to any server. It uses a self-contained encoder supporting byte mode, error correction level M, and QR versions 1 through 40. Codes are generated with real-time debounce so the preview updates as you type. Custom color options let you create on-brand codes. Free to use with no limits on how many codes you generate.</p>
+  </section>
 </div>
 
 <script src="theme.js"></script>

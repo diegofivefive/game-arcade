@@ -261,17 +261,18 @@
     <span class="ad-size-label">Responsive</span>
   </div>
 
-  <div class="game-header">
+  <main>
+  <header class="game-header">
     <div class="header-left">
-      <a href="games.html" class="back-btn" title="Back">&#x2190;</a>
+      <a href="games.html" class="back-btn" title="Back to Games" aria-label="Back to Games">&#x2190;</a>
       <h1 class="logo">Nonograms</h1>
     </div>
     <div class="header-btns">
-      <a href="nonograms-info.html" class="info-btn" title="Info">i</a>
-      <button class="icon-btn" id="statsBtn" title="Statistics">&#x1f4ca;</button>
-      <button class="icon-btn" id="themeBtn" title="Toggle theme">&#x1f319;</button>
+      <a href="nonograms-info.html" class="info-btn" title="How to play" aria-label="How to play">i</a>
+      <button class="icon-btn" id="statsBtn" title="Statistics" aria-label="Statistics">&#x1f4ca;</button>
+      <button class="icon-btn" id="themeBtn" title="Toggle theme" aria-label="Toggle theme">&#x1f319;</button>
     </div>
-  </div>
+  </header>
 
   <!-- Controls -->
   <div class="controls">
@@ -334,22 +335,33 @@
     </div>
   </div>
 
+  </main>
+
   <!-- Ad Slot 2: Bottom Banner -->
   <div class="ad-slot ad-bottom ad-slot--placeholder">
     <span class="ad-size-label">Responsive</span>
   </div>
 
   <footer class="site-footer">
-    <a href="about.html">About</a>
-    <span class="footer-sep">&middot;</span>
-    <a href="contact.html">Contact</a>
-    <span class="footer-sep">&middot;</span>
-    <a href="terms.html">Terms</a>
-    <span class="footer-sep">&middot;</span>
-    <a href="privacy.html">Privacy</a>
-    <span class="footer-sep">&middot;</span>
-    <a href="https://x.com/TheFreeFix" target="_blank" rel="noopener">X</a>
+    <nav aria-label="Footer">
+      <a href="about.html">About</a>
+      <span class="footer-sep">&middot;</span>
+      <a href="contact.html">Contact</a>
+      <span class="footer-sep">&middot;</span>
+      <a href="terms.html">Terms</a>
+      <span class="footer-sep">&middot;</span>
+      <a href="privacy.html">Privacy</a>
+      <span class="footer-sep">&middot;</span>
+      <a href="https://x.com/TheFreeFix" target="_blank" rel="noopener">X</a>
+    </nav>
   </footer>
+
+  <section class="page-about" aria-label="About Nonograms">
+    <h2>How to Solve Nonograms Online</h2>
+    <p>Nonograms, also known as Picross or Griddlers, are picture logic puzzles. Each row and column has a set of number clues telling you how many consecutive filled cells appear in that line. Use logic to determine which cells to fill and which to leave empty. When solved correctly, the filled cells reveal a hidden picture. No guessing is needed — every puzzle can be solved with pure deduction.</p>
+    <h2>Game Features</h2>
+    <p>Choose from four difficulty levels ranging from simple 5x5 grids to challenging 20x20 puzzles. Features include auto-crossing of completed clues, error checking, undo support, a timer, and full keyboard navigation. Your statistics and best times are saved locally for each difficulty level. The responsive layout works well on both mobile and desktop screens.</p>
+  </section>
 </div>
 
 <script src="theme.js"></script>

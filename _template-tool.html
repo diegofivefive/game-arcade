@@ -73,20 +73,22 @@
     <span class="ad-size-label">Responsive</span>
   </div>
 
-  <div class="game-header">
-    <div class="header-left">
-      <a href="tools.html" class="back-btn" title="Back">&#x2190;</a>
-      <h1 class="logo">TOOL_SHORT_TITLE</h1>
-    </div>
-    <div class="header-btns">
-      <a href="TOOL_SLUG-info.html" class="info-btn" title="Info">i</a>
-      <button class="icon-btn" id="themeBtn" title="Toggle theme">&#x1f319;</button>
-    </div>
-  </div>
+  <main>
+    <header class="game-header">
+      <div class="header-left">
+        <a href="tools.html" class="back-btn" title="Back to Tools" aria-label="Back to Tools">&#x2190;</a>
+        <h1 class="logo">TOOL_SHORT_TITLE</h1>
+      </div>
+      <div class="header-btns">
+        <a href="TOOL_SLUG-info.html" class="info-btn" title="How to use" aria-label="How to use">i</a>
+        <button class="icon-btn" id="themeBtn" title="Toggle theme" aria-label="Toggle theme">&#x1f319;</button>
+      </div>
+    </header>
 
-  <div class="tool-content">
-    <!-- TODO: Tool content goes here -->
-  </div>
+    <div class="tool-content">
+      <!-- TODO: Tool content goes here -->
+    </div>
+  </main>
 
   <!-- Ad Slot 2: Bottom Banner -->
   <div class="ad-slot ad-bottom ad-slot--placeholder">
@@ -94,16 +96,26 @@
   </div>
 
   <footer class="site-footer">
-    <a href="about.html">About</a>
-    <span class="footer-sep">&middot;</span>
-    <a href="contact.html">Contact</a>
-    <span class="footer-sep">&middot;</span>
-    <a href="terms.html">Terms</a>
-    <span class="footer-sep">&middot;</span>
-    <a href="privacy.html">Privacy</a>
-    <span class="footer-sep">&middot;</span>
-    <a href="https://x.com/TheFreeFix" target="_blank" rel="noopener">X</a>
+    <nav aria-label="Footer">
+      <a href="about.html">About</a>
+      <span class="footer-sep">&middot;</span>
+      <a href="contact.html">Contact</a>
+      <span class="footer-sep">&middot;</span>
+      <a href="terms.html">Terms</a>
+      <span class="footer-sep">&middot;</span>
+      <a href="privacy.html">Privacy</a>
+      <span class="footer-sep">&middot;</span>
+      <a href="https://x.com/TheFreeFix" target="_blank" rel="noopener">X</a>
+    </nav>
   </footer>
+
+  <section class="page-about" aria-label="About TOOL_TITLE">
+    <!-- TODO: Add How to Use and Features content for SEO -->
+    <h2>How to Use TOOL_TITLE</h2>
+    <p>TODO: Add tool description and instructions here.</p>
+    <h2>Features</h2>
+    <p>TODO: Add feature highlights here.</p>
+  </section>
 </div>
 
 <script src="theme.js"></script>

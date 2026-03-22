@@ -115,6 +115,13 @@ body {
   min-height: 100vh;
 }
 
+main {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 /* ===========================
    SITE BRAND (top of every page)
    =========================== */
@@ -628,6 +635,29 @@ body {
 .site-footer .footer-sep {
   margin: 0 8px;
   opacity: 0.4;
+}
+
+/* ===========================
+   PAGE ABOUT (SEO content below footer)
+   =========================== */
+.page-about {
+  width: 100%;
+  max-width: 560px;
+  padding: 24px 16px;
+  margin: 0 auto;
+}
+.page-about h2 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-dim);
+  margin: 16px 0 8px;
+}
+.page-about h2:first-child { margin-top: 0; }
+.page-about p {
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--text-dim);
+  margin-bottom: 8px;
 }
 
 /* ===========================

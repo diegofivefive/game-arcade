@@ -43,16 +43,18 @@
 <div class="game-page">
   <a href="index.html" class="site-brand">TheFreeFix.com</a>
   <div class="ad-slot ad-content ad-slot--placeholder"><span class="ad-size-label">Responsive</span></div>
-  <div class="game-header">
+  <main>
+
+    <header class="game-header">
     <div class="header-left">
-      <a href="word-leap.html" class="back-btn" title="Back to Word Leap">&#x2190;</a>
+      <a href="word-leap.html" class="back-btn" title="Back to Word Leap" aria-label="Back to Word Leap">&#x2190;</a>
       <h1 class="logo">Word Leap</h1>
     </div>
     <div class="header-btns">
-      <button class="icon-btn" id="themeBtn" title="Toggle theme">&#x1f319;</button>
+      <button class="icon-btn" id="themeBtn" title="Toggle theme" aria-label="Toggle theme">&#x1f319;</button>
     </div>
-  </div>
-  <div class="info-content">
+  </header>
+  <article class="info-content">
     <h2>How to Play</h2>
     <p>Guess the secret 5-letter word in 6 tries. After each guess, the tiles change color to show how close you are.</p>
     <ul>
@@ -72,14 +74,17 @@
     <h2>About</h2>
     <p>Word Leap is a 5-letter word puzzle game inspired by the classic word-guessing genre. It features animated tile reveals, a color-coded keyboard that tracks your guesses, statistics with guess distribution, and unlimited plays.</p>
     <p>The game includes around 700 carefully curated answer words and accepts over 2,500 valid guesses. All game logic runs in your browser with no server needed. Your stats and streaks are saved automatically.</p>
-  </div>
+  </article>
+  </main>
   <div class="ad-slot ad-bottom ad-slot--placeholder"><span class="ad-size-label">Responsive</span></div>
   <footer class="site-footer">
+    <nav aria-label="Footer">
     <a href="about.html">About</a> <span class="footer-sep">&middot;</span>
     <a href="contact.html">Contact</a> <span class="footer-sep">&middot;</span>
     <a href="terms.html">Terms</a> <span class="footer-sep">&middot;</span>
     <a href="privacy.html">Privacy</a> <span class="footer-sep">&middot;</span>
     <a href="https://x.com/TheFreeFix" target="_blank" rel="noopener">X</a>
+    </nav>
   </footer>
 </div>
 <script src="theme.js"></script>

@@ -263,16 +263,17 @@
     <span class="ad-size-label">Responsive</span>
   </div>
 
-  <div class="game-header">
+  <main>
+  <header class="game-header">
     <div class="header-left">
-      <a href="tools.html" class="back-btn" title="Back">&#x2190;</a>
+      <a href="tools.html" class="back-btn" title="Back to Tools" aria-label="Back to Tools">&#x2190;</a>
       <h1 class="logo">Currency Converter</h1>
     </div>
     <div class="header-btns">
-      <a href="currency-converter-info.html" class="info-btn" title="Info">i</a>
-      <button class="icon-btn" id="themeBtn" title="Toggle theme">&#x1f319;</button>
+      <a href="currency-converter-info.html" class="info-btn" title="How to use" aria-label="How to use">i</a>
+      <button class="icon-btn" id="themeBtn" title="Toggle theme" aria-label="Toggle theme">&#x1f319;</button>
     </div>
-  </div>
+  </header>
 
   <div class="tool-content">
 
@@ -328,6 +329,7 @@
     </div>
 
   </div>
+  </main>
 
   <!-- Ad Slot 2: Bottom Banner -->
   <div class="ad-slot ad-bottom ad-slot--placeholder">
@@ -335,16 +337,25 @@
   </div>
 
   <footer class="site-footer">
-    <a href="about.html">About</a>
-    <span class="footer-sep">&middot;</span>
-    <a href="contact.html">Contact</a>
-    <span class="footer-sep">&middot;</span>
-    <a href="terms.html">Terms</a>
-    <span class="footer-sep">&middot;</span>
-    <a href="privacy.html">Privacy</a>
-    <span class="footer-sep">&middot;</span>
-    <a href="https://x.com/TheFreeFix" target="_blank" rel="noopener">X</a>
+    <nav aria-label="Footer">
+      <a href="about.html">About</a>
+      <span class="footer-sep">&middot;</span>
+      <a href="contact.html">Contact</a>
+      <span class="footer-sep">&middot;</span>
+      <a href="terms.html">Terms</a>
+      <span class="footer-sep">&middot;</span>
+      <a href="privacy.html">Privacy</a>
+      <span class="footer-sep">&middot;</span>
+      <a href="https://x.com/TheFreeFix" target="_blank" rel="noopener">X</a>
+    </nav>
   </footer>
+
+  <section class="page-about" aria-label="About Currency Converter">
+    <h2>How to Convert Currency Online</h2>
+    <p>Select your source and target currencies from a list of over 30 options, enter an amount, and get an instant conversion. The tool uses daily exchange rates from the European Central Bank via the Frankfurter API. Swap currencies with one click and use quick-pick buttons for popular currency pairs to speed up your workflow.</p>
+    <h2>Features</h2>
+    <p>Exchange rates are updated daily and cached locally for faster subsequent lookups. A status indicator shows whether rates are current. The converter supports two-way conversion, so you can easily check rates in both directions. No API key or account is required. Over 30 major world currencies are available. The tool works offline using cached rates when an internet connection is unavailable.</p>
+  </section>
 </div>
 
 <script src="theme.js"></script>

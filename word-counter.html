@@ -121,16 +121,17 @@
     <span class="ad-size-label">Responsive</span>
   </div>
 
-  <div class="game-header">
+  <main>
+  <header class="game-header">
     <div class="header-left">
-      <a href="tools.html" class="back-btn" title="Back">&#x2190;</a>
+      <a href="tools.html" class="back-btn" title="Back to Tools" aria-label="Back to Tools">&#x2190;</a>
       <h1 class="logo">Word Counter</h1>
     </div>
     <div class="header-btns">
-      <a href="word-counter-info.html" class="info-btn" title="Info">i</a>
-      <button class="icon-btn" id="themeBtn" title="Toggle theme">&#x1f319;</button>
+      <a href="word-counter-info.html" class="info-btn" title="How to use" aria-label="How to use">i</a>
+      <button class="icon-btn" id="themeBtn" title="Toggle theme" aria-label="Toggle theme">&#x1f319;</button>
     </div>
-  </div>
+  </header>
 
   <div class="tool-content">
     <textarea class="wc-input" id="textInput" placeholder="Paste or type your text here..."></textarea>
@@ -144,6 +145,7 @@
       <div class="wc-stat"><div class="val" id="readTime">0s</div><div class="lbl">Read Time</div></div>
     </div>
   </div>
+  </main>
 
   <!-- Ad Slot 2: Bottom Banner -->
   <div class="ad-slot ad-bottom ad-slot--placeholder">
@@ -151,16 +153,25 @@
   </div>
 
   <footer class="site-footer">
-    <a href="about.html">About</a>
-    <span class="footer-sep">&middot;</span>
-    <a href="contact.html">Contact</a>
-    <span class="footer-sep">&middot;</span>
-    <a href="terms.html">Terms</a>
-    <span class="footer-sep">&middot;</span>
-    <a href="privacy.html">Privacy</a>
-    <span class="footer-sep">&middot;</span>
-    <a href="https://x.com/TheFreeFix" target="_blank" rel="noopener">X</a>
+    <nav aria-label="Footer">
+      <a href="about.html">About</a>
+      <span class="footer-sep">&middot;</span>
+      <a href="contact.html">Contact</a>
+      <span class="footer-sep">&middot;</span>
+      <a href="terms.html">Terms</a>
+      <span class="footer-sep">&middot;</span>
+      <a href="privacy.html">Privacy</a>
+      <span class="footer-sep">&middot;</span>
+      <a href="https://x.com/TheFreeFix" target="_blank" rel="noopener">X</a>
+    </nav>
   </footer>
+
+  <section class="page-about" aria-label="About Word Counter">
+    <h2>How to Count Words Online</h2>
+    <p>Paste or type your text into the input area and get instant word, character, sentence, and paragraph counts. The tool updates live as you type, so there is no need to click a button. Character counts are shown both with and without spaces. An estimated reading time based on an average reading speed of 238 words per minute helps you gauge content length for articles and presentations.</p>
+    <h2>Features</h2>
+    <p>The responsive stat grid displays all your metrics at a glance. Word Counter works with any language and handles edge cases like multiple spaces, line breaks, and punctuation gracefully. Everything runs in your browser with no text sent to any server, keeping your content private. Great for writers, students, bloggers, and anyone who needs quick text analysis. Completely free with no sign-up required.</p>
+  </section>
 </div>
 
 <script src="theme.js"></script>
