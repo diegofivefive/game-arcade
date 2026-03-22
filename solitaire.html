@@ -819,6 +819,7 @@ function klondikeDrop(cards, x, y) {
       addMove();
       klondikeRender();
       if (klondikeCheckWin()) showWin('Klondike');
+      else if (klondikeCanAutoComplete()) klondikeAutoComplete();
       return true;
     }
   }
@@ -833,6 +834,7 @@ function klondikeDrop(cards, x, y) {
       pushUndo(undo);
       addMove();
       klondikeRender();
+      if (klondikeCanAutoComplete()) klondikeAutoComplete();
       return true;
     }
   }
@@ -872,6 +874,7 @@ function klondikeTap(card) {
       addMove();
       klondikeRender();
       if (klondikeCheckWin()) showWin('Klondike');
+      else if (klondikeCanAutoComplete()) klondikeAutoComplete();
       return;
     }
   }
@@ -879,6 +882,61 @@ function klondikeTap(card) {
 
 function klondikeCheckWin() {
   return kl.foundations.every(f => f.length === 13);
+}
+
+function klondikeCanAutoComplete() {
+  if (kl.stock.length > 0 || kl.waste.length > 0) return false;
+  for (const col of kl.tableau) {
+    for (const c of col) {
+      if (!c.faceUp) return false;
+    }
+  }
+  return true;
+}
+
+function klondikeAutoComplete() {
+  autoCompleting = true;
+  function moveNext() {
+    let moved = false;
+    // Try waste first (shouldn't have cards but be safe)
+    if (kl.waste.length > 0) {
+      const card = kl.waste[kl.waste.length - 1];
+      for (let fi = 0; fi < 4; fi++) {
+        if (klondikeCanFoundation(card, kl.foundations[fi])) {
+          kl.waste.pop();
+          kl.foundations[fi].push(card);
+          addMove();
+          moved = true;
+          break;
+        }
+      }
+    }
+    // Try tableau columns
+    if (!moved) {
+      for (let ci = 0; ci < 7; ci++) {
+        const col = kl.tableau[ci];
+        if (col.length === 0) continue;
+        const top = col[col.length - 1];
+        for (let fi = 0; fi < 4; fi++) {
+          if (klondikeCanFoundation(top, kl.foundations[fi])) {
+            col.pop();
+            kl.foundations[fi].push(top);
+            addMove();
+            moved = true;
+            break;
+          }
+        }
+        if (moved) break;
+      }
+    }
+    klondikeRender();
+    if (klondikeCheckWin()) {
+      showWin('Klondike');
+    } else if (moved) {
+      setTimeout(moveNext, 120);
+    }
+  }
+  moveNext();
 }
 
 function klondikeUndo() {
