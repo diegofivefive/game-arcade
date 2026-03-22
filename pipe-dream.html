@@ -150,7 +150,7 @@
     overflow: hidden;
   }
   .pipe-cell {
-    background: var(--bg2);
+    background: var(--pipe-cell-bg, #181830);
     position: relative;
     cursor: pointer;
     transition: background 0.15s;
@@ -178,6 +178,10 @@
     height: 100%;
     display: block;
   }
+
+  [data-theme="light"] .pipe-cell { --pipe-cell-bg: #c8d0dd; }
+  [data-theme="light"] .pipe-cell:hover { background: #b8c0d0; }
+  [data-theme="light"] .pipe-cell.blocked { background: #d0d4dc; }
 
   /* Water filled cells glow */
   .pipe-cell.water-filled {
@@ -535,18 +539,32 @@ const OPPOSITE = [2, 3, 0, 1];
 const DIR_DELTA = [[-1,0],[0,1],[1,0],[0,-1]];
 
 // ── Color palette ──
-const COLORS = {
-  pipe: '#5a5a8a',
-  pipeStroke: '#7b6fff',
-  pipeFill: '#2a2a55',
-  water: '#00b4ff',
-  waterGlow: 'rgba(0, 180, 255, 0.5)',
-  waterTrail: '#00e6b8',
-  start: '#ff5e94',
-  startGlow: 'rgba(255, 94, 148, 0.5)',
-  blocked: '#333355',
-  cross2: '#00e6b8'
-};
+function getPipeColors() {
+  const isLight = GameTheme.current === 'light';
+  return {
+    rimBase:      isLight ? '#909098' : '#808090',
+    rimHighlight: isLight ? '#b0b0b8' : '#a0a0b0',
+    rimShadow:    isLight ? '#606068' : '#505060',
+    boreBase:     isLight ? '#505058' : '#2a2a35',
+    boreHighlight:isLight ? '#686870' : '#3e3e4e',
+    boreShadow:   isLight ? '#383840' : '#1a1a25',
+    juncCenter:   isLight ? '#606068' : '#3e3e4e',
+    juncEdge:     isLight ? '#505058' : '#2a2a35',
+    flangeBase:   isLight ? '#989898' : '#707080',
+    flangeLight:  isLight ? '#c0c0c8' : '#909098',
+    flangeShadow: isLight ? '#585860' : '#404050',
+    rimLine:      isLight ? 'rgba(180, 180, 200, 0.5)' : 'rgba(140, 140, 180, 0.4)',
+    water: '#00b4ff',
+    waterHi: '#66d4ff',
+    waterShadow: '#0070aa',
+    waterGlow: 'rgba(0, 180, 255, 0.5)',
+    cross2: '#00e6b8',
+    cross2Hi: '#66f0d0',
+    cross2Shadow: '#007a60',
+    start: '#ff5e94',
+    startGlow: 'rgba(255, 94, 148, 0.5)',
+  };
+}
 
 // ── State ──
 let difficulty = 'easy';
@@ -604,69 +622,145 @@ function createCylinderGradient(ctx, x, y, w, h, isVertical, baseColor, highligh
 }
 
 function drawPipeChannel(ctx, x, y, w, h, isVertical) {
-  // Outer rim
-  const rimGrad = createCylinderGradient(ctx, x, y, w, h, isVertical, '#4a4a7a', '#6a6aaa', '#2a2a50');
+  const C = getPipeColors();
+  const rimGrad = createCylinderGradient(ctx, x, y, w, h, isVertical, C.rimBase, C.rimHighlight, C.rimShadow);
   ctx.fillStyle = rimGrad;
   ctx.fillRect(x, y, w, h);
 
-  // Inner bore
   const inset = isVertical ? Math.max(2, w * 0.15) : Math.max(2, h * 0.15);
   const ix = isVertical ? x + inset : x;
   const iy = isVertical ? y : y + inset;
   const iw = isVertical ? w - inset * 2 : w;
   const ih = isVertical ? h : h - inset * 2;
-  const innerGrad = createCylinderGradient(ctx, ix, iy, iw, ih, isVertical, '#1e1e44', '#2e2e5e', '#12122e');
+  const innerGrad = createCylinderGradient(ctx, ix, iy, iw, ih, isVertical, C.boreBase, C.boreHighlight, C.boreShadow);
   ctx.fillStyle = innerGrad;
   ctx.fillRect(ix, iy, iw, ih);
+}
+
+function drawFlange(ctx, dir, cx, cy, halfPw, pw, s) {
+  const C = getPipeColors();
+  const flangeW = pw * 1.2;
+  const halfFW = flangeW / 2;
+  const flangeD = Math.max(3, pw * 0.08);
+  let x, y, w, h, isV;
+  if (dir === 0) { x = cx - halfFW; y = 0; w = flangeW; h = flangeD; isV = true; }
+  else if (dir === 2) { x = cx - halfFW; y = s - flangeD; w = flangeW; h = flangeD; isV = true; }
+  else if (dir === 3) { x = 0; y = cy - halfFW; w = flangeD; h = flangeW; isV = false; }
+  else { x = s - flangeD; y = cy - halfFW; w = flangeD; h = flangeW; isV = false; }
+  const grad = createCylinderGradient(ctx, x, y, w, h, isV, C.flangeBase, C.flangeLight, C.flangeShadow);
+  ctx.fillStyle = grad;
+  ctx.fillRect(x, y, w, h);
+}
+
+function getCurveGeometry(name, s) {
+  const PI = Math.PI;
+  switch (name) {
+    case 'curve-tr': return { acx: s, acy: 0, sA: PI, eA: PI / 2, startDir: 0, endDir: 1 };
+    case 'curve-rb': return { acx: s, acy: s, sA: PI * 3 / 2, eA: PI, startDir: 1, endDir: 2 };
+    case 'curve-bl': return { acx: 0, acy: s, sA: PI * 2, eA: PI * 3 / 2, startDir: 2, endDir: 3 };
+    case 'curve-lt': return { acx: 0, acy: 0, sA: PI / 2, eA: 0, startDir: 3, endDir: 0 };
+  }
+}
+
+function drawCurvedPipe(ctx, pipeType, s, pw) {
+  const C = getPipeColors();
+  const halfS = s / 2;
+  const halfPw = pw / 2;
+  const Ro = halfS + halfPw;
+  const Ri = halfS - halfPw;
+  const g = getCurveGeometry(pipeType.name, s);
+
+  // Outer pipe body (annular arc)
+  ctx.beginPath();
+  ctx.arc(g.acx, g.acy, Ro, g.sA, g.eA, true);
+  ctx.arc(g.acx, g.acy, Ri, g.eA, g.sA, false);
+  ctx.closePath();
+  const rimGrad = ctx.createRadialGradient(g.acx, g.acy, Ri, g.acx, g.acy, Ro);
+  rimGrad.addColorStop(0, C.rimShadow);
+  rimGrad.addColorStop(0.25, C.rimBase);
+  rimGrad.addColorStop(0.5, C.rimHighlight);
+  rimGrad.addColorStop(0.75, C.rimBase);
+  rimGrad.addColorStop(1, C.rimShadow);
+  ctx.fillStyle = rimGrad;
+  ctx.fill();
+
+  // Inner bore
+  const boreInset = Math.max(2, halfPw * 0.3);
+  const boRo = Ro - boreInset;
+  const boRi = Ri + boreInset;
+  ctx.beginPath();
+  ctx.arc(g.acx, g.acy, boRo, g.sA, g.eA, true);
+  ctx.arc(g.acx, g.acy, boRi, g.eA, g.sA, false);
+  ctx.closePath();
+  const boreGrad = ctx.createRadialGradient(g.acx, g.acy, boRi, g.acx, g.acy, boRo);
+  boreGrad.addColorStop(0, C.boreShadow);
+  boreGrad.addColorStop(0.5, C.boreHighlight);
+  boreGrad.addColorStop(1, C.boreShadow);
+  ctx.fillStyle = boreGrad;
+  ctx.fill();
 }
 
 function drawPipe(canvas, pipeType, waterLevel, waterFrom, waterTo, isCrossSecond) {
   const ctx = canvas.getContext('2d');
   const s = canvas.width;
   ctx.clearRect(0, 0, s, s);
+  const C = getPipeColors();
 
   const opens = pipeType.openings;
-  const pw = s * 0.38;  // pipe width
+  const pw = s * 0.38;
   const cx = s / 2;
   const cy = s / 2;
   const halfPw = pw / 2;
+  const isCurve = pipeType.name.startsWith('curve-');
 
-  // Draw pipe channels with cylindrical gradient
   if (pipeType.name === 'cross') {
-    drawPipeChannel(ctx, cx - halfPw, 0, pw, s, true);   // vertical
-    drawPipeChannel(ctx, 0, cy - halfPw, s, pw, false);   // horizontal
-    // Junction overlay
+    drawPipeChannel(ctx, cx - halfPw, 0, pw, s, true);
+    drawPipeChannel(ctx, 0, cy - halfPw, s, pw, false);
     const jGrad = ctx.createRadialGradient(cx, cy, 0, cx, cy, halfPw * 1.2);
-    jGrad.addColorStop(0, '#2e2e5e');
-    jGrad.addColorStop(1, '#1e1e44');
+    jGrad.addColorStop(0, C.juncCenter);
+    jGrad.addColorStop(1, C.juncEdge);
     ctx.fillStyle = jGrad;
     ctx.fillRect(cx - halfPw, cy - halfPw, pw, pw);
+  } else if (isCurve) {
+    drawCurvedPipe(ctx, pipeType, s, pw);
   } else {
-    // Draw center junction first with radial gradient
-    const jGrad = ctx.createRadialGradient(cx, cy, 0, cx, cy, halfPw * 1.1);
-    jGrad.addColorStop(0, '#2e2e5e');
-    jGrad.addColorStop(1, '#1e1e44');
-
-    // Draw channels to edges (edge-to-edge: from 0 or center to s or center)
+    // Straight or T-pipe
     if (opens[0]) drawPipeChannel(ctx, cx - halfPw, 0, pw, cy + halfPw, true);
     if (opens[2]) drawPipeChannel(ctx, cx - halfPw, cy - halfPw, pw, cy + halfPw, true);
     if (opens[3]) drawPipeChannel(ctx, 0, cy - halfPw, cx + halfPw, pw, false);
     if (opens[1]) drawPipeChannel(ctx, cx - halfPw, cy - halfPw, cx + halfPw, pw, false);
 
-    // Smooth center junction
+    // Center junction
+    const jGrad = ctx.createRadialGradient(cx, cy, 0, cx, cy, halfPw * 1.1);
+    jGrad.addColorStop(0, C.juncCenter);
+    jGrad.addColorStop(1, C.juncEdge);
     ctx.fillStyle = jGrad;
     ctx.beginPath();
     ctx.arc(cx, cy, halfPw * 0.85, 0, Math.PI * 2);
     ctx.fill();
+
+    // Junction ring for T-pipes
+    if (pipeType.name.startsWith('tee-')) {
+      ctx.strokeStyle = C.rimHighlight;
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.arc(cx, cy, halfPw * 0.88, 0, Math.PI * 2);
+      ctx.stroke();
+    }
   }
 
-  // Rim highlights at openings (metallic cap effect)
-  ctx.strokeStyle = 'rgba(120, 120, 180, 0.4)';
+  // Rim highlights at openings
+  ctx.strokeStyle = C.rimLine;
   ctx.lineWidth = 1.5;
   if (opens[0]) { ctx.beginPath(); ctx.moveTo(cx - halfPw, 0); ctx.lineTo(cx + halfPw, 0); ctx.stroke(); }
   if (opens[2]) { ctx.beginPath(); ctx.moveTo(cx - halfPw, s); ctx.lineTo(cx + halfPw, s); ctx.stroke(); }
   if (opens[3]) { ctx.beginPath(); ctx.moveTo(0, cy - halfPw); ctx.lineTo(0, cy + halfPw); ctx.stroke(); }
   if (opens[1]) { ctx.beginPath(); ctx.moveTo(s, cy - halfPw); ctx.lineTo(s, cy + halfPw); ctx.stroke(); }
+
+  // Connector flanges at openings
+  for (let d = 0; d < 4; d++) {
+    if (opens[d]) drawFlange(ctx, d, cx, cy, halfPw, pw, s);
+  }
 
   // Draw water
   if (waterLevel > 0 && waterFrom !== undefined) {
@@ -675,7 +769,10 @@ function drawPipe(canvas, pipeType, waterLevel, waterFrom, waterTo, isCrossSecon
 }
 
 function drawWaterInPipe(ctx, pipeType, waterLevel, waterFrom, waterTo, isCrossSecond, s, cx, cy, pw) {
-  const wc = isCrossSecond ? COLORS.cross2 : COLORS.water;
+  const C = getPipeColors();
+  const wc = isCrossSecond ? C.cross2 : C.water;
+  const whi = isCrossSecond ? C.cross2Hi : C.waterHi;
+  const wsh = isCrossSecond ? C.cross2Shadow : C.waterShadow;
   const halfPw = pw / 2;
   const wp = pw * 0.5;
   const halfWp = wp / 2;
@@ -684,30 +781,70 @@ function drawWaterInPipe(ctx, pipeType, waterLevel, waterFrom, waterTo, isCrossS
 
   if (pipeType.name === 'cross') {
     if (waterFrom === 0 || waterFrom === 2) {
-      const wGrad = createCylinderGradient(ctx, cx - halfWp, 0, wp, s, true, wc, '#66d4ff', '#0070aa');
+      const wGrad = createCylinderGradient(ctx, cx - halfWp, 0, wp, s, true, wc, whi, wsh);
       ctx.fillStyle = wGrad;
       if (waterFrom === 0) ctx.fillRect(cx - halfWp, 0, wp, waterLevel * s);
       else ctx.fillRect(cx - halfWp, s - waterLevel * s, wp, waterLevel * s);
     } else {
-      const wGrad = createCylinderGradient(ctx, 0, cy - halfWp, s, wp, false, wc, '#66d4ff', '#0070aa');
+      const wGrad = createCylinderGradient(ctx, 0, cy - halfWp, s, wp, false, wc, whi, wsh);
       ctx.fillStyle = wGrad;
       if (waterFrom === 3) ctx.fillRect(0, cy - halfWp, waterLevel * s, wp);
       else ctx.fillRect(s - waterLevel * s, cy - halfWp, waterLevel * s, wp);
     }
+  } else if (pipeType.name.startsWith('curve-')) {
+    drawWaterArc(ctx, pipeType, waterLevel, waterFrom, s, pw, wc, whi, wsh);
   } else {
     const progress = Math.min(waterLevel, 1);
     if (progress <= 0.5) {
       const seg = progress * 2;
-      drawWaterSeg(ctx, waterFrom, seg, s, cx, cy, halfWp, wp, false, wc);
+      drawWaterSeg(ctx, waterFrom, seg, s, cx, cy, halfWp, wp, false, wc, whi, wsh);
     } else {
-      drawWaterSeg(ctx, waterFrom, 1, s, cx, cy, halfWp, wp, false, wc);
-      drawWaterSeg(ctx, waterTo, (progress - 0.5) * 2, s, cx, cy, halfWp, wp, true, wc);
+      drawWaterSeg(ctx, waterFrom, 1, s, cx, cy, halfWp, wp, false, wc, whi, wsh);
+      drawWaterSeg(ctx, waterTo, (progress - 0.5) * 2, s, cx, cy, halfWp, wp, true, wc, whi, wsh);
     }
   }
   ctx.globalAlpha = 1;
 }
 
-function drawWaterSeg(ctx, dir, progress, s, cx, cy, halfWp, wp, fromCenter, color) {
+function drawWaterArc(ctx, pipeType, waterLevel, waterFrom, s, pw, wc, whi, wsh) {
+  const halfS = s / 2;
+  const wp = pw * 0.5;
+  const halfWp = wp / 2;
+  const wRo = halfS + halfWp;
+  const wRi = halfS - halfWp;
+  const g = getCurveGeometry(pipeType.name, s);
+  const fromStartSide = (waterFrom === g.startDir);
+  const progress = Math.min(waterLevel, 1);
+
+  // Calculate sweep angles — arc spans pi/2, linear interpolation
+  let arcStart, arcEnd;
+  if (fromStartSide) {
+    arcStart = g.sA;
+    arcEnd = g.sA + progress * (g.eA - g.sA);
+  } else {
+    arcStart = g.eA;
+    arcEnd = g.eA + progress * (g.sA - g.eA);
+  }
+
+  ctx.beginPath();
+  if (fromStartSide) {
+    ctx.arc(g.acx, g.acy, wRo, arcStart, arcEnd, true);
+    ctx.arc(g.acx, g.acy, wRi, arcEnd, arcStart, false);
+  } else {
+    ctx.arc(g.acx, g.acy, wRo, arcStart, arcEnd, false);
+    ctx.arc(g.acx, g.acy, wRi, arcEnd, arcStart, true);
+  }
+  ctx.closePath();
+
+  const wGrad = ctx.createRadialGradient(g.acx, g.acy, wRi, g.acx, g.acy, wRo);
+  wGrad.addColorStop(0, wsh);
+  wGrad.addColorStop(0.5, whi);
+  wGrad.addColorStop(1, wsh);
+  ctx.fillStyle = wGrad;
+  ctx.fill();
+}
+
+function drawWaterSeg(ctx, dir, progress, s, cx, cy, halfWp, wp, fromCenter, color, colorHi, colorSh) {
   const halfS = s / 2;
   const len = halfS * progress;
   if (len <= 0) return;
@@ -716,22 +853,22 @@ function drawWaterSeg(ctx, dir, progress, s, cx, cy, halfWp, wp, fromCenter, col
   if (dir === 0) {
     isV = true;
     if (fromCenter) { x = cx - halfWp; y = cy - len; w = wp; h = len; }
-    else { x = cx - halfWp; y = halfS - len; w = wp; h = len; }
+    else { x = cx - halfWp; y = 0; w = wp; h = len; }
   } else if (dir === 2) {
     isV = true;
     if (fromCenter) { x = cx - halfWp; y = cy; w = wp; h = len; }
-    else { x = cx - halfWp; y = s - halfS; w = wp; h = len; }
+    else { x = cx - halfWp; y = s - len; w = wp; h = len; }
   } else if (dir === 3) {
     isV = false;
     if (fromCenter) { x = cx - len; y = cy - halfWp; w = len; h = wp; }
-    else { x = halfS - len; y = cy - halfWp; w = len; h = wp; }
+    else { x = 0; y = cy - halfWp; w = len; h = wp; }
   } else {
     isV = false;
     if (fromCenter) { x = cx; y = cy - halfWp; w = len; h = wp; }
-    else { x = s - halfS; y = cy - halfWp; w = len; h = wp; }
+    else { x = s - len; y = cy - halfWp; w = len; h = wp; }
   }
 
-  const wGrad = createCylinderGradient(ctx, x, y, w, h, isV, color, '#66d4ff', '#0070aa');
+  const wGrad = createCylinderGradient(ctx, x, y, w, h, isV, color, colorHi, colorSh);
   ctx.fillStyle = wGrad;
   ctx.fillRect(x, y, w, h);
 }
@@ -753,14 +890,18 @@ function drawStartPipe(canvas, exitDir) {
   if (exitDir === 2) drawPipeChannel(ctx, cx - halfPw, cy, pw, cy, isV);
   if (exitDir === 3) drawPipeChannel(ctx, 0, cy - halfPw, cx, pw, isV);
 
+  // Flange at exit
+  drawFlange(ctx, exitDir, cx, cy, halfPw, pw, s);
+
   // Glow
-  ctx.shadowColor = COLORS.startGlow;
+  const C = getPipeColors();
+  ctx.shadowColor = C.startGlow;
   ctx.shadowBlur = 10;
 
   // Start marker with gradient
   const sGrad = ctx.createRadialGradient(cx, cy, 0, cx, cy, pw * 0.7);
   sGrad.addColorStop(0, '#ff8cb4');
-  sGrad.addColorStop(0.6, COLORS.start);
+  sGrad.addColorStop(0.6, C.start);
   sGrad.addColorStop(1, '#cc3a6a');
   ctx.fillStyle = sGrad;
   ctx.beginPath();
@@ -988,7 +1129,8 @@ function drawStartPipeWater(canvas, exitDir) {
   else if (exitDir === 1) { x = cx; y = cy - wp; w = cx; h = wp * 2; }
   else if (exitDir === 2) { x = cx - wp; y = cy; w = wp * 2; h = cy; }
   else { x = 0; y = cy - wp; w = cx; h = wp * 2; }
-  const wGrad = createCylinderGradient(ctx, x, y, w, h, isV, COLORS.water, '#66d4ff', '#0070aa');
+  const C = getPipeColors();
+  const wGrad = createCylinderGradient(ctx, x, y, w, h, isV, C.water, C.waterHi, C.waterShadow);
   ctx.fillStyle = wGrad;
   ctx.fillRect(x, y, w, h);
   ctx.globalAlpha = 1;
@@ -1037,10 +1179,16 @@ function advanceFlow(row, col, entryDir) {
     // Cross: water goes straight through
     exitDir = OPPOSITE[entryDir];
   } else {
-    for (let d = 0; d < 4; d++) {
-      if (d !== entryDir && cell.pipe.openings[d]) {
-        exitDir = d;
-        break;
+    // Prefer straight-through (opposite) for T-pipes, then first available
+    const opp = OPPOSITE[entryDir];
+    if (cell.pipe.openings[opp]) {
+      exitDir = opp;
+    } else {
+      for (let d = 0; d < 4; d++) {
+        if (d !== entryDir && cell.pipe.openings[d]) {
+          exitDir = d;
+          break;
+        }
       }
     }
   }
