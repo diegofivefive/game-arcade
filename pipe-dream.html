@@ -183,10 +183,7 @@
   [data-theme="light"] .pipe-cell:hover { background: #b8c0d0; }
   [data-theme="light"] .pipe-cell.blocked { background: #d0d4dc; }
 
-  /* Water filled cells glow */
-  .pipe-cell.water-filled {
-    box-shadow: inset 0 0 12px rgba(0, 180, 255, 0.3);
-  }
+  /* Water filled cells — no background change */
 
   /* ── Place animation ── */
   .pipe-cell.just-placed canvas {
@@ -774,7 +771,7 @@ function drawWaterInPipe(ctx, pipeType, waterLevel, waterFrom, waterTo, isCrossS
   const whi = isCrossSecond ? C.cross2Hi : C.waterHi;
   const wsh = isCrossSecond ? C.cross2Shadow : C.waterShadow;
   const halfPw = pw / 2;
-  const wp = pw * 0.5;
+  const wp = pw * 0.7;
   const halfWp = wp / 2;
 
   ctx.globalAlpha = 0.9;
@@ -808,7 +805,7 @@ function drawWaterInPipe(ctx, pipeType, waterLevel, waterFrom, waterTo, isCrossS
 
 function drawWaterArc(ctx, pipeType, waterLevel, waterFrom, s, pw, wc, whi, wsh) {
   const halfS = s / 2;
-  const wp = pw * 0.5;
+  const wp = pw * 0.7;
   const halfWp = wp / 2;
   const wRo = halfS + halfWp;
   const wRi = halfS - halfWp;
@@ -1209,7 +1206,7 @@ function advanceFlow(row, col, entryDir) {
     if (cell.isCrossSecond) score += Math.round(50 * config.scoreMult); // bonus for cross
     updateScore();
 
-    cell.el.classList.add('water-filled');
+    // cell styled by canvas only, no background change
 
     // Next cell
     const nextRow = row + DIR_DELTA[exitDir][0];
