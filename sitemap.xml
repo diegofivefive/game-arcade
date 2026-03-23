@@ -433,6 +433,16 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://thefreefix.com/regex-tester.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://thefreefix.com/regex-tester-info.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://thefreefix.com/ascii-art-generator.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>

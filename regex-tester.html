@@ -1,0 +1,1422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-adsense-account" content="ca-pub-7700405385978151">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7700405385978151"
+     crossorigin="anonymous"></script>
+<title>Free Regex Tester - TheFreeFix.com</title>
+<meta name="description" content="Test, debug, and understand regular expressions in real time. Match highlighting, regex explanation, substitution, and code generation for JavaScript, Python, Java, and more. No downloads or sign-ups needed.">
+<link rel="canonical" href="https://thefreefix.com/regex-tester.html">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#0a0a1a">
+<!-- Open Graph -->
+<meta property="og:title" content="Free Regex Tester - Free Online Tool">
+<meta property="og:description" content="Test, debug, and understand regular expressions in real time. Match highlighting, explanation, substitution, and code generation.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://thefreefix.com/regex-tester.html">
+<meta property="og:site_name" content="TheFreeFix.com">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://thefreefix.com/og-image.png">
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@TheFreeFix">
+<meta name="twitter:title" content="Free Regex Tester - Free Online Tool">
+<meta name="twitter:image" content="https://thefreefix.com/og-image.png">
+<meta name="twitter:description" content="Test, debug, and understand regular expressions in real time. Match highlighting, explanation, substitution, and code generation.">
+<!-- Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Free Regex Tester",
+  "url": "https://thefreefix.com/regex-tester.html",
+  "description": "Test, debug, and understand regular expressions in real time. Match highlighting, regex explanation, substitution, and code generation.",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "isPartOf": { "@type": "WebSite", "name": "TheFreeFix.com", "url": "https://thefreefix.com/" }
+}
+</script>
+<link rel="stylesheet" href="theme.css">
+<style>
+  .game-page { padding-bottom: 32px; }
+  .game-header { max-width: 660px; margin: 0 auto; }
+
+  .tool-content {
+    width: 100%;
+    max-width: 660px;
+    padding: 0 16px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+  }
+
+  /* ── Regex Input Row ── */
+  .regex-row {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .regex-input-wrap {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-md);
+    padding: 4px 8px 4px 4px;
+    transition: border-color var(--transition);
+  }
+  .regex-input-wrap:focus-within { border-color: var(--accent); }
+  .regex-input-wrap.has-error { border-color: #ff3355; }
+  .regex-slash {
+    font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+    font-size: 18px;
+    color: var(--text-dim);
+    padding: 0 2px 0 8px;
+    user-select: none;
+    flex-shrink: 0;
+  }
+  #regexInput {
+    flex: 1;
+    min-width: 0;
+    border: none;
+    background: transparent;
+    color: var(--text);
+    font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+    font-size: 15px;
+    padding: 8px 0;
+    outline: none;
+  }
+  #regexInput::placeholder { color: var(--text-dim); opacity: 0.5; }
+  .regex-input-wrap .mini-btn {
+    background: none;
+    border: none;
+    color: var(--text-dim);
+    cursor: pointer;
+    padding: 4px 6px;
+    font-size: 14px;
+    border-radius: var(--radius-sm);
+    transition: all var(--transition);
+    flex-shrink: 0;
+    font-family: inherit;
+  }
+  .regex-input-wrap .mini-btn:hover { color: var(--text); background: var(--btn-bg); }
+
+  /* ── Flags ── */
+  .flags-row {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .flags-label {
+    font-size: 11px;
+    color: var(--text-dim);
+    margin-right: 4px;
+    white-space: nowrap;
+  }
+  .flag-btn {
+    font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+    font-size: 13px;
+    padding: 5px 10px;
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-sm);
+    background: var(--btn-bg);
+    color: var(--text-dim);
+    cursor: pointer;
+    transition: all var(--transition);
+    line-height: 1;
+  }
+  .flag-btn:hover { border-color: var(--accent); color: var(--text); }
+  .flag-btn.active {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+  }
+
+  /* ── Error Bar ── */
+  .error-bar {
+    width: 100%;
+    display: none;
+    padding: 8px 12px;
+    background: rgba(255, 51, 85, 0.1);
+    border: 1px solid rgba(255, 51, 85, 0.3);
+    border-radius: var(--radius-sm);
+    font-size: 12px;
+    color: #ff3355;
+    font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  }
+  .error-bar.visible { display: block; }
+
+  /* ── Test String Area ── */
+  .test-wrapper {
+    width: 100%;
+    position: relative;
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-md);
+    transition: border-color var(--transition);
+  }
+  .test-wrapper:focus-within { border-color: var(--accent); }
+  .test-label {
+    font-size: 11px;
+    color: var(--text-dim);
+    padding: 8px 14px 0;
+    user-select: none;
+  }
+  .test-highlights {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    padding: 22px 14px 14px;
+    font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+    font-size: 13px;
+    line-height: 1.65;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow: hidden;
+    pointer-events: none;
+    color: transparent;
+    border-radius: var(--radius-md);
+  }
+  .test-highlights mark {
+    background: rgba(123, 111, 255, 0.3);
+    color: transparent;
+    border-radius: 2px;
+    border-bottom: 2px solid var(--accent);
+  }
+  .test-highlights mark.g1 { background: rgba(255, 94, 148, 0.25); border-bottom-color: var(--accent2); }
+  .test-highlights mark.g2 { background: rgba(0, 230, 184, 0.25); border-bottom-color: var(--accent3); }
+  .test-highlights mark.g3 { background: rgba(255, 179, 71, 0.25); border-bottom-color: #ffb347; }
+  #testInput {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    min-height: 120px;
+    max-height: 50vh;
+    padding: 4px 14px 14px;
+    border: none;
+    border-radius: 0 0 var(--radius-md) var(--radius-md);
+    background: transparent;
+    color: var(--text);
+    caret-color: var(--text);
+    font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+    font-size: 13px;
+    line-height: 1.65;
+    resize: vertical;
+    outline: none;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    box-sizing: border-box;
+  }
+  #testInput::placeholder { color: var(--text-dim); opacity: 0.4; }
+
+  /* ── Match Stats Bar ── */
+  .match-bar {
+    width: 100%;
+    font-size: 12px;
+    color: var(--text-dim);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 18px;
+  }
+  .match-bar b { color: var(--text); }
+  .match-bar .match-warn { color: #ffb347; }
+
+  /* ── Tab Bar ── */
+  .tab-bar {
+    width: 100%;
+    display: flex;
+    gap: 3px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: 2px;
+  }
+  .tab-bar::-webkit-scrollbar { display: none; }
+  .tab-btn {
+    padding: 7px 14px;
+    font-size: 12px;
+    font-weight: 600;
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-sm);
+    background: var(--btn-bg);
+    color: var(--text-dim);
+    cursor: pointer;
+    transition: all var(--transition);
+    white-space: nowrap;
+    font-family: inherit;
+  }
+  .tab-btn:hover { border-color: var(--accent); color: var(--text); }
+  .tab-btn.active {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+  }
+
+  /* ── Tab Panels ── */
+  .tab-panel {
+    width: 100%;
+    display: none;
+    animation: fadeIn 0.2s ease;
+  }
+  .tab-panel.active { display: block; }
+  .panel-empty {
+    text-align: center;
+    padding: 24px 16px;
+    color: var(--text-dim);
+    font-size: 13px;
+  }
+
+  /* ── Matches Panel ── */
+  .match-list { display: flex; flex-direction: column; gap: 6px; }
+  .match-item {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-sm);
+    padding: 10px 12px;
+  }
+  .match-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4px;
+  }
+  .match-label {
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .match-pos {
+    font-size: 10px;
+    color: var(--text-dim);
+    font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  }
+  .match-value {
+    font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+    font-size: 13px;
+    color: var(--accent);
+    word-break: break-all;
+    padding: 4px 8px;
+    background: var(--bg2);
+    border-radius: 4px;
+  }
+  .match-groups {
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid var(--card-border);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .group-row {
+    font-size: 12px;
+    font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+    display: flex;
+    gap: 8px;
+  }
+  .group-name { color: var(--accent2); flex-shrink: 0; }
+  .group-val { color: var(--text); word-break: break-all; }
+  .group-val.empty { color: var(--text-dim); font-style: italic; }
+
+  /* ── Explanation Panel ── */
+  .explain-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+  }
+  .explain-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 5px 10px;
+    border-radius: var(--radius-sm);
+    transition: background var(--transition);
+  }
+  .explain-item:hover { background: var(--btn-bg); }
+  .explain-token {
+    font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+    font-size: 14px;
+    color: var(--accent);
+    flex-shrink: 0;
+    min-width: 50px;
+    font-weight: 600;
+  }
+  .explain-desc {
+    font-size: 13px;
+    color: var(--text-dim);
+    line-height: 1.5;
+  }
+  .explain-item.group-open .explain-token { color: var(--accent2); }
+  .explain-item.group-close .explain-token { color: var(--accent2); }
+
+  /* ── Replace Panel ── */
+  .replace-section { display: flex; flex-direction: column; gap: 10px; width: 100%; }
+  .replace-label { font-size: 11px; color: var(--text-dim); }
+  #replaceInput {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-md);
+    background: var(--card);
+    color: var(--text);
+    font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+    font-size: 13px;
+    outline: none;
+    box-sizing: border-box;
+    transition: border-color var(--transition);
+  }
+  #replaceInput:focus { border-color: var(--accent); }
+  #replaceInput::placeholder { color: var(--text-dim); opacity: 0.4; }
+  .replace-output {
+    width: 100%;
+    padding: 14px;
+    background: var(--bg2);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-md);
+    font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+    font-size: 13px;
+    line-height: 1.65;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    max-height: 40vh;
+    overflow: auto;
+    color: var(--text);
+    box-sizing: border-box;
+  }
+
+  /* ── Code Panel ── */
+  .code-section { display: flex; flex-direction: column; gap: 10px; width: 100%; }
+  .code-langs {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+  }
+  .lang-btn {
+    padding: 5px 10px;
+    font-size: 11px;
+    font-weight: 600;
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-sm);
+    background: var(--btn-bg);
+    color: var(--text-dim);
+    cursor: pointer;
+    transition: all var(--transition);
+    font-family: inherit;
+    white-space: nowrap;
+  }
+  .lang-btn:hover { border-color: var(--accent); color: var(--text); }
+  .lang-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .code-output-wrap { position: relative; }
+  .code-output {
+    width: 100%;
+    padding: 14px;
+    background: var(--bg2);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-md);
+    font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+    font-size: 12px;
+    line-height: 1.6;
+    white-space: pre;
+    overflow-x: auto;
+    color: var(--text);
+    box-sizing: border-box;
+  }
+  .code-copy-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: var(--btn-bg);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-sm);
+    color: var(--text-dim);
+    padding: 4px 8px;
+    font-size: 11px;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all var(--transition);
+    z-index: 2;
+  }
+  .code-copy-btn:hover { color: var(--text); border-color: var(--accent); }
+
+  /* ── Reference Panel ── */
+  .ref-sections { display: flex; flex-direction: column; gap: 16px; }
+  .ref-section-title {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+  }
+  .ref-grid {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 3px 14px;
+    font-size: 12px;
+  }
+  .ref-pattern {
+    font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+    color: var(--accent);
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .ref-desc { color: var(--text-dim); }
+
+  /* ── Toast ── */
+  .copy-toast {
+    position: fixed;
+    bottom: -50px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--accent);
+    color: #fff;
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    transition: bottom 0.3s ease;
+    z-index: 999;
+    pointer-events: none;
+  }
+  .copy-toast.show { bottom: 80px; }
+
+  /* ── Responsive ── */
+  @media (max-width: 400px) {
+    .tool-content { padding: 0 12px; }
+    .flag-btn { padding: 4px 8px; font-size: 12px; }
+    #regexInput { font-size: 13px; }
+    .tab-btn { padding: 6px 10px; font-size: 11px; }
+    .match-item { padding: 8px 10px; }
+    .regex-slash { font-size: 16px; }
+  }
+</style>
+</head>
+<body>
+<div class="game-page">
+
+  <a href="index.html" class="site-brand">TheFreeFix.com</a>
+
+  <!-- Ad Slot 1: Top Banner -->
+  <div class="ad-slot ad-content ad-slot--placeholder">
+    <span class="ad-size-label">Responsive</span>
+  </div>
+
+  <main>
+    <header class="game-header">
+      <div class="header-left">
+        <a href="tools.html" class="back-btn" title="Back to Tools" aria-label="Back to Tools">&#x2190;</a>
+        <h1 class="logo">Regex Tester</h1>
+      </div>
+      <div class="header-btns">
+        <a href="regex-tester-info.html" class="info-btn" title="How to use" aria-label="How to use">i</a>
+        <button class="icon-btn" id="themeBtn" title="Toggle theme" aria-label="Toggle theme">&#x1f319;</button>
+      </div>
+    </header>
+
+    <div class="tool-content">
+
+      <!-- Regex Input -->
+      <div class="regex-row">
+        <div class="regex-input-wrap" id="regexWrap">
+          <span class="regex-slash">/</span>
+          <input type="text" id="regexInput" placeholder="enter regex..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+          <span class="regex-slash">/</span>
+          <button class="mini-btn" id="clearBtn" title="Clear regex">&times;</button>
+          <button class="mini-btn" id="copyRegexBtn" title="Copy regex">&#x1f4cb;</button>
+        </div>
+        <div class="flags-row">
+          <span class="flags-label">Flags:</span>
+          <button class="flag-btn active" data-flag="g" title="Global — find all matches">g</button>
+          <button class="flag-btn" data-flag="i" title="Case insensitive">i</button>
+          <button class="flag-btn" data-flag="m" title="Multiline — ^ and $ match line boundaries">m</button>
+          <button class="flag-btn" data-flag="s" title="Dotall — dot matches newline">s</button>
+          <button class="flag-btn" data-flag="u" title="Unicode — enable unicode matching">u</button>
+          <button class="flag-btn" data-flag="y" title="Sticky — match from lastIndex">y</button>
+        </div>
+      </div>
+
+      <!-- Error Bar -->
+      <div class="error-bar" id="errorBar"></div>
+
+      <!-- Test String -->
+      <div class="test-wrapper" id="testWrapper">
+        <div class="test-label">Test String</div>
+        <div class="test-highlights" id="highlights"></div>
+        <textarea id="testInput" placeholder="Enter test string..." spellcheck="false"></textarea>
+      </div>
+
+      <!-- Match Stats -->
+      <div class="match-bar" id="matchBar"></div>
+
+      <!-- Tab Bar -->
+      <div class="tab-bar">
+        <button class="tab-btn active" data-tab="matches">Matches</button>
+        <button class="tab-btn" data-tab="explain">Explain</button>
+        <button class="tab-btn" data-tab="replace">Replace</button>
+        <button class="tab-btn" data-tab="code">Code</button>
+        <button class="tab-btn" data-tab="reference">Reference</button>
+      </div>
+
+      <!-- Panels -->
+      <div class="tab-panel active" id="panelMatches">
+        <div class="panel-empty" id="matchesEmpty">Enter a regex and test string to see matches</div>
+        <div class="match-list" id="matchList"></div>
+      </div>
+
+      <div class="tab-panel" id="panelExplain">
+        <div class="panel-empty" id="explainEmpty">Enter a regex to see explanation</div>
+        <div class="explain-list" id="explainList"></div>
+      </div>
+
+      <div class="tab-panel" id="panelReplace">
+        <div class="replace-section">
+          <div class="replace-label">Replacement string (supports $1, $2, $&amp;, etc.)</div>
+          <input type="text" id="replaceInput" placeholder="Enter replacement..." spellcheck="false">
+          <div class="replace-label">Result</div>
+          <div class="replace-output" id="replaceOutput"></div>
+        </div>
+      </div>
+
+      <div class="tab-panel" id="panelCode">
+        <div class="code-section">
+          <div class="code-langs">
+            <button class="lang-btn active" data-lang="javascript">JavaScript</button>
+            <button class="lang-btn" data-lang="python">Python</button>
+            <button class="lang-btn" data-lang="java">Java</button>
+            <button class="lang-btn" data-lang="csharp">C#</button>
+            <button class="lang-btn" data-lang="php">PHP</button>
+            <button class="lang-btn" data-lang="go">Go</button>
+          </div>
+          <div class="code-output-wrap">
+            <button class="code-copy-btn" id="codeCopyBtn">Copy</button>
+            <div class="code-output" id="codeOutput"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-panel" id="panelReference">
+        <div class="ref-sections" id="refSections"></div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Ad Slot 2: Bottom Banner -->
+  <div class="ad-slot ad-bottom ad-slot--placeholder">
+    <span class="ad-size-label">Responsive</span>
+  </div>
+
+  <footer class="site-footer">
+    <nav aria-label="Footer">
+      <a href="about.html">About</a>
+      <span class="footer-sep">&middot;</span>
+      <a href="contact.html">Contact</a>
+      <span class="footer-sep">&middot;</span>
+      <a href="terms.html">Terms</a>
+      <span class="footer-sep">&middot;</span>
+      <a href="privacy.html">Privacy</a>
+      <span class="footer-sep">&middot;</span>
+      <a href="https://x.com/TheFreeFix" target="_blank" rel="noopener">X</a>
+    </nav>
+  </footer>
+
+  <section class="page-about" aria-label="About Regex Tester">
+    <h2>How to Use the Regex Tester</h2>
+    <p>Type your regular expression pattern in the input field and enter a test string below. Matches are highlighted in real time as you type. Toggle flags like global (g), case-insensitive (i), multiline (m), dotall (s), unicode (u), and sticky (y) to change matching behavior. View detailed match results, a human-readable explanation of your regex, live find-and-replace, and generated code snippets for six programming languages.</p>
+    <h2>Features</h2>
+    <p>Real-time match highlighting with colored overlays. Detailed match list with capture groups and named groups. Human-readable regex explanation that breaks down every token. Live substitution preview with backreference support ($1, $2, $&). Code generation for JavaScript, Python, Java, C#, PHP, and Go. Built-in quick reference cheat sheet. All processing happens in your browser — nothing is sent to a server.</p>
+  </section>
+</div>
+
+<div class="copy-toast" id="copyToast">Copied!</div>
+
+<script src="theme.js"></script>
+<script>
+/* ═══════════════════════════════════════════════════════════════
+   REGEX TESTER — Test, debug & understand regular expressions
+   ═══════════════════════════════════════════════════════════════ */
+
+// ── DOM Refs ──
+var $regexInput = document.getElementById('regexInput');
+var $regexWrap = document.getElementById('regexWrap');
+var $testInput = document.getElementById('testInput');
+var $highlights = document.getElementById('highlights');
+var $errorBar = document.getElementById('errorBar');
+var $matchBar = document.getElementById('matchBar');
+var $matchList = document.getElementById('matchList');
+var $matchesEmpty = document.getElementById('matchesEmpty');
+var $explainList = document.getElementById('explainList');
+var $explainEmpty = document.getElementById('explainEmpty');
+var $replaceInput = document.getElementById('replaceInput');
+var $replaceOutput = document.getElementById('replaceOutput');
+var $codeOutput = document.getElementById('codeOutput');
+var $codeCopyBtn = document.getElementById('codeCopyBtn');
+var $refSections = document.getElementById('refSections');
+var $copyToast = document.getElementById('copyToast');
+
+var currentLang = 'javascript';
+var debounceTimer = null;
+
+// ── Utilities ──
+function escH(s) {
+  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+function showToast(msg) {
+  $copyToast.textContent = msg || 'Copied!';
+  $copyToast.classList.add('show');
+  setTimeout(function() { $copyToast.classList.remove('show'); }, 1500);
+}
+
+function copyText(text) {
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(text).then(function() { showToast(); });
+  } else {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    showToast();
+  }
+}
+
+// ── Flags ──
+function getFlags() {
+  var flags = '';
+  document.querySelectorAll('.flag-btn.active').forEach(function(b) {
+    flags += b.dataset.flag;
+  });
+  return flags;
+}
+
+document.querySelectorAll('.flag-btn').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    btn.classList.toggle('active');
+    processRegex();
+  });
+});
+
+// ── Core Processing ──
+function processRegex() {
+  var pattern = $regexInput.value;
+  var flags = getFlags();
+  var testStr = $testInput.value;
+
+  // Always update explanation and code (they only need pattern)
+  updateExplanation(pattern, flags);
+  updateCodeGen(pattern, flags);
+
+  if (!pattern) {
+    hideError();
+    $highlights.innerHTML = escH(testStr);
+    $matchBar.innerHTML = '';
+    $matchList.innerHTML = '';
+    $matchesEmpty.style.display = 'block';
+    $replaceOutput.textContent = testStr;
+    return;
+  }
+
+  // Compile regex
+  var regex;
+  try {
+    regex = new RegExp(pattern, flags);
+    hideError();
+  } catch (e) {
+    showError(e.message.replace(/^Invalid regular expression: /, ''));
+    $highlights.innerHTML = escH(testStr);
+    $matchBar.innerHTML = '';
+    $matchList.innerHTML = '';
+    $matchesEmpty.style.display = 'block';
+    $replaceOutput.textContent = testStr;
+    return;
+  }
+
+  // Find matches
+  var matches = findMatches(regex, testStr);
+
+  // Update everything
+  updateHighlights(matches, testStr);
+  updateMatchBar(matches);
+  updateMatchList(matches);
+  updateReplace(regex, testStr);
+}
+
+function showError(msg) {
+  $errorBar.textContent = msg;
+  $errorBar.classList.add('visible');
+  $regexWrap.classList.add('has-error');
+}
+
+function hideError() {
+  $errorBar.classList.remove('visible');
+  $regexWrap.classList.remove('has-error');
+}
+
+// ── Match Finding ──
+function findMatches(regex, str) {
+  var matches = [];
+  if (!str) return matches;
+
+  if (regex.global || regex.sticky) {
+    regex.lastIndex = 0;
+    var m;
+    var safety = 0;
+    var start = performance.now();
+    while ((m = regex.exec(str)) !== null) {
+      matches.push({
+        value: m[0],
+        index: m.index,
+        end: m.index + m[0].length,
+        groups: Array.from(m).slice(1),
+        namedGroups: m.groups ? Object.assign({}, m.groups) : null
+      });
+      if (m[0].length === 0) regex.lastIndex++;
+      safety++;
+      if (safety > 10000 || performance.now() - start > 1000) {
+        matches.truncated = true;
+        break;
+      }
+    }
+  } else {
+    var m = regex.exec(str);
+    if (m) {
+      matches.push({
+        value: m[0],
+        index: m.index,
+        end: m.index + m[0].length,
+        groups: Array.from(m).slice(1),
+        namedGroups: m.groups ? Object.assign({}, m.groups) : null
+      });
+    }
+  }
+  return matches;
+}
+
+// ── Highlight Overlay ──
+function updateHighlights(matches, str) {
+  if (!str) { $highlights.innerHTML = ''; return; }
+  if (matches.length === 0) { $highlights.innerHTML = escH(str) + '\n'; return; }
+
+  var html = '';
+  var last = 0;
+  for (var i = 0; i < matches.length; i++) {
+    var m = matches[i];
+    if (m.index > last) html += escH(str.substring(last, m.index));
+    if (m.value.length > 0) {
+      html += '<mark>' + escH(m.value) + '</mark>';
+    }
+    last = m.end;
+  }
+  if (last < str.length) html += escH(str.substring(last));
+  html += '\n'; // trailing newline to match textarea behavior
+  $highlights.innerHTML = html;
+}
+
+// Sync scroll between textarea and highlights
+$testInput.addEventListener('scroll', function() {
+  $highlights.scrollTop = $testInput.scrollTop;
+  $highlights.scrollLeft = $testInput.scrollLeft;
+});
+
+// ── Match Stats Bar ──
+function updateMatchBar(matches) {
+  if (matches.length === 0) {
+    $matchBar.innerHTML = $regexInput.value ? 'No matches' : '';
+    return;
+  }
+  var groupCount = matches[0].groups.length;
+  var named = matches[0].namedGroups ? Object.keys(matches[0].namedGroups).length : 0;
+  var html = '<b>' + matches.length + '</b> match' + (matches.length !== 1 ? 'es' : '');
+  if (groupCount > 0) html += ' &middot; ' + groupCount + ' group' + (groupCount !== 1 ? 's' : '');
+  if (named > 0) html += ' (' + named + ' named)';
+  if (matches.truncated) html += ' <span class="match-warn">&#x26a0; Results truncated</span>';
+  $matchBar.innerHTML = html;
+}
+
+// ── Match List Panel ──
+function updateMatchList(matches) {
+  if (matches.length === 0) {
+    $matchList.innerHTML = '';
+    $matchesEmpty.style.display = 'block';
+    return;
+  }
+  $matchesEmpty.style.display = 'none';
+
+  var limit = Math.min(matches.length, 200);
+  var html = '';
+  for (var i = 0; i < limit; i++) {
+    var m = matches[i];
+    html += '<div class="match-item">';
+    html += '<div class="match-header"><span class="match-label">Match ' + (i + 1) + '</span>';
+    html += '<span class="match-pos">index ' + m.index + '–' + m.end + '</span></div>';
+    html += '<div class="match-value">' + escH(m.value || '(empty string)') + '</div>';
+
+    if (m.groups.length > 0) {
+      html += '<div class="match-groups">';
+      for (var g = 0; g < m.groups.length; g++) {
+        var gVal = m.groups[g];
+        var gName = '';
+        if (m.namedGroups) {
+          for (var k in m.namedGroups) {
+            if (m.namedGroups[k] === gVal) { gName = k; break; }
+          }
+        }
+        html += '<div class="group-row">';
+        html += '<span class="group-name">Group ' + (g + 1) + (gName ? ' (' + escH(gName) + ')' : '') + ':</span>';
+        html += '<span class="group-val' + (gVal == null ? ' empty' : '') + '">' + (gVal != null ? escH(gVal) : 'undefined') + '</span>';
+        html += '</div>';
+      }
+      html += '</div>';
+    }
+    html += '</div>';
+  }
+  if (matches.length > limit) {
+    html += '<div class="panel-empty">Showing first ' + limit + ' of ' + matches.length + ' matches</div>';
+  }
+  $matchList.innerHTML = html;
+}
+
+// ── Regex Explanation Parser ──
+function parseRegex(pattern, flags) {
+  var tokens = [];
+  var i = 0;
+  var len = pattern.length;
+  var depth = 0;
+  var groupNum = 0;
+
+  while (i < len) {
+    var ch = pattern[i];
+
+    // Escaped sequences
+    if (ch === '\\' && i + 1 < len) {
+      var next = pattern[i + 1];
+      var esc = parseEscape(pattern, i, next);
+      tokens.push({ token: esc.token, desc: esc.desc, depth: depth });
+      i = esc.end;
+      // Check for quantifier
+      if (i < len) {
+        var q = tryQuantifier(pattern, i);
+        if (q) { tokens.push({ token: q.token, desc: q.desc, depth: depth }); i = q.end; }
+      }
+      continue;
+    }
+
+    // Character class [...]
+    if (ch === '[') {
+      var cc = parseCharClass(pattern, i);
+      tokens.push({ token: cc.token, desc: cc.desc, depth: depth });
+      i = cc.end;
+      var q = tryQuantifier(pattern, i);
+      if (q) { tokens.push({ token: q.token, desc: q.desc, depth: depth }); i = q.end; }
+      continue;
+    }
+
+    // Group open (
+    if (ch === '(') {
+      var grp = parseGroupOpen(pattern, i, ++groupNum);
+      if (grp.nonCapture) groupNum--; // non-capturing doesn't count
+      tokens.push({ token: grp.token, desc: grp.desc, depth: depth, cls: 'group-open' });
+      depth++;
+      i = grp.end;
+      continue;
+    }
+
+    // Group close )
+    if (ch === ')') {
+      depth = Math.max(0, depth - 1);
+      tokens.push({ token: ')', desc: 'End of group', depth: depth, cls: 'group-close' });
+      i++;
+      var q = tryQuantifier(pattern, i);
+      if (q) { tokens.push({ token: q.token, desc: q.desc, depth: depth }); i = q.end; }
+      continue;
+    }
+
+    // Anchors
+    if (ch === '^') {
+      tokens.push({ token: '^', desc: 'Start of string' + (flags.indexOf('m') >= 0 ? ' (or line)' : ''), depth: depth });
+      i++; continue;
+    }
+    if (ch === '$') {
+      tokens.push({ token: '$', desc: 'End of string' + (flags.indexOf('m') >= 0 ? ' (or line)' : ''), depth: depth });
+      i++; continue;
+    }
+
+    // Alternation
+    if (ch === '|') {
+      tokens.push({ token: '|', desc: 'OR — match either alternative', depth: depth });
+      i++; continue;
+    }
+
+    // Dot
+    if (ch === '.') {
+      tokens.push({ token: '.', desc: 'Any character' + (flags.indexOf('s') >= 0 ? ' (including newline)' : ' (except newline)'), depth: depth });
+      i++;
+      var q = tryQuantifier(pattern, i);
+      if (q) { tokens.push({ token: q.token, desc: q.desc, depth: depth }); i = q.end; }
+      continue;
+    }
+
+    // Quantifiers on their own (shouldn't happen, but handle gracefully)
+    if (ch === '*' || ch === '+' || ch === '?') {
+      var q = tryQuantifier(pattern, i);
+      if (q) { tokens.push({ token: q.token, desc: q.desc, depth: depth }); i = q.end; }
+      else { tokens.push({ token: ch, desc: 'Literal "' + ch + '"', depth: depth }); i++; }
+      continue;
+    }
+    if (ch === '{') {
+      var q = tryQuantifier(pattern, i);
+      if (q) { tokens.push({ token: q.token, desc: q.desc, depth: depth }); i = q.end; continue; }
+    }
+
+    // Literal character
+    tokens.push({ token: ch, desc: '"' + ch + '"', depth: depth });
+    i++;
+    var q = tryQuantifier(pattern, i);
+    if (q) { tokens.push({ token: q.token, desc: q.desc, depth: depth }); i = q.end; }
+  }
+
+  return tokens;
+}
+
+function parseEscape(pattern, i, next) {
+  var escapes = {
+    'd': 'Digit (0-9)', 'D': 'Non-digit',
+    'w': 'Word character (a-z, A-Z, 0-9, _)', 'W': 'Non-word character',
+    's': 'Whitespace', 'S': 'Non-whitespace',
+    'b': 'Word boundary', 'B': 'Non-word boundary',
+    'n': 'Newline', 't': 'Tab', 'r': 'Carriage return',
+    'f': 'Form feed', 'v': 'Vertical tab',
+    '0': 'Null character'
+  };
+
+  if (escapes[next]) {
+    return { token: '\\' + next, desc: escapes[next], end: i + 2 };
+  }
+
+  // Backreference \1-\9
+  if (next >= '1' && next <= '9') {
+    return { token: '\\' + next, desc: 'Back-reference to group ' + next, end: i + 2 };
+  }
+
+  // Named backreference \k<name>
+  if (next === 'k' && i + 2 < pattern.length && pattern[i + 2] === '<') {
+    var nameEnd = pattern.indexOf('>', i + 3);
+    if (nameEnd > i + 3) {
+      var name = pattern.substring(i + 3, nameEnd);
+      return { token: '\\k<' + name + '>', desc: 'Back-reference to group "' + name + '"', end: nameEnd + 1 };
+    }
+  }
+
+  // Unicode escape \uXXXX or \u{XXXX}
+  if (next === 'u') {
+    if (i + 2 < pattern.length && pattern[i + 2] === '{') {
+      var braceEnd = pattern.indexOf('}', i + 3);
+      if (braceEnd > i + 3) {
+        var hex = pattern.substring(i + 3, braceEnd);
+        return { token: pattern.substring(i, braceEnd + 1), desc: 'Unicode U+' + hex.toUpperCase(), end: braceEnd + 1 };
+      }
+    }
+    if (i + 5 < pattern.length) {
+      var hex = pattern.substring(i + 2, i + 6);
+      if (/^[0-9a-fA-F]{4}$/.test(hex)) {
+        return { token: '\\u' + hex, desc: 'Unicode U+' + hex.toUpperCase(), end: i + 6 };
+      }
+    }
+  }
+
+  // Hex escape \xHH
+  if (next === 'x' && i + 3 < pattern.length) {
+    var hex = pattern.substring(i + 2, i + 4);
+    if (/^[0-9a-fA-F]{2}$/.test(hex)) {
+      return { token: '\\x' + hex, desc: 'Hex character 0x' + hex.toUpperCase(), end: i + 4 };
+    }
+  }
+
+  // Escaped special character
+  return { token: '\\' + next, desc: 'Literal "' + next + '"', end: i + 2 };
+}
+
+function parseCharClass(pattern, i) {
+  var start = i;
+  i++; // skip [
+  var negated = false;
+  if (i < pattern.length && pattern[i] === '^') { negated = true; i++; }
+
+  // Read until unescaped ]
+  while (i < pattern.length) {
+    if (pattern[i] === '\\' && i + 1 < pattern.length) { i += 2; continue; }
+    if (pattern[i] === ']') { i++; break; }
+    i++;
+  }
+
+  var token = pattern.substring(start, i);
+  var inner = token.slice(negated ? 2 : 1, -1);
+
+  var desc;
+  if (negated) {
+    desc = 'Any character NOT in: ' + inner;
+  } else {
+    desc = 'Any character in: ' + inner;
+  }
+  return { token: token, desc: desc, end: i };
+}
+
+function parseGroupOpen(pattern, i, groupNum) {
+  if (i + 1 < pattern.length && pattern[i + 1] === '?') {
+    // Non-capturing and special groups
+    if (i + 2 < pattern.length) {
+      var c = pattern[i + 2];
+      if (c === ':') return { token: '(?:', desc: 'Non-capturing group', end: i + 3, nonCapture: true };
+      if (c === '=') return { token: '(?=', desc: 'Positive lookahead', end: i + 3, nonCapture: true };
+      if (c === '!') return { token: '(?!', desc: 'Negative lookahead', end: i + 3, nonCapture: true };
+      if (c === '<' && i + 3 < pattern.length) {
+        var c2 = pattern[i + 3];
+        if (c2 === '=') return { token: '(?<=', desc: 'Positive lookbehind', end: i + 4, nonCapture: true };
+        if (c2 === '!') return { token: '(?<!', desc: 'Negative lookbehind', end: i + 4, nonCapture: true };
+        // Named group (?<name>
+        var nameEnd = pattern.indexOf('>', i + 3);
+        if (nameEnd > i + 3) {
+          var name = pattern.substring(i + 3, nameEnd);
+          return { token: '(?<' + name + '>', desc: 'Named capturing group #' + groupNum + ' "' + name + '"', end: nameEnd + 1, nonCapture: false };
+        }
+      }
+    }
+    return { token: '(?', desc: 'Group modifier', end: i + 2, nonCapture: true };
+  }
+  return { token: '(', desc: 'Capturing group #' + groupNum, end: i + 1, nonCapture: false };
+}
+
+function tryQuantifier(pattern, i) {
+  if (i >= pattern.length) return null;
+  var ch = pattern[i];
+
+  if (ch === '*' || ch === '+' || ch === '?') {
+    var lazy = (i + 1 < pattern.length && pattern[i + 1] === '?');
+    var descs = { '*': 'Zero or more', '+': 'One or more', '?': 'Optional (zero or one)' };
+    var token = ch + (lazy ? '?' : '');
+    return { token: token, desc: descs[ch] + (lazy ? ' (lazy)' : ''), end: i + (lazy ? 2 : 1) };
+  }
+
+  if (ch === '{') {
+    var j = i + 1;
+    var numStr = '';
+    while (j < pattern.length && pattern[j] >= '0' && pattern[j] <= '9') { numStr += pattern[j]; j++; }
+    if (numStr.length === 0) return null;
+
+    if (j < pattern.length && pattern[j] === '}') {
+      var lazy = (j + 1 < pattern.length && pattern[j + 1] === '?');
+      var token = pattern.substring(i, j + 1) + (lazy ? '?' : '');
+      return { token: token, desc: 'Exactly ' + numStr + ' times' + (lazy ? ' (lazy)' : ''), end: j + 1 + (lazy ? 1 : 0) };
+    }
+    if (j < pattern.length && pattern[j] === ',') {
+      j++;
+      var numStr2 = '';
+      while (j < pattern.length && pattern[j] >= '0' && pattern[j] <= '9') { numStr2 += pattern[j]; j++; }
+      if (j < pattern.length && pattern[j] === '}') {
+        var lazy = (j + 1 < pattern.length && pattern[j + 1] === '?');
+        var token = pattern.substring(i, j + 1) + (lazy ? '?' : '');
+        var desc = numStr2 ? 'Between ' + numStr + ' and ' + numStr2 + ' times' : numStr + ' or more times';
+        return { token: token, desc: desc + (lazy ? ' (lazy)' : ''), end: j + 1 + (lazy ? 1 : 0) };
+      }
+    }
+  }
+  return null;
+}
+
+function updateExplanation(pattern, flags) {
+  if (!pattern) {
+    $explainList.innerHTML = '';
+    $explainEmpty.style.display = 'block';
+    return;
+  }
+  $explainEmpty.style.display = 'none';
+
+  var tokens = parseRegex(pattern, flags);
+  var html = '';
+
+  // Show flags
+  if (flags) {
+    var flagDescs = {
+      'g': 'Global — find all matches',
+      'i': 'Case insensitive',
+      'm': 'Multiline — ^ and $ match line boundaries',
+      's': 'Dotall — dot matches newline',
+      'u': 'Unicode matching',
+      'y': 'Sticky — match from lastIndex'
+    };
+    for (var f = 0; f < flags.length; f++) {
+      html += '<div class="explain-item"><span class="explain-token">/' + flags[f] + '</span>';
+      html += '<span class="explain-desc">' + (flagDescs[flags[f]] || 'Flag ' + flags[f]) + '</span></div>';
+    }
+  }
+
+  for (var i = 0; i < tokens.length; i++) {
+    var t = tokens[i];
+    var indent = t.depth * 16;
+    var cls = t.cls ? ' ' + t.cls : '';
+    html += '<div class="explain-item' + cls + '" style="padding-left:' + (10 + indent) + 'px">';
+    html += '<span class="explain-token">' + escH(t.token) + '</span>';
+    html += '<span class="explain-desc">' + escH(t.desc) + '</span>';
+    html += '</div>';
+  }
+  $explainList.innerHTML = html;
+}
+
+// ── Replace Panel ──
+function updateReplace(regex, testStr) {
+  var replaceStr = $replaceInput.value;
+  if (!testStr) { $replaceOutput.textContent = ''; return; }
+  if (!regex || !replaceStr) { $replaceOutput.textContent = testStr; return; }
+  try {
+    regex.lastIndex = 0;
+    var result = testStr.replace(regex, replaceStr);
+    $replaceOutput.textContent = result;
+  } catch (e) {
+    $replaceOutput.textContent = 'Error: ' + e.message;
+  }
+}
+
+// ── Code Generation ──
+var codeTemplates = {
+  javascript: function(p, f) {
+    var e = p.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+    return "// JavaScript\n"
+      + "const regex = /" + p + "/" + f + ";\n"
+      + "const str = 'your test string';\n\n"
+      + "// Test for match\n"
+      + "regex.test(str);\n\n"
+      + "// Find all matches\n"
+      + "const matches = [...str.matchAll(/" + p + "/" + (f.indexOf('g') < 0 ? f + 'g' : f) + ")];\n"
+      + "matches.forEach(m => console.log(m[0], m.index));\n\n"
+      + "// Replace\n"
+      + "const result = str.replace(regex, 'replacement');";
+  },
+  python: function(p, f) {
+    var pf = [];
+    if (f.indexOf('i') >= 0) pf.push('re.IGNORECASE');
+    if (f.indexOf('m') >= 0) pf.push('re.MULTILINE');
+    if (f.indexOf('s') >= 0) pf.push('re.DOTALL');
+    if (f.indexOf('u') >= 0) pf.push('re.UNICODE');
+    var fs = pf.length ? ', ' + pf.join(' | ') : '';
+    return "import re\n\n"
+      + "pattern = r'" + p + "'\n"
+      + "text = 'your test string'\n\n"
+      + "# Find all matches\n"
+      + "matches = re.findall(pattern, text" + fs + ")\n\n"
+      + "# Find with positions\n"
+      + "for m in re.finditer(pattern, text" + fs + "):\n"
+      + "    print(m.group(), m.start(), m.end())\n\n"
+      + "# Replace\n"
+      + "result = re.sub(pattern, 'replacement', text" + fs + ")";
+  },
+  java: function(p, f) {
+    var e = p.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+    var jf = [];
+    if (f.indexOf('i') >= 0) jf.push('Pattern.CASE_INSENSITIVE');
+    if (f.indexOf('m') >= 0) jf.push('Pattern.MULTILINE');
+    if (f.indexOf('s') >= 0) jf.push('Pattern.DOTALL');
+    if (f.indexOf('u') >= 0) jf.push('Pattern.UNICODE_CHARACTER_CLASS');
+    var fs = jf.length ? ', ' + jf.join(' | ') : '';
+    return "import java.util.regex.*;\n\n"
+      + "Pattern pattern = Pattern.compile(\"" + e + "\"" + fs + ");\n"
+      + "Matcher matcher = pattern.matcher(\"your test string\");\n\n"
+      + "// Find all matches\n"
+      + "while (matcher.find()) {\n"
+      + "    System.out.println(matcher.group() + \" at \" + matcher.start());\n"
+      + "}\n\n"
+      + "// Replace\n"
+      + "String result = matcher.replaceAll(\"replacement\");";
+  },
+  csharp: function(p, f) {
+    var e = p.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+    var cf = [];
+    if (f.indexOf('i') >= 0) cf.push('RegexOptions.IgnoreCase');
+    if (f.indexOf('m') >= 0) cf.push('RegexOptions.Multiline');
+    if (f.indexOf('s') >= 0) cf.push('RegexOptions.Singleline');
+    var fs = cf.length ? ', ' + cf.join(' | ') : '';
+    return "using System.Text.RegularExpressions;\n\n"
+      + "var regex = new Regex(@\"" + e + "\"" + fs + ");\n"
+      + "var text = \"your test string\";\n\n"
+      + "// Find all matches\n"
+      + "foreach (Match match in regex.Matches(text))\n"
+      + "{\n"
+      + "    Console.WriteLine($\"{match.Value} at {match.Index}\");\n"
+      + "}\n\n"
+      + "// Replace\n"
+      + "var result = regex.Replace(text, \"replacement\");";
+  },
+  php: function(p, f) {
+    var pf = '';
+    if (f.indexOf('i') >= 0) pf += 'i';
+    if (f.indexOf('m') >= 0) pf += 'm';
+    if (f.indexOf('s') >= 0) pf += 's';
+    if (f.indexOf('u') >= 0) pf += 'u';
+    return "<?php\n\n"
+      + "$pattern = '/" + p.replace(/'/g, "\\'") + "/" + pf + "';\n"
+      + "$text = 'your test string';\n\n"
+      + "// Find all matches\n"
+      + "preg_match_all($pattern, $text, $matches);\n"
+      + "print_r($matches[0]);\n\n"
+      + "// Replace\n"
+      + "$result = preg_replace($pattern, 'replacement', $text);\n"
+      + "?>";
+  },
+  go: function(p, f) {
+    var gf = '';
+    if (f.indexOf('i') >= 0) gf += '(?i)';
+    if (f.indexOf('m') >= 0) gf += '(?m)';
+    if (f.indexOf('s') >= 0) gf += '(?s)';
+    return "package main\n\n"
+      + "import (\n"
+      + "\t\"fmt\"\n"
+      + "\t\"regexp\"\n"
+      + ")\n\n"
+      + "func main() {\n"
+      + "\tre := regexp.MustCompile(`" + gf + p + "`)\n"
+      + "\ttext := \"your test string\"\n\n"
+      + "\t// Find all matches\n"
+      + "\tmatches := re.FindAllString(text, -1)\n"
+      + "\tfmt.Println(matches)\n\n"
+      + "\t// Replace\n"
+      + "\tresult := re.ReplaceAllString(text, \"replacement\")\n"
+      + "\tfmt.Println(result)\n"
+      + "}";
+  }
+};
+
+function updateCodeGen(pattern, flags) {
+  if (!pattern) {
+    $codeOutput.textContent = '// Enter a regex to generate code';
+    return;
+  }
+  var fn = codeTemplates[currentLang];
+  if (fn) $codeOutput.textContent = fn(pattern, flags);
+}
+
+// ── Quick Reference ──
+var refData = [
+  { title: 'Character Classes', items: [
+    ['.', 'Any character (except newline)'],
+    ['\\d', 'Digit (0-9)'], ['\\D', 'Non-digit'],
+    ['\\w', 'Word character (a-z, A-Z, 0-9, _)'], ['\\W', 'Non-word character'],
+    ['\\s', 'Whitespace (space, tab, newline)'], ['\\S', 'Non-whitespace'],
+    ['[abc]', 'Any of a, b, or c'], ['[^abc]', 'Not a, b, or c'],
+    ['[a-z]', 'Character range a to z']
+  ]},
+  { title: 'Quantifiers', items: [
+    ['*', 'Zero or more'], ['+', 'One or more'], ['?', 'Zero or one (optional)'],
+    ['{n}', 'Exactly n times'], ['{n,}', 'n or more times'], ['{n,m}', 'Between n and m times'],
+    ['*?', 'Zero or more (lazy)'], ['+?', 'One or more (lazy)'], ['??', 'Zero or one (lazy)']
+  ]},
+  { title: 'Anchors & Boundaries', items: [
+    ['^', 'Start of string (or line with m flag)'], ['$', 'End of string (or line with m flag)'],
+    ['\\b', 'Word boundary'], ['\\B', 'Non-word boundary']
+  ]},
+  { title: 'Groups & Lookaround', items: [
+    ['(abc)', 'Capturing group'], ['(?:abc)', 'Non-capturing group'],
+    ['(?<name>abc)', 'Named capturing group'], ['\\1', 'Back-reference to group 1'],
+    ['(?=abc)', 'Positive lookahead'], ['(?!abc)', 'Negative lookahead'],
+    ['(?<=abc)', 'Positive lookbehind'], ['(?<!abc)', 'Negative lookbehind'],
+    ['a|b', 'Match a or b']
+  ]},
+  { title: 'Escapes', items: [
+    ['\\n', 'Newline'], ['\\t', 'Tab'], ['\\r', 'Carriage return'],
+    ['\\\\.', 'Escaped special character (literal dot)'],
+    ['\\\\', 'Literal backslash']
+  ]}
+];
+
+function renderReference() {
+  var html = '';
+  for (var s = 0; s < refData.length; s++) {
+    var sec = refData[s];
+    html += '<div><div class="ref-section-title">' + sec.title + '</div><div class="ref-grid">';
+    for (var r = 0; r < sec.items.length; r++) {
+      html += '<span class="ref-pattern">' + escH(sec.items[r][0]) + '</span>';
+      html += '<span class="ref-desc">' + escH(sec.items[r][1]) + '</span>';
+    }
+    html += '</div></div>';
+  }
+  $refSections.innerHTML = html;
+}
+
+// ── Tab Switching ──
+document.querySelector('.tab-bar').addEventListener('click', function(e) {
+  var btn = e.target.closest('.tab-btn');
+  if (!btn) return;
+  document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
+  btn.classList.add('active');
+  var tab = btn.dataset.tab;
+  document.querySelectorAll('.tab-panel').forEach(function(p) { p.classList.remove('active'); });
+  var panelId = 'panel' + tab.charAt(0).toUpperCase() + tab.slice(1);
+  document.getElementById(panelId).classList.add('active');
+});
+
+// ── Language Switching ──
+document.querySelector('.code-langs').addEventListener('click', function(e) {
+  var btn = e.target.closest('.lang-btn');
+  if (!btn) return;
+  document.querySelectorAll('.lang-btn').forEach(function(b) { b.classList.remove('active'); });
+  btn.classList.add('active');
+  currentLang = btn.dataset.lang;
+  updateCodeGen($regexInput.value, getFlags());
+});
+
+// ── Event Listeners ──
+function debouncedProcess() {
+  clearTimeout(debounceTimer);
+  debounceTimer = setTimeout(processRegex, 100);
+}
+
+$regexInput.addEventListener('input', debouncedProcess);
+$testInput.addEventListener('input', function() {
+  // Keep highlights scroll in sync
+  $highlights.scrollTop = $testInput.scrollTop;
+  debouncedProcess();
+});
+$replaceInput.addEventListener('input', function() {
+  // Only update replace, no need to re-match
+  var pattern = $regexInput.value;
+  var flags = getFlags();
+  if (!pattern) return;
+  try {
+    var regex = new RegExp(pattern, flags);
+    updateReplace(regex, $testInput.value);
+  } catch(e) {}
+});
+
+// Clear button
+document.getElementById('clearBtn').addEventListener('click', function() {
+  $regexInput.value = '';
+  processRegex();
+  $regexInput.focus();
+});
+
+// Copy regex button
+document.getElementById('copyRegexBtn').addEventListener('click', function() {
+  if ($regexInput.value) copyText('/' + $regexInput.value + '/' + getFlags());
+});
+
+// Copy code button
+$codeCopyBtn.addEventListener('click', function() {
+  if ($codeOutput.textContent) copyText($codeOutput.textContent);
+});
+
+// ── Init ──
+renderReference();
+processRegex();
+GameTheme.init();
+</script>
+</body>
+</html>
