@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-adsense-account" content="ca-pub-7700405385978151">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7700405385978151"
+     crossorigin="anonymous"></script>
+<title>Metadata Stripper - TheFreeFix.com</title>
+<meta name="description" content="Remove EXIF data and metadata from images before sharing. Strip GPS location, camera info, and personal data from JPEG, PNG, and WebP files. No downloads or sign-ups needed.">
+<link rel="canonical" href="https://thefreefix.com/metadata-stripper.html">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#0a0a1a">
+<!-- Open Graph -->
+<meta property="og:title" content="Metadata Stripper - Free Online Tool">
+<meta property="og:description" content="Remove EXIF data and metadata from images before sharing. Strip GPS location, camera info, and personal data from JPEG, PNG, and WebP files.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://thefreefix.com/metadata-stripper.html">
+<meta property="og:site_name" content="TheFreeFix.com">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://thefreefix.com/og-image.png">
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@TheFreeFix">
+<meta name="twitter:title" content="Metadata Stripper - Free Online Tool">
+<meta name="twitter:image" content="https://thefreefix.com/og-image.png">
+<meta name="twitter:description" content="Remove EXIF data and metadata from images before sharing. Strip GPS location, camera info, and personal data from JPEG, PNG, and WebP files.">
+<!-- Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Metadata Stripper",
+  "url": "https://thefreefix.com/metadata-stripper.html",
+  "description": "Remove EXIF data and metadata from images before sharing. Strip GPS location, camera info, and personal data from JPEG, PNG, and WebP files.",
+  "applicationCategory": "UtilityApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "isPartOf": { "@type": "WebSite", "name": "TheFreeFix.com", "url": "https://thefreefix.com/" }
+}
+</script>
+<link rel="stylesheet" href="theme.css">
+<style>
+  .game-page { padding-bottom: 32px; }
+  .game-header { max-width: 660px; margin: 0 auto; }
+
+  .tool-content {
+    width: 100%;
+    max-width: 660px;
+    padding: 0 16px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+
+  /* ── Drop Zone ── */
+  .drop-zone {
+    width: 100%;
+    border: 2px dashed var(--card-border);
+    border-radius: var(--radius-lg);
+    padding: 40px 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: all var(--transition);
+    background: var(--card);
+    position: relative;
+  }
+  .drop-zone:hover, .drop-zone.dragover {
+    border-color: var(--accent);
+    background: rgba(123, 111, 255, 0.06);
+    box-shadow: 0 0 20px var(--accent-glow);
+  }
+  .drop-zone input[type="file"] {
+    position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%;
+  }
+  .drop-icon { font-size: 40px; margin-bottom: 8px; }
+  .drop-title { font-size: 16px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+  .drop-hint { font-size: 12px; color: var(--text-dim); }
+
+  /* ── Batch Controls ── */
+  .batch-bar {
+    width: 100%;
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .batch-bar.visible { display: flex; }
+  .batch-info {
+    font-size: 13px;
+    color: var(--text-dim);
+  }
+  .batch-info b { color: var(--text); }
+  .batch-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+  .batch-btn {
+    background: var(--btn-bg);
+    color: var(--text);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-sm);
+    padding: 7px 14px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all var(--transition);
+    font-family: inherit;
+    white-space: nowrap;
+  }
+  .batch-btn:hover { background: var(--btn-hover); border-color: var(--accent); }
+  .batch-btn.primary {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+  }
+  .batch-btn.primary:hover { opacity: 0.85; }
+  .batch-btn.danger { color: var(--accent2); border-color: var(--accent2); }
+  .batch-btn.danger:hover { background: rgba(255, 94, 148, 0.1); }
+  .batch-btn:disabled { opacity: 0.4; cursor: default; pointer-events: none; }
+
+  /* ── File List ── */
+  .file-list {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .file-card {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-md);
+    padding: 14px;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    transition: all var(--transition);
+    animation: fadeIn 0.25s ease;
+  }
+
+  .file-thumb {
+    width: 56px; height: 56px;
+    border-radius: var(--radius-sm);
+    object-fit: cover;
+    flex-shrink: 0;
+    background: var(--bg2);
+  }
+
+  .file-info {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .file-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .file-meta {
+    font-size: 11px;
+    color: var(--text-dim);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .file-meta span { white-space: nowrap; }
+
+  /* ── Metadata Tags ── */
+  .meta-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-top: 4px;
+  }
+  .meta-tag {
+    font-size: 10px;
+    padding: 2px 7px;
+    border-radius: 10px;
+    background: var(--btn-bg);
+    color: var(--text-dim);
+    border: 1px solid var(--card-border);
+  }
+  .meta-tag.warn {
+    background: rgba(255, 94, 148, 0.1);
+    color: var(--accent2);
+    border-color: var(--accent2);
+  }
+  .meta-tag.safe {
+    background: rgba(0, 230, 184, 0.1);
+    color: var(--accent3);
+    border-color: var(--accent3);
+  }
+
+  /* ── Status / Progress ── */
+  .file-status {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    margin-top: 2px;
+  }
+  .status-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .status-dot.pending { background: var(--text-dim); }
+  .status-dot.processing { background: var(--accent); animation: pulse 1s infinite; }
+  .status-dot.done { background: var(--accent3); }
+  .status-dot.error { background: var(--accent2); }
+
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+  .file-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex-shrink: 0;
+    align-items: flex-end;
+  }
+  .file-actions button {
+    background: var(--btn-bg);
+    color: var(--text);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-sm);
+    padding: 5px 10px;
+    font-size: 11px;
+    cursor: pointer;
+    transition: all var(--transition);
+    font-family: inherit;
+    white-space: nowrap;
+  }
+  .file-actions button:hover { background: var(--btn-hover); border-color: var(--accent); }
+  .file-actions .dl-btn {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+  }
+  .file-actions .dl-btn:hover { opacity: 0.85; }
+  .remove-btn { color: var(--text-dim) !important; border-color: transparent !important; background: transparent !important; font-size: 16px !important; padding: 2px 6px !important; }
+  .remove-btn:hover { color: var(--accent2) !important; }
+
+  /* ── Metadata Details Panel ── */
+  .meta-detail-toggle {
+    font-size: 11px;
+    color: var(--accent);
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+    font-family: inherit;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  .meta-detail-toggle:hover { color: var(--text); }
+
+  .meta-details {
+    display: none;
+    width: 100%;
+    margin-top: 8px;
+    background: var(--bg2);
+    border-radius: var(--radius-sm);
+    padding: 10px 12px;
+    font-size: 11px;
+    color: var(--text-dim);
+    max-height: 200px;
+    overflow-y: auto;
+  }
+  .meta-details.open { display: block; }
+  .meta-details table { width: 100%; border-collapse: collapse; }
+  .meta-details td {
+    padding: 3px 0;
+    vertical-align: top;
+  }
+  .meta-details td:first-child {
+    color: var(--text);
+    font-weight: 600;
+    white-space: nowrap;
+    padding-right: 12px;
+    width: 1%;
+  }
+  .meta-details td:last-child {
+    word-break: break-all;
+  }
+
+  /* ── Savings Summary ── */
+  .savings-bar {
+    width: 100%;
+    display: none;
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-md);
+    padding: 14px 18px;
+    text-align: center;
+    font-size: 13px;
+    color: var(--text-dim);
+    gap: 4px;
+    flex-direction: column;
+  }
+  .savings-bar.visible { display: flex; }
+  .savings-bar b { color: var(--accent3); }
+  .savings-bar .savings-detail { font-size: 11px; }
+
+  @media (max-width: 400px) {
+    .tool-content { padding: 0 12px; }
+    .drop-zone { padding: 28px 16px; }
+    .drop-icon { font-size: 32px; }
+    .file-card { padding: 10px; gap: 10px; }
+    .file-thumb { width: 44px; height: 44px; }
+    .batch-bar { gap: 6px; }
+    .batch-btn { padding: 6px 10px; font-size: 12px; }
+  }
+</style>
+</head>
+<body>
+<div class="game-page">
+
+  <a href="index.html" class="site-brand">TheFreeFix.com</a>
+
+  <!-- Ad Slot 1: Top Banner -->
+  <div class="ad-slot ad-content ad-slot--placeholder">
+    <span class="ad-size-label">Responsive</span>
+  </div>
+
+  <main>
+    <header class="game-header">
+      <div class="header-left">
+        <a href="tools.html" class="back-btn" title="Back to Tools" aria-label="Back to Tools">&#x2190;</a>
+        <h1 class="logo">Metadata Stripper</h1>
+      </div>
+      <div class="header-btns">
+        <a href="metadata-stripper-info.html" class="info-btn" title="How to use" aria-label="How to use">i</a>
+        <button class="icon-btn" id="themeBtn" title="Toggle theme" aria-label="Toggle theme">&#x1f319;</button>
+      </div>
+    </header>
+
+    <div class="tool-content">
+
+      <!-- Drop Zone -->
+      <div class="drop-zone" id="dropZone">
+        <input type="file" id="fileInput" accept="image/jpeg,image/png,image/webp" multiple>
+        <div class="drop-icon">&#x1f5bc;&#xfe0f;</div>
+        <div class="drop-title">Drop images here or click to browse</div>
+        <div class="drop-hint">JPEG, PNG, WebP &mdash; batch supported (up to 50 files)</div>
+        <div class="drop-hint" style="margin-top:4px; opacity:0.7;">&#x1f512; 100% browser-based &mdash; your images never leave your device</div>
+      </div>
+
+      <!-- Batch Controls -->
+      <div class="batch-bar" id="batchBar">
+        <div class="batch-info">
+          <b id="fileCount">0</b> image<span id="filePlural">s</span> &middot; <span id="metaFound">0 with metadata</span>
+        </div>
+        <div class="batch-actions">
+          <button class="batch-btn primary" id="btnStripAll">&#x1f9f9; Strip All</button>
+          <button class="batch-btn" id="btnDownloadAll">&#x2b07; Download All</button>
+          <button class="batch-btn danger" id="btnClearAll">&#x2715; Clear</button>
+        </div>
+      </div>
+
+      <!-- Savings Summary -->
+      <div class="savings-bar" id="savingsBar">
+        <div>&#x2705; Metadata removed &mdash; <b id="savingsTotal">0 KB</b> of hidden data stripped</div>
+        <div class="savings-detail" id="savingsDetail"></div>
+      </div>
+
+      <!-- File List -->
+      <div class="file-list" id="fileList"></div>
+
+    </div>
+  </main>
+
+  <!-- Ad Slot 2: Bottom Banner -->
+  <div class="ad-slot ad-bottom ad-slot--placeholder">
+    <span class="ad-size-label">Responsive</span>
+  </div>
+
+  <footer class="site-footer">
+    <nav aria-label="Footer">
+      <a href="about.html">About</a>
+      <span class="footer-sep">&middot;</span>
+      <a href="contact.html">Contact</a>
+      <span class="footer-sep">&middot;</span>
+      <a href="terms.html">Terms</a>
+      <span class="footer-sep">&middot;</span>
+      <a href="privacy.html">Privacy</a>
+      <span class="footer-sep">&middot;</span>
+      <a href="https://x.com/TheFreeFix" target="_blank" rel="noopener">X</a>
+    </nav>
+  </footer>
+
+  <section class="page-about" aria-label="About Metadata Stripper">
+    <h2>How to Use the Metadata Stripper</h2>
+    <p>Drag and drop your images or click the upload area to select files. The tool instantly scans each image for hidden metadata including GPS coordinates, camera details, software information, and timestamps. Click "Strip All" to remove metadata from every image at once, or strip files individually. Download cleaned images one by one or all at once as a batch.</p>
+    <h2>Features</h2>
+    <p>Remove EXIF, IPTC, and XMP metadata from JPEG, PNG, and WebP images entirely in your browser. Batch process up to 50 files at once. View a detailed breakdown of detected metadata before stripping. GPS location data is flagged as a privacy warning. All processing happens locally — your images never leave your device.</p>
+  </section>
+</div>
+
+<script src="theme.js"></script>
+<script>
+/* ═══════════════════════════════════════════════════════════════
+   METADATA STRIPPER — Remove EXIF/metadata from images
+   ═══════════════════════════════════════════════════════════════ */
+
+const $dropZone = document.getElementById('dropZone');
+const $fileInput = document.getElementById('fileInput');
+const $fileList = document.getElementById('fileList');
+const $batchBar = document.getElementById('batchBar');
+const $fileCount = document.getElementById('fileCount');
+const $filePlural = document.getElementById('filePlural');
+const $metaFound = document.getElementById('metaFound');
+const $savingsBar = document.getElementById('savingsBar');
+const $savingsTotal = document.getElementById('savingsTotal');
+const $savingsDetail = document.getElementById('savingsDetail');
+const $btnStripAll = document.getElementById('btnStripAll');
+const $btnDownloadAll = document.getElementById('btnDownloadAll');
+const $btnClearAll = document.getElementById('btnClearAll');
+
+const MAX_FILES = 50;
+let files = []; // { id, file, name, type, origSize, thumb, metadata, stripped, strippedBlob, strippedSize, status }
+
+// ── EXIF Parser (lightweight, JPEG-focused) ──
+function readUint16(data, offset, littleEndian) {
+  return littleEndian
+    ? data[offset] | (data[offset + 1] << 8)
+    : (data[offset] << 8) | data[offset + 1];
+}
+
+function readUint32(data, offset, littleEndian) {
+  return littleEndian
+    ? data[offset] | (data[offset + 1] << 8) | (data[offset + 2] << 16) | ((data[offset + 3] << 24) >>> 0)
+    : ((data[offset] << 24) >>> 0) | (data[offset + 1] << 16) | (data[offset + 2] << 8) | data[offset + 3];
+}
+
+function readRational(data, offset, le) {
+  const num = readUint32(data, offset, le);
+  const den = readUint32(data, offset + 4, le);
+  return den ? num / den : 0;
+}
+
+const EXIF_TAGS = {
+  0x010F: 'Make', 0x0110: 'Model', 0x0112: 'Orientation',
+  0x011A: 'XResolution', 0x011B: 'YResolution',
+  0x0131: 'Software', 0x0132: 'DateTime',
+  0x013B: 'Artist', 0x8298: 'Copyright',
+  0x829A: 'ExposureTime', 0x829D: 'FNumber',
+  0x8827: 'ISO', 0x9000: 'ExifVersion',
+  0x9003: 'DateTimeOriginal', 0x9004: 'DateTimeDigitized',
+  0x920A: 'FocalLength', 0xA001: 'ColorSpace',
+  0xA002: 'PixelXDimension', 0xA003: 'PixelYDimension',
+  0xA405: 'FocalLengthIn35mm', 0xA430: 'LensMake',
+  0xA431: 'LensSerialNumber', 0xA434: 'LensModel',
+};
+
+const GPS_TAGS = {
+  0x0001: 'GPSLatitudeRef', 0x0002: 'GPSLatitude',
+  0x0003: 'GPSLongitudeRef', 0x0004: 'GPSLongitude',
+  0x0005: 'GPSAltitudeRef', 0x0006: 'GPSAltitude',
+  0x0007: 'GPSTimeStamp', 0x001D: 'GPSDateStamp',
+};
+
+function parseIFD(data, tiffStart, ifdOffset, le, tagNames) {
+  const tags = {};
+  const count = readUint16(data, tiffStart + ifdOffset, le);
+  for (let i = 0; i < count; i++) {
+    const entryOffset = tiffStart + ifdOffset + 2 + i * 12;
+    if (entryOffset + 12 > data.length) break;
+    const tag = readUint16(data, entryOffset, le);
+    const type = readUint16(data, entryOffset + 2, le);
+    const numValues = readUint32(data, entryOffset + 4, le);
+    const valueOffset = entryOffset + 8;
+
+    const name = tagNames[tag];
+    if (!name) continue;
+
+    // Calculate data size
+    const typeSizes = { 1: 1, 2: 1, 3: 2, 4: 4, 5: 8, 7: 1, 9: 4, 10: 8 };
+    const totalSize = (typeSizes[type] || 1) * numValues;
+    const dataOffset = totalSize <= 4 ? valueOffset : tiffStart + readUint32(data, valueOffset, le);
+
+    if (dataOffset + totalSize > data.length) continue;
+
+    if (type === 2) {
+      // ASCII string
+      let str = '';
+      for (let j = 0; j < numValues - 1 && dataOffset + j < data.length; j++) {
+        str += String.fromCharCode(data[dataOffset + j]);
+      }
+      tags[name] = str.trim();
+    } else if (type === 3) {
+      tags[name] = readUint16(data, dataOffset, le);
+    } else if (type === 4) {
+      tags[name] = readUint32(data, dataOffset, le);
+    } else if (type === 5 || type === 10) {
+      if (numValues === 1) {
+        tags[name] = readRational(data, dataOffset, le);
+      } else if (numValues === 3) {
+        // GPS coords as degrees/minutes/seconds
+        tags[name] = [
+          readRational(data, dataOffset, le),
+          readRational(data, dataOffset + 8, le),
+          readRational(data, dataOffset + 16, le),
+        ];
+      }
+    }
+  }
+  return tags;
+}
+
+function parseEXIF(arrayBuffer) {
+  const data = new Uint8Array(arrayBuffer);
+  const meta = { exif: {}, gps: {}, hasGPS: false, hasMeta: false, metaSize: 0, segments: [] };
+
+  // JPEG check
+  if (data[0] !== 0xFF || data[1] !== 0xD8) {
+    // Not JPEG — check PNG text chunks
+    if (data[0] === 0x89 && data[1] === 0x50) {
+      return parsePNGMeta(data, meta);
+    }
+    return meta;
+  }
+
+  let offset = 2;
+  while (offset < data.length - 1) {
+    if (data[offset] !== 0xFF) break;
+    const marker = data[offset + 1];
+
+    // SOS — start of scan, no more metadata
+    if (marker === 0xDA) break;
+
+    const segLen = readUint16(data, offset + 2, false);
+    const segStart = offset;
+    const segEnd = offset + 2 + segLen;
+
+    // APP1 (EXIF / XMP)
+    if (marker === 0xE1) {
+      meta.segments.push({ start: segStart, end: segEnd, type: 'APP1' });
+      meta.metaSize += segLen + 2;
+
+      // Check for EXIF header
+      if (data[offset + 4] === 0x45 && data[offset + 5] === 0x78 &&
+          data[offset + 6] === 0x69 && data[offset + 7] === 0x66) {
+        const tiffStart = offset + 10;
+        if (tiffStart + 8 < data.length) {
+          const le = data[tiffStart] === 0x49; // II = little-endian
+          const ifd0Offset = readUint32(data, tiffStart + 4, le);
+
+          // Parse IFD0
+          const ifd0 = parseIFD(data, tiffStart, ifd0Offset, le, EXIF_TAGS);
+          Object.assign(meta.exif, ifd0);
+
+          // Look for EXIF sub-IFD pointer
+          const ifd0Count = readUint16(data, tiffStart + ifd0Offset, le);
+          for (let i = 0; i < ifd0Count; i++) {
+            const eOffset = tiffStart + ifd0Offset + 2 + i * 12;
+            if (eOffset + 12 > data.length) break;
+            const tag = readUint16(data, eOffset, le);
+            if (tag === 0x8769) {
+              const exifIFDOffset = readUint32(data, eOffset + 8, le);
+              const exifTags = parseIFD(data, tiffStart, exifIFDOffset, le, EXIF_TAGS);
+              Object.assign(meta.exif, exifTags);
+            }
+            if (tag === 0x8825) {
+              const gpsIFDOffset = readUint32(data, eOffset + 8, le);
+              meta.gps = parseIFD(data, tiffStart, gpsIFDOffset, le, GPS_TAGS);
+              if (meta.gps.GPSLatitude || meta.gps.GPSLongitude) meta.hasGPS = true;
+            }
+          }
+        }
+      }
+      // XMP data also in APP1
+      if (data[offset + 4] === 0x68 && data[offset + 5] === 0x74) {
+        meta.exif._XMP = true;
+      }
+    }
+    // APP2-APP15 (ICC, IPTC, etc.)
+    else if (marker >= 0xE2 && marker <= 0xEF) {
+      meta.segments.push({ start: segStart, end: segEnd, type: 'APP' + (marker - 0xE0) });
+      meta.metaSize += segLen + 2;
+    }
+    // APP0 (JFIF) — keep this one, it's needed
+    else if (marker === 0xE0) {
+      // Don't count as strippable metadata
+    }
+    // COM (comment)
+    else if (marker === 0xFE) {
+      meta.segments.push({ start: segStart, end: segEnd, type: 'COM' });
+      meta.metaSize += segLen + 2;
+    }
+
+    offset = segEnd;
+  }
+
+  meta.hasMeta = meta.segments.length > 0 || Object.keys(meta.exif).length > 0;
+  return meta;
+}
+
+function parsePNGMeta(data, meta) {
+  // PNG: look for tEXt, iTXt, zTXt, eXIf chunks
+  let offset = 8; // skip signature
+  while (offset + 8 < data.length) {
+    const chunkLen = (data[offset] << 24) | (data[offset + 1] << 16) | (data[offset + 2] << 8) | data[offset + 3];
+    const chunkType = String.fromCharCode(data[offset + 4], data[offset + 5], data[offset + 6], data[offset + 7]);
+
+    if (chunkType === 'tEXt' || chunkType === 'iTXt' || chunkType === 'zTXt') {
+      // Read key
+      let keyEnd = offset + 8;
+      while (keyEnd < offset + 8 + chunkLen && data[keyEnd] !== 0) keyEnd++;
+      const key = String.fromCharCode(...data.slice(offset + 8, keyEnd));
+      meta.exif[key] = '(text chunk)';
+      meta.segments.push({ start: offset, end: offset + 12 + chunkLen, type: chunkType });
+      meta.metaSize += chunkLen + 12;
+    } else if (chunkType === 'eXIf') {
+      meta.exif._eXIf = true;
+      meta.segments.push({ start: offset, end: offset + 12 + chunkLen, type: 'eXIf' });
+      meta.metaSize += chunkLen + 12;
+    }
+
+    offset += 12 + chunkLen; // 4 length + 4 type + data + 4 CRC
+    if (chunkType === 'IEND') break;
+  }
+
+  meta.hasMeta = meta.segments.length > 0;
+  return meta;
+}
+
+// ── Strip metadata by re-encoding via Canvas ──
+function stripMetadata(file) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    const url = URL.createObjectURL(file);
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      canvas.width = img.naturalWidth;
+      canvas.height = img.naturalHeight;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0);
+      URL.revokeObjectURL(url);
+
+      // Determine output type and quality
+      let outType = file.type;
+      let quality = undefined;
+      if (outType === 'image/jpeg') quality = 0.95;
+      else if (outType === 'image/webp') quality = 0.95;
+      // PNG is lossless, no quality param needed
+
+      canvas.toBlob(blob => {
+        if (blob) resolve(blob);
+        else reject(new Error('Failed to encode image'));
+      }, outType, quality);
+    };
+    img.onerror = () => {
+      URL.revokeObjectURL(url);
+      reject(new Error('Failed to load image'));
+    };
+    img.src = url;
+  });
+}
+
+// ── File handling ──
+let idCounter = 0;
+
+function addFiles(fileList) {
+  const remaining = MAX_FILES - files.length;
+  const toAdd = Array.from(fileList).slice(0, remaining);
+  if (toAdd.length === 0) return;
+
+  toAdd.forEach(file => {
+    if (!file.type.match(/^image\/(jpeg|png|webp)$/)) return;
+
+    const entry = {
+      id: ++idCounter,
+      file,
+      name: file.name,
+      type: file.type,
+      origSize: file.size,
+      thumb: null,
+      metadata: null,
+      stripped: false,
+      strippedBlob: null,
+      strippedSize: 0,
+      status: 'pending',
+    };
+    files.push(entry);
+
+    // Create thumbnail
+    const reader = new FileReader();
+    reader.onload = () => {
+      entry.thumb = reader.result;
+
+      // Parse metadata from the same arraybuffer
+      const buf = reader.result;
+      // Need ArrayBuffer for EXIF parsing
+      const metaReader = new FileReader();
+      metaReader.onload = () => {
+        entry.metadata = parseEXIF(metaReader.result);
+        renderFileCard(entry);
+        updateBatchBar();
+      };
+      metaReader.readAsArrayBuffer(file);
+
+      renderFileCard(entry);
+    };
+    reader.readAsDataURL(file);
+  });
+
+  updateBatchBar();
+}
+
+function removeFile(id) {
+  files = files.filter(f => f.id !== id);
+  const el = document.querySelector(`[data-file-id="${id}"]`);
+  if (el) el.remove();
+  updateBatchBar();
+}
+
+function clearAll() {
+  files = [];
+  $fileList.innerHTML = '';
+  $savingsBar.classList.remove('visible');
+  updateBatchBar();
+}
+
+// ── Rendering ──
+function renderFileCard(entry) {
+  let card = document.querySelector(`[data-file-id="${entry.id}"]`);
+  if (!card) {
+    card = document.createElement('div');
+    card.className = 'file-card';
+    card.dataset.fileId = entry.id;
+    $fileList.appendChild(card);
+  }
+
+  const meta = entry.metadata;
+  const hasGPS = meta && meta.hasGPS;
+  const hasMeta = meta && meta.hasMeta;
+  const metaSize = meta ? meta.metaSize : 0;
+
+  // Build metadata tags
+  let tags = '';
+  if (meta) {
+    if (hasGPS) tags += '<span class="meta-tag warn">&#x1f4cd; GPS Location</span>';
+    if (meta.exif.Make || meta.exif.Model) tags += `<span class="meta-tag">${escH(meta.exif.Make || '')} ${escH(meta.exif.Model || '')}`.trim() + '</span>';
+    if (meta.exif.Software) tags += `<span class="meta-tag">${escH(meta.exif.Software)}</span>`;
+    if (meta.exif.DateTimeOriginal || meta.exif.DateTime) tags += `<span class="meta-tag">${escH(meta.exif.DateTimeOriginal || meta.exif.DateTime)}</span>`;
+    if (meta.exif._XMP) tags += '<span class="meta-tag">XMP</span>';
+    if (meta.exif.Artist) tags += `<span class="meta-tag">${escH(meta.exif.Artist)}</span>`;
+    if (meta.exif.Copyright) tags += `<span class="meta-tag">${escH(meta.exif.Copyright)}</span>`;
+    if (entry.stripped) tags += '<span class="meta-tag safe">&#x2713; Clean</span>';
+    else if (!hasMeta) tags += '<span class="meta-tag safe">No metadata</span>';
+  }
+
+  // Status
+  let statusHTML = '';
+  if (entry.status === 'processing') {
+    statusHTML = '<div class="file-status"><span class="status-dot processing"></span>Stripping...</div>';
+  } else if (entry.stripped) {
+    const saved = entry.origSize - entry.strippedSize;
+    statusHTML = `<div class="file-status"><span class="status-dot done"></span>Cleaned &mdash; ${formatBytes(Math.abs(saved))} ${saved >= 0 ? 'saved' : 'added'}</div>`;
+  } else if (entry.status === 'error') {
+    statusHTML = '<div class="file-status"><span class="status-dot error"></span>Error processing</div>';
+  }
+
+  // Actions
+  let actions = '<button class="remove-btn" title="Remove">&times;</button>';
+  if (entry.stripped) {
+    actions += '<button class="dl-btn">&#x2b07; Download</button>';
+  } else if (hasMeta) {
+    actions += '<button class="strip-btn">&#x1f9f9; Strip</button>';
+  }
+
+  // Metadata detail rows
+  let detailRows = '';
+  if (meta && hasMeta) {
+    for (const [k, v] of Object.entries(meta.exif)) {
+      if (k.startsWith('_')) continue;
+      detailRows += `<tr><td>${escH(k)}</td><td>${escH(String(v))}</td></tr>`;
+    }
+    if (hasGPS) {
+      if (meta.gps.GPSLatitude) detailRows += `<tr><td>Latitude</td><td>${formatGPS(meta.gps.GPSLatitude, meta.gps.GPSLatitudeRef)}</td></tr>`;
+      if (meta.gps.GPSLongitude) detailRows += `<tr><td>Longitude</td><td>${formatGPS(meta.gps.GPSLongitude, meta.gps.GPSLongitudeRef)}</td></tr>`;
+      if (meta.gps.GPSAltitude != null) detailRows += `<tr><td>Altitude</td><td>${meta.gps.GPSAltitude.toFixed(1)} m</td></tr>`;
+    }
+  }
+
+  card.innerHTML = `
+    ${entry.thumb ? `<img class="file-thumb" src="${entry.thumb}" alt="">` : '<div class="file-thumb"></div>'}
+    <div class="file-info">
+      <div class="file-name" title="${escH(entry.name)}">${escH(entry.name)}</div>
+      <div class="file-meta">
+        <span>${formatBytes(entry.origSize)}</span>
+        <span>${entry.type.replace('image/', '').toUpperCase()}</span>
+        ${metaSize > 0 ? `<span>${formatBytes(metaSize)} metadata</span>` : ''}
+      </div>
+      <div class="meta-tags">${tags}</div>
+      ${statusHTML}
+      ${detailRows ? `<button class="meta-detail-toggle">View details</button><div class="meta-details"><table>${detailRows}</table></div>` : ''}
+    </div>
+    <div class="file-actions">${actions}</div>
+  `;
+
+  // Wire events
+  const removeBtn = card.querySelector('.remove-btn');
+  if (removeBtn) removeBtn.onclick = () => removeFile(entry.id);
+
+  const stripBtn = card.querySelector('.strip-btn');
+  if (stripBtn) stripBtn.onclick = () => stripSingle(entry);
+
+  const dlBtn = card.querySelector('.dl-btn');
+  if (dlBtn) dlBtn.onclick = () => downloadFile(entry);
+
+  const toggleBtn = card.querySelector('.meta-detail-toggle');
+  if (toggleBtn) {
+    const details = card.querySelector('.meta-details');
+    toggleBtn.onclick = () => {
+      details.classList.toggle('open');
+      toggleBtn.textContent = details.classList.contains('open') ? 'Hide details' : 'View details';
+    };
+  }
+}
+
+function updateBatchBar() {
+  const count = files.length;
+  $fileCount.textContent = count;
+  $filePlural.textContent = count === 1 ? '' : 's';
+
+  const withMeta = files.filter(f => f.metadata && f.metadata.hasMeta && !f.stripped).length;
+  $metaFound.textContent = withMeta > 0 ? `${withMeta} with metadata` : 'all clean';
+
+  $batchBar.classList.toggle('visible', count > 0);
+  $btnStripAll.disabled = withMeta === 0;
+
+  const stripped = files.filter(f => f.stripped);
+  $btnDownloadAll.disabled = stripped.length === 0;
+
+  if (count === 0) {
+    $savingsBar.classList.remove('visible');
+  }
+
+  // Update savings
+  if (stripped.length > 0) {
+    const totalSaved = stripped.reduce((sum, f) => sum + (f.origSize - f.strippedSize), 0);
+    const gpsCount = stripped.filter(f => f.metadata && f.metadata.hasGPS).length;
+    $savingsTotal.textContent = formatBytes(Math.abs(totalSaved));
+    let detail = `${stripped.length} of ${count} file${count === 1 ? '' : 's'} cleaned`;
+    if (gpsCount > 0) detail += ` &middot; ${gpsCount} GPS location${gpsCount === 1 ? '' : 's'} removed`;
+    $savingsDetail.innerHTML = detail;
+    $savingsBar.classList.add('visible');
+  }
+}
+
+// ── Actions ──
+async function stripSingle(entry) {
+  entry.status = 'processing';
+  renderFileCard(entry);
+
+  try {
+    const blob = await stripMetadata(entry.file);
+    entry.strippedBlob = blob;
+    entry.strippedSize = blob.size;
+    entry.stripped = true;
+    entry.status = 'done';
+  } catch (e) {
+    entry.status = 'error';
+    console.error('Strip error:', e);
+  }
+
+  renderFileCard(entry);
+  updateBatchBar();
+}
+
+async function stripAll() {
+  const toStrip = files.filter(f => f.metadata && f.metadata.hasMeta && !f.stripped);
+  for (const entry of toStrip) {
+    await stripSingle(entry);
+  }
+}
+
+function downloadFile(entry) {
+  if (!entry.strippedBlob) return;
+  const ext = entry.type === 'image/jpeg' ? '.jpg' : entry.type === 'image/png' ? '.png' : '.webp';
+  const baseName = entry.name.replace(/\.[^.]+$/, '');
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(entry.strippedBlob);
+  a.download = baseName + '-clean' + ext;
+  a.click();
+  setTimeout(() => URL.revokeObjectURL(a.href), 5000);
+}
+
+function downloadAll() {
+  const stripped = files.filter(f => f.stripped && f.strippedBlob);
+  stripped.forEach((entry, i) => {
+    setTimeout(() => downloadFile(entry), i * 200);
+  });
+}
+
+// ── Utilities ──
+function formatBytes(bytes) {
+  if (bytes < 1024) return bytes + ' B';
+  if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+  return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
+}
+
+function formatGPS(coords, ref) {
+  if (!Array.isArray(coords)) return String(coords || '');
+  const d = coords[0];
+  const m = coords[1];
+  const s = coords[2];
+  return `${d.toFixed(0)}° ${m.toFixed(0)}' ${s.toFixed(1)}" ${ref || ''}`;
+}
+
+function escH(s) {
+  const d = document.createElement('div');
+  d.textContent = s;
+  return d.innerHTML;
+}
+
+// ── Event Listeners ──
+$dropZone.addEventListener('dragover', e => { e.preventDefault(); $dropZone.classList.add('dragover'); });
+$dropZone.addEventListener('dragleave', () => $dropZone.classList.remove('dragover'));
+$dropZone.addEventListener('drop', e => {
+  e.preventDefault();
+  $dropZone.classList.remove('dragover');
+  addFiles(e.dataTransfer.files);
+});
+$fileInput.addEventListener('change', e => {
+  addFiles(e.target.files);
+  e.target.value = '';
+});
+
+$btnStripAll.addEventListener('click', stripAll);
+$btnDownloadAll.addEventListener('click', downloadAll);
+$btnClearAll.addEventListener('click', clearAll);
+
+GameTheme.init();
+</script>
+</body>
+</html>

@@ -49,7 +49,7 @@ thefreefix.com/                    ← Hub page (2 cards: Games, Tools)
 │   ├── brick-smash.html           + brick-smash-info.html
 │   ├── bubble-shooter.html        + bubble-shooter-info.html
 │   └── pipe-dream.html            + pipe-dream-info.html
-├── tools.html                     ← Tools listing (13 tool cards)
+├── tools.html                     ← Tools listing (14 tool cards)
 │   ├── qr-code-generator.html     + qr-code-generator-info.html
 │   ├── word-counter.html          + word-counter-info.html
 │   ├── pdf-merge-split.html       + pdf-merge-split-info.html
@@ -61,6 +61,7 @@ thefreefix.com/                    ← Hub page (2 cards: Games, Tools)
 │   ├── pomodoro-timer.html        + pomodoro-timer-info.html
 │   ├── password-generator.html    + password-generator-info.html
 │   ├── unit-converter.html        + unit-converter-info.html
+│   ├── metadata-stripper.html    + metadata-stripper-info.html
 │   └── ascii-art-generator.html  + ascii-art-generator-info.html
 ├── templates/                     ← SEO landing pages (20 pages, link to document-templates.html?t=id)
 │   ├── invoice-template.html
@@ -96,14 +97,14 @@ thefreefix.com/                    ← Hub page (2 cards: Games, Tools)
 ├── contact.html                   ← Contact page
 ├── terms.html                     ← Terms of Service
 ├── robots.txt                     ← Crawling directives
-├── sitemap.xml                    ← XML sitemap (58 URLs)
+├── sitemap.xml                    ← XML sitemap (60 URLs)
 ├── ads.txt                        ← AdSense authorization
 ├── CNAME                          ← GitHub Pages custom domain (thefreefix.com)
 ├── CLAUDE.md                      ← Claude Code instructions
 └── PROJECT.md                     ← This file
 ```
 
-**Total: ~82 files** (24 game/tool pages + 24 info pages + 20 template landing pages + core files)
+**Total: ~84 files** (26 game/tool pages + 26 info pages + 20 template landing pages + core files)
 
 ## Navigation Flow
 - **Homepage** → Games card → games.html → individual game → game-info.html
@@ -151,7 +152,7 @@ thefreefix.com/                    ← Hub page (2 cards: Games, Tools)
 11. **Bubble Shooter** — Aim-and-match arcade puzzle. Canvas-based, hex grid. Match 3+ to pop. Disconnected clusters fall for bonus. Ceiling descends every N shots. 6 colors introduced progressively, combo scoring, glossy rendering. Mouse/touch/keyboard with trajectory preview.
 12. **Pipe Dream** — Classic retro pipe-connecting puzzle. Place pipe pieces from a queue onto a grid before water flows from the start tile. 11 pipe types (straight, curved, T, cross). 4 difficulty levels (easy 7x7 to expert 10x10). Countdown timer, animated water flow, skip/bomb tools, progressive levels, cross-pipe bonus scoring. Stats tracking with best score, streak, total pipes. Mobile-first canvas rendering.
 
-## Current Tools (12)
+## Current Tools (13)
 1. **QR Code Generator** — Auto-generation with debounce, custom FG/BG colors, 3 sizes (S/M/L), download as PNG. Self-contained QR encoder (byte mode, EC level M, versions 1-40, Reed-Solomon).
 2. **Word Counter** — Words, characters (with/without spaces), sentences, paragraphs, reading time (238 WPM). Live updates, responsive 3-column stat grid.
 3. **PDF Merge & Split** — Drag-and-drop upload, drag-to-reorder merge, extract pages by range, split all to ZIP. Uses pdf-lib + JSZip (CDN). All in-browser.
@@ -163,7 +164,8 @@ thefreefix.com/                    ← Hub page (2 cards: Games, Tools)
 9. **Pomodoro Timer** — Customizable Pomodoro sessions with focus tracking.
 10. **Password Generator** — Length 4-128, character type toggles, exclude ambiguous, entropy strength meter, bulk generation (5), session history (10). Uses crypto.getRandomValues(). All in-browser.
 11. **Unit Converter** — 80+ units across 10 categories (Length, Weight, Temperature, Volume, Area, Speed, Time, Data, Energy, Pressure). Real-time conversion, swap, formula display, quick-pick shortcuts. Decimal + binary data units.
-12. **ASCII Art Generator** — Convert images to ASCII art in-browser. Drag-and-drop upload, adjustable width (40-200 columns), 4 character set presets (Standard, Detailed, Blocks, Simple), invert toggle, color mode (monochrome/colored), live preview, auto-sizing font. Copy to clipboard or download as .txt. Uses Canvas API + getImageData() for pixel-to-character mapping. All processing in-browser.
+12. **Metadata Stripper** — Remove EXIF, IPTC, and XMP metadata from JPEG, PNG, and WebP images. Drag-and-drop batch upload (up to 50 files), inline EXIF parser with GPS/camera/software detection, privacy warning tags for GPS data, per-file metadata detail view, strip individually or batch strip all, download cleaned files individually or all at once. Uses Canvas API to re-encode images without metadata. All processing in-browser.
+13. **ASCII Art Generator** — Convert images to ASCII art in-browser. Drag-and-drop upload, adjustable width (40-200 columns), 4 character set presets (Standard, Detailed, Blocks, Simple), invert toggle, color mode (monochrome/colored), live preview, auto-sizing font. Copy to clipboard or download as .txt. Uses Canvas API + getImageData() for pixel-to-character mapping. All processing in-browser.
 
 ## Key Implementation Notes
 - **localStorage**: All stats, settings, theme preference, and best times persist per game/difficulty
