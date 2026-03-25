@@ -31,6 +31,7 @@ TheFreeFix.com is a free online games and tools website. No accounts, no downloa
   - jsPDF 3.0.3 — document-templates.html (PDF generation)
   - pdf-lib 1.17.1 — pdf-merge-split.html (PDF manipulation)
   - JSZip 3.10.1 — pdf-merge-split.html (ZIP creation)
+  - jsQR 1.4.0 — qr-code-generator.html (QR code reading, lazy-loaded)
 
 ## Site Structure
 
@@ -154,7 +155,7 @@ thefreefix.com/                    ← Hub page (2 cards: Games, Tools)
 12. **Pipe Dream** — Classic retro pipe-connecting puzzle. Place pipe pieces from a queue onto a grid before water flows from the start tile. 11 pipe types (straight, curved, T, cross). 4 difficulty levels (easy 7x7 to expert 10x10). Countdown timer, animated water flow, skip/bomb tools, progressive levels, cross-pipe bonus scoring. Stats tracking with best score, streak, total pipes. Mobile-first canvas rendering.
 
 ## Current Tools (14)
-1. **QR Code Generator** — Auto-generation with debounce, custom FG/BG colors, 3 sizes (S/M/L), download as PNG. Self-contained QR encoder (byte mode, EC level M, versions 1-40, Reed-Solomon).
+1. **QR Code Generator & Reader** — Generate: auto-generation with debounce, custom FG/BG colors, 3 sizes (S/M/L), download as PNG/SVG, modes for Text/WiFi/vCard/Event. Self-contained QR encoder (byte mode, EC level M, versions 1-40, Reed-Solomon). Read: decode QR codes from uploaded images (drag-and-drop, JPEG/PNG/WebP/GIF) or scan live with device camera. Uses jsQR (CDN, lazy-loaded on Read tab). Copy result or open decoded URLs directly. All processing in-browser.
 2. **Word Counter** — Words, characters (with/without spaces), sentences, paragraphs, reading time (238 WPM). Live updates, responsive 3-column stat grid.
 3. **PDF Merge & Split** — Drag-and-drop upload, drag-to-reorder merge, extract pages by range, split all to ZIP. Uses pdf-lib + JSZip (CDN). All in-browser.
 4. **Color Palette Generator** — Harmony modes, lock colors, adjust hues, export to CSS or JSON.

@@ -6,14 +6,14 @@
 <meta name="google-adsense-account" content="ca-pub-7700405385978151">
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7700405385978151"
      crossorigin="anonymous"></script>
-<title>QR Code Generator - TheFreeFix.com</title>
-<meta name="description" content="Generate QR codes instantly for free. Enter any URL or text, customize colors and size, and download as PNG. No downloads or sign-ups needed.">
+<title>QR Code Generator & Reader - TheFreeFix.com</title>
+<meta name="description" content="Generate and read QR codes for free. Create QR codes for URLs, text, WiFi, vCards, and events. Scan QR codes from images or camera to reveal their content. No downloads needed.">
 <link rel="canonical" href="https://thefreefix.com/qr-code-generator.html">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <meta name="theme-color" content="#0a0a1a">
 <!-- Open Graph -->
-<meta property="og:title" content="QR Code Generator - Free Online Tool">
-<meta property="og:description" content="Generate QR codes instantly for free. Enter any URL or text, customize colors and size, and download as PNG.">
+<meta property="og:title" content="QR Code Generator & Reader - Free Online Tool">
+<meta property="og:description" content="Generate and read QR codes for free. Create codes for URLs, text, WiFi, and more. Scan QR codes from images or camera.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://thefreefix.com/qr-code-generator.html">
 <meta property="og:site_name" content="TheFreeFix.com">
@@ -22,17 +22,17 @@
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@TheFreeFix">
-<meta name="twitter:title" content="QR Code Generator - Free Online Tool">
+<meta name="twitter:title" content="QR Code Generator & Reader - Free Online Tool">
 <meta name="twitter:image" content="https://thefreefix.com/og-image.png">
-<meta name="twitter:description" content="Generate QR codes instantly for free. Enter any URL or text, customize colors and size, and download as PNG.">
+<meta name="twitter:description" content="Generate and read QR codes for free. Create codes for URLs, text, WiFi, and more. Scan QR codes from images or camera.">
 <!-- Structured Data -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "WebApplication",
-  "name": "QR Code Generator",
+  "name": "QR Code Generator & Reader",
   "url": "https://thefreefix.com/qr-code-generator.html",
-  "description": "Generate QR codes for any URL or text. Customize colors and size, download as PNG.",
+  "description": "Generate and read QR codes for free. Create codes for URLs, text, WiFi, vCards, and events. Scan QR codes from images or camera.",
   "applicationCategory": "UtilityApplication",
   "operatingSystem": "Any",
   "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
@@ -272,6 +272,115 @@
   [data-theme="light"] input[type="time"].qr-form-input { color-scheme: light; }
   .qr-field .toggle-chip { margin-top: 4px; }
 
+  /* QR Reader styles */
+  .reader-drop-zone {
+    width: 100%;
+    border: 2px dashed var(--card-border);
+    border-radius: var(--radius-lg);
+    padding: 32px 16px;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color var(--transition), background var(--transition);
+    background: var(--card);
+    box-sizing: border-box;
+  }
+  .reader-drop-zone:hover,
+  .reader-drop-zone.dragover {
+    border-color: var(--accent);
+    background: rgba(123,111,255,0.06);
+  }
+  .reader-drop-icon { color: var(--text-dim); margin-bottom: 8px; }
+  .reader-drop-text { font-size: 14px; color: var(--text); margin: 0 0 4px; }
+  .reader-browse-link { color: var(--accent); text-decoration: underline; cursor: pointer; }
+  .reader-drop-hint { font-size: 11px; color: var(--text-dim); margin: 0; }
+
+  .reader-camera-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 16px;
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-md);
+    background: var(--btn-bg);
+    color: var(--text);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .reader-camera-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+  .reader-camera-wrap {
+    width: 100%;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: #000;
+    position: relative;
+  }
+  .reader-camera-wrap video {
+    width: 100%;
+    display: block;
+    border-radius: var(--radius-lg);
+  }
+  .reader-camera-stop {
+    position: absolute;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 8px 20px;
+    border: none;
+    border-radius: var(--radius-md);
+    background: rgba(0,0,0,0.7);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    backdrop-filter: blur(4px);
+  }
+  .reader-camera-stop:hover { background: rgba(0,0,0,0.85); }
+
+  .reader-result {
+    width: 100%;
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-lg);
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  .reader-result-label {
+    display: block;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-dim);
+    margin-bottom: 8px;
+  }
+  .reader-result-text {
+    font-size: 14px;
+    color: var(--text);
+    word-break: break-all;
+    line-height: 1.5;
+    padding: 12px;
+    background: var(--bg2);
+    border-radius: var(--radius-sm);
+    margin-bottom: 12px;
+    max-height: 200px;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    user-select: all;
+  }
+  .reader-result-actions {
+    display: flex;
+    gap: 8px;
+  }
+
+  /* Hide generate-only controls in read mode */
+  .read-mode .qr-output,
+  .read-mode .qr-controls { display: none; }
+
   @media (max-width: 400px) {
     .tool-content { padding: 0 12px; }
     .qr-output { padding: 16px; }
@@ -279,6 +388,7 @@
     .download-btn { padding: 10px 16px; font-size: 13px; }
     .mode-selector .pill-btn { padding: 5px 8px; font-size: 11px; }
     .qr-form-row { flex-direction: column; gap: 10px; }
+    .reader-drop-zone { padding: 24px 12px; }
   }
 </style>
 </head>
@@ -311,6 +421,7 @@
         <button class="pill-btn" data-mode="wifi">WiFi</button>
         <button class="pill-btn" data-mode="vcard">vCard</button>
         <button class="pill-btn" data-mode="event">Event</button>
+        <button class="pill-btn" data-mode="read">Read</button>
       </div>
     </div>
 
@@ -427,6 +538,35 @@
       </div>
     </div>
 
+    <!-- QR Reader panel -->
+    <div class="qr-form-panel" id="readPanel">
+      <div class="reader-drop-zone" id="readerDropZone">
+        <input type="file" id="readerFileInput" accept="image/*" hidden>
+        <div class="reader-drop-icon">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+        </div>
+        <p class="reader-drop-text">Drop a QR code image here or <span class="reader-browse-link">browse</span></p>
+        <p class="reader-drop-hint">Supports JPEG, PNG, WebP, GIF</p>
+      </div>
+      <button class="reader-camera-btn" id="readerCameraBtn" type="button">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+        Scan with Camera
+      </button>
+      <div class="reader-camera-wrap" id="readerCameraWrap" style="display:none">
+        <video id="readerVideo" autoplay playsinline></video>
+        <canvas id="readerScanCanvas" hidden></canvas>
+        <button class="reader-camera-stop" id="readerCameraStop" type="button">Stop Camera</button>
+      </div>
+      <div class="reader-result" id="readerResult" style="display:none">
+        <label class="reader-result-label">Decoded Content</label>
+        <div class="reader-result-text" id="readerResultText"></div>
+        <div class="reader-result-actions">
+          <button class="download-btn" id="readerCopyBtn" type="button">Copy</button>
+          <a class="download-btn download-btn--secondary" id="readerOpenLink" href="#" target="_blank" rel="noopener" style="display:none;text-decoration:none">Open Link</a>
+        </div>
+      </div>
+    </div>
+
     <div class="qr-output">
       <div class="qr-canvas-wrap" id="canvasWrap">
         <div class="qr-placeholder" id="qrPlaceholder">Type something above to generate a QR code</div>
@@ -480,11 +620,13 @@
     </nav>
   </footer>
 
-  <section class="page-about" aria-label="About QR Code Generator">
+  <section class="page-about" aria-label="About QR Code Generator & Reader">
     <h2>How to Generate QR Codes Online</h2>
-    <p>Enter any URL, text, or message into the input field and a QR code is generated instantly. Customize the foreground and background colors to match your brand, and choose from three sizes: small, medium, or large. When you are happy with the result, download the QR code as a PNG image ready to use in print materials, presentations, or websites.</p>
+    <p>Enter any URL, text, or message into the input field and a QR code is generated instantly. Use the WiFi, vCard, or Event tabs for structured codes. Customize the foreground and background colors to match your brand, choose from three sizes, and download as PNG or SVG.</p>
+    <h2>How to Read QR Codes Online</h2>
+    <p>Switch to the Read tab to decode any QR code. Upload an image from your device by dragging and dropping or browsing your files. You can also scan QR codes in real time using your device camera. The decoded text, URL, or data is displayed instantly with a copy button and a direct link if the content is a URL.</p>
     <h2>Features</h2>
-    <p>This QR code generator runs entirely in your browser with no data sent to any server. It uses a self-contained encoder supporting byte mode, error correction level M, and QR versions 1 through 40. Codes are generated with real-time debounce so the preview updates as you type. Custom color options let you create on-brand codes. Free to use with no limits on how many codes you generate.</p>
+    <p>This tool runs entirely in your browser with no data sent to any server. The generator uses a self-contained encoder supporting byte mode, error correction level M, and QR versions 1 through 40. The reader uses the jsQR library, loaded on demand only when you use the Read tab. Free to use with no limits.</p>
   </section>
 </div>
 
@@ -1083,19 +1225,27 @@ shareBtn.addEventListener('click', async () => {
 
 // ── Quick-Action Mode Switching ──
 
-const formPanels = { wifi: 'wifiForm', vcard: 'vcardForm', event: 'eventForm' };
+const formPanels = { wifi: 'wifiForm', vcard: 'vcardForm', event: 'eventForm', read: 'readPanel' };
 const inputGroup = document.querySelector('.input-group');
+const toolContent = document.querySelector('.tool-content');
 
 function switchMode(mode) {
   currentMode = mode;
+  const isRead = mode === 'read';
   // Update pill buttons
   document.querySelectorAll('#qrModeSelector .pill-btn').forEach(btn => {
     btn.classList.toggle('active', btn.dataset.mode === mode);
   });
+  // Hide/show generate-only controls
+  toolContent.classList.toggle('read-mode', isRead);
   // Toggle text input vs form panels
-  inputGroup.style.display = mode === 'text' ? '' : 'none';
+  inputGroup.style.display = (mode === 'text') ? '' : 'none';
   document.querySelectorAll('.qr-form-panel').forEach(p => p.classList.remove('active'));
-  if (mode !== 'text') {
+  if (isRead) {
+    document.getElementById('readPanel').classList.add('active');
+    loadJsQR(); // lazy-load decoder
+    stopCamera(); // ensure camera off when switching away and back
+  } else if (mode !== 'text') {
     document.getElementById(formPanels[mode]).classList.add('active');
     updateFromForm();
   } else {
@@ -1219,6 +1369,159 @@ document.getElementById('wifiHidden').addEventListener('click', function() {
   document.getElementById('evEndDate').value = fmtD(end);
   document.getElementById('evEndTime').value = fmtT(end);
 })();
+
+// ── QR Reader ──
+
+let jsQRLoaded = false;
+let jsQRLoading = false;
+
+function loadJsQR() {
+  if (jsQRLoaded || jsQRLoading) return;
+  jsQRLoading = true;
+  const s = document.createElement('script');
+  s.src = 'https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js';
+  s.onload = () => { jsQRLoaded = true; jsQRLoading = false; };
+  s.onerror = () => { jsQRLoading = false; };
+  document.head.appendChild(s);
+}
+
+const readerDropZone = document.getElementById('readerDropZone');
+const readerFileInput = document.getElementById('readerFileInput');
+const readerResult = document.getElementById('readerResult');
+const readerResultText = document.getElementById('readerResultText');
+const readerCopyBtn = document.getElementById('readerCopyBtn');
+const readerOpenLink = document.getElementById('readerOpenLink');
+const readerCameraBtn = document.getElementById('readerCameraBtn');
+const readerCameraWrap = document.getElementById('readerCameraWrap');
+const readerVideo = document.getElementById('readerVideo');
+const readerScanCanvas = document.getElementById('readerScanCanvas');
+const readerCameraStop = document.getElementById('readerCameraStop');
+
+let cameraStream = null;
+let cameraScanRAF = null;
+
+function showReaderResult(text) {
+  readerResult.style.display = '';
+  readerResultText.textContent = text;
+  // Check if it's a URL
+  try {
+    const url = new URL(text);
+    if (url.protocol === 'http:' || url.protocol === 'https:') {
+      readerOpenLink.href = text;
+      readerOpenLink.style.display = '';
+    } else {
+      readerOpenLink.style.display = 'none';
+    }
+  } catch {
+    readerOpenLink.style.display = 'none';
+  }
+}
+
+function hideReaderResult() {
+  readerResult.style.display = 'none';
+  readerResultText.textContent = '';
+  readerOpenLink.style.display = 'none';
+}
+
+function decodeImageFile(file) {
+  if (!file || !file.type.startsWith('image/')) return;
+  const img = new Image();
+  img.onload = () => {
+    const c = document.createElement('canvas');
+    c.width = img.naturalWidth;
+    c.height = img.naturalHeight;
+    const ctx = c.getContext('2d');
+    ctx.drawImage(img, 0, 0);
+    const imageData = ctx.getImageData(0, 0, c.width, c.height);
+    if (typeof jsQR === 'function') {
+      const code = jsQR(imageData.data, c.width, c.height, { inversionAttempts: 'dontInvert' });
+      if (code && code.data) {
+        showReaderResult(code.data);
+      } else {
+        showReaderResult('No QR code found in this image. Try a clearer image.');
+      }
+    } else {
+      showReaderResult('QR decoder is still loading. Please try again in a moment.');
+    }
+    URL.revokeObjectURL(img.src);
+  };
+  img.src = URL.createObjectURL(file);
+}
+
+// Drop zone events
+readerDropZone.addEventListener('click', () => readerFileInput.click());
+readerDropZone.addEventListener('dragover', e => { e.preventDefault(); readerDropZone.classList.add('dragover'); });
+readerDropZone.addEventListener('dragleave', () => readerDropZone.classList.remove('dragover'));
+readerDropZone.addEventListener('drop', e => {
+  e.preventDefault();
+  readerDropZone.classList.remove('dragover');
+  const file = e.dataTransfer.files[0];
+  if (file) decodeImageFile(file);
+});
+readerFileInput.addEventListener('change', () => {
+  const file = readerFileInput.files[0];
+  if (file) decodeImageFile(file);
+  readerFileInput.value = '';
+});
+
+// Copy button
+readerCopyBtn.addEventListener('click', () => {
+  const text = readerResultText.textContent;
+  if (!text) return;
+  navigator.clipboard.writeText(text).then(() => {
+    readerCopyBtn.textContent = 'Copied!';
+    setTimeout(() => { readerCopyBtn.textContent = 'Copy'; }, 1500);
+  });
+});
+
+// Camera scanning
+function stopCamera() {
+  if (cameraScanRAF) { cancelAnimationFrame(cameraScanRAF); cameraScanRAF = null; }
+  if (cameraStream) {
+    cameraStream.getTracks().forEach(t => t.stop());
+    cameraStream = null;
+  }
+  readerVideo.srcObject = null;
+  readerCameraWrap.style.display = 'none';
+}
+
+function scanCameraFrame() {
+  if (!cameraStream || readerVideo.readyState !== readerVideo.HAVE_ENOUGH_DATA) {
+    cameraScanRAF = requestAnimationFrame(scanCameraFrame);
+    return;
+  }
+  readerScanCanvas.width = readerVideo.videoWidth;
+  readerScanCanvas.height = readerVideo.videoHeight;
+  const ctx = readerScanCanvas.getContext('2d');
+  ctx.drawImage(readerVideo, 0, 0);
+  const imageData = ctx.getImageData(0, 0, readerScanCanvas.width, readerScanCanvas.height);
+  if (typeof jsQR === 'function') {
+    const code = jsQR(imageData.data, readerScanCanvas.width, readerScanCanvas.height, { inversionAttempts: 'dontInvert' });
+    if (code && code.data) {
+      showReaderResult(code.data);
+      stopCamera();
+      return;
+    }
+  }
+  cameraScanRAF = requestAnimationFrame(scanCameraFrame);
+}
+
+readerCameraBtn.addEventListener('click', async () => {
+  if (cameraStream) { stopCamera(); return; }
+  hideReaderResult();
+  try {
+    cameraStream = await navigator.mediaDevices.getUserMedia({
+      video: { facingMode: 'environment', width: { ideal: 640 }, height: { ideal: 480 } }
+    });
+    readerVideo.srcObject = cameraStream;
+    readerCameraWrap.style.display = '';
+    cameraScanRAF = requestAnimationFrame(scanCameraFrame);
+  } catch (err) {
+    showReaderResult('Camera access denied or not available.');
+  }
+});
+
+readerCameraStop.addEventListener('click', stopCamera);
 
 GameTheme.init();
 </script>
