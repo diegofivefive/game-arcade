@@ -590,20 +590,6 @@ main {
   z-index: 1;
 }
 
-/* Placeholder styling (remove when real ads are integrated) */
-.ad-slot--placeholder {
-  border: 1px dashed var(--card-border);
-  border-radius: var(--radius-md);
-  background: var(--card);
-  opacity: 0.4;
-}
-.ad-slot--placeholder .ad-size-label {
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--text-dim);
-  padding: 16px;
-}
-
 /* In-content — responsive (AdSense picks best size per device) */
 .ad-content {
   min-height: 100px;
