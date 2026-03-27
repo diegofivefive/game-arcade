@@ -1129,26 +1129,65 @@ function drawBubble(x, y, color, r) {
 
   // Special: Bomb bubble
   if (color === SPECIAL_BOMB) {
-    ctx.shadowColor = '#ff3333';
-    ctx.shadowBlur = r * 0.3;
-    const grad = ctx.createRadialGradient(x - r * 0.2, y - r * 0.2, r * 0.1, x, y, r);
-    grad.addColorStop(0, '#ff6666');
-    grad.addColorStop(0.4, '#cc2222');
-    grad.addColorStop(1, '#660000');
+    const t = performance.now() / 1000;
+    // Dark metallic bomb body
+    const grad = ctx.createRadialGradient(x - r * 0.25, y - r * 0.15, r * 0.05, x + r * 0.1, y + r * 0.1, r);
+    grad.addColorStop(0, '#888');
+    grad.addColorStop(0.35, '#555');
+    grad.addColorStop(0.7, '#333');
+    grad.addColorStop(1, '#111');
     ctx.beginPath();
-    ctx.arc(x, y, r * 0.92, 0, Math.PI * 2);
+    ctx.arc(x, y, r * 0.88, 0, Math.PI * 2);
     ctx.fillStyle = grad;
     ctx.fill();
-    ctx.shadowBlur = 0;
-    ctx.strokeStyle = '#ff4444';
+    ctx.strokeStyle = '#222';
     ctx.lineWidth = 1;
     ctx.stroke();
-    // Bomb icon (small star/spark)
-    ctx.fillStyle = '#ffd666';
-    ctx.font = 'bold ' + (r * 0.8) + 'px system-ui';
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    ctx.fillText('\u2733', x, y);
+    // Metallic highlight
+    ctx.beginPath();
+    ctx.arc(x - r * 0.25, y - r * 0.25, r * 0.22, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(255,255,255,0.18)';
+    ctx.fill();
+    // Fuse nozzle (small cylinder at top)
+    const nozzleX = x, nozzleY = y - r * 0.78;
+    ctx.beginPath();
+    ctx.roundRect(nozzleX - r * 0.14, nozzleY - r * 0.15, r * 0.28, r * 0.22, r * 0.04);
+    ctx.fillStyle = '#666';
+    ctx.fill();
+    ctx.strokeStyle = '#444';
+    ctx.lineWidth = 0.7;
+    ctx.stroke();
+    // Fuse rope (curved line from nozzle top)
+    const fuseStartX = nozzleX, fuseStartY = nozzleY - r * 0.15;
+    const fuseMidX = x + r * 0.3, fuseMidY = y - r * 1.1;
+    const fuseTipX = x + r * 0.45, fuseTipY = y - r * 1.05;
+    ctx.beginPath();
+    ctx.moveTo(fuseStartX, fuseStartY);
+    ctx.quadraticCurveTo(fuseMidX, fuseMidY, fuseTipX, fuseTipY);
+    ctx.strokeStyle = '#8B7355';
+    ctx.lineWidth = r * 0.08;
+    ctx.lineCap = 'round';
+    ctx.stroke();
+    // Animated spark/flame at fuse tip
+    const flicker = Math.sin(t * 12) * 0.3 + 0.7;
+    const flicker2 = Math.cos(t * 17) * 0.2 + 0.8;
+    // Outer glow
+    ctx.shadowColor = '#ff6600';
+    ctx.shadowBlur = r * 0.5 * flicker;
+    // Flame layers (outer to inner)
+    ctx.beginPath();
+    ctx.arc(fuseTipX, fuseTipY - r * 0.06 * flicker2, r * 0.16 * flicker, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(255,80,0,0.6)';
+    ctx.fill();
+    ctx.beginPath();
+    ctx.arc(fuseTipX, fuseTipY - r * 0.03, r * 0.11 * flicker2, 0, Math.PI * 2);
+    ctx.fillStyle = '#ff9900';
+    ctx.fill();
+    ctx.beginPath();
+    ctx.arc(fuseTipX, fuseTipY, r * 0.06, 0, Math.PI * 2);
+    ctx.fillStyle = '#ffee88';
+    ctx.fill();
+    ctx.shadowBlur = 0;
     ctx.restore();
     return;
   }
