@@ -510,21 +510,36 @@ function findMatches(startRow, startCol) {
   if (!bubble) return [];
   const color = bubble.color;
 
-  // Rainbow matches whatever it lands next to — find dominant neighbor color
+  // Rainbow matches whatever it lands next to — try all neighbor colors, pick best
   let matchColor = color;
   if (color === SPECIAL_RAINBOW) {
-    const colorCounts = {};
+    const neighborColors = new Set();
     for (const n of getNeighbors(startRow, startCol)) {
       const nb = getGridBubble(n.row, n.col);
-      if (nb && !isSpecial(nb.color)) {
-        colorCounts[nb.color] = (colorCounts[nb.color] || 0) + 1;
+      if (nb && !isSpecial(nb.color)) neighborColors.add(nb.color);
+    }
+    if (neighborColors.size === 0) return [];
+
+    let bestResult = [];
+    for (const tryColor of neighborColors) {
+      const vis = new Set();
+      const q = [{ row: startRow, col: startCol }];
+      const found = [];
+      vis.add(startRow + ',' + startCol);
+      while (q.length > 0) {
+        const { row, col } = q.shift();
+        found.push({ row, col });
+        for (const n of getNeighbors(row, col)) {
+          const key = n.row + ',' + n.col;
+          if (vis.has(key)) continue;
+          vis.add(key);
+          const nb = getGridBubble(n.row, n.col);
+          if (nb && (nb.color === tryColor || nb.color === SPECIAL_RAINBOW)) q.push(n);
+        }
       }
+      if (found.length > bestResult.length) bestResult = found;
     }
-    let maxCount = 0;
-    for (const [c, cnt] of Object.entries(colorCounts)) {
-      if (cnt > maxCount) { maxCount = cnt; matchColor = c; }
-    }
-    if (maxCount === 0) return []; // no neighbors
+    return bestResult;
   }
 
   const visited = new Set();
