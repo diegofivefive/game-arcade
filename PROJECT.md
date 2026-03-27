@@ -50,7 +50,7 @@ thefreefix.com/                    ← Hub page (2 cards: Games, Tools)
 │   ├── brick-smash.html           + brick-smash-info.html
 │   ├── bubble-shooter.html        + bubble-shooter-info.html
 │   └── pipe-dream.html            + pipe-dream-info.html
-├── tools.html                     ← Tools listing (15 tool cards)
+├── tools.html                     ← Tools listing (16 tool cards)
 │   ├── qr-code-generator.html     + qr-code-generator-info.html
 │   ├── word-counter.html          + word-counter-info.html
 │   ├── pdf-merge-split.html       + pdf-merge-split-info.html
@@ -64,7 +64,8 @@ thefreefix.com/                    ← Hub page (2 cards: Games, Tools)
 │   ├── unit-converter.html        + unit-converter-info.html
 │   ├── metadata-stripper.html    + metadata-stripper-info.html
 │   ├── regex-tester.html          + regex-tester-info.html
-│   └── ascii-art-generator.html  + ascii-art-generator-info.html
+│   ├── ascii-art-generator.html  + ascii-art-generator-info.html
+│   └── barcode-generator.html   + barcode-generator-info.html
 ├── templates/                     ← SEO landing pages (20 pages, link to document-templates.html?t=id)
 │   ├── invoice-template.html
 │   ├── receipt-template.html
@@ -154,7 +155,7 @@ thefreefix.com/                    ← Hub page (2 cards: Games, Tools)
 11. **Bubble Shooter** — Aim-and-match arcade puzzle. Canvas-based, hex grid. Match 3+ to pop. Disconnected clusters fall for bonus. Ceiling descends every N shots. 6 colors introduced progressively, combo scoring, glossy rendering. Mouse/touch/keyboard with trajectory preview.
 12. **Pipe Dream** — Classic retro pipe-connecting puzzle. Place pipe pieces from a queue onto a grid before water flows from the start tile. 11 pipe types (straight, curved, T, cross). 4 difficulty levels (easy 7x7 to expert 10x10). Countdown timer, animated water flow, skip/bomb tools, progressive levels, cross-pipe bonus scoring. Stats tracking with best score, streak, total pipes. Mobile-first canvas rendering.
 
-## Current Tools (14)
+## Current Tools (15)
 1. **QR Code Generator & Reader** — Generate: auto-generation with debounce, custom FG/BG colors, 3 sizes (S/M/L), download as PNG/SVG, modes for Text/WiFi/vCard/Event. Self-contained QR encoder (byte mode, EC level M, versions 1-40, Reed-Solomon). Read: decode QR codes from uploaded images (drag-and-drop, JPEG/PNG/WebP/GIF) or scan live with device camera. Uses jsQR (CDN, lazy-loaded on Read tab). Copy result or open decoded URLs directly. All processing in-browser.
 2. **Word Counter** — Words, characters (with/without spaces), sentences, paragraphs, reading time (238 WPM). Live updates, responsive 3-column stat grid.
 3. **PDF Merge & Split** — Drag-and-drop upload, drag-to-reorder merge, extract pages by range, split all to ZIP. Uses pdf-lib + JSZip (CDN). All in-browser.
@@ -169,6 +170,7 @@ thefreefix.com/                    ← Hub page (2 cards: Games, Tools)
 12. **Metadata Stripper** — Remove EXIF, IPTC, and XMP metadata from JPEG, PNG, and WebP images. Drag-and-drop batch upload (up to 50 files), inline EXIF parser with GPS/camera/software detection, privacy warning tags for GPS data, per-file metadata detail view, strip individually or batch strip all, download cleaned files individually or all at once. Uses Canvas API to re-encode images without metadata. All processing in-browser.
 13. **Regex Tester** — Test, debug, and understand regular expressions in real time. Pattern input with flag toggles (g/i/m/s/u/y), highlighted match overlay on test strings, match list with capture groups and named groups, human-readable regex explanation parser, live find-and-replace with backreference support, code generation for JavaScript/Python/Java/C#/PHP/Go, and a collapsible quick reference cheat sheet. Uses native JavaScript RegExp. All processing in-browser.
 14. **ASCII Art Generator** — Convert images to ASCII art in-browser. Drag-and-drop upload, adjustable width (40-200 columns), 4 character set presets (Standard, Detailed, Blocks, Simple), invert toggle, color mode (monochrome/colored), live preview, auto-sizing font. Copy to clipboard or download as .txt. Uses Canvas API + getImageData() for pixel-to-character mapping. All processing in-browser.
+15. **Barcode Generator & Reader** — Generate barcodes in 4 formats: Code 128 (general-purpose ASCII), UPC-A (12-digit retail), EAN-13 (13-digit international), Code 39 (alphanumeric industrial). Auto-generation as you type, input validation. Download as PNG or SVG, copy to clipboard. Reader mode: decode barcodes from uploaded images (JPEG/PNG/WebP). Uses JsBarcode (CDN, lazy-loaded) for generation and zxing-wasm (CDN, lazy-loaded on Reader tab) for decoding. All processing in-browser.
 
 ## Key Implementation Notes
 - **localStorage**: All stats, settings, theme preference, and best times persist per game/difficulty

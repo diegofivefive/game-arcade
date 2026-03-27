@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-adsense-account" content="ca-pub-7700405385978151">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7700405385978151"
+     crossorigin="anonymous"></script>
+<title>Barcode Generator & Reader - TheFreeFix.com</title>
+<meta name="description" content="Generate and read barcodes for free. Create Code 128, UPC-A, EAN-13, Code 39, and ISBN barcodes. Read barcodes from uploaded images. No downloads or sign-ups needed.">
+<link rel="canonical" href="https://thefreefix.com/barcode-generator.html">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#0a0a1a">
+<!-- Open Graph -->
+<meta property="og:title" content="Barcode Generator & Reader - Free Online Tool">
+<meta property="og:description" content="Generate and read barcodes for free. Create Code 128, UPC-A, EAN-13, Code 39, and ISBN barcodes. Read barcodes from uploaded images.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://thefreefix.com/barcode-generator.html">
+<meta property="og:site_name" content="TheFreeFix.com">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://thefreefix.com/og-image.png">
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@TheFreeFix">
+<meta name="twitter:title" content="Barcode Generator & Reader - Free Online Tool">
+<meta name="twitter:image" content="https://thefreefix.com/og-image.png">
+<meta name="twitter:description" content="Generate and read barcodes for free. Create Code 128, UPC-A, EAN-13, Code 39, and ISBN barcodes.">
+<!-- Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Barcode Generator & Reader",
+  "url": "https://thefreefix.com/barcode-generator.html",
+  "description": "Generate and read barcodes for free. Create Code 128, UPC-A, EAN-13, Code 39, and ISBN barcodes. Read barcodes from uploaded images.",
+  "applicationCategory": "UtilityApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "isPartOf": { "@type": "WebSite", "name": "TheFreeFix.com", "url": "https://thefreefix.com/" }
+}
+</script>
+<link rel="stylesheet" href="theme.css">
+<style>
+  .game-page { padding-bottom: 32px; }
+  .game-header { max-width: 560px; margin: 0 auto; }
+
+  .tool-content {
+    width: 100%;
+    max-width: 560px;
+    padding: 0 16px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+
+  /* Mode selector */
+  .mode-selector {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .reader-pill-btn {
+    padding: 7px 18px;
+    border-radius: 999px;
+    border: 1.5px solid var(--card-border);
+    background: var(--card);
+    color: var(--text-dim);
+    font-size: 14px;
+    font-family: inherit;
+    cursor: pointer;
+    transition: background var(--transition), color var(--transition), border-color var(--transition);
+    white-space: nowrap;
+  }
+  .reader-pill-btn:hover { border-color: var(--accent); color: var(--text); }
+  .reader-pill-btn.active {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+  }
+
+  /* Input group */
+  .input-group {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .bc-input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-md);
+    background: var(--card);
+    color: var(--text);
+    font-size: 14px;
+    font-family: inherit;
+    transition: border-color var(--transition);
+    outline: none;
+    box-sizing: border-box;
+  }
+  .bc-input:focus { border-color: var(--accent); }
+  .bc-input::placeholder { color: var(--text-dim); opacity: 0.6; }
+  .input-label {
+    font-size: 12px;
+    color: var(--text-dim);
+    padding-left: 4px;
+  }
+  .input-hint {
+    font-size: 11px;
+    color: var(--text-dim);
+    opacity: 0.7;
+    padding-left: 4px;
+  }
+  .input-error {
+    font-size: 11px;
+    color: var(--accent2);
+    padding-left: 4px;
+    display: none;
+  }
+  .input-error.visible { display: block; }
+
+  /* Barcode preview */
+  .barcode-preview {
+    width: 100%;
+    background: #fff;
+    border-radius: var(--radius-md);
+    padding: 24px 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    min-height: 100px;
+  }
+  .barcode-preview canvas {
+    max-width: 100%;
+    height: auto;
+  }
+  .barcode-label {
+    font-family: 'Courier New', monospace;
+    font-size: 16px;
+    color: #000;
+    letter-spacing: 2px;
+    text-align: center;
+    word-break: break-all;
+  }
+  .barcode-placeholder {
+    color: #999;
+    font-size: 14px;
+    text-align: center;
+    padding: 20px 0;
+  }
+
+  /* Action buttons */
+  .action-row {
+    display: flex;
+    gap: 8px;
+    width: 100%;
+    flex-wrap: wrap;
+  }
+  .action-btn {
+    flex: 1;
+    min-width: 120px;
+    padding: 10px 16px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--card-border);
+    background: var(--btn-bg);
+    color: var(--text);
+    font-size: 14px;
+    font-family: inherit;
+    cursor: pointer;
+    transition: background var(--transition), border-color var(--transition);
+    text-align: center;
+  }
+  .action-btn:hover { background: var(--btn-hover); border-color: var(--accent); }
+  .action-btn.primary {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+  }
+  .action-btn.primary:hover { opacity: 0.9; }
+  .action-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  /* Reader section */
+  .reader-section { width: 100%; display: none; }
+  .reader-section.active { display: flex; flex-direction: column; gap: 16px; align-items: center; }
+
+  .drop-zone {
+    width: 100%;
+    border: 2px dashed var(--card-border);
+    border-radius: var(--radius-md);
+    padding: 40px 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color var(--transition), background var(--transition);
+    background: var(--card);
+    box-sizing: border-box;
+  }
+  .drop-zone:hover, .drop-zone.dragover {
+    border-color: var(--accent);
+    background: rgba(123, 111, 255, 0.05);
+  }
+  .drop-zone-text {
+    color: var(--text-dim);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  .drop-zone-text strong { color: var(--accent); }
+  .drop-zone input[type="file"] { display: none; }
+
+  .reader-result {
+    width: 100%;
+    background: var(--card);
+    border-radius: var(--radius-md);
+    padding: 16px;
+    display: none;
+    box-sizing: border-box;
+  }
+  .reader-result.visible { display: block; }
+  .reader-result-label {
+    font-size: 12px;
+    color: var(--text-dim);
+    margin-bottom: 4px;
+  }
+  .reader-result-format {
+    font-size: 12px;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+  .reader-result-value {
+    font-size: 16px;
+    color: var(--text);
+    word-break: break-all;
+    font-family: 'Courier New', monospace;
+    background: var(--bg2);
+    padding: 12px;
+    border-radius: var(--radius-sm);
+    margin-bottom: 8px;
+  }
+  .reader-result-actions {
+    display: flex;
+    gap: 8px;
+  }
+
+  /* Generator section */
+  .generator-section { width: 100%; }
+  .generator-section.hidden { display: none; }
+
+  /* Toast */
+  .toast {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(80px);
+    background: var(--card);
+    color: var(--text);
+    padding: 10px 24px;
+    border-radius: var(--radius-md);
+    font-size: 14px;
+    z-index: 9999;
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    border: 1px solid var(--card-border);
+    pointer-events: none;
+  }
+  .toast.show {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+  }
+
+  @media (max-width: 400px) {
+    .tool-content { padding: 0 12px; }
+    .barcode-preview { padding: 16px 8px; }
+    .action-btn { min-width: 100px; font-size: 13px; }
+  }
+</style>
+</head>
+<body>
+<div class="game-page">
+
+  <a href="index.html" class="site-brand">TheFreeFix.com</a>
+
+  <!-- Ad Slot 1: Top Banner -->
+    <div class="ad-slot ad-content">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-7700405385978151"
+           data-ad-slot="1492611532"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
+  <main>
+    <header class="game-header">
+      <div class="header-left">
+        <a href="tools.html" class="back-btn" title="Back to Tools" aria-label="Back to Tools">&#x2190;</a>
+        <h1 class="logo">Barcode Tool</h1>
+      </div>
+      <div class="header-btns">
+        <a href="barcode-generator-info.html" class="info-btn" title="How to use" aria-label="How to use">i</a>
+        <button class="icon-btn" id="themeBtn" title="Toggle theme" aria-label="Toggle theme">&#x1f319;</button>
+      </div>
+    </header>
+
+    <div class="tool-content">
+      <!-- Mode selector -->
+      <div class="mode-selector">
+        <div class="pill-selector" id="formatSelector">
+          <button class="pill-btn active" data-format="code128">Code 128</button>
+          <button class="pill-btn" data-format="upca">UPC-A</button>
+          <button class="pill-btn" data-format="ean13">EAN-13</button>
+          <button class="pill-btn" data-format="code39">Code 39</button>
+        </div>
+        <button class="reader-pill-btn" id="readerBtn">Reader</button>
+      </div>
+
+      <!-- Generator section -->
+      <div class="generator-section" id="generatorSection">
+        <div style="display:flex;flex-direction:column;gap:16px;align-items:center;width:100%;">
+          <div class="input-group">
+            <label class="input-label" id="inputLabel">Text or data to encode</label>
+            <input type="text" class="bc-input" id="bcInput" placeholder="Enter text, URL, or number..." autocomplete="off">
+            <span class="input-hint" id="inputHint">Code 128: Any ASCII text (1-80 chars)</span>
+            <span class="input-error" id="inputError"></span>
+          </div>
+
+          <div class="barcode-preview" id="barcodePreview">
+            <div class="barcode-placeholder" id="barcodePlaceholder">Type something to generate a barcode</div>
+            <canvas id="barcodeCanvas" style="display:none;"></canvas>
+            <div class="barcode-label" id="barcodeLabel" style="display:none;"></div>
+          </div>
+
+          <div class="action-row">
+            <button class="action-btn primary" id="downloadPng" disabled>Download PNG</button>
+            <button class="action-btn" id="downloadSvg" disabled>Download SVG</button>
+            <button class="action-btn" id="copyBtn" disabled>Copy</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Reader section -->
+      <div class="reader-section" id="readerSection">
+        <div class="drop-zone" id="dropZone">
+          <input type="file" id="fileInput" accept="image/*">
+          <div class="drop-zone-text">
+            <strong>Drop an image here</strong><br>
+            or click to upload<br>
+            <span style="font-size:12px;opacity:0.6;">JPEG, PNG, WebP</span>
+          </div>
+        </div>
+        <div class="reader-result" id="readerResult">
+          <div class="reader-result-label">Detected barcode:</div>
+          <div class="reader-result-format" id="resultFormat"></div>
+          <div class="reader-result-value" id="resultValue"></div>
+          <div class="reader-result-actions">
+            <button class="action-btn primary" id="copyResult">Copy</button>
+            <button class="action-btn" id="openResult" style="display:none;">Open URL</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Ad Slot 2: Bottom Banner -->
+    <div class="ad-slot ad-bottom">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-7700405385978151"
+           data-ad-slot="1081547998"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
+  <footer class="site-footer">
+    <nav aria-label="Footer">
+      <a href="about.html">About</a>
+      <span class="footer-sep">&middot;</span>
+      <a href="contact.html">Contact</a>
+      <span class="footer-sep">&middot;</span>
+      <a href="terms.html">Terms</a>
+      <span class="footer-sep">&middot;</span>
+      <a href="privacy.html">Privacy</a>
+      <span class="footer-sep">&middot;</span>
+      <a href="https://x.com/TheFreeFix" target="_blank" rel="noopener">X</a>
+    </nav>
+  </footer>
+
+  <section class="page-about" aria-label="About Barcode Generator & Reader">
+    <h2>How to Use the Barcode Generator & Reader</h2>
+    <p>Select a barcode format (Code 128, UPC-A, EAN-13, or Code 39) and type your data to instantly generate a barcode. Download as PNG or SVG, or copy to clipboard. Switch to Reader mode to decode barcodes from uploaded images.</p>
+    <h2>Features</h2>
+    <p>Supports 4 popular barcode formats: Code 128 (general-purpose, any ASCII text), UPC-A (12-digit retail codes), EAN-13 (13-digit international product codes), and Code 39 (alphanumeric industrial codes). Includes a barcode reader that can detect and decode barcodes from uploaded images. All processing happens in your browser — no data is sent to any server.</p>
+  </section>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="theme.js"></script>
+<script>
+GameTheme.init();
+
+// =====================================================
+// CDN LIBRARY LOADERS (lazy-loaded on first use)
+// =====================================================
+
+let jsBarcodeReady = null;
+function loadJsBarcode() {
+  if (jsBarcodeReady) return jsBarcodeReady;
+  jsBarcodeReady = new Promise((resolve, reject) => {
+    const s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/jsbarcode@3.11.6/dist/JsBarcode.all.min.js';
+    s.onload = () => resolve(window.JsBarcode);
+    s.onerror = () => { jsBarcodeReady = null; reject(new Error('Failed to load barcode library')); };
+    document.head.appendChild(s);
+  });
+  return jsBarcodeReady;
+}
+
+let zxingReady = null;
+function loadZXing() {
+  if (zxingReady) return zxingReady;
+  zxingReady = new Promise((resolve, reject) => {
+    const s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/zxing-wasm@3.0.1/dist/iife/reader/index.js';
+    s.onload = () => resolve(window.ZXingWASM);
+    s.onerror = () => { zxingReady = null; reject(new Error('Failed to load barcode reader library')); };
+    document.head.appendChild(s);
+  });
+  return zxingReady;
+}
+
+// =====================================================
+// FORMAT CONFIG & VALIDATION
+// =====================================================
+
+const FORMATS = {
+  code128: {
+    jsFormat: 'CODE128',
+    label: 'Text or data to encode',
+    hint: 'Code 128: Any ASCII text (1-80 chars)',
+    placeholder: 'Enter text, URL, or number...',
+    validate(text) {
+      if (!text) return 'Enter text to encode';
+      if (text.length > 80) return 'Maximum 80 characters';
+      for (let i = 0; i < text.length; i++) {
+        if (text.charCodeAt(i) < 32 || text.charCodeAt(i) > 126) return 'Only printable ASCII characters allowed';
+      }
+      return null;
+    }
+  },
+  upca: {
+    jsFormat: 'UPC',
+    label: 'UPC-A digits',
+    hint: 'UPC-A: Exactly 11 digits (check digit auto-added)',
+    placeholder: 'Enter 11 digits...',
+    validate(text) {
+      if (!text) return 'Enter 11 or 12 digits';
+      const d = text.replace(/[^0-9]/g, '');
+      if (d.length < 11) return 'Need 11 digits (check digit auto-calculated)';
+      if (d.length > 12) return 'Maximum 12 digits';
+      return null;
+    }
+  },
+  ean13: {
+    jsFormat: 'EAN13',
+    label: 'EAN-13 digits',
+    hint: 'EAN-13: Exactly 12 digits (check digit auto-added)',
+    placeholder: 'Enter 12 digits...',
+    validate(text) {
+      if (!text) return 'Enter 12 or 13 digits';
+      const d = text.replace(/[^0-9]/g, '');
+      if (d.length < 12) return 'Need 12 digits (check digit auto-calculated)';
+      if (d.length > 13) return 'Maximum 13 digits';
+      return null;
+    }
+  },
+  code39: {
+    jsFormat: 'CODE39',
+    label: 'Text to encode',
+    hint: 'Code 39: A-Z, 0-9, - . $ / + % space (max 40)',
+    placeholder: 'Enter text...',
+    validate(text) {
+      if (!text) return 'Enter text to encode';
+      if (text.length > 40) return 'Maximum 40 characters';
+      const valid = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ-. $/+%';
+      const upper = text.toUpperCase();
+      for (let i = 0; i < upper.length; i++) {
+        if (valid.indexOf(upper[i]) === -1) return `Invalid character: "${upper[i]}" — use A-Z, 0-9, - . $ / + % space`;
+      }
+      return null;
+    }
+  }
+};
+
+// =====================================================
+// UI LOGIC
+// =====================================================
+
+const formatSelector = document.getElementById('formatSelector');
+const readerBtn = document.getElementById('readerBtn');
+const generatorSection = document.getElementById('generatorSection');
+const readerSection = document.getElementById('readerSection');
+const bcInput = document.getElementById('bcInput');
+const inputHint = document.getElementById('inputHint');
+const inputError = document.getElementById('inputError');
+const inputLabel = document.getElementById('inputLabel');
+const barcodeCanvas = document.getElementById('barcodeCanvas');
+const barcodeLabel = document.getElementById('barcodeLabel');
+const barcodePlaceholder = document.getElementById('barcodePlaceholder');
+const downloadPng = document.getElementById('downloadPng');
+const downloadSvg = document.getElementById('downloadSvg');
+const copyBtn = document.getElementById('copyBtn');
+const dropZone = document.getElementById('dropZone');
+const fileInput = document.getElementById('fileInput');
+const readerResult = document.getElementById('readerResult');
+const resultFormat = document.getElementById('resultFormat');
+const resultValue = document.getElementById('resultValue');
+const copyResult = document.getElementById('copyResult');
+const openResult = document.getElementById('openResult');
+const toast = document.getElementById('toast');
+
+let currentFormat = 'code128';
+let barcodeGenerated = false;
+let isReaderMode = false;
+
+function switchMode(format, reader) {
+  if (reader) {
+    isReaderMode = true;
+    readerBtn.classList.add('active');
+    formatSelector.querySelectorAll('.pill-btn').forEach(b => b.classList.remove('active'));
+    generatorSection.classList.add('hidden');
+    readerSection.classList.add('active');
+    return;
+  }
+  isReaderMode = false;
+  readerBtn.classList.remove('active');
+  currentFormat = format;
+  formatSelector.querySelectorAll('.pill-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.format === format);
+  });
+  generatorSection.classList.remove('hidden');
+  readerSection.classList.remove('active');
+  const info = FORMATS[format];
+  inputLabel.textContent = info.label;
+  inputHint.textContent = info.hint;
+  bcInput.placeholder = info.placeholder;
+  inputError.classList.remove('visible');
+  generateBarcode();
+}
+
+formatSelector.addEventListener('click', e => {
+  const btn = e.target.closest('.pill-btn');
+  if (!btn) return;
+  switchMode(btn.dataset.format, false);
+});
+
+readerBtn.addEventListener('click', () => switchMode(null, true));
+
+// Auto-generate on input
+let debounceTimer;
+bcInput.addEventListener('input', () => {
+  clearTimeout(debounceTimer);
+  debounceTimer = setTimeout(generateBarcode, 200);
+});
+
+async function generateBarcode() {
+  const text = bcInput.value.trim();
+  const fmt = FORMATS[currentFormat];
+  const error = fmt.validate(text);
+
+  if (error) {
+    inputError.textContent = error;
+    inputError.classList.toggle('visible', !!text);
+    barcodeCanvas.style.display = 'none';
+    barcodeLabel.style.display = 'none';
+    barcodePlaceholder.style.display = '';
+    barcodePlaceholder.textContent = text ? error : 'Type something to generate a barcode';
+    downloadPng.disabled = true;
+    downloadSvg.disabled = true;
+    copyBtn.disabled = true;
+    barcodeGenerated = false;
+    return;
+  }
+
+  inputError.classList.remove('visible');
+
+  try {
+    const JsBarcode = await loadJsBarcode();
+    // Render to canvas
+    JsBarcode(barcodeCanvas, text, {
+      format: fmt.jsFormat,
+      width: 2,
+      height: 100,
+      displayValue: false,
+      margin: 20,
+      background: '#ffffff',
+      lineColor: '#000000'
+    });
+    barcodeCanvas.style.display = '';
+    barcodePlaceholder.style.display = 'none';
+    barcodeLabel.textContent = text;
+    barcodeLabel.style.display = '';
+    barcodeGenerated = true;
+
+    downloadPng.disabled = false;
+    downloadSvg.disabled = false;
+    copyBtn.disabled = false;
+  } catch (err) {
+    barcodePlaceholder.style.display = '';
+    barcodePlaceholder.textContent = 'Could not encode this input';
+    barcodeCanvas.style.display = 'none';
+    barcodeLabel.style.display = 'none';
+    downloadPng.disabled = true;
+    downloadSvg.disabled = true;
+    copyBtn.disabled = true;
+    barcodeGenerated = false;
+  }
+}
+
+// Download PNG (high resolution)
+downloadPng.addEventListener('click', async () => {
+  if (!barcodeGenerated) return;
+  const text = bcInput.value.trim();
+  const fmt = FORMATS[currentFormat];
+  try {
+    const JsBarcode = await loadJsBarcode();
+    const hiRes = document.createElement('canvas');
+    JsBarcode(hiRes, text, {
+      format: fmt.jsFormat,
+      width: 4,
+      height: 200,
+      displayValue: true,
+      margin: 40,
+      background: '#ffffff',
+      lineColor: '#000000',
+      fontSize: 20,
+      font: 'monospace'
+    });
+    const link = document.createElement('a');
+    link.download = `barcode-${currentFormat}.png`;
+    link.href = hiRes.toDataURL('image/png');
+    link.click();
+  } catch (e) { showToast('Download failed'); }
+});
+
+// Download SVG
+downloadSvg.addEventListener('click', async () => {
+  if (!barcodeGenerated) return;
+  const text = bcInput.value.trim();
+  const fmt = FORMATS[currentFormat];
+  try {
+    const JsBarcode = await loadJsBarcode();
+    // Create a temporary SVG element
+    const svgNS = 'http://www.w3.org/2000/svg';
+    const svgEl = document.createElementNS(svgNS, 'svg');
+    document.body.appendChild(svgEl);
+    JsBarcode(svgEl, text, {
+      format: fmt.jsFormat,
+      width: 4,
+      height: 200,
+      displayValue: true,
+      margin: 40,
+      background: '#ffffff',
+      lineColor: '#000000',
+      fontSize: 20,
+      font: 'monospace',
+      xmlDocument: document
+    });
+    const svgData = new XMLSerializer().serializeToString(svgEl);
+    document.body.removeChild(svgEl);
+    const blob = new Blob([svgData], { type: 'image/svg+xml' });
+    const link = document.createElement('a');
+    link.download = `barcode-${currentFormat}.svg`;
+    link.href = URL.createObjectURL(blob);
+    link.click();
+    setTimeout(() => URL.revokeObjectURL(link.href), 5000);
+  } catch (e) { showToast('Download failed'); }
+});
+
+// Copy to clipboard
+copyBtn.addEventListener('click', async () => {
+  if (!barcodeGenerated) return;
+  const text = bcInput.value.trim();
+  const fmt = FORMATS[currentFormat];
+  try {
+    const JsBarcode = await loadJsBarcode();
+    const hiRes = document.createElement('canvas');
+    JsBarcode(hiRes, text, {
+      format: fmt.jsFormat,
+      width: 4,
+      height: 200,
+      displayValue: true,
+      margin: 40,
+      background: '#ffffff',
+      lineColor: '#000000',
+      fontSize: 20,
+      font: 'monospace'
+    });
+    const blob = await new Promise(r => hiRes.toBlob(r, 'image/png'));
+    await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
+    showToast('Barcode copied to clipboard');
+  } catch (e) { showToast('Could not copy'); }
+});
+
+// ---- Reader ----
+dropZone.addEventListener('click', () => fileInput.click());
+dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('dragover'); });
+dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
+dropZone.addEventListener('drop', e => {
+  e.preventDefault();
+  dropZone.classList.remove('dragover');
+  const file = e.dataTransfer.files[0];
+  if (file) processFile(file);
+});
+fileInput.addEventListener('change', () => {
+  if (fileInput.files[0]) processFile(fileInput.files[0]);
+});
+
+async function processFile(file) {
+  if (!file.type.startsWith('image/')) { showToast('Please upload an image file'); return; }
+  showToast('Reading barcode...');
+  try {
+    const zx = await loadZXing();
+    const results = await zx.readBarcodes(file, {
+      tryHarder: true,
+      formats: ['Code128', 'UPCA', 'EAN13', 'Code39', 'EAN8', 'UPCE', 'Codabar', 'ITF', 'Code93'],
+      maxNumberOfSymbols: 5
+    });
+    if (results && results.length > 0) {
+      const r = results[0];
+      resultFormat.textContent = r.format || 'Unknown';
+      resultValue.textContent = r.text;
+      readerResult.classList.add('visible');
+      const isURL = /^https?:\/\//i.test(r.text);
+      openResult.style.display = isURL ? '' : 'none';
+    } else {
+      readerResult.classList.remove('visible');
+      showToast('No barcode detected in this image');
+    }
+  } catch (err) {
+    console.error('Barcode read error:', err);
+    readerResult.classList.remove('visible');
+    showToast('Error reading barcode. Try a clearer image.');
+  }
+}
+
+copyResult.addEventListener('click', () => {
+  navigator.clipboard.writeText(resultValue.textContent).then(() => {
+    showToast('Copied to clipboard');
+  }).catch(() => showToast('Could not copy'));
+});
+
+openResult.addEventListener('click', () => {
+  window.open(resultValue.textContent, '_blank', 'noopener');
+});
+
+function showToast(msg) {
+  toast.textContent = msg;
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 2000);
+}
+
+// Init — load JsBarcode eagerly, then set up
+loadJsBarcode().then(() => {
+  switchMode('code128', false);
+  bcInput.focus();
+}).catch(() => {
+  barcodePlaceholder.textContent = 'Failed to load barcode library. Please refresh.';
+});
+</script>
+</body>
+</html>

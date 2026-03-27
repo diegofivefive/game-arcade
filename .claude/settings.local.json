@@ -2,7 +2,11 @@
   "permissions": {
     "allow": [
       "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:8081/qr-code-generator.html)",
-      "Bash(curl -s -I http://localhost:8081/qr-code-generator.html)"
+      "Bash(curl -s -I http://localhost:8081/qr-code-generator.html)",
+      "WebSearch",
+      "WebFetch(domain:www.jsdelivr.com)",
+      "WebFetch(domain:github.com)",
+      "mcp__Claude_Preview__preview_start"
     ]
   }
 }
