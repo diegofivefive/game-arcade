@@ -1146,17 +1146,17 @@ function drawBubble(x, y, color, r) {
   if (color === SPECIAL_BOMB) {
     const t = performance.now() / 1000;
     // Dark metallic bomb body
-    const grad = ctx.createRadialGradient(x - r * 0.25, y - r * 0.15, r * 0.05, x + r * 0.1, y + r * 0.1, r);
-    grad.addColorStop(0, '#888');
-    grad.addColorStop(0.35, '#555');
-    grad.addColorStop(0.7, '#333');
+    const grad = ctx.createRadialGradient(x - r * 0.25, y - r * 0.15, r * 0.05, x + r * 0.1, y + r * 0.1, r * 0.92);
+    grad.addColorStop(0, '#666');
+    grad.addColorStop(0.35, '#444');
+    grad.addColorStop(0.7, '#2a2a2a');
     grad.addColorStop(1, '#111');
     ctx.beginPath();
-    ctx.arc(x, y, r * 0.88, 0, Math.PI * 2);
+    ctx.arc(x, y, r * 0.92, 0, Math.PI * 2);
     ctx.fillStyle = grad;
     ctx.fill();
-    ctx.strokeStyle = '#222';
-    ctx.lineWidth = 1;
+    ctx.strokeStyle = '#333';
+    ctx.lineWidth = 0.8;
     ctx.stroke();
     // Metallic highlight
     ctx.beginPath();
