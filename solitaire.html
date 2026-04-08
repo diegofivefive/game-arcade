@@ -794,11 +794,12 @@ function klondikeFindTarget(x, y) {
   const colW = cardWidth + cardGap;
   const startX = Math.max(0, ($board.clientWidth - colW * 7 + cardGap) / 2);
   const tabTop = cardHeight + 12;
+  const pad = cardGap / 2 + 8;
 
   // Check foundations
   for (let i = 0; i < 4; i++) {
     const fx = startX + (3 + i) * colW;
-    if (x >= fx && x <= fx + cardWidth && y >= 0 && y <= cardHeight) {
+    if (x >= fx - pad && x <= fx + cardWidth + pad && y >= -pad && y <= cardHeight + pad) {
       return { type: 'foundation', index: i };
     }
   }
@@ -806,7 +807,7 @@ function klondikeFindTarget(x, y) {
   // Check tableau columns
   for (let i = 0; i < 7; i++) {
     const cx = startX + i * colW;
-    if (x >= cx && x <= cx + cardWidth && y >= tabTop - 10) {
+    if (x >= cx - pad && x <= cx + cardWidth + pad && y >= tabTop - 10) {
       return { type: 'tableau', index: i };
     }
   }
@@ -1215,10 +1216,11 @@ function spiderDrop(cards, x, y) {
   const card = cards[0];
 
   // Find target column
+  const pad = cardGap / 2 + 8;
   let targetCol = -1;
   for (let i = 0; i < 10; i++) {
     const cx = startX + i * colW;
-    if (x >= cx && x <= cx + cardWidth && y >= tabTop - 10) {
+    if (x >= cx - pad && x <= cx + cardWidth + pad && y >= tabTop - 10) {
       targetCol = i; break;
     }
   }
@@ -1448,25 +1450,26 @@ function freecellFindTarget(x, y) {
   const colW = cardWidth + cardGap;
   const startX = Math.max(0, ($board.clientWidth - colW * 8 + cardGap) / 2);
   const tabTop = cardHeight + 12;
+  const pad = cardGap / 2 + 8;
 
   // Free cells
   for (let i = 0; i < 4; i++) {
     const cx = startX + i * colW;
-    if (x >= cx && x <= cx + cardWidth && y >= 0 && y <= cardHeight) {
+    if (x >= cx - pad && x <= cx + cardWidth + pad && y >= -pad && y <= cardHeight + pad) {
       return { type: 'freecell', index: i };
     }
   }
   // Foundations
   for (let i = 0; i < 4; i++) {
     const cx = startX + (4 + i) * colW;
-    if (x >= cx && x <= cx + cardWidth && y >= 0 && y <= cardHeight) {
+    if (x >= cx - pad && x <= cx + cardWidth + pad && y >= -pad && y <= cardHeight + pad) {
       return { type: 'foundation', index: i };
     }
   }
   // Tableau
   for (let i = 0; i < 8; i++) {
     const cx = startX + i * colW;
-    if (x >= cx && x <= cx + cardWidth && y >= tabTop - 10) {
+    if (x >= cx - pad && x <= cx + cardWidth + pad && y >= tabTop - 10) {
       return { type: 'tableau', index: i };
     }
   }
