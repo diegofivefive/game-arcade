@@ -537,10 +537,10 @@ function onDragEnd(e) {
     return;
   }
 
-  // Find drop target
-  const boardRect = $board.getBoundingClientRect();
-  const cx = (e.clientX || e.changedTouches?.[0]?.clientX) - boardRect.left;
-  const cy = (e.clientY || e.changedTouches?.[0]?.clientY) - boardRect.top;
+  // Find drop target using center of the first dragged card
+  const topCard = ds.cards[0].el;
+  const cx = parseFloat(topCard.style.left) + cardWidth / 2;
+  const cy = parseFloat(topCard.style.top) + cardHeight / 2;
   const dropped = tryDrop(ds.cards, cx, cy);
 
   if (!dropped) {
@@ -794,20 +794,19 @@ function klondikeFindTarget(x, y) {
   const colW = cardWidth + cardGap;
   const startX = Math.max(0, ($board.clientWidth - colW * 7 + cardGap) / 2);
   const tabTop = cardHeight + 12;
-  const pad = cardGap / 2 + 8;
 
   // Check foundations
   for (let i = 0; i < 4; i++) {
     const fx = startX + (3 + i) * colW;
-    if (x >= fx - pad && x <= fx + cardWidth + pad && y >= -pad && y <= cardHeight + pad) {
+    if (x >= fx && x <= fx + cardWidth && y >= 0 && y <= cardHeight) {
       return { type: 'foundation', index: i };
     }
   }
 
-  // Check tableau columns
+  // Check tableau columns — use full column width for easier targeting
   for (let i = 0; i < 7; i++) {
     const cx = startX + i * colW;
-    if (x >= cx - pad && x <= cx + cardWidth + pad && y >= tabTop - 10) {
+    if (x >= cx && x < cx + colW && y >= tabTop - 10) {
       return { type: 'tableau', index: i };
     }
   }
@@ -1215,12 +1214,11 @@ function spiderDrop(cards, x, y) {
   const tabTop = cardHeight + 12;
   const card = cards[0];
 
-  // Find target column
-  const pad = cardGap / 2 + 8;
+  // Find target column — use full column width
   let targetCol = -1;
   for (let i = 0; i < 10; i++) {
     const cx = startX + i * colW;
-    if (x >= cx - pad && x <= cx + cardWidth + pad && y >= tabTop - 10) {
+    if (x >= cx && x < cx + colW && y >= tabTop - 10) {
       targetCol = i; break;
     }
   }
@@ -1450,26 +1448,25 @@ function freecellFindTarget(x, y) {
   const colW = cardWidth + cardGap;
   const startX = Math.max(0, ($board.clientWidth - colW * 8 + cardGap) / 2);
   const tabTop = cardHeight + 12;
-  const pad = cardGap / 2 + 8;
 
-  // Free cells
+  // Free cells — use full column width
   for (let i = 0; i < 4; i++) {
     const cx = startX + i * colW;
-    if (x >= cx - pad && x <= cx + cardWidth + pad && y >= -pad && y <= cardHeight + pad) {
+    if (x >= cx && x < cx + colW && y >= 0 && y <= cardHeight) {
       return { type: 'freecell', index: i };
     }
   }
-  // Foundations
+  // Foundations — use full column width
   for (let i = 0; i < 4; i++) {
     const cx = startX + (4 + i) * colW;
-    if (x >= cx - pad && x <= cx + cardWidth + pad && y >= -pad && y <= cardHeight + pad) {
+    if (x >= cx && x < cx + colW && y >= 0 && y <= cardHeight) {
       return { type: 'foundation', index: i };
     }
   }
-  // Tableau
+  // Tableau — use full column width
   for (let i = 0; i < 8; i++) {
     const cx = startX + i * colW;
-    if (x >= cx - pad && x <= cx + cardWidth + pad && y >= tabTop - 10) {
+    if (x >= cx && x < cx + colW && y >= tabTop - 10) {
       return { type: 'tableau', index: i };
     }
   }
