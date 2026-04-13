@@ -30,10 +30,16 @@ const SiteAds = {
   },
 
   init() {
-    document.querySelectorAll('.ad-slot').forEach(slot => {
+    const slots = [...document.querySelectorAll('.ad-slot')];
+    // Adsterra uses a global `atOptions` — stagger slots so each invoke.js
+    // reads its own config before the next slot overwrites it
+    slots.forEach((slot, i) => {
       const isBottom = slot.classList.contains('ad-bottom');
-      if (this.provider === 'adsterra') this._adsterra(slot, isBottom);
-      else this._adsense(slot, isBottom);
+      const delay = i * 2000;
+      setTimeout(() => {
+        if (this.provider === 'adsterra') this._adsterra(slot, isBottom);
+        else this._adsense(slot, isBottom);
+      }, delay);
     });
   },
 
