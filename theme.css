@@ -593,15 +593,18 @@ main {
   display: none;
 }
 
-/* In-content — responsive (AdSense picks best size per device) */
+/* In-content — top 468x60 banner */
 .ad-content {
-  min-height: 100px;
-  padding: 12px 16px;
+  min-height: 70px;
+  padding: 8px 16px;
+}
+.ad-slot iframe {
+  max-width: 100% !important;
 }
 
-/* Bottom banner — responsive (AdSense picks best size per device) */
+/* Bottom — 300x250 medium rectangle */
 .ad-bottom {
-  min-height: 50px;
+  min-height: 260px;
   padding: 8px 16px;
 }
 

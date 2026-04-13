@@ -19,8 +19,8 @@ const SiteAds = {
   provider: 'adsterra',
 
   adsterra: {
-    bannerKey: '8e7325ec05bc3ccf27c1d08c45a4148e',
-    bottomBannerKey: '96aafd41d5af7537b63e81fef46b71a2'
+    bannerKey: '96aafd41d5af7537b63e81fef46b71a2',
+    bottomBannerKey: 'bf9bc1559d0617f837be30c1793939f1'
   },
 
   adsense: {
@@ -71,8 +71,8 @@ const SiteAds = {
   _adsterra(slot, isBottom) {
     const c = this.adsterra;
     const bannerKey = isBottom ? c.bottomBannerKey : c.bannerKey;
-    const w = isBottom ? 468 : 728;
-    const h = isBottom ? 60 : 90;
+    const w = isBottom ? 300 : 468;
+    const h = isBottom ? 250 : 60;
 
     this._addScript(slot, { text: `atOptions = { 'key': '${bannerKey}', 'format': 'iframe', 'height': ${h}, 'width': ${w}, 'params': {} };` });
     this._addScript(slot, { src: `https://www.highperformanceformat.com/${bannerKey}/invoke.js` });
