@@ -20,11 +20,7 @@ const SiteAds = {
 
   adsterra: {
     bannerKey: '8e7325ec05bc3ccf27c1d08c45a4148e',
-    // ▸ Set bottomBannerKey to a different key when you have one;
-    //   leave null to use native-only on bottom slot
-    bottomBannerKey: null,
-    nativeSrc: 'https://pl29142917.profitablecpmratenetwork.com/ce493e1502850f62ba39fd0e637d3a72/invoke.js',
-    nativeId: 'container-ce493e1502850f62ba39fd0e637d3a72'
+    bottomBannerKey: '96aafd41d5af7537b63e81fef46b71a2'
   },
 
   adsense: {
@@ -68,38 +64,13 @@ const SiteAds = {
 
   _adsterra(slot, isBottom) {
     const c = this.adsterra;
-    const bottomKey = isBottom ? c.bottomBannerKey : null;
-    const bannerKey = isBottom ? (bottomKey || null) : c.bannerKey;
+    const bannerKey = isBottom ? c.bottomBannerKey : c.bannerKey;
+    const w = isBottom ? 468 : 728;
+    const h = isBottom ? 60 : 90;
 
-    // Load 728x90 banner (skip on bottom if no separate key)
-    if (bannerKey) {
-      this._addScript(slot, { text: `atOptions = { 'key': '${bannerKey}', 'format': 'iframe', 'height': 90, 'width': 728, 'params': {} };` });
-      this._addScript(slot, { src: `https://www.highperformanceformat.com/${bannerKey}/invoke.js` });
-    }
-
-    // Bottom slot: native (primary if no banner key, fallback if banner key set)
-    if (isBottom) {
-      const wrap = document.createElement('div');
-      wrap.id = c.nativeId;
-      wrap.style.display = bannerKey ? 'none' : '';
-      slot.appendChild(wrap);
-      this._addScript(slot, { src: c.nativeSrc, async: true, cfasync: true });
-
-      if (bannerKey) {
-        // Show native only if 728x90 doesn't fill within 3s
-        setTimeout(() => {
-          const iframe = slot.querySelector('iframe');
-          if (!iframe || iframe.offsetHeight < 10) {
-            wrap.style.display = '';
-          }
-          this._watchForFill(slot);
-        }, 3000);
-      } else {
-        this._watchForFill(slot);
-      }
-    } else {
-      this._watchForFill(slot);
-    }
+    this._addScript(slot, { text: `atOptions = { 'key': '${bannerKey}', 'format': 'iframe', 'height': ${h}, 'width': ${w}, 'params': {} };` });
+    this._addScript(slot, { src: `https://www.highperformanceformat.com/${bannerKey}/invoke.js` });
+    this._watchForFill(slot);
   },
 
   _adsense(slot, isBottom) {
