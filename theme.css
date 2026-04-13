@@ -589,6 +589,9 @@ main {
   pointer-events: none;
   z-index: 1;
 }
+.ad-slot.ad-filled::before {
+  display: none;
+}
 
 /* In-content — responsive (AdSense picks best size per device) */
 .ad-content {

@@ -3,12 +3,125 @@
  * Import in every game: <script src="theme.js"></script>
  *
  * Provides:
+ *   SiteAds     — ad loading (Adsterra / AdSense), auto-inits on DOM ready
  *   GameTheme   — dark/light toggle, persisted
  *   GameTimer   — start/stop/reset timer with display
  *   GameStats   — per-game stats: played, won, streak, best times
  *   GameSettings — toggle-chip helper for help settings
  *   Confetti    — launch celebration confetti
  */
+
+// ===========================
+// ADS — switch provider here
+// ===========================
+const SiteAds = {
+  // ▸▸▸ Change this to 'adsense' when approved ◂◂◂
+  provider: 'adsterra',
+
+  adsterra: {
+    bannerKey: '8e7325ec05bc3ccf27c1d08c45a4148e',
+    nativeSrc: 'https://pl29142917.profitablecpmratenetwork.com/ce493e1502850f62ba39fd0e637d3a72/invoke.js',
+    nativeId: 'container-ce493e1502850f62ba39fd0e637d3a72'
+  },
+
+  adsense: {
+    client: 'ca-pub-7700405385978151',
+    topSlot: '1492611532',
+    bottomSlot: '1081547998'
+  },
+
+  init() {
+    document.querySelectorAll('.ad-slot').forEach(slot => {
+      const isBottom = slot.classList.contains('ad-bottom');
+      if (this.provider === 'adsterra') this._adsterra(slot, isBottom);
+      else this._adsense(slot, isBottom);
+    });
+  },
+
+  _addScript(parent, opts) {
+    const s = document.createElement('script');
+    if (opts.src) s.src = opts.src;
+    if (opts.text) s.textContent = opts.text;
+    if (opts.async) s.async = true;
+    if (opts.cfasync) s.setAttribute('data-cfasync', 'false');
+    parent.appendChild(s);
+    return s;
+  },
+
+  // Check if ad content rendered and hide the "Advertisement" label
+  _watchForFill(slot) {
+    const check = () => {
+      const iframe = slot.querySelector('iframe');
+      const native = slot.querySelector('[id^="container-"]');
+      const filled = (iframe && iframe.offsetHeight > 10) ||
+                     (native && native.offsetHeight > 10 && native.style.display !== 'none');
+      if (filled) slot.classList.add('ad-filled');
+    };
+    // Check at 1s, 3s, 5s to catch both fast and slow fills
+    setTimeout(check, 1000);
+    setTimeout(check, 3000);
+    setTimeout(check, 5000);
+  },
+
+  _adsterra(slot, isBottom) {
+    const c = this.adsterra;
+    // 728x90 banner
+    this._addScript(slot, { text: `atOptions = { 'key': '${c.bannerKey}', 'format': 'iframe', 'height': 90, 'width': 728, 'params': {} };` });
+    this._addScript(slot, { src: `https://www.highperformanceformat.com/${c.bannerKey}/invoke.js` });
+
+    // Bottom slot: native fallback (hidden until needed)
+    if (isBottom) {
+      const wrap = document.createElement('div');
+      wrap.id = c.nativeId;
+      wrap.style.display = 'none';
+      slot.appendChild(wrap);
+      this._addScript(slot, { src: c.nativeSrc, async: true, cfasync: true });
+
+      // Show native only if 728x90 doesn't fill within 3s
+      setTimeout(() => {
+        const iframe = slot.querySelector('iframe');
+        if (!iframe || iframe.offsetHeight < 10) {
+          wrap.style.display = '';
+        }
+        this._watchForFill(slot);
+      }, 3000);
+    } else {
+      this._watchForFill(slot);
+    }
+  },
+
+  _adsense(slot, isBottom) {
+    const c = this.adsense;
+    // Load AdSense library once
+    if (!document.querySelector('script[src*="adsbygoogle"]')) {
+      const s = document.createElement('script');
+      s.async = true;
+      s.src = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${c.client}`;
+      s.crossOrigin = 'anonymous';
+      document.head.appendChild(s);
+    }
+    const ins = document.createElement('ins');
+    ins.className = 'adsbygoogle';
+    ins.style.display = 'block';
+    ins.dataset.adClient = c.client;
+    ins.dataset.adSlot = isBottom ? c.bottomSlot : c.topSlot;
+    ins.dataset.adFormat = 'auto';
+    ins.dataset.fullWidthResponsive = 'true';
+    slot.appendChild(ins);
+
+    const push = () => { try { (window.adsbygoogle = window.adsbygoogle || []).push({}); } catch(e) {} };
+    if (window.adsbygoogle) push();
+    else document.querySelector('script[src*="adsbygoogle"]').addEventListener('load', push);
+    this._watchForFill(slot);
+  }
+};
+
+// Auto-init ads on DOM ready
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => SiteAds.init());
+} else {
+  SiteAds.init();
+}
 
 // ===========================
 // THEME (dark/light)

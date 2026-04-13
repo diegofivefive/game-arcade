@@ -8,7 +8,9 @@
       "WebFetch(domain:github.com)",
       "mcp__Claude_Preview__preview_start",
       "Bash(python3 -c \"from PIL import Image; print\\(''PIL available''\\)\")",
-      "WebFetch(domain:thefreefix.com)"
+      "WebFetch(domain:thefreefix.com)",
+      "Bash(python /tmp/replace_ads.py)",
+      "Bash(python /tmp/strip_ads.py)"
     ]
   }
 }
