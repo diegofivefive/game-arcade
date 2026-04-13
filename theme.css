@@ -605,6 +605,14 @@ main {
   padding: 8px 16px;
 }
 
+/* On mobile, limit native ad height to ~1 card visible */
+@media (max-width: 768px) {
+  .ad-bottom [id^="container-"] {
+    max-height: 320px;
+    overflow-y: hidden;
+  }
+}
+
 /* ===========================
    SITE FOOTER (every page)
    =========================== */
