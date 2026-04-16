@@ -15,6 +15,8 @@
 // ADS — switch provider here
 // ===========================
 const SiteAds = {
+  // ▸▸▸ Flip to true to re-enable ads ◂◂◂
+  enabled: false,
   // ▸▸▸ Change this to 'adsense' when approved ◂◂◂
   provider: 'adsterra',
 
@@ -30,6 +32,7 @@ const SiteAds = {
   },
 
   init() {
+    if (!this.enabled) return;
     const slots = [...document.querySelectorAll('.ad-slot')];
     // Adsterra uses a global `atOptions` — stagger slots so each invoke.js
     // reads its own config before the next slot overwrites it
@@ -57,10 +60,7 @@ const SiteAds = {
   _watchForFill(slot) {
     const check = () => {
       const iframe = slot.querySelector('iframe');
-      const native = slot.querySelector('[id^="container-"]');
-      const filled = (iframe && iframe.offsetHeight > 10) ||
-                     (native && native.offsetHeight > 10 && native.style.display !== 'none');
-      if (filled) slot.classList.add('ad-filled');
+      if (iframe && iframe.offsetHeight > 10) slot.classList.add('ad-filled');
     };
     // Check at 1s, 3s, 5s to catch both fast and slow fills
     setTimeout(check, 1000);
