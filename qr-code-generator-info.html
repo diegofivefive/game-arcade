@@ -21,14 +21,68 @@
 <meta name="twitter:image" content="https://thefreefix.com/og-image.png">
 <meta name="twitter:description" content="Learn how to use our free QR Code Generator & Reader. Create and read QR codes for free.">
 <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Article",
-  "name": "How to Use QR Code Generator & Reader",
-  "url": "https://thefreefix.com/qr-code-generator-info.html",
-  "description": "Learn how to use our free QR Code Generator & Reader. Create and read QR codes for URLs, text, WiFi, vCards, and events.",
-  "isPartOf": { "@type": "WebSite", "name": "TheFreeFix.com", "url": "https://thefreefix.com/" }
-}
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "name": "How to Use QR Code Generator &amp; Reader",
+    "url": "https://thefreefix.com/qr-code-generator-info.html",
+    "description": "Learn how to use our free QR Code Generator &amp; Reader. Create and read QR codes for URLs, text, WiFi, vCards, and events.",
+    "publisher": { "@type": "Organization", "name": "TheFreeFix.com", "url": "https://thefreefix.com/" },
+    "isPartOf": { "@type": "WebSite", "name": "TheFreeFix.com", "url": "https://thefreefix.com/" },
+    "author": {
+      "@type": "Person",
+      "@id": "https://thefreefix.com/about.html#james-nicolaus",
+      "name": "James Nicolaus",
+      "url": "https://thefreefix.com/about.html#james-nicolaus"
+    },
+    "datePublished": "2026-03-20",
+    "dateModified": "2026-05-14"
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "How to use QR Code Generator and Reader",
+    "step": [
+      { "@type": "HowToStep", "position": 1, "name": "Choose a mode", "text": "Select Text, WiFi, vCard, or Event from the tabs to match the type of content you want to encode." },
+      { "@type": "HowToStep", "position": 2, "name": "Enter your content", "text": "Type or paste a URL, text, or fill in the form fields. The QR code generates automatically in real time as you type." },
+      { "@type": "HowToStep", "position": 3, "name": "Customize and size", "text": "Pick custom foreground and background colors using the color pickers, then choose Small, Medium, or Large for your output size." },
+      { "@type": "HowToStep", "position": 4, "name": "Download the QR code", "text": "Save your QR code as a PNG image or SVG vector file using the Download button." },
+      { "@type": "HowToStep", "position": 5, "name": "Read a QR code", "text": "Switch to the Read tab, then upload a QR code image or use your camera to scan one live. The decoded text or URL is displayed instantly." }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What types of QR codes can I generate?",
+        "acceptedAnswer": { "@type": "Answer", "text": "You can generate QR codes for plain text or URLs, WiFi network credentials, vCard contact information, and calendar events." }
+      },
+      {
+        "@type": "Question",
+        "name": "Is my data sent to a server?",
+        "acceptedAnswer": { "@type": "Answer", "text": "No. All QR code generation and reading happens entirely in your browser. No data is sent to any server, keeping your content completely private." }
+      },
+      {
+        "@type": "Question",
+        "name": "What file formats can I download?",
+        "acceptedAnswer": { "@type": "Answer", "text": "You can download your QR code as a PNG image for general use, or as an SVG vector file for high-quality printing at any size." }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I read a QR code from an image file?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. Switch to the Read tab and upload a JPEG, PNG, WebP, or GIF image containing a QR code. The tool decodes it instantly using the jsQR library." }
+      },
+      {
+        "@type": "Question",
+        "name": "Why does my QR code fail to scan?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Use high-contrast colors (dark foreground on light background) and keep the text short. Very long content makes QR codes denser and harder for some scanners to read." }
+      }
+    ]
+  }
+]
 </script>
 <link rel="stylesheet" href="theme.css">
 <style>
@@ -52,6 +106,11 @@
     </div>
   </header>
   <article class="info-content">
+    <p class="byline" style="font-size:13px;color:var(--text-dim);margin:0 0 16px;">By <a href="about.html#james-nicolaus" style="color:var(--accent);text-decoration:none;">James Nicolaus</a> &middot; <time datetime="2026-05-14">Updated May 14, 2026</time></p>
+    <figure class="info-figure">
+      <img src="screenshots/qr-code-generator.webp" alt="QR Code Generator interface showing a generated QR code with custom foreground colour, the WiFi mode selected, and the size and colour controls visible" loading="lazy" onerror="this.parentNode.style.display='none'">
+      <figcaption>QR Code Generator in WiFi mode &mdash; custom colours and live preview.</figcaption>
+    </figure>
     <h2>How to Generate a QR Code</h2>
     <p>Generate a QR code in seconds — just type or paste your content and the code appears instantly.</p>
     <ol>
@@ -79,9 +138,42 @@
       <li>When reading QR codes, use clear, well-lit images for best results</li>
       <li>The camera scanner works best when the QR code fills most of the frame</li>
     </ul>
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-section">
+      <details class="faq-item">
+        <summary>What types of QR codes can I generate?</summary>
+        <p class="faq-answer">You can generate QR codes for plain text or URLs, WiFi network credentials, vCard contact information, and calendar events.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Is my data sent to a server?</summary>
+        <p class="faq-answer">No. All QR code generation and reading happens entirely in your browser. No data is sent to any server, keeping your content completely private.</p>
+      </details>
+      <details class="faq-item">
+        <summary>What file formats can I download?</summary>
+        <p class="faq-answer">You can download your QR code as a PNG image for general use, or as an SVG vector file for high-quality printing at any size.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Can I read a QR code from an image file?</summary>
+        <p class="faq-answer">Yes. Switch to the Read tab and upload a JPEG, PNG, WebP, or GIF image containing a QR code. The tool decodes it instantly using the jsQR library.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Why does my QR code fail to scan?</summary>
+        <p class="faq-answer">Use high-contrast colors (dark foreground on light background) and keep the text short. Very long content makes QR codes denser and harder for some scanners to read.</p>
+      </details>
+    </div>
     <h2>About</h2>
     <p>QR (Quick Response) codes were invented in 1994 by a Toyota subsidiary for tracking automotive parts. Today they are used everywhere — from restaurant menus and payment systems to Wi-Fi sharing and event tickets.</p>
     <p>Our generator creates QR codes entirely in your browser using a self-contained encoder with Reed-Solomon error correction. It supports byte mode encoding, error correction level M, and QR versions 1 through 40. The reader uses the jsQR library, loaded on demand only when you use the Read tab. No data is sent to any server — everything stays on your device.</p>
+    <p><strong>From the build:</strong> the first version of this tool pulled in a popular QR library that added roughly 80&nbsp;KB of JavaScript to the page. On a slow mobile connection that's a noticeable delay before the first code can render. We replaced it with a hand-rolled Reed-Solomon encoder, which runs in under 20&nbsp;KB and supports the full QR version range up to v40. The reader is still a third-party library (jsQR is solid), but it only loads when you actually click the Read tab &mdash; so people who only need to generate codes never pay for the reader bytes.</p>
+    <aside class="key-takeaways">
+      <h2>Key Takeaways</h2>
+      <ul>
+        <li>Generate QR codes for plain text, URLs, WiFi credentials, vCard contacts, and calendar events</li>
+        <li>Read QR codes by uploading a JPEG/PNG/WebP/GIF image or scanning live with your device camera</li>
+        <li>Customize foreground and background colors, pick Small/Medium/Large size, and download as PNG or SVG</li>
+        <li>Self-contained Reed-Solomon encoder runs 100% in your browser; reader uses jsQR loaded on demand</li>
+      </ul>
+    </aside>
   </article>
   </main>
   <div class="ad-slot ad-bottom"></div>

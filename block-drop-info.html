@@ -24,14 +24,68 @@
 <meta name="twitter:description" content="Learn how to play Block Drop — controls, scoring, tips, and strategies.">
 <!-- Structured Data -->
 <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Article",
-  "name": "How to Play Block Drop",
-  "url": "https://thefreefix.com/block-drop-info.html",
-  "description": "Learn how to play Block Drop — controls, scoring, tips, and strategies for the classic falling-blocks puzzle game.",
-  "isPartOf": { "@type": "WebSite", "name": "TheFreeFix.com", "url": "https://thefreefix.com/" }
-}
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "name": "How to Play Block Drop",
+    "url": "https://thefreefix.com/block-drop-info.html",
+    "description": "Learn how to play Block Drop — controls, scoring, tips, and strategies for the classic falling-blocks puzzle game.",
+    "publisher": { "@type": "Organization", "name": "TheFreeFix.com", "url": "https://thefreefix.com/" },
+    "isPartOf": { "@type": "WebSite", "name": "TheFreeFix.com", "url": "https://thefreefix.com/" },
+    "author": {
+      "@type": "Person",
+      "@id": "https://thefreefix.com/about.html#james-nicolaus",
+      "name": "James Nicolaus",
+      "url": "https://thefreefix.com/about.html#james-nicolaus"
+    },
+    "datePublished": "2026-03-20",
+    "dateModified": "2026-05-14"
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "How to Play Block Drop",
+    "step": [
+      { "@type": "HowToStep", "position": 1, "name": "Move the falling piece", "text": "Use the Left/Right arrow keys (or A/D) to move the falling piece horizontally across the board." },
+      { "@type": "HowToStep", "position": 2, "name": "Rotate the piece", "text": "Press the Up arrow, W, or X to rotate the piece. Use the ghost piece outline to see where it will land." },
+      { "@type": "HowToStep", "position": 3, "name": "Drop the piece", "text": "Press the Down arrow or S for a soft drop (faster fall), or Space for a hard drop (instant placement)." },
+      { "@type": "HowToStep", "position": 4, "name": "Hold a piece", "text": "Press C or Shift to save the current piece in the hold slot for later use (once per drop)." },
+      { "@type": "HowToStep", "position": 5, "name": "Clear lines", "text": "Fill complete horizontal rows across all 10 columns to clear them and score points. The game ends when blocks stack to the top." }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I score the most points in Block Drop?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Clearing 4 lines at once (a Tetris) scores 800 times your current level — the highest value clear. Keep one column open for I-pieces to land these high-value clears." }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the ghost piece?",
+        "acceptedAnswer": { "@type": "Answer", "text": "The ghost piece is a faint outline at the bottom of the board showing exactly where your current piece will land if you drop it now. Use it to aim precisely." }
+      },
+      {
+        "@type": "Question",
+        "name": "How does the Hold feature work?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Press C or Shift to store the current piece in the hold slot. You can swap back to it on your next turn. You can only hold once per piece drop." }
+      },
+      {
+        "@type": "Question",
+        "name": "Does the game get faster over time?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. The speed increases every 10 lines cleared, raising the difficulty as you level up. The level is shown on screen." }
+      },
+      {
+        "@type": "Question",
+        "name": "How do touch controls work on mobile?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Tap the board to rotate, drag left or right to move, and swipe down to hard drop. Hold and Pause buttons are available on the left side panel." }
+      }
+    ]
+  }
+]
 </script>
 <link rel="stylesheet" href="theme.css">
 <style>
@@ -61,6 +115,7 @@
   </header>
 
   <article class="info-content">
+    <p class="byline" style="font-size:13px;color:var(--text-dim);margin:0 0 16px;">By <a href="about.html#james-nicolaus" style="color:var(--accent);text-decoration:none;">James Nicolaus</a> &middot; <time datetime="2026-05-14">Updated May 14, 2026</time></p>
     <h2>How to Play</h2>
     <p>Blocks fall from the top of the board one at a time. Move and rotate them to form complete horizontal lines. When a line is filled across all 10 columns, it clears and everything above shifts down. The game ends when blocks stack to the top.</p>
 
@@ -104,9 +159,41 @@
       <li>Focus on clearing multiple lines at once for bonus points — 4 lines at once scores 800 per level!</li>
     </ul>
 
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-section">
+      <details class="faq-item">
+        <summary>How do I score the most points in Block Drop?</summary>
+        <p class="faq-answer">Clearing 4 lines at once (a Tetris) scores 800 times your current level — the highest value clear. Keep one column open for I-pieces to land these high-value clears.</p>
+      </details>
+      <details class="faq-item">
+        <summary>What is the ghost piece?</summary>
+        <p class="faq-answer">The ghost piece is a faint outline at the bottom of the board showing exactly where your current piece will land if you drop it now. Use it to aim precisely.</p>
+      </details>
+      <details class="faq-item">
+        <summary>How does the Hold feature work?</summary>
+        <p class="faq-answer">Press C or Shift to store the current piece in the hold slot. You can swap back to it on your next turn. You can only hold once per piece drop.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Does the game get faster over time?</summary>
+        <p class="faq-answer">Yes. The speed increases every 10 lines cleared, raising the difficulty as you level up. The level is shown on screen.</p>
+      </details>
+      <details class="faq-item">
+        <summary>How do touch controls work on mobile?</summary>
+        <p class="faq-answer">Tap the board to rotate, drag left or right to move, and swipe down to hard drop. Hold and Pause buttons are available on the left side panel.</p>
+      </details>
+    </div>
     <h2>About</h2>
     <p>Block Drop is a free browser-based falling-blocks puzzle game on TheFreeFix.com. No downloads, sign-ups, or ads required. Works on desktop and mobile. Built with love using plain HTML, CSS, and JavaScript.</p>
-  </div>
+    <aside class="key-takeaways">
+      <h2>Key Takeaways</h2>
+      <ul>
+        <li>Falling-blocks puzzle with ghost piece, hold slot, and a 3-piece next queue for planning ahead</li>
+        <li>Four-line clears score 800 points times your current level — the highest-value clear in the game</li>
+        <li>Touch controls let you tap to rotate, drag to move, and swipe down for a hard drop on mobile</li>
+        <li>Speed increases every 10 lines cleared; no downloads, sign-ups, or ads required to play</li>
+      </ul>
+    </aside>
+  </article>
 
   <!-- Ad Slot 2: Bottom Banner -->
     <div class="ad-slot ad-bottom"></div>

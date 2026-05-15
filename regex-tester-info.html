@@ -24,14 +24,68 @@
 <meta name="twitter:description" content="Learn how to use the free Regex Tester to test and debug regular expressions in real time.">
 <!-- Structured Data -->
 <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Article",
-  "name": "How to Use the Regex Tester",
-  "url": "https://thefreefix.com/regex-tester-info.html",
-  "description": "Learn how to use the free Regex Tester to test, debug, and understand regular expressions.",
-  "isPartOf": { "@type": "WebSite", "name": "TheFreeFix.com", "url": "https://thefreefix.com/" }
-}
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "name": "How to Use the Regex Tester",
+    "url": "https://thefreefix.com/regex-tester-info.html",
+    "description": "Learn how to use the free Regex Tester to test, debug, and understand regular expressions.",
+    "publisher": { "@type": "Organization", "name": "TheFreeFix.com", "url": "https://thefreefix.com/" },
+    "isPartOf": { "@type": "WebSite", "name": "TheFreeFix.com", "url": "https://thefreefix.com/" },
+    "author": {
+      "@type": "Person",
+      "@id": "https://thefreefix.com/about.html#james-nicolaus",
+      "name": "James Nicolaus",
+      "url": "https://thefreefix.com/about.html#james-nicolaus"
+    },
+    "datePublished": "2026-03-20",
+    "dateModified": "2026-05-14"
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "How to use the Regex Tester",
+    "step": [
+      { "@type": "HowToStep", "position": 1, "name": "Enter your regex pattern", "text": "Type a regular expression in the pattern input field at the top. It is displayed between forward slashes like /pattern/flags, matching JavaScript syntax." },
+      { "@type": "HowToStep", "position": 2, "name": "Toggle flags", "text": "Click flag buttons to enable options: g (global, find all matches), i (case-insensitive), m (multiline), s (dotall), u (unicode), or y (sticky)." },
+      { "@type": "HowToStep", "position": 3, "name": "Enter test text", "text": "Type or paste your test string in the test area. Matches are highlighted in real time as you type." },
+      { "@type": "HowToStep", "position": 4, "name": "Explore the result tabs", "text": "Switch between Matches, Explain, Replace, Code, and Reference tabs for different views of your regex results." },
+      { "@type": "HowToStep", "position": 5, "name": "Generate code snippets", "text": "Open the Code tab to get ready-to-use regex code for JavaScript, Python, Java, C#, PHP, or Go." }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is a regular expression?",
+        "acceptedAnswer": { "@type": "Answer", "text": "A regular expression (regex) is a sequence of characters that defines a search pattern. They are used in programming for text matching, validation, search-and-replace, and data extraction." }
+      },
+      {
+        "@type": "Question",
+        "name": "What does the Explain tab do?",
+        "acceptedAnswer": { "@type": "Answer", "text": "The Explain tab breaks your regex down into individual tokens and describes each one in plain English — including character classes, quantifiers, groups, lookaheads, and backreferences." }
+      },
+      {
+        "@type": "Question",
+        "name": "What programming languages does code generation support?",
+        "acceptedAnswer": { "@type": "Answer", "text": "The Code tab generates ready-to-use snippets for six languages: JavaScript, Python, Java, C#, PHP, and Go — each with the correct syntax and flag mappings for that language." }
+      },
+      {
+        "@type": "Question",
+        "name": "How does the Replace tab work?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Enter a replacement string in the Replace tab to see the substituted result live. Standard backreferences are supported: $1, $2 for capture groups, $& for the full match." }
+      },
+      {
+        "@type": "Question",
+        "name": "Is my regex or test text sent to a server?",
+        "acceptedAnswer": { "@type": "Answer", "text": "No. All regex processing happens entirely in your browser using JavaScript's built-in RegExp engine. Nothing is sent to any server." }
+      }
+    ]
+  }
+]
 </script>
 <link rel="stylesheet" href="theme.css">
 <style>
@@ -59,6 +113,7 @@
     </header>
 
     <article class="info-content">
+    <p class="byline" style="font-size:13px;color:var(--text-dim);margin:0 0 16px;">By <a href="about.html#james-nicolaus" style="color:var(--accent);text-decoration:none;">James Nicolaus</a> &middot; <time datetime="2026-05-14">Updated May 14, 2026</time></p>
       <h2>What Is a Regular Expression?</h2>
       <p>A regular expression (regex) is a sequence of characters that defines a search pattern. They are used in programming for text matching, validation, search-and-replace, and data extraction. Mastering regex can save hours of manual text processing.</p>
 
@@ -85,6 +140,30 @@
       <h2>Quick Reference</h2>
       <p>The Reference tab provides a cheat sheet covering character classes, quantifiers, anchors, groups, lookaround, and escape sequences. Keep it open while building your regex.</p>
 
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-section">
+        <details class="faq-item">
+          <summary>What is a regular expression?</summary>
+          <p class="faq-answer">A regular expression (regex) is a sequence of characters that defines a search pattern. They are used in programming for text matching, validation, search-and-replace, and data extraction.</p>
+        </details>
+        <details class="faq-item">
+          <summary>What does the Explain tab do?</summary>
+          <p class="faq-answer">The Explain tab breaks your regex down into individual tokens and describes each one in plain English — including character classes, quantifiers, groups, lookaheads, and backreferences.</p>
+        </details>
+        <details class="faq-item">
+          <summary>What programming languages does code generation support?</summary>
+          <p class="faq-answer">The Code tab generates ready-to-use snippets for six languages: JavaScript, Python, Java, C#, PHP, and Go — each with the correct syntax and flag mappings for that language.</p>
+        </details>
+        <details class="faq-item">
+          <summary>How does the Replace tab work?</summary>
+          <p class="faq-answer">Enter a replacement string in the Replace tab to see the substituted result live. Standard backreferences are supported: $1, $2 for capture groups, $&amp; for the full match.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Is my regex or test text sent to a server?</summary>
+          <p class="faq-answer">No. All regex processing happens entirely in your browser using JavaScript's built-in RegExp engine. Nothing is sent to any server.</p>
+        </details>
+      </div>
+
       <h2>Tips</h2>
       <ul>
         <li>Start simple and build up &mdash; test each part of your regex before combining them.</li>
@@ -93,6 +172,15 @@
         <li>The Explain tab is your best friend for debugging unfamiliar patterns.</li>
         <li>All processing happens in your browser &mdash; nothing is sent to a server.</li>
       </ul>
+      <aside class="key-takeaways">
+        <h2>Key Takeaways</h2>
+        <ul>
+          <li>Live regex testing with match highlighting, capture group counts, and flag toggles (g, i, m, s, u, y)</li>
+          <li>Explain tab breaks patterns into plain-English tokens covering quantifiers, groups, and lookarounds</li>
+          <li>Replace tab supports $1, $2, $&amp;, $` and $' backreferences with live substitution preview</li>
+          <li>Generate ready-to-use snippets for JavaScript, Python, Java, C#, PHP, and Go — runs fully in-browser</li>
+        </ul>
+      </aside>
     </article>
   </main>
 

@@ -24,14 +24,68 @@
 <meta name="twitter:description" content="Learn how to play Pipe Dream online. Complete guide to connecting pipes, scoring points, and mastering this classic retro puzzle game.">
 <!-- Structured Data -->
 <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Article",
-  "name": "How to Play Pipe Dream",
-  "url": "https://thefreefix.com/pipe-dream-info.html",
-  "description": "Learn how to play Pipe Dream online. Complete guide to connecting pipes, scoring points, and mastering this classic retro puzzle game.",
-  "isPartOf": { "@type": "WebSite", "name": "TheFreeFix.com", "url": "https://thefreefix.com/" }
-}
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "name": "How to Play Pipe Dream",
+    "url": "https://thefreefix.com/pipe-dream-info.html",
+    "description": "Learn how to play Pipe Dream online. Complete guide to connecting pipes, scoring points, and mastering this classic retro puzzle game.",
+    "publisher": { "@type": "Organization", "name": "TheFreeFix.com", "url": "https://thefreefix.com/" },
+    "isPartOf": { "@type": "WebSite", "name": "TheFreeFix.com", "url": "https://thefreefix.com/" },
+    "author": {
+      "@type": "Person",
+      "@id": "https://thefreefix.com/about.html#james-nicolaus",
+      "name": "James Nicolaus",
+      "url": "https://thefreefix.com/about.html#james-nicolaus"
+    },
+    "datePublished": "2026-03-20",
+    "dateModified": "2026-05-14"
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "How to Play Pipe Dream",
+    "step": [
+      { "@type": "HowToStep", "position": 1, "name": "Place pipes on the grid", "text": "Click or tap any empty cell to place the next pipe piece from the queue onto the grid before the countdown ends." },
+      { "@type": "HowToStep", "position": 2, "name": "Connect the path from the start tile", "text": "Each pipe must connect to the previous one. Water will flow from the start tile marked with S, so plan a continuous connected path." },
+      { "@type": "HowToStep", "position": 3, "name": "Use the queue preview", "text": "Check the upcoming pipe pieces in the queue to plan your path several moves ahead." },
+      { "@type": "HowToStep", "position": 4, "name": "Meet the minimum pipe count", "text": "Fill at least the required number of pipes for the level. The water must flow through all of them to complete the level." },
+      { "@type": "HowToStep", "position": 5, "name": "Maximize your score", "text": "Build longer winding paths and use cross pipes to carry water twice. Higher difficulty multipliers increase points per pipe." }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What happens when the countdown reaches zero in Pipe Dream?",
+        "acceptedAnswer": { "@type": "Answer", "text": "When the countdown ends, water starts flowing from the start tile. Any pipes not yet connected will cause the water to stop, ending your run if you haven't met the minimum pipe requirement." }
+      },
+      {
+        "@type": "Question",
+        "name": "What are cross pipes used for?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Cross pipes have all four openings and can carry water twice — once horizontally and once vertically — earning bonus points for the double crossing." }
+      },
+      {
+        "@type": "Question",
+        "name": "What are the difficulty levels?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Easy is a 7x7 grid with a 35-second countdown and 6 required pipes. Medium is 8x8, 28 seconds, 10 pipes, 1.5x score. Hard is 9x9, 22 seconds, 14 pipes, 2x score. Expert is 10x10, 18 seconds, 20 pipes, 3x score." }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I remove a placed pipe?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. Use the Bomb tool to remove a placed pipe that doesn't have water flowing through it yet, at a cost of 20 points. You can also click a filled cell to replace it with the current pipe piece for the same cost." }
+      },
+      {
+        "@type": "Question",
+        "name": "How is scoring calculated?",
+        "acceptedAnswer": { "@type": "Answer", "text": "You earn 100 points per pipe the water flows through, multiplied by the difficulty level. Skipping a pipe costs 50 points and removing or replacing a pipe costs 20 points. A level completion bonus is also added." }
+      }
+    ]
+  }
+]
 </script>
 <link rel="stylesheet" href="theme.css">
 <style>
@@ -61,6 +115,7 @@
   </header>
 
   <article class="info-content">
+    <p class="byline" style="font-size:13px;color:var(--text-dim);margin:0 0 16px;">By <a href="about.html#james-nicolaus" style="color:var(--accent);text-decoration:none;">James Nicolaus</a> &middot; <time datetime="2026-05-14">Updated May 14, 2026</time></p>
     <h2>How to Play</h2>
     <p>Pipe Dream is a classic retro puzzle game where you connect pipe segments to create a path for water to flow through. Place pipes on the grid before the countdown reaches zero and water starts flowing from the start tile.</p>
 
@@ -114,10 +169,42 @@
       <li>Higher difficulties give more points per pipe — risk vs reward</li>
     </ul>
 
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-section">
+      <details class="faq-item">
+        <summary>What happens when the countdown reaches zero in Pipe Dream?</summary>
+        <p class="faq-answer">When the countdown ends, water starts flowing from the start tile. Any pipes not yet connected will cause the water to stop, ending your run if you haven't met the minimum pipe requirement.</p>
+      </details>
+      <details class="faq-item">
+        <summary>What are cross pipes used for?</summary>
+        <p class="faq-answer">Cross pipes have all four openings and can carry water twice — once horizontally and once vertically — earning bonus points for the double crossing.</p>
+      </details>
+      <details class="faq-item">
+        <summary>What are the difficulty levels?</summary>
+        <p class="faq-answer">Easy is a 7x7 grid with a 35-second countdown and 6 required pipes. Medium is 8x8, 28 seconds, 10 pipes, 1.5x score. Hard is 9x9, 22 seconds, 14 pipes, 2x score. Expert is 10x10, 18 seconds, 20 pipes, 3x score.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Can I remove a placed pipe?</summary>
+        <p class="faq-answer">Yes. Use the Bomb tool to remove a placed pipe that doesn't have water flowing through it yet, at a cost of 20 points. You can also click a filled cell to replace it with the current pipe piece for the same cost.</p>
+      </details>
+      <details class="faq-item">
+        <summary>How is scoring calculated?</summary>
+        <p class="faq-answer">You earn 100 points per pipe the water flows through, multiplied by the difficulty level. Skipping a pipe costs 50 points and removing or replacing a pipe costs 20 points. A level completion bonus is also added.</p>
+      </details>
+    </div>
     <h2>About Pipe Dream</h2>
     <p>Pipe Dream (originally called Pipe Mania) is a classic puzzle game first released in 1989. The concept is simple but challenging: connect pipes against the clock. This free online version brings the retro gameplay to modern browsers with a clean design, multiple difficulty levels, and progressive level scaling.</p>
     <p>Play for free — no downloads, no sign-ups. Works on mobile and desktop browsers.</p>
-  </div>
+    <aside class="key-takeaways">
+      <h2>Key Takeaways</h2>
+      <ul>
+        <li>Connect pipe segments before water flows from the start tile across four difficulties from 7x7 Easy to 10x10 Expert</li>
+        <li>Includes straight, curved, T, and cross pipes — cross pipes carry water twice for bonus points</li>
+        <li>Score 100 points per pipe traversed (multiplied by difficulty) with penalties for skipping or replacing pieces</li>
+        <li>Free in-browser play with queue preview, bomb/replace tools, and progressive level-completion bonuses</li>
+      </ul>
+    </aside>
+  </article>
 
   <!-- Ad Slot 2: Bottom Banner -->
     <div class="ad-slot ad-bottom"></div>

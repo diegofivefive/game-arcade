@@ -25,19 +25,33 @@
 <meta name="twitter:description" content="GAME_DESC.">
 <!-- Structured Data -->
 <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "VideoGame",
-  "name": "GAME_TITLE",
-  "url": "https://thefreefix.com/GAME_SLUG.html",
-  "description": "GAME_DESC.",
-  "genre": ["GAME_GENRES"],
-  "playMode": "SinglePlayer",
-  "applicationCategory": "Game",
-  "operatingSystem": "Any",
-  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-  "isPartOf": { "@type": "WebSite", "name": "TheFreeFix.com", "url": "https://thefreefix.com/" }
-}
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "VideoGame",
+    "name": "GAME_TITLE",
+    "url": "https://thefreefix.com/GAME_SLUG.html",
+    "description": "GAME_DESC.",
+    "genre": ["GAME_GENRES"],
+    "playMode": "SinglePlayer",
+    "applicationCategory": "Game",
+    "operatingSystem": "Any",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "publisher": { "@type": "Organization", "name": "TheFreeFix.com", "url": "https://thefreefix.com/" },
+    "isPartOf": { "@type": "WebSite", "name": "TheFreeFix.com", "url": "https://thefreefix.com/" }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "TODO: Frequently asked question about GAME_TITLE?",
+        "acceptedAnswer": { "@type": "Answer", "text": "TODO: Answer." }
+      }
+    ]
+  }
+]
 </script>
 <link rel="stylesheet" href="theme.css">
 <style>

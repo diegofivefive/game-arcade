@@ -25,17 +25,31 @@
 <meta name="twitter:description" content="TOOL_DESC.">
 <!-- Structured Data -->
 <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebApplication",
-  "name": "TOOL_TITLE",
-  "url": "https://thefreefix.com/TOOL_SLUG.html",
-  "description": "TOOL_DESC.",
-  "applicationCategory": "UtilityApplication",
-  "operatingSystem": "Any",
-  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-  "isPartOf": { "@type": "WebSite", "name": "TheFreeFix.com", "url": "https://thefreefix.com/" }
-}
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "TOOL_TITLE",
+    "url": "https://thefreefix.com/TOOL_SLUG.html",
+    "description": "TOOL_DESC.",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Any",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "publisher": { "@type": "Organization", "name": "TheFreeFix.com", "url": "https://thefreefix.com/" },
+    "isPartOf": { "@type": "WebSite", "name": "TheFreeFix.com", "url": "https://thefreefix.com/" }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "TODO: Frequently asked question about TOOL_TITLE?",
+        "acceptedAnswer": { "@type": "Answer", "text": "TODO: Answer." }
+      }
+    ]
+  }
+]
 </script>
 <link rel="stylesheet" href="theme.css">
 <style>

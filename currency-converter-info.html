@@ -21,14 +21,68 @@
 <meta name="twitter:image" content="https://thefreefix.com/og-image.png">
 <meta name="twitter:description" content="Learn how to use our free Currency Converter with daily exchange rates.">
 <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Article",
-  "name": "How to Use Currency Converter",
-  "url": "https://thefreefix.com/currency-converter-info.html",
-  "description": "Learn how to use our free Currency Converter. Convert between 30+ world currencies with daily exchange rates.",
-  "isPartOf": { "@type": "WebSite", "name": "TheFreeFix.com", "url": "https://thefreefix.com/" }
-}
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "name": "How to Use Currency Converter",
+    "url": "https://thefreefix.com/currency-converter-info.html",
+    "description": "Learn how to use our free Currency Converter. Convert between 30+ world currencies with daily exchange rates.",
+    "publisher": { "@type": "Organization", "name": "TheFreeFix.com", "url": "https://thefreefix.com/" },
+    "isPartOf": { "@type": "WebSite", "name": "TheFreeFix.com", "url": "https://thefreefix.com/" },
+    "author": {
+      "@type": "Person",
+      "@id": "https://thefreefix.com/about.html#james-nicolaus",
+      "name": "James Nicolaus",
+      "url": "https://thefreefix.com/about.html#james-nicolaus"
+    },
+    "datePublished": "2026-03-20",
+    "dateModified": "2026-05-14"
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "How to use Currency Converter",
+    "step": [
+      { "@type": "HowToStep", "position": 1, "name": "Enter an amount", "text": "Type a number in the top input field (for example, 100) to set the amount you want to convert." },
+      { "@type": "HowToStep", "position": 2, "name": "Choose your currencies", "text": "Select your source currency in the top dropdown and your target currency in the bottom dropdown. Popular currencies are grouped at the top for quick access." },
+      { "@type": "HowToStep", "position": 3, "name": "Read the result", "text": "The converted amount updates instantly as you type — no button press needed." },
+      { "@type": "HowToStep", "position": 4, "name": "Swap currencies", "text": "Click the swap button between the two rows to flip the conversion direction and reverse From and To." },
+      { "@type": "HowToStep", "position": 5, "name": "Convert in reverse", "text": "Type in the bottom field to convert in the opposite direction. Both fields work as inputs simultaneously." }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Where do the exchange rates come from?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Exchange rates are sourced from the European Central Bank (ECB) via the Frankfurter API. The ECB publishes reference rates once per business day, typically around 16:00 CET." }
+      },
+      {
+        "@type": "Question",
+        "name": "How many currencies are supported?",
+        "acceptedAnswer": { "@type": "Answer", "text": "The tool supports 30+ major world currencies including USD, EUR, GBP, JPY, CAD, AUD, CHF, CNY, and many more." }
+      },
+      {
+        "@type": "Question",
+        "name": "Does the converter work offline?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. Previously fetched rates are cached in your browser, so the tool works even without an internet connection using the last available rates. A status indicator shows whether rates are fresh or cached." }
+      },
+      {
+        "@type": "Question",
+        "name": "Are these rates suitable for financial transactions?",
+        "acceptedAnswer": { "@type": "Answer", "text": "These are mid-market reference rates for informational purposes only. Actual rates from banks and money transfer services will differ due to spreads and fees." }
+      },
+      {
+        "@type": "Question",
+        "name": "Is my data sent to a server?",
+        "acceptedAnswer": { "@type": "Answer", "text": "No personal data or conversion amounts are sent to any server. Only the exchange rate API is contacted to fetch current rates, and all calculations happen in your browser." }
+      }
+    ]
+  }
+]
 </script>
 <link rel="stylesheet" href="theme.css">
 <style>
@@ -52,6 +106,7 @@
     </div>
   </header>
   <article class="info-content">
+    <p class="byline" style="font-size:13px;color:var(--text-dim);margin:0 0 16px;">By <a href="about.html#james-nicolaus" style="color:var(--accent);text-decoration:none;">James Nicolaus</a> &middot; <time datetime="2026-05-14">Updated May 14, 2026</time></p>
     <h2>How to Use</h2>
     <p>Convert between 30+ world currencies instantly. Just enter an amount and pick your currencies.</p>
     <ol>
@@ -73,10 +128,42 @@
       <li><strong>Status indicator</strong> &mdash; a green dot means rates are fresh; yellow means cached rates are being used</li>
     </ul>
 
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-section">
+      <details class="faq-item">
+        <summary>Where do the exchange rates come from?</summary>
+        <p class="faq-answer">Exchange rates are sourced from the European Central Bank (ECB) via the Frankfurter API. The ECB publishes reference rates once per business day, typically around 16:00 CET.</p>
+      </details>
+      <details class="faq-item">
+        <summary>How many currencies are supported?</summary>
+        <p class="faq-answer">The tool supports 30+ major world currencies including USD, EUR, GBP, JPY, CAD, AUD, CHF, CNY, and many more.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Does the converter work offline?</summary>
+        <p class="faq-answer">Yes. Previously fetched rates are cached in your browser, so the tool works even without an internet connection using the last available rates. A status indicator shows whether rates are fresh or cached.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Are these rates suitable for financial transactions?</summary>
+        <p class="faq-answer">These are mid-market reference rates for informational purposes only. Actual rates from banks and money transfer services will differ due to spreads and fees.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Is my data sent to a server?</summary>
+        <p class="faq-answer">No personal data or conversion amounts are sent to any server. Only the exchange rate API is contacted to fetch current rates, and all calculations happen in your browser.</p>
+      </details>
+    </div>
     <h2>About the Rates</h2>
     <p>Exchange rates are sourced from the European Central Bank (ECB) via the Frankfurter API. The ECB publishes reference rates once per business day, typically around 16:00 CET. Weekend and holiday rates use the last available business day rates.</p>
     <p>These are mid-market reference rates intended for informational purposes. Actual exchange rates from banks and money transfer services will differ due to spreads and fees.</p>
     <p>All conversion happens entirely in your browser. No personal data or amounts are sent to any server.</p>
+    <aside class="key-takeaways">
+      <h2>Key Takeaways</h2>
+      <ul>
+        <li>Convert between 30+ world currencies including USD, EUR, GBP, JPY, CAD, AUD, CHF, and CNY in real time</li>
+        <li>Exchange rates come from the European Central Bank via the Frankfurter API, updated each business day</li>
+        <li>Works offline using cached rates; a status dot shows whether rates are fresh (green) or cached (yellow)</li>
+        <li>Mid-market rates for informational use — type in either field, swap with one tap, last currencies remembered</li>
+      </ul>
+    </aside>
   </article>
   </main>
   <div class="ad-slot ad-bottom"></div>

@@ -25,14 +25,36 @@
 <meta name="twitter:description" content="INFO_DESC">
 <!-- Structured Data -->
 <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Article",
-  "name": "INFO_TITLE",
-  "url": "https://thefreefix.com/INFO_SLUG-info.html",
-  "description": "INFO_DESC",
-  "isPartOf": { "@type": "WebSite", "name": "TheFreeFix.com", "url": "https://thefreefix.com/" }
-}
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "name": "INFO_TITLE",
+    "url": "https://thefreefix.com/INFO_SLUG-info.html",
+    "description": "INFO_DESC",
+    "publisher": { "@type": "Organization", "name": "TheFreeFix.com", "url": "https://thefreefix.com/" },
+    "isPartOf": { "@type": "WebSite", "name": "TheFreeFix.com", "url": "https://thefreefix.com/" }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "TODO: How to [use/play] INFO_PARENT_NAME",
+    "step": [
+      { "@type": "HowToStep", "position": 1, "name": "TODO Step 1 name", "text": "TODO Step 1 description." }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "TODO: Frequently asked question 1?",
+        "acceptedAnswer": { "@type": "Answer", "text": "TODO: Answer 1." }
+      }
+    ]
+  }
+]
 </script>
 <link rel="stylesheet" href="theme.css">
 <style>

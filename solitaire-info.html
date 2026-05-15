@@ -24,14 +24,68 @@
 <meta name="twitter:description" content="Learn how to play Klondike, Spider, and FreeCell solitaire. Rules, tips, and strategies for all three classic card games.">
 <!-- Structured Data -->
 <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Article",
-  "name": "How to Play Solitaire Collection",
-  "url": "https://thefreefix.com/solitaire-info.html",
-  "description": "Learn how to play Klondike, Spider, and FreeCell solitaire. Rules, tips, and strategies for all three classic card games.",
-  "isPartOf": { "@type": "WebSite", "name": "TheFreeFix.com", "url": "https://thefreefix.com/" }
-}
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "name": "How to Play Solitaire Collection",
+    "url": "https://thefreefix.com/solitaire-info.html",
+    "description": "Learn how to play Klondike, Spider, and FreeCell solitaire. Rules, tips, and strategies for all three classic card games.",
+    "publisher": { "@type": "Organization", "name": "TheFreeFix.com", "url": "https://thefreefix.com/" },
+    "isPartOf": { "@type": "WebSite", "name": "TheFreeFix.com", "url": "https://thefreefix.com/" },
+    "author": {
+      "@type": "Person",
+      "@id": "https://thefreefix.com/about.html#james-nicolaus",
+      "name": "James Nicolaus",
+      "url": "https://thefreefix.com/about.html#james-nicolaus"
+    },
+    "datePublished": "2026-03-20",
+    "dateModified": "2026-05-14"
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "How to Play Solitaire Collection",
+    "step": [
+      { "@type": "HowToStep", "position": 1, "name": "Choose a game", "text": "Select Klondike, Spider, or FreeCell from the main menu to start your preferred solitaire variant." },
+      { "@type": "HowToStep", "position": 2, "name": "Move cards in the tableau", "text": "Drag and drop cards to move them between piles. In Klondike and FreeCell, build columns in descending order with alternating colors." },
+      { "@type": "HowToStep", "position": 3, "name": "Build the foundations", "text": "Move Aces to the four foundation piles, then build each foundation up by suit from Ace to King. Tap a card to auto-move it to a foundation if possible." },
+      { "@type": "HowToStep", "position": 4, "name": "Draw from the stock (Klondike)", "text": "Click the stock pile to draw new cards in Draw 1 or Draw 3 mode when no tableau moves are available." },
+      { "@type": "HowToStep", "position": 5, "name": "Win the game", "text": "Complete all four foundations (Ace through King) to win Klondike and FreeCell. In Spider, remove all eight complete King-to-Ace same-suit sequences." }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What solitaire games are included?",
+        "acceptedAnswer": { "@type": "Answer", "text": "The collection includes three classic variants: Klondike (the most well-known version), Spider (sequence-building with one, two, or four suits), and FreeCell (a strategy-heavy game where all cards are dealt face-up)." }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I win Klondike Solitaire?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Move all 52 cards to the four foundation piles, building each pile by suit from Ace up to King. Prioritize uncovering face-down tableau cards to open up moves." }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the difference between Draw 1 and Draw 3 in Klondike?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Draw 1 reveals one card at a time from the stock pile, making the game easier. Draw 3 reveals three cards at once, showing only the top card, which makes the game significantly harder." }
+      },
+      {
+        "@type": "Question",
+        "name": "How does FreeCell differ from Klondike?",
+        "acceptedAnswer": { "@type": "Answer", "text": "In FreeCell, all 52 cards are dealt face-up from the start. You have four free cells to temporarily store individual cards, and nearly every deal is theoretically winnable with the right strategy." }
+      },
+      {
+        "@type": "Question",
+        "name": "Are my stats saved between sessions?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. Your stats and best times for each game variant are saved locally in your browser so they persist between sessions." }
+      }
+    ]
+  }
+]
 </script>
 <link rel="stylesheet" href="theme.css">
 <style>
@@ -61,6 +115,7 @@
   </header>
 
   <article class="info-content">
+    <p class="byline" style="font-size:13px;color:var(--text-dim);margin:0 0 16px;">By <a href="about.html#james-nicolaus" style="color:var(--accent);text-decoration:none;">James Nicolaus</a> &middot; <time datetime="2026-05-14">Updated May 14, 2026</time></p>
     <h2>How to Play</h2>
     <p>This collection includes three classic solitaire card games. Choose your favorite from the main menu.</p>
 
@@ -110,9 +165,41 @@
       <li><strong>Hint</strong> highlights a suggested move.</li>
     </ul>
 
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-section">
+      <details class="faq-item">
+        <summary>What solitaire games are included?</summary>
+        <p class="faq-answer">The collection includes three classic variants: Klondike (the most well-known version), Spider (sequence-building with one, two, or four suits), and FreeCell (a strategy-heavy game where all cards are dealt face-up).</p>
+      </details>
+      <details class="faq-item">
+        <summary>How do I win Klondike Solitaire?</summary>
+        <p class="faq-answer">Move all 52 cards to the four foundation piles, building each pile by suit from Ace up to King. Prioritize uncovering face-down tableau cards to open up moves.</p>
+      </details>
+      <details class="faq-item">
+        <summary>What is the difference between Draw 1 and Draw 3 in Klondike?</summary>
+        <p class="faq-answer">Draw 1 reveals one card at a time from the stock pile, making the game easier. Draw 3 reveals three cards at once, showing only the top card, which makes the game significantly harder.</p>
+      </details>
+      <details class="faq-item">
+        <summary>How does FreeCell differ from Klondike?</summary>
+        <p class="faq-answer">In FreeCell, all 52 cards are dealt face-up from the start. You have four free cells to temporarily store individual cards, and nearly every deal is theoretically winnable with the right strategy.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Are my stats saved between sessions?</summary>
+        <p class="faq-answer">Yes. Your stats and best times for each game variant are saved locally in your browser so they persist between sessions.</p>
+      </details>
+    </div>
     <h2>About</h2>
     <p>Solitaire Collection brings three beloved card games together in one place. Play Klondike (the classic everyone knows), Spider (the sequence-building challenge), or FreeCell (the strategic favorite) — all free, no downloads, no sign-ups. Your stats and best times are saved locally in your browser.</p>
-  </div>
+    <aside class="key-takeaways">
+      <h2>Key Takeaways</h2>
+      <ul>
+        <li>Three solitaire variants in one app: Klondike (Draw 1 or Draw 3), Spider (1, 2, or 4 suits), and FreeCell</li>
+        <li>Drag-and-drop cards or tap to auto-move to a foundation; Undo and Hint buttons available anytime</li>
+        <li>Stats and best times for each game variant save locally in your browser between sessions</li>
+        <li>Free to play with no downloads, accounts, or sign-ups — runs on desktop and mobile browsers</li>
+      </ul>
+    </aside>
+  </article>
 
   <!-- Ad Slot 2: Bottom Banner -->
     <div class="ad-slot ad-bottom"></div>

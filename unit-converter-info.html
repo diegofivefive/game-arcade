@@ -24,14 +24,68 @@
 <meta name="twitter:description" content="Learn how to use the free Unit Converter to convert between hundreds of units.">
 <!-- Structured Data -->
 <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Article",
-  "name": "How to Use Unit Converter",
-  "url": "https://thefreefix.com/unit-converter-info.html",
-  "description": "Learn how to convert between hundreds of units across 10 categories.",
-  "isPartOf": { "@type": "WebSite", "name": "TheFreeFix.com", "url": "https://thefreefix.com/" }
-}
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "name": "How to Use Unit Converter",
+    "url": "https://thefreefix.com/unit-converter-info.html",
+    "description": "Learn how to convert between hundreds of units across 10 categories.",
+    "publisher": { "@type": "Organization", "name": "TheFreeFix.com", "url": "https://thefreefix.com/" },
+    "isPartOf": { "@type": "WebSite", "name": "TheFreeFix.com", "url": "https://thefreefix.com/" },
+    "author": {
+      "@type": "Person",
+      "@id": "https://thefreefix.com/about.html#james-nicolaus",
+      "name": "James Nicolaus",
+      "url": "https://thefreefix.com/about.html#james-nicolaus"
+    },
+    "datePublished": "2026-03-20",
+    "dateModified": "2026-05-14"
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "How to use Unit Converter",
+    "step": [
+      { "@type": "HowToStep", "position": 1, "name": "Select a category", "text": "Click one of the category pill buttons at the top: Length, Weight, Temperature, Volume, Area, Speed, Time, Data, Energy, or Pressure." },
+      { "@type": "HowToStep", "position": 2, "name": "Enter a value", "text": "Type a number in the From field. The result updates instantly as you type — no button click needed." },
+      { "@type": "HowToStep", "position": 3, "name": "Choose your units", "text": "Use the From and To dropdowns to select the units you want to convert between." },
+      { "@type": "HowToStep", "position": 4, "name": "Swap units", "text": "Click the swap button to flip the From and To units along with their values, reversing the conversion instantly." },
+      { "@type": "HowToStep", "position": 5, "name": "Use popular conversion shortcuts", "text": "Click any shortcut in the Popular conversions section at the bottom to jump to a common unit pair with one click." }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How many unit categories are available?",
+        "acceptedAnswer": { "@type": "Answer", "text": "There are 10 categories: Length, Weight, Temperature, Volume, Area, Speed, Time, Data, Energy, and Pressure — covering over 80 individual units in total." }
+      },
+      {
+        "@type": "Question",
+        "name": "How are temperature conversions handled?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Temperature conversions use exact formulas (not simple multiplication) to convert between Celsius, Fahrenheit, and Kelvin for perfect accuracy." }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the difference between KB and KiB?",
+        "acceptedAnswer": { "@type": "Answer", "text": "KB (kilobyte) uses the decimal definition where 1 KB = 1,000 bytes. KiB (kibibyte) uses the binary definition where 1 KiB = 1,024 bytes. The Data category includes both decimal and binary units." }
+      },
+      {
+        "@type": "Question",
+        "name": "Does the converter work offline?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. All conversions are calculated locally in your browser using built-in conversion factors. No internet connection is needed after the page loads." }
+      },
+      {
+        "@type": "Question",
+        "name": "Where can I see the conversion formula?",
+        "acceptedAnswer": { "@type": "Answer", "text": "The formula line displayed below the converter shows the conversion rate between your selected units for reference." }
+      }
+    ]
+  }
+]
 </script>
 <link rel="stylesheet" href="theme.css">
 <style>
@@ -77,6 +131,7 @@
   </header>
 
   <article class="info-content">
+    <p class="byline" style="font-size:13px;color:var(--text-dim);margin:0 0 16px;">By <a href="about.html#james-nicolaus" style="color:var(--accent);text-decoration:none;">James Nicolaus</a> &middot; <time datetime="2026-05-14">Updated May 14, 2026</time></p>
     <h2>How to Use</h2>
     <p>Convert between units instantly:</p>
     <ol>
@@ -110,10 +165,42 @@
       <li>Data category includes both decimal (KB, MB, GB) and binary (KiB, MiB, GiB) units.</li>
     </ul>
 
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-section">
+      <details class="faq-item">
+        <summary>How many unit categories are available?</summary>
+        <p class="faq-answer">There are 10 categories: Length, Weight, Temperature, Volume, Area, Speed, Time, Data, Energy, and Pressure — covering over 80 individual units in total.</p>
+      </details>
+      <details class="faq-item">
+        <summary>How are temperature conversions handled?</summary>
+        <p class="faq-answer">Temperature conversions use exact formulas (not simple multiplication) to convert between Celsius, Fahrenheit, and Kelvin for perfect accuracy.</p>
+      </details>
+      <details class="faq-item">
+        <summary>What is the difference between KB and KiB?</summary>
+        <p class="faq-answer">KB (kilobyte) uses the decimal definition where 1 KB = 1,000 bytes. KiB (kibibyte) uses the binary definition where 1 KiB = 1,024 bytes. The Data category includes both decimal and binary units.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Does the converter work offline?</summary>
+        <p class="faq-answer">Yes. All conversions are calculated locally in your browser using built-in conversion factors. No internet connection is needed after the page loads.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Where can I see the conversion formula?</summary>
+        <p class="faq-answer">The formula line displayed below the converter shows the conversion rate between your selected units for reference.</p>
+      </details>
+    </div>
     <h2>About</h2>
     <p>Unit conversion is one of the most common everyday calculations, whether you're cooking, traveling, studying, or working on a project. This tool covers 10 categories with over 80 units to handle virtually any conversion you need.</p>
     <p>All conversions are calculated locally in your browser using precise conversion factors. No data is sent to any server. Temperature conversions use exact formulas rather than multiplication factors for perfect accuracy.</p>
-  </div>
+    <aside class="key-takeaways">
+      <h2>Key Takeaways</h2>
+      <ul>
+        <li>Convert across 10 categories: Length, Weight, Temperature, Volume, Area, Speed, Time, Data, Energy, Pressure</li>
+        <li>Over 80 units total, including both decimal (KB, MB, GB) and binary (KiB, MiB, GiB) data sizes</li>
+        <li>Results update live as you type; swap button flips From/To units along with their values</li>
+        <li>Temperature uses exact formulas for perfect accuracy; works offline once the page has loaded</li>
+      </ul>
+    </aside>
+  </article>
 
   <!-- Ad Slot 2: Bottom Banner -->
     <div class="ad-slot ad-bottom"></div>

@@ -21,14 +21,68 @@
 <meta name="twitter:image" content="https://thefreefix.com/og-image.png">
 <meta name="twitter:description" content="Learn how to play Sudoku online. Rules, tips, and features of our free Sudoku puzzle game.">
 <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Article",
-  "name": "How to Play Sudoku",
-  "url": "https://thefreefix.com/sudoku-info.html",
-  "description": "Learn how to play Sudoku online. Rules, tips, and features.",
-  "isPartOf": { "@type": "WebSite", "name": "TheFreeFix.com", "url": "https://thefreefix.com/" }
-}
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "name": "How to Play Sudoku",
+    "url": "https://thefreefix.com/sudoku-info.html",
+    "description": "Learn how to play Sudoku online. Rules, tips, and features.",
+    "publisher": { "@type": "Organization", "name": "TheFreeFix.com", "url": "https://thefreefix.com/" },
+    "isPartOf": { "@type": "WebSite", "name": "TheFreeFix.com", "url": "https://thefreefix.com/" },
+    "author": {
+      "@type": "Person",
+      "@id": "https://thefreefix.com/about.html#james-nicolaus",
+      "name": "James Nicolaus",
+      "url": "https://thefreefix.com/about.html#james-nicolaus"
+    },
+    "datePublished": "2026-03-20",
+    "dateModified": "2026-05-14"
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "How to Play Sudoku",
+    "step": [
+      { "@type": "HowToStep", "position": 1, "name": "Select a cell", "text": "Tap a cell on the 9x9 grid to select it." },
+      { "@type": "HowToStep", "position": 2, "name": "Enter a number", "text": "Tap a number button or press a number key to place a digit in the selected cell." },
+      { "@type": "HowToStep", "position": 3, "name": "Use Notes mode", "text": "Toggle the pencil button to enter candidate notes in a cell instead of a final answer." },
+      { "@type": "HowToStep", "position": 4, "name": "Use Hints and Undo", "text": "Tap Hint to reveal the correct digit for the selected cell (3 per game), or Undo to take back your last move." },
+      { "@type": "HowToStep", "position": 5, "name": "Complete the puzzle", "text": "Fill every row, column, and 3x3 box with the digits 1 through 9 exactly once to win." }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How does Sudoku work?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Sudoku is a logic puzzle played on a 9x9 grid. The goal is to fill every row, column, and 3x3 box with the digits 1 through 9 exactly once. No math is required — only logical deduction." }
+      },
+      {
+        "@type": "Question",
+        "name": "What are the difficulty levels?",
+        "acceptedAnswer": { "@type": "Answer", "text": "There are four difficulty levels: Easy (many given digits), Medium (basic elimination), Hard (advanced logic needed), and Expert (minimal clues for experienced solvers)." }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I use notes while solving?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. Toggle Notes mode with the pencil button to pencil in candidate numbers in a cell. This helps you track possibilities without committing to a final answer." }
+      },
+      {
+        "@type": "Question",
+        "name": "Is there a time limit?",
+        "acceptedAnswer": { "@type": "Answer", "text": "There is no time limit. A timer tracks how long you take, and your best times per difficulty level are saved automatically." }
+      },
+      {
+        "@type": "Question",
+        "name": "Are the puzzles randomly generated?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. All puzzles are generated in your browser with guaranteed unique solutions. Each game is different." }
+      }
+    ]
+  }
+]
 </script>
 <link rel="stylesheet" href="theme.css">
 <style>
@@ -52,6 +106,11 @@
     </div>
   </header>
   <article class="info-content">
+    <p class="byline" style="font-size:13px;color:var(--text-dim);margin:0 0 16px;">By <a href="about.html#james-nicolaus" style="color:var(--accent);text-decoration:none;">James Nicolaus</a> &middot; <time datetime="2026-05-14">Updated May 14, 2026</time></p>
+    <figure class="info-figure">
+      <img src="screenshots/sudoku-board.webp" alt="Sudoku in dark mode showing a partially solved Medium puzzle with one cell selected and pencil-mark notes visible in neighbouring cells" loading="lazy" onerror="this.parentNode.style.display='none'">
+      <figcaption>Sudoku in dark mode &mdash; mid-game Medium puzzle with notes mode active.</figcaption>
+    </figure>
     <h2>How to Play</h2>
     <p>Sudoku is a logic-based number puzzle. The goal is to fill a 9x9 grid so that every row, column, and 3x3 box contains the digits 1 through 9 exactly once.</p>
     <ul>
@@ -70,9 +129,42 @@
       <li><strong>Hard</strong> — needs more advanced logic and notes</li>
       <li><strong>Expert</strong> — minimal clues, for experienced solvers</li>
     </ul>
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-section">
+      <details class="faq-item">
+        <summary>How does Sudoku work?</summary>
+        <p class="faq-answer">Sudoku is a logic puzzle played on a 9x9 grid. The goal is to fill every row, column, and 3x3 box with the digits 1 through 9 exactly once. No math is required — only logical deduction.</p>
+      </details>
+      <details class="faq-item">
+        <summary>What are the difficulty levels?</summary>
+        <p class="faq-answer">There are four difficulty levels: Easy (many given digits), Medium (basic elimination), Hard (advanced logic needed), and Expert (minimal clues for experienced solvers).</p>
+      </details>
+      <details class="faq-item">
+        <summary>Can I use notes while solving?</summary>
+        <p class="faq-answer">Yes. Toggle Notes mode with the pencil button to pencil in candidate numbers in a cell. This helps you track possibilities without committing to a final answer.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Is there a time limit?</summary>
+        <p class="faq-answer">There is no time limit. A timer tracks how long you take, and your best times per difficulty level are saved automatically.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Are the puzzles randomly generated?</summary>
+        <p class="faq-answer">Yes. All puzzles are generated in your browser with guaranteed unique solutions. Each game is different.</p>
+      </details>
+    </div>
     <h2>About</h2>
     <p>Sudoku originated in 18th-century Switzerland as "Latin Squares" and was popularized in Japan in the 1980s under the name "Sudoku" meaning "single number." It became a worldwide phenomenon in the 2000s.</p>
     <p>Our version features a clean, modern interface with dark and light mode support, stats tracking with best times per difficulty, and a responsive layout that works on any device. All puzzles are generated in your browser with guaranteed unique solutions.</p>
+    <p><strong>From the build:</strong> we rebuilt the generator twice before we shipped. The first version produced Hard and Expert boards that had multiple valid solutions &mdash; technically still Sudoku, but it broke the rule that good Sudoku has exactly one answer. The current generator verifies uniqueness before serving a board, which is why the harder difficulties take a moment longer to load. Worth it. We also pushed the cell hit-area larger than it looks on mobile after watching people misfire on touchscreen taps during testing.</p>
+    <aside class="key-takeaways">
+      <h2>Key Takeaways</h2>
+      <ul>
+        <li>Browser-based Sudoku with four difficulty levels from Easy to Expert and guaranteed unique-solution puzzles</li>
+        <li>Includes Notes mode for pencil-in candidates, 3 hints per game, undo, and automatic error highlighting</li>
+        <li>Tracks best times per difficulty locally with no account, sign-up, or download required</li>
+        <li>Works on mobile and desktop with keyboard arrow and number key support or full touch input</li>
+      </ul>
+    </aside>
   </article>
   </main>
   <div class="ad-slot ad-bottom"></div>

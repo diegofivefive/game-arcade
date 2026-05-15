@@ -24,14 +24,68 @@
 <meta name="twitter:description" content="Learn how to play Nonograms (Picross) puzzles online. Rules, controls, tips, and difficulty levels.">
 <!-- Structured Data -->
 <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Article",
-  "name": "How to Play Nonograms",
-  "url": "https://thefreefix.com/nonograms-info.html",
-  "description": "Learn how to play Nonograms (Picross) puzzles online. Rules, controls, tips, and difficulty levels.",
-  "isPartOf": { "@type": "WebSite", "name": "TheFreeFix.com", "url": "https://thefreefix.com/" }
-}
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "name": "How to Play Nonograms",
+    "url": "https://thefreefix.com/nonograms-info.html",
+    "description": "Learn how to play Nonograms (Picross) puzzles online. Rules, controls, tips, and difficulty levels.",
+    "publisher": { "@type": "Organization", "name": "TheFreeFix.com", "url": "https://thefreefix.com/" },
+    "isPartOf": { "@type": "WebSite", "name": "TheFreeFix.com", "url": "https://thefreefix.com/" },
+    "author": {
+      "@type": "Person",
+      "@id": "https://thefreefix.com/about.html#james-nicolaus",
+      "name": "James Nicolaus",
+      "url": "https://thefreefix.com/about.html#james-nicolaus"
+    },
+    "datePublished": "2026-03-20",
+    "dateModified": "2026-05-14"
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "How to Play Nonograms",
+    "step": [
+      { "@type": "HowToStep", "position": 1, "name": "Read the clues", "text": "Each row and column has number clues indicating the lengths of consecutive filled-cell groups in that line, in order." },
+      { "@type": "HowToStep", "position": 2, "name": "Fill in cells", "text": "Left-click or tap a cell to cycle it: empty to filled to X-mark. Use filled cells where groups must go and X-marks where cells must be empty." },
+      { "@type": "HowToStep", "position": 3, "name": "Mark empty cells", "text": "Right-click or long-press to place an X-mark on cells you know are empty. This helps narrow down where filled groups can go." },
+      { "@type": "HowToStep", "position": 4, "name": "Look for overlaps", "text": "If a clue number is more than half the row or column length, some cells in the middle must be filled regardless of exact position." },
+      { "@type": "HowToStep", "position": 5, "name": "Complete the puzzle", "text": "Alternate between solving rows and columns until every cell is correctly filled or marked. Completed clues are automatically struck through." }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What are Nonograms?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Nonograms (also called Picross or Griddlers) are logic puzzles where you fill in cells on a grid based on number clues for each row and column. Solving the puzzle reveals a hidden pixel picture." }
+      },
+      {
+        "@type": "Question",
+        "name": "What do the number clues mean?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Each number represents a consecutive group of filled cells in that row or column. Multiple numbers mean multiple groups separated by at least one empty cell, in the order listed." }
+      },
+      {
+        "@type": "Question",
+        "name": "What difficulty levels are available?",
+        "acceptedAnswer": { "@type": "Answer", "text": "There are four levels: Easy (5x5 grid), Medium (10x10), Hard (15x15), and Expert (20x20). Larger grids require more advanced logic and patience." }
+      },
+      {
+        "@type": "Question",
+        "name": "What does an X-mark mean?",
+        "acceptedAnswer": { "@type": "Answer", "text": "An X-mark indicates a cell you have determined must be empty. Placing X-marks helps you track which cells cannot contain a filled group, making it easier to solve the remaining unknowns." }
+      },
+      {
+        "@type": "Question",
+        "name": "Is there an undo button?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. Press Ctrl+Z or use the Undo button to reverse your last action at any time during solving." }
+      }
+    ]
+  }
+]
 </script>
 <link rel="stylesheet" href="theme.css">
 <style>
@@ -61,6 +115,7 @@
   </header>
 
   <article class="info-content">
+    <p class="byline" style="font-size:13px;color:var(--text-dim);margin:0 0 16px;">By <a href="about.html#james-nicolaus" style="color:var(--accent);text-decoration:none;">James Nicolaus</a> &middot; <time datetime="2026-05-14">Updated May 14, 2026</time></p>
     <h2>How to Play</h2>
     <p>Nonograms (also called Picross or Griddlers) are logic puzzles where you fill in cells on a grid based on number clues. Each row and column has a set of numbers that tell you how many consecutive groups of filled cells exist in that line.</p>
     <p>For example, a clue of <strong>3 1</strong> means there is a group of 3 filled cells, at least one empty cell, then a group of 1 filled cell. Your goal is to figure out exactly which cells to fill and which to leave empty.</p>
@@ -101,9 +156,41 @@
       <li><strong>Work both directions</strong> &mdash; alternate between solving rows and columns. Progress in one direction often reveals information for the other.</li>
     </ul>
 
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-section">
+      <details class="faq-item">
+        <summary>What are Nonograms?</summary>
+        <p class="faq-answer">Nonograms (also called Picross or Griddlers) are logic puzzles where you fill in cells on a grid based on number clues for each row and column. Solving the puzzle reveals a hidden pixel picture.</p>
+      </details>
+      <details class="faq-item">
+        <summary>What do the number clues mean?</summary>
+        <p class="faq-answer">Each number represents a consecutive group of filled cells in that row or column. Multiple numbers mean multiple groups separated by at least one empty cell, in the order listed.</p>
+      </details>
+      <details class="faq-item">
+        <summary>What difficulty levels are available?</summary>
+        <p class="faq-answer">There are four levels: Easy (5x5 grid), Medium (10x10), Hard (15x15), and Expert (20x20). Larger grids require more advanced logic and patience.</p>
+      </details>
+      <details class="faq-item">
+        <summary>What does an X-mark mean?</summary>
+        <p class="faq-answer">An X-mark indicates a cell you have determined must be empty. Placing X-marks helps you track which cells cannot contain a filled group, making it easier to solve the remaining unknowns.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Is there an undo button?</summary>
+        <p class="faq-answer">Yes. Press Ctrl+Z or use the Undo button to reverse your last action at any time during solving.</p>
+      </details>
+    </div>
     <h2>About Nonograms</h2>
     <p>Nonograms were invented independently in 1987 by Non Ishida in Japan and by Tetsuya Nishio. The puzzles became popular in Japan and spread worldwide under many names including Picross, Griddlers, Paint by Numbers, and Hanjie. They combine logical deduction with the satisfaction of revealing a hidden picture, making them one of the most beloved puzzle formats alongside Sudoku and crosswords.</p>
-  </div>
+    <aside class="key-takeaways">
+      <h2>Key Takeaways</h2>
+      <ul>
+        <li>Solve nonogram (Picross/Griddlers) puzzles across four sizes: Easy 5x5, Medium 10x10, Hard 15x15, and Expert 20x20</li>
+        <li>Cells cycle empty to filled to X-mark; clue numbers represent consecutive groups in each row and column</li>
+        <li>Auto-cross completed clues, row and column highlighting, error check, undo, and timer included</li>
+        <li>Per-difficulty solve times, win rate, and streaks save locally — keyboard and touch input supported</li>
+      </ul>
+    </aside>
+  </article>
 
   <!-- Ad Slot 2: Bottom Banner -->
     <div class="ad-slot ad-bottom"></div>

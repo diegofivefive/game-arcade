@@ -24,14 +24,67 @@
 <meta name="twitter:description" content="Learn how to remove EXIF metadata from images to protect your privacy before sharing online.">
 <!-- Structured Data -->
 <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Article",
-  "name": "How to Remove EXIF Data from Images",
-  "url": "https://thefreefix.com/metadata-stripper-info.html",
-  "description": "Learn how to remove EXIF metadata from images to protect your privacy.",
-  "isPartOf": { "@type": "WebSite", "name": "TheFreeFix.com", "url": "https://thefreefix.com/" }
-}
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "name": "How to Remove EXIF Data from Images",
+    "url": "https://thefreefix.com/metadata-stripper-info.html",
+    "description": "Learn how to remove EXIF metadata from images to protect your privacy.",
+    "publisher": { "@type": "Organization", "name": "TheFreeFix.com", "url": "https://thefreefix.com/" },
+    "isPartOf": { "@type": "WebSite", "name": "TheFreeFix.com", "url": "https://thefreefix.com/" },
+    "author": {
+      "@type": "Person",
+      "@id": "https://thefreefix.com/about.html#james-nicolaus",
+      "name": "James Nicolaus",
+      "url": "https://thefreefix.com/about.html#james-nicolaus"
+    },
+    "datePublished": "2026-03-20",
+    "dateModified": "2026-05-14"
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "How to remove EXIF metadata from images",
+    "step": [
+      { "@type": "HowToStep", "position": 1, "name": "Upload your images", "text": "Drag and drop image files onto the upload area or click to browse. You can add up to 50 images at once for batch processing. Supported formats: JPEG, PNG, WebP." },
+      { "@type": "HowToStep", "position": 2, "name": "Review detected metadata", "text": "Each uploaded image shows its detected metadata tags. GPS locations are flagged with a warning. Click View details to see the full metadata breakdown." },
+      { "@type": "HowToStep", "position": 3, "name": "Strip the metadata", "text": "Click Strip on individual files, or click Strip All to clean every image at once. The tool re-encodes each image without any metadata." },
+      { "@type": "HowToStep", "position": 4, "name": "Download clean images", "text": "Download cleaned images individually or click Download All to save everything at once. Clean files are named with a -clean suffix." }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is EXIF metadata?",
+        "acceptedAnswer": { "@type": "Answer", "text": "EXIF (Exchangeable Image File Format) metadata is hidden data embedded in photo files by cameras and phones. It can include GPS coordinates, the date and time a photo was taken, camera make and model, lens info, and even the photographer's name." }
+      },
+      {
+        "@type": "Question",
+        "name": "Why should I remove metadata from photos?",
+        "acceptedAnswer": { "@type": "Answer", "text": "When you share photos online, metadata travels with them. Anyone who downloads your image can extract your home location from GPS data, learn what equipment you own, or see when and where the photo was taken. Stripping metadata protects your privacy." }
+      },
+      {
+        "@type": "Question",
+        "name": "Are my images uploaded to a server?",
+        "acceptedAnswer": { "@type": "Answer", "text": "No. All processing happens entirely in your browser using the Canvas API. Your images are never sent to any server — nothing leaves your device." }
+      },
+      {
+        "@type": "Question",
+        "name": "What metadata gets removed?",
+        "acceptedAnswer": { "@type": "Answer", "text": "The tool removes GPS coordinates, camera make and model, serial numbers, lens info, date and time stamps, software history, artist name, copyright info, XMP and IPTC blocks, ICC color profiles, and image comments." }
+      },
+      {
+        "@type": "Question",
+        "name": "What image formats are supported?",
+        "acceptedAnswer": { "@type": "Answer", "text": "JPEG (full EXIF, IPTC, XMP, and GPS removal), PNG (text chunks and eXIf chunk removal), and WebP (metadata removal via re-encoding) are all supported." }
+      }
+    ]
+  }
+]
 </script>
 <link rel="stylesheet" href="theme.css">
 <style>
@@ -59,6 +112,7 @@
     </header>
 
     <article class="info-content">
+    <p class="byline" style="font-size:13px;color:var(--text-dim);margin:0 0 16px;">By <a href="about.html#james-nicolaus" style="color:var(--accent);text-decoration:none;">James Nicolaus</a> &middot; <time datetime="2026-05-14">Updated May 14, 2026</time></p>
       <h2>What Is Image Metadata?</h2>
       <p>Every photo you take with a phone or camera contains hidden data called EXIF (Exchangeable Image File Format) metadata. This data is embedded directly in the image file and can include your GPS coordinates, the exact date and time the photo was taken, your camera make and model, lens information, software used for editing, and even your name if set in camera settings.</p>
 
@@ -93,8 +147,41 @@
         <li>Image comments</li>
       </ul>
 
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-section">
+        <details class="faq-item">
+          <summary>What is EXIF metadata?</summary>
+          <p class="faq-answer">EXIF (Exchangeable Image File Format) metadata is hidden data embedded in photo files by cameras and phones. It can include GPS coordinates, the date and time a photo was taken, camera make and model, lens info, and even the photographer's name.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Why should I remove metadata from photos?</summary>
+          <p class="faq-answer">When you share photos online, metadata travels with them. Anyone who downloads your image can extract your home location from GPS data, learn what equipment you own, or see when and where the photo was taken. Stripping metadata protects your privacy.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Are my images uploaded to a server?</summary>
+          <p class="faq-answer">No. All processing happens entirely in your browser using the Canvas API. Your images are never sent to any server — nothing leaves your device.</p>
+        </details>
+        <details class="faq-item">
+          <summary>What metadata gets removed?</summary>
+          <p class="faq-answer">The tool removes GPS coordinates, camera make and model, serial numbers, lens info, date and time stamps, software history, artist name, copyright info, XMP and IPTC blocks, ICC color profiles, and image comments.</p>
+        </details>
+        <details class="faq-item">
+          <summary>What image formats are supported?</summary>
+          <p class="faq-answer">JPEG (full EXIF, IPTC, XMP, and GPS removal), PNG (text chunks and eXIf chunk removal), and WebP (metadata removal via re-encoding) are all supported.</p>
+        </details>
+      </div>
+
       <h2>Privacy First</h2>
       <p>All processing happens entirely in your browser. Your images are never uploaded to any server. Nothing leaves your device. The tool uses the Canvas API to re-draw each image from scratch, producing a clean copy with zero metadata.</p>
+      <aside class="key-takeaways">
+        <h2>Key Takeaways</h2>
+        <ul>
+          <li>Remove EXIF, IPTC, XMP, GPS coordinates, camera details, and timestamps from JPEG, PNG, and WebP images</li>
+          <li>Batch process up to 50 images at once; GPS locations are flagged with a warning before stripping</li>
+          <li>Cleaned files are re-encoded via the HTML5 Canvas API and saved with a "-clean" suffix</li>
+          <li>Runs entirely in your browser — images are never uploaded, protecting privacy when sharing online</li>
+        </ul>
+      </aside>
     </article>
   </main>
 

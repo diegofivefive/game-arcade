@@ -686,3 +686,96 @@ main {
   .timer-display { font-size: 18px; }
   .game-header .logo { font-size: 22px; }
 }
+
+/* ===========================
+   FAQ ACCORDIONS
+   =========================== */
+.faq-section { margin: 24px 0; }
+.faq-item {
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-md);
+  margin-bottom: 8px;
+  overflow: hidden;
+  transition: var(--transition);
+}
+.faq-item summary {
+  cursor: pointer;
+  padding: 14px 16px;
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--text);
+  list-style: none;
+  position: relative;
+  padding-right: 40px;
+  transition: var(--transition);
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::after {
+  content: '+';
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 20px;
+  color: var(--accent);
+  transition: var(--transition);
+}
+.faq-item[open] summary::after { transform: translateY(-50%) rotate(45deg); }
+.faq-item summary:hover { background: var(--btn-hover); }
+.faq-item[open] { border-color: var(--accent); }
+.faq-item .faq-answer {
+  padding: 0 16px 16px;
+  color: var(--text-dim);
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ===========================
+   KEY TAKEAWAYS
+   =========================== */
+.key-takeaways {
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-left: 4px solid var(--accent);
+  border-radius: var(--radius-md);
+  padding: 16px 20px;
+  margin: 28px 0 16px;
+}
+.key-takeaways h2 {
+  margin: 0 0 8px;
+  font-size: 16px;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.key-takeaways ul {
+  margin: 0;
+  padding-left: 20px;
+}
+.key-takeaways li {
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.6;
+  margin-bottom: 6px;
+}
+.key-takeaways li:last-child { margin-bottom: 0; }
+
+/* ===========================
+   INFO PAGE FIGURES
+   =========================== */
+.info-figure { margin: 16px 0 24px; text-align: center; }
+.info-figure img {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--card-border);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+.info-figure figcaption {
+  margin-top: 8px;
+  font-size: 13px;
+  color: var(--text-dim);
+  font-style: italic;
+}

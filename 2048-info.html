@@ -21,14 +21,68 @@
 <meta name="twitter:image" content="https://thefreefix.com/og-image.png">
 <meta name="twitter:description" content="Learn how to play 2048 online. Rules, controls, and strategy tips.">
 <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Article",
-  "name": "How to Play 2048",
-  "url": "https://thefreefix.com/2048-info.html",
-  "description": "Learn how to play 2048 online. Rules, controls, and strategy tips.",
-  "isPartOf": { "@type": "WebSite", "name": "TheFreeFix.com", "url": "https://thefreefix.com/" }
-}
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "name": "How to Play 2048",
+    "url": "https://thefreefix.com/2048-info.html",
+    "description": "Learn how to play 2048 online. Rules, controls, and strategy tips.",
+    "publisher": { "@type": "Organization", "name": "TheFreeFix.com", "url": "https://thefreefix.com/" },
+    "isPartOf": { "@type": "WebSite", "name": "TheFreeFix.com", "url": "https://thefreefix.com/" },
+    "author": {
+      "@type": "Person",
+      "@id": "https://thefreefix.com/about.html#james-nicolaus",
+      "name": "James Nicolaus",
+      "url": "https://thefreefix.com/about.html#james-nicolaus"
+    },
+    "datePublished": "2026-03-20",
+    "dateModified": "2026-05-14"
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "How to Play 2048",
+    "step": [
+      { "@type": "HowToStep", "position": 1, "name": "Slide the tiles", "text": "Use arrow keys on desktop or swipe on mobile to slide all tiles in a direction (up, down, left, or right)." },
+      { "@type": "HowToStep", "position": 2, "name": "Merge matching tiles", "text": "When two tiles with the same number collide during a slide, they merge into one tile with their combined value." },
+      { "@type": "HowToStep", "position": 3, "name": "Watch for new tiles", "text": "After each move, a new tile (value 2 or 4) appears in a random empty cell on the board." },
+      { "@type": "HowToStep", "position": 4, "name": "Reach 2048", "text": "Keep merging tiles until you create a tile with the value 2048 to win. You can keep playing after winning to chase higher tiles." },
+      { "@type": "HowToStep", "position": 5, "name": "Avoid filling the board", "text": "The game ends when no moves are possible. Keep the board clear by merging tiles regularly." }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is the goal of 2048?",
+        "acceptedAnswer": { "@type": "Answer", "text": "The goal is to slide and merge numbered tiles on a 4x4 grid until you create a tile with the value 2048. You can continue playing after winning to reach even higher values." }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the best strategy for 2048?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Keep your highest tile in one corner and build a chain of descending values along one edge. Avoid moves that pull your big tile away from its corner." }
+      },
+      {
+        "@type": "Question",
+        "name": "How is the score calculated?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Your score increases by the value of each merged tile. For example, merging two 16 tiles adds 32 to your score. Your best score is saved automatically." }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I play 2048 on mobile?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. The game fully supports swipe controls on touch devices. Swipe up, down, left, or right to slide all tiles in that direction." }
+      },
+      {
+        "@type": "Question",
+        "name": "Is my progress saved if I close the browser?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. The game saves your current board state and best score automatically in your browser, so you can resume where you left off." }
+      }
+    ]
+  }
+]
 </script>
 <link rel="stylesheet" href="theme.css">
 <style>
@@ -52,6 +106,11 @@
     </div>
   </header>
   <article class="info-content">
+    <p class="byline" style="font-size:13px;color:var(--text-dim);margin:0 0 16px;">By <a href="about.html#james-nicolaus" style="color:var(--accent);text-decoration:none;">James Nicolaus</a> &middot; <time datetime="2026-05-14">Updated May 14, 2026</time></p>
+    <figure class="info-figure">
+      <img src="screenshots/2048-board.webp" alt="2048 board mid-game with a 1024 tile in the top-left corner and a descending chain of values along the top row, showing the corner-stacking strategy" loading="lazy" onerror="this.parentNode.style.display='none'">
+      <figcaption>2048 mid-game &mdash; corner-stacking strategy with a 1024 tile anchored top-left.</figcaption>
+    </figure>
     <h2>How to Play</h2>
     <p>Slide numbered tiles on a 4x4 grid. When two tiles with the same number collide, they merge into one tile with their sum. Reach the 2048 tile to win!</p>
     <ul>
@@ -69,9 +128,42 @@
       <li>Avoid moving in the direction that pulls your big tile away from its corner</li>
       <li>Keep the board as clear as possible — a full board limits your options</li>
     </ul>
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-section">
+      <details class="faq-item">
+        <summary>What is the goal of 2048?</summary>
+        <p class="faq-answer">The goal is to slide and merge numbered tiles on a 4x4 grid until you create a tile with the value 2048. You can continue playing after winning to reach even higher values.</p>
+      </details>
+      <details class="faq-item">
+        <summary>What is the best strategy for 2048?</summary>
+        <p class="faq-answer">Keep your highest tile in one corner and build a chain of descending values along one edge. Avoid moves that pull your big tile away from its corner.</p>
+      </details>
+      <details class="faq-item">
+        <summary>How is the score calculated?</summary>
+        <p class="faq-answer">Your score increases by the value of each merged tile. For example, merging two 16 tiles adds 32 to your score. Your best score is saved automatically.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Can I play 2048 on mobile?</summary>
+        <p class="faq-answer">Yes. The game fully supports swipe controls on touch devices. Swipe up, down, left, or right to slide all tiles in that direction.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Is my progress saved if I close the browser?</summary>
+        <p class="faq-answer">Yes. The game saves your current board state and best score automatically in your browser, so you can resume where you left off.</p>
+      </details>
+    </div>
     <h2>About</h2>
     <p>2048 was created by Gabriele Cirulli in 2014 as a weekend project. It quickly went viral and has been played hundreds of millions of times worldwide. The game is inspired by "Threes!" by Asher Vollmer.</p>
     <p>Our version features swipe controls for mobile, arrow key support for desktop, score tracking, best score persistence, a timer, and statistics. It works offline and saves your progress automatically.</p>
+    <p><strong>From the build:</strong> the original web 2048 has a well-known issue where a fast diagonal swipe on mobile registers as the wrong direction roughly one move in three &mdash; bad enough to lose runs over. We rewrote the swipe handler to score gestures on velocity rather than raw delta, which means a clean left-leaning swipe stays left even if your thumb drifts slightly. We also tuned the merge-and-spawn animation timing to 100ms instead of the more common 150ms; the original feels nicer, but after watching a few experienced players, the faster pace removed enough delay between moves that long chains stopped feeling laggy.</p>
+    <aside class="key-takeaways">
+      <h2>Key Takeaways</h2>
+      <ul>
+        <li>Slide and merge numbered tiles on a 4x4 grid to reach the 2048 tile, then keep playing for higher scores</li>
+        <li>Score increases by the value of each merged tile; merging two 16s adds 32 to your total</li>
+        <li>Works offline with swipe controls on mobile and arrow keys on desktop — no sign-up required</li>
+        <li>Current board state and best score are auto-saved so you can close the tab and resume later</li>
+      </ul>
+    </aside>
   </article>
   </main>
   <div class="ad-slot ad-bottom"></div>

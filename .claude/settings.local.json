@@ -17,7 +17,13 @@
       "mcp__Claude_in_Chrome__javascript_tool",
       "mcp__Claude_in_Chrome__read_console_messages",
       "mcp__Claude_in_Chrome__read_network_requests",
-      "mcp__Claude_in_Chrome__resize_window"
+      "mcp__Claude_in_Chrome__resize_window",
+      "Bash(grep -v \":0$\")",
+      "Bash(cat)",
+      "Bash(bash /tmp/audit.sh)",
+      "Bash(python3 -c ' *)",
+      "Bash(awk '/<url>/{u=NR; has=0; loc=\"\"} /<loc>/{loc=$0} /<lastmod>/{has=1} /<\\\\/url>/{if\\(!has\\) print loc}' sitemap.xml)",
+      "Bash(python3)"
     ]
   }
 }

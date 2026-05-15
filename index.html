@@ -24,16 +24,49 @@
 <meta name="twitter:description" content="Play free online games like Sudoku and Minesweeper, and use handy tools and calculators.">
 <!-- Structured Data -->
 <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  "name": "TheFreeFix.com",
-  "url": "https://thefreefix.com/",
-  "description": "Free online games and tools. No downloads, no sign-ups.",
-  "sameAs": [
-    "https://x.com/TheFreeFix"
-  ]
-}
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": "https://thefreefix.com/#website",
+    "name": "TheFreeFix.com",
+    "url": "https://thefreefix.com/",
+    "description": "Free online games and tools. No downloads, no sign-ups.",
+    "publisher": { "@id": "https://thefreefix.com/#organization" },
+    "inLanguage": "en-US",
+    "sameAs": ["https://x.com/TheFreeFix"]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "@id": "https://thefreefix.com/#organization",
+    "name": "TheFreeFix.com",
+    "url": "https://thefreefix.com/",
+    "logo": "https://thefreefix.com/og-image.png",
+    "description": "Free browser-based games and tools. No accounts, no downloads, no paywalls.",
+    "foundingDate": "2026",
+    "founder": { "@id": "https://thefreefix.com/about.html#james-nicolaus" },
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "email": "hello@thefreefix.com",
+      "contactType": "customer support",
+      "areaServed": "Worldwide",
+      "availableLanguage": "English"
+    },
+    "sameAs": ["https://x.com/TheFreeFix"]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "@id": "https://thefreefix.com/about.html#james-nicolaus",
+    "name": "James Nicolaus",
+    "url": "https://thefreefix.com/about.html#james-nicolaus",
+    "jobTitle": "Engineer, Industrial Manufacturing Technology",
+    "description": "Engineer with a long career in computer-controlled industrial manufacturing (surface-mount technology). Founder and maintainer of TheFreeFix.com.",
+    "worksFor": { "@id": "https://thefreefix.com/#organization" },
+    "sameAs": ["https://x.com/TheFreeFix"]
+  }
+]
 </script>
 <link rel="stylesheet" href="theme.css">
 <style>
