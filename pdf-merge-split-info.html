@@ -116,6 +116,10 @@
 
   <article class="info-content">
     <p class="byline" style="font-size:13px;color:var(--text-dim);margin:0 0 16px;">By <a href="about.html#james-nicolaus" style="color:var(--accent);text-decoration:none;">James Nicolaus</a> &middot; <time datetime="2026-05-14">Updated May 14, 2026</time></p>
+    <figure class="info-figure">
+      <img src="screenshots/pdf-merge-split.webp" alt="PDF Merge/Split in dark mode showing the Merge tab with three PDF files queued in a reorderable list displaying page counts and file sizes plus a Merge and Download button" loading="lazy" onerror="this.parentNode.style.display='none'">
+      <figcaption>PDF Merge/Split &mdash; three files queued for merge with drag-to-reorder.</figcaption>
+    </figure>
     <h2>How to Merge PDFs</h2>
     <ol>
       <li>Make sure <strong>Merge PDFs</strong> is selected at the top.</li>
@@ -172,6 +176,7 @@
     <p>
       Built with <strong>pdf-lib</strong> for PDF manipulation and <strong>JSZip</strong> for creating ZIP archives when splitting all pages. Works on any modern browser, desktop or mobile, with no installs or sign-ups required.
     </p>
+    <p><strong>From the build:</strong> the natural way to write the page-range parser is to expand "1-3" to [1,2,3] and dedupe. We did it the other way &mdash; we preserve duplicates and the order the user typed &mdash; because people use this tool to reorder pages, not just extract them. Typing "5, 3, 1" should produce a PDF with page 5 first. The whole pipeline streams through pdf-lib in-memory, and we let JSZip handle the archive when you split-all-pages so the browser never has to write thousands of separate downloads.</p>
     <aside class="key-takeaways">
       <h2>Key Takeaways</h2>
       <ul>

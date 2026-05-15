@@ -116,6 +116,10 @@
 
   <article class="info-content">
     <p class="byline" style="font-size:13px;color:var(--text-dim);margin:0 0 16px;">By <a href="about.html#james-nicolaus" style="color:var(--accent);text-decoration:none;">James Nicolaus</a> &middot; <time datetime="2026-05-14">Updated May 14, 2026</time></p>
+    <figure class="info-figure">
+      <img src="screenshots/pipe-dream.webp" alt="Pipe Dream in dark mode showing an 8x8 grid mid-level with the start tile marked S, water flowing through several placed pipes, and a queue of upcoming pipe pieces in the sidebar" loading="lazy" onerror="this.parentNode.style.display='none'">
+      <figcaption>Pipe Dream mid-level &mdash; water flowing through a partial path with the next pipes queued.</figcaption>
+    </figure>
     <h2>How to Play</h2>
     <p>Pipe Dream is a classic retro puzzle game where you connect pipe segments to create a path for water to flow through. Place pipes on the grid before the countdown reaches zero and water starts flowing from the start tile.</p>
 
@@ -195,6 +199,7 @@
     <h2>About Pipe Dream</h2>
     <p>Pipe Dream (originally called Pipe Mania) is a classic puzzle game first released in 1989. The concept is simple but challenging: connect pipes against the clock. This free online version brings the retro gameplay to modern browsers with a clean design, multiple difficulty levels, and progressive level scaling.</p>
     <p>Play for free — no downloads, no sign-ups. Works on mobile and desktop browsers.</p>
+    <p><strong>From the build:</strong> every pipe is just a pair of openings &mdash; we encode each piece as a list of two or four edges, and "does water flow from A to B?" becomes a set-membership check rather than a switch statement per piece type. That's why the cross-pipe double-crossing rule is one line of code: we mark each opening as consumed and let water re-enter through the unused pair. The water animation runs on a CSS transition tied to the pipe-traversal step counter, so the flow speed scales naturally if you tab away and come back &mdash; no setInterval drift to clean up.</p>
     <aside class="key-takeaways">
       <h2>Key Takeaways</h2>
       <ul>

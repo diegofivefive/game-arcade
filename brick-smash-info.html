@@ -116,6 +116,10 @@
 
   <article class="info-content">
     <p class="byline" style="font-size:13px;color:var(--text-dim);margin:0 0 16px;">By <a href="about.html#james-nicolaus" style="color:var(--accent);text-decoration:none;">James Nicolaus</a> &middot; <time datetime="2026-05-14">Updated May 14, 2026</time></p>
+    <figure class="info-figure">
+      <img src="screenshots/brick-smash.webp" alt="Brick Smash in dark mode showing the paddle at the bottom, two balls in flight, a falling Wide Paddle power-up capsule, and rows of normal, cracked, and metallic unbreakable bricks above" loading="lazy" onerror="this.parentNode.style.display='none'">
+      <figcaption>Brick Smash mid-level &mdash; multi-ball active with a Wide Paddle capsule falling.</figcaption>
+    </figure>
     <h2>How to Play</h2>
     <p>Brick Smash is a classic arcade game where you control a paddle at the bottom of the screen. A ball bounces off the paddle, walls, and bricks. Your goal is to break all the destructible bricks on each level to advance. If the ball falls below the paddle, you lose a life. Lose all your lives and the game is over.</p>
 
@@ -186,6 +190,7 @@
     </div>
     <h2>About Brick Smash</h2>
     <p>Brick Smash is inspired by the arcade classic Breakout, created by Atari in 1976. The concept of bouncing a ball off a paddle to smash rows of bricks became one of the most influential game designs in history, inspiring countless variations and spiritual successors including Arkanoid, DX-Ball, and many more. The genre combines quick reflexes with strategic aiming, making it endlessly replayable.</p>
+    <p><strong>From the build:</strong> the paddle-angle math is the soul of any Breakout clone, so we kept it old-school &mdash; the bounce vector is derived from where on the paddle the ball lands, not from the physical reflection angle. That's what lets you aim, and it's what most modern Breakout knockoffs get wrong by simulating "real" physics. We ran the game loop on requestAnimationFrame with a fixed-step accumulator so the ball doesn't tunnel through bricks on a 144Hz monitor or a backgrounded tab.</p>
     <aside class="key-takeaways">
       <h2>Key Takeaways</h2>
       <ul>

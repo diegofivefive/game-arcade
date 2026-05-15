@@ -113,6 +113,10 @@
 
     <article class="info-content">
     <p class="byline" style="font-size:13px;color:var(--text-dim);margin:0 0 16px;">By <a href="about.html#james-nicolaus" style="color:var(--accent);text-decoration:none;">James Nicolaus</a> &middot; <time datetime="2026-05-14">Updated May 14, 2026</time></p>
+      <figure class="info-figure">
+        <img src="screenshots/metadata-stripper.webp" alt="Metadata Stripper in dark mode showing three uploaded photos in a list, each with a detected GPS-location warning badge, a View Details link, and Strip All and Download All buttons above the list" loading="lazy" onerror="this.parentNode.style.display='none'">
+        <figcaption>Metadata Stripper &mdash; three photos queued with GPS warnings detected before stripping.</figcaption>
+      </figure>
       <h2>What Is Image Metadata?</h2>
       <p>Every photo you take with a phone or camera contains hidden data called EXIF (Exchangeable Image File Format) metadata. This data is embedded directly in the image file and can include your GPS coordinates, the exact date and time the photo was taken, your camera make and model, lens information, software used for editing, and even your name if set in camera settings.</p>
 
@@ -173,6 +177,7 @@
 
       <h2>Privacy First</h2>
       <p>All processing happens entirely in your browser. Your images are never uploaded to any server. Nothing leaves your device. The tool uses the Canvas API to re-draw each image from scratch, producing a clean copy with zero metadata.</p>
+      <p><strong>From the build:</strong> there are two ways to strip metadata. The clever way is to parse the JPEG segment markers and surgically remove the APP1/APP2 chunks; the brute-force way is to re-draw the pixels through a Canvas and let the browser write a brand-new file with nothing in it. We chose brute force because it's format-agnostic &mdash; the same code path handles PNG text chunks and WebP metadata without us writing per-format parsers &mdash; and because "we cannot have missed a hidden tag" is a stronger guarantee than "we cleaned the tags we know about." The cost is a small quality hit on re-encode, which we surface honestly.</p>
       <aside class="key-takeaways">
         <h2>Key Takeaways</h2>
         <ul>

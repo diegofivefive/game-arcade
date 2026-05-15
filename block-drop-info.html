@@ -116,6 +116,10 @@
 
   <article class="info-content">
     <p class="byline" style="font-size:13px;color:var(--text-dim);margin:0 0 16px;">By <a href="about.html#james-nicolaus" style="color:var(--accent);text-decoration:none;">James Nicolaus</a> &middot; <time datetime="2026-05-14">Updated May 14, 2026</time></p>
+    <figure class="info-figure">
+      <img src="screenshots/block-drop.webp" alt="Block Drop in dark mode showing a 10-column playfield mid-game with a ghost piece outline at the bottom, a hold slot on the left, and a 3-piece next queue on the right" loading="lazy" onerror="this.parentNode.style.display='none'">
+      <figcaption>Block Drop mid-game &mdash; ghost piece outline visible at the landing row.</figcaption>
+    </figure>
     <h2>How to Play</h2>
     <p>Blocks fall from the top of the board one at a time. Move and rotate them to form complete horizontal lines. When a line is filled across all 10 columns, it clears and everything above shifts down. The game ends when blocks stack to the top.</p>
 
@@ -184,6 +188,7 @@
     </div>
     <h2>About</h2>
     <p>Block Drop is a free browser-based falling-blocks puzzle game on TheFreeFix.com. No downloads, sign-ups, or ads required. Works on desktop and mobile. Built with love using plain HTML, CSS, and JavaScript.</p>
+    <p><strong>From the build:</strong> the touch controls were the part we spent the most time on. The first version mapped left/right to drag and rotation to a separate button, and it felt wrong &mdash; your thumb is already on the board. We ended up putting rotate on a board tap and hard drop on a downward swipe, which is unambiguous because nothing else fires from a vertical gesture. The ghost piece is rendered at full opacity in code and dimmed in CSS, so it stays crisp on high-DPI screens instead of fuzzing out the way a half-alpha sprite would.</p>
     <aside class="key-takeaways">
       <h2>Key Takeaways</h2>
       <ul>

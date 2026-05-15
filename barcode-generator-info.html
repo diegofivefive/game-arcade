@@ -113,6 +113,10 @@
 
     <article class="info-content">
     <p class="byline" style="font-size:13px;color:var(--text-dim);margin:0 0 16px;">By <a href="about.html#james-nicolaus" style="color:var(--accent);text-decoration:none;">James Nicolaus</a> &middot; <time datetime="2026-05-14">Updated May 14, 2026</time></p>
+      <figure class="info-figure">
+        <img src="screenshots/barcode-generator.webp" alt="Barcode Generator in dark mode showing the EAN-13 tab selected with a rendered barcode preview, the entered digits below it, an auto-calculated check digit, and PNG, SVG, and copy buttons" loading="lazy" onerror="this.parentNode.style.display='none'">
+        <figcaption>Barcode Tool &mdash; EAN-13 with the check digit auto-calculated and PNG/SVG export.</figcaption>
+      </figure>
       <h2>How to Use the Barcode Generator</h2>
       <ol>
         <li><strong>Pick a format</strong> — Choose Code 128, UPC-A, EAN-13, or Code 39 from the tabs at the top.</li>
@@ -169,6 +173,7 @@
         <li>Read barcodes from uploaded images (JPEG, PNG, WebP)</li>
         <li>100% in-browser — no data is sent to any server</li>
       </ul>
+      <p><strong>From the build:</strong> the four format encoders are hand-rolled because each one is small and the symbol tables are short. Code 128 needed the most care &mdash; it has three character subsets (A, B, C) and you have to switch between them to keep the barcode short while staying valid for the input. The check-digit logic for UPC-A and EAN-13 is the same modulo-10 weighted sum with different position weights, so it lives in one helper. We render the barcode as SVG first and rasterise to PNG via canvas on download, which means the source of truth is always vector and the PNG export can be any size without re-encoding from a low-res bitmap.</p>
       <aside class="key-takeaways">
         <h2>Key Takeaways</h2>
         <ul>

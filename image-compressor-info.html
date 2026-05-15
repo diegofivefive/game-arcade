@@ -116,6 +116,10 @@
 
   <article class="info-content">
     <p class="byline" style="font-size:13px;color:var(--text-dim);margin:0 0 16px;">By <a href="about.html#james-nicolaus" style="color:var(--accent);text-decoration:none;">James Nicolaus</a> &middot; <time datetime="2026-05-14">Updated May 14, 2026</time></p>
+    <figure class="info-figure">
+      <img src="screenshots/image-compressor.webp" alt="Image Compressor in dark mode showing three queued photos with thumbnails, original and compressed file sizes, percentage saved, the Quality slider set to 75, and a Download All button" loading="lazy" onerror="this.parentNode.style.display='none'">
+      <figcaption>Image Compressor after a batch run &mdash; three photos with before/after size and percent saved.</figcaption>
+    </figure>
     <h2>How to Use</h2>
     <ol>
       <li>Drag and drop one or more images onto the upload area, or click it to browse your device. Supported formats: <strong>JPEG</strong>, <strong>PNG</strong>, and <strong>WebP</strong>.</li>
@@ -165,6 +169,7 @@
     <p>
       The tool uses the HTML5 Canvas API to re-encode images at adjustable quality levels. It supports batch compression, format conversion, and optional resizing. Works on any modern browser, desktop or mobile, with no installs or sign-ups required.
     </p>
+    <p><strong>From the build:</strong> the compression path is just `canvas.toBlob` with a quality parameter, which sounds anticlimactic until you realise it means the browser's native JPEG/WebP encoder is doing the work &mdash; faster and better-tuned than anything we could ship as JavaScript. The trickier piece is the resize step: we use a single-pass `drawImage` for speed, which is fine for moderate downscales, but for very large source images we'd need to step through multiple intermediate sizes to avoid aliasing. We capped the max input at something where the single pass still looks clean. Format conversion is just changing the MIME type passed to toBlob &mdash; the canvas is format-agnostic.</p>
     <aside class="key-takeaways">
       <h2>Key Takeaways</h2>
       <ul>

@@ -116,6 +116,10 @@
 
   <article class="info-content">
     <p class="byline" style="font-size:13px;color:var(--text-dim);margin:0 0 16px;">By <a href="about.html#james-nicolaus" style="color:var(--accent);text-decoration:none;">James Nicolaus</a> &middot; <time datetime="2026-05-14">Updated May 14, 2026</time></p>
+    <figure class="info-figure">
+      <img src="screenshots/ascii-art-generator.webp" alt="ASCII Text Art Generator in dark mode showing a portrait photo on the left and its ASCII conversion in a monospace block on the right with the Detailed character set selected and a width slider at 100 columns" loading="lazy" onerror="this.parentNode.style.display='none'">
+      <figcaption>ASCII Text Art &mdash; portrait converted at 100 columns with the Detailed character set.</figcaption>
+    </figure>
     <h2>How to Use</h2>
     <p>Turn any image into text-based ASCII artwork in seconds. Everything runs locally in your browser &mdash; your images are never uploaded to a server.</p>
     <ol>
@@ -163,6 +167,7 @@
     <h2>About</h2>
     <p>ASCII art dates back to the earliest days of computing, when text terminals were the only display available. Artists and programmers learned to create images using nothing but the characters on a keyboard. Today, ASCII art remains popular in code comments, forum signatures, readme files, and creative coding communities.</p>
     <p>This tool works by drawing your image onto a hidden HTML5 canvas at the target resolution, reading each pixel's brightness value, and mapping it to a character from the selected set. Denser characters represent darker areas, while sparser characters represent lighter ones. The result is a faithful text-based reproduction of your original image, generated entirely in your browser with zero server involvement.</p>
+    <p><strong>From the build:</strong> the trick that most ASCII generators miss is that a character cell is taller than it is wide. If you sample your image at one pixel per character you get a vertically squashed result. We scale the source so each row corresponds to roughly two pixels' worth of height, which is why portraits actually look like portraits. The Detailed set runs 70 characters from densest to sparsest; we sorted that ramp by hand because the "official" Paul Bourke ramp is correct in theory but renders unevenly in the system monospace fonts most browsers ship.</p>
     <aside class="key-takeaways">
       <h2>Key Takeaways</h2>
       <ul>

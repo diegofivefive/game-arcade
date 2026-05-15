@@ -116,6 +116,10 @@
 
   <article class="info-content">
     <p class="byline" style="font-size:13px;color:var(--text-dim);margin:0 0 16px;">By <a href="about.html#james-nicolaus" style="color:var(--accent);text-decoration:none;">James Nicolaus</a> &middot; <time datetime="2026-05-14">Updated May 14, 2026</time></p>
+    <figure class="info-figure">
+      <img src="screenshots/memory-match.webp" alt="Memory Match in dark mode showing a 4x4 grid with two cards flipped face-up revealing matching emoji and the move counter and timer visible above the board" loading="lazy" onerror="this.parentNode.style.display='none'">
+      <figcaption>Memory Match on Medium &mdash; a matched pair stays face-up.</figcaption>
+    </figure>
     <h2>How to Play</h2>
     <p>Cards are placed face-down in a grid. Click any card to flip it and reveal the emoji underneath. Then click a second card. If the two emojis match, both cards stay face-up. If they don't match, both cards flip back over after a moment.</p>
     <p>Find all matching pairs to win. Try to complete the game in as few moves and as little time as possible.</p>
@@ -165,6 +169,7 @@
     </div>
     <h2>About</h2>
     <p>Memory Match is a free browser-based card-matching game on TheFreeFix.com. No downloads, sign-ups, or ads required. Works on desktop and mobile. Built with plain HTML, CSS, and JavaScript.</p>
+    <p><strong>From the build:</strong> the flip animation is a CSS 3D transform rather than swapping two images, because rotating the card means the back face is always physically present and there is no flicker on slow devices. Card faces are emoji rather than bitmap sprites, which keeps the page weight tiny and lets the symbols inherit the system font on every platform. The shuffle uses a Fisher-Yates pass so every layout is uniformly random &mdash; the obvious sort-by-random-key trick is biased and we wanted to be sure the harder grids weren't accidentally easier on certain seeds.</p>
     <aside class="key-takeaways">
       <h2>Key Takeaways</h2>
       <ul>

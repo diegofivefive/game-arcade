@@ -107,6 +107,10 @@
   </header>
   <article class="info-content">
     <p class="byline" style="font-size:13px;color:var(--text-dim);margin:0 0 16px;">By <a href="about.html#james-nicolaus" style="color:var(--accent);text-decoration:none;">James Nicolaus</a> &middot; <time datetime="2026-05-14">Updated May 14, 2026</time></p>
+    <figure class="info-figure">
+      <img src="screenshots/word-leap.webp" alt="Word Leap in dark mode showing a board mid-guess with green, yellow, and gray tiles and a color-coded on-screen keyboard tracking used letters" loading="lazy" onerror="this.parentNode.style.display='none'">
+      <figcaption>Word Leap mid-game &mdash; green, yellow, and gray feedback after four guesses.</figcaption>
+    </figure>
     <h2>How to Play</h2>
     <p>Guess the secret 5-letter word in 6 tries. After each guess, the tiles change color to show how close you are.</p>
     <ul>
@@ -149,6 +153,7 @@
     <h2>About</h2>
     <p>Word Leap is a 5-letter word puzzle game inspired by the classic word-guessing genre. It features animated tile reveals, a color-coded keyboard that tracks your guesses, statistics with guess distribution, and unlimited plays.</p>
     <p>The game includes around 700 carefully curated answer words and accepts over 2,500 valid guesses. All game logic runs in your browser with no server needed. Your stats and streaks are saved automatically.</p>
+    <p><strong>From the build:</strong> the answer list and the accepted-guess list are deliberately different sizes. The obvious approach was to use a single huge dictionary for both, but that meant the secret word could be something nobody has heard of &mdash; technically valid, miserable to play. We ended up curating roughly 700 reasonable answers while still accepting around 2,500 guesses, so you can throw obscure five-letter probes at the board without the game ever picking one against you. Both lists ship inline in the page so there is no fetch on first play.</p>
     <aside class="key-takeaways">
       <h2>Key Takeaways</h2>
       <ul>

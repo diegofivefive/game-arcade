@@ -132,6 +132,10 @@
 
   <article class="info-content">
     <p class="byline" style="font-size:13px;color:var(--text-dim);margin:0 0 16px;">By <a href="about.html#james-nicolaus" style="color:var(--accent);text-decoration:none;">James Nicolaus</a> &middot; <time datetime="2026-05-14">Updated May 14, 2026</time></p>
+    <figure class="info-figure">
+      <img src="screenshots/unit-converter.webp" alt="Unit Converter in dark mode showing the Length category selected with 100 centimeters converting to 39.37 inches, the conversion formula line below, and a row of category pills along the top including Weight, Temperature, and Volume" loading="lazy" onerror="this.parentNode.style.display='none'">
+      <figcaption>Unit Convert &mdash; 100 cm to inches with the conversion formula shown.</figcaption>
+    </figure>
     <h2>How to Use</h2>
     <p>Convert between units instantly:</p>
     <ol>
@@ -191,6 +195,7 @@
     <h2>About</h2>
     <p>Unit conversion is one of the most common everyday calculations, whether you're cooking, traveling, studying, or working on a project. This tool covers 10 categories with over 80 units to handle virtually any conversion you need.</p>
     <p>All conversions are calculated locally in your browser using precise conversion factors. No data is sent to any server. Temperature conversions use exact formulas rather than multiplication factors for perfect accuracy.</p>
+    <p><strong>From the build:</strong> every unit in a category is stored as a single conversion factor to a chosen base unit &mdash; meters for length, grams for weight, pascals for pressure. To convert A to B you go through the base, which means N units only need N factors instead of N&times;N pairs. Temperature breaks this pattern because Celsius and Fahrenheit aren't proportional &mdash; they have an offset &mdash; so that category uses explicit formulas instead. The data category was the only place we had to be careful about names: 1 KB is 1,000 bytes and 1 KiB is 1,024, and mixing them up silently is exactly the kind of bug we wanted to keep out.</p>
     <aside class="key-takeaways">
       <h2>Key Takeaways</h2>
       <ul>

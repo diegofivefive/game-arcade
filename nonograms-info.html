@@ -116,6 +116,10 @@
 
   <article class="info-content">
     <p class="byline" style="font-size:13px;color:var(--text-dim);margin:0 0 16px;">By <a href="about.html#james-nicolaus" style="color:var(--accent);text-decoration:none;">James Nicolaus</a> &middot; <time datetime="2026-05-14">Updated May 14, 2026</time></p>
+    <figure class="info-figure">
+      <img src="screenshots/nonograms.webp" alt="Nonograms in dark mode showing a 10x10 Medium grid with row and column clues, several filled cells, X-marks on empty cells, and the active row highlighted" loading="lazy" onerror="this.parentNode.style.display='none'">
+      <figcaption>Nonograms on Medium &mdash; row and column highlighting active with auto-crossed clues.</figcaption>
+    </figure>
     <h2>How to Play</h2>
     <p>Nonograms (also called Picross or Griddlers) are logic puzzles where you fill in cells on a grid based on number clues. Each row and column has a set of numbers that tell you how many consecutive groups of filled cells exist in that line.</p>
     <p>For example, a clue of <strong>3 1</strong> means there is a group of 3 filled cells, at least one empty cell, then a group of 1 filled cell. Your goal is to figure out exactly which cells to fill and which to leave empty.</p>
@@ -181,6 +185,7 @@
     </div>
     <h2>About Nonograms</h2>
     <p>Nonograms were invented independently in 1987 by Non Ishida in Japan and by Tetsuya Nishio. The puzzles became popular in Japan and spread worldwide under many names including Picross, Griddlers, Paint by Numbers, and Hanjie. They combine logical deduction with the satisfaction of revealing a hidden picture, making them one of the most beloved puzzle formats alongside Sudoku and crosswords.</p>
+    <p><strong>From the build:</strong> the cell-cycle order &mdash; empty to filled to X to empty &mdash; was the third version we tried. Filled-then-X-then-empty felt more natural in our heads, but in playtesting people kept accidentally erasing progress by tapping a filled cell twice. The current order lets you mis-tap once without losing work. On the 20x20 Expert boards, auto-crossing completed clues turned out to matter more than we expected; without it your eyes burn out scanning a 40-clue side panel for which numbers are still in play.</p>
     <aside class="key-takeaways">
       <h2>Key Takeaways</h2>
       <ul>

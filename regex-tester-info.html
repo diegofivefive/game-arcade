@@ -114,6 +114,10 @@
 
     <article class="info-content">
     <p class="byline" style="font-size:13px;color:var(--text-dim);margin:0 0 16px;">By <a href="about.html#james-nicolaus" style="color:var(--accent);text-decoration:none;">James Nicolaus</a> &middot; <time datetime="2026-05-14">Updated May 14, 2026</time></p>
+      <figure class="info-figure">
+        <img src="screenshots/regex-tester.webp" alt="Regex Tester in dark mode showing a pattern input with flags g and i toggled, a test string area with several highlighted matches, and the Explain tab open describing each token in plain English" loading="lazy" onerror="this.parentNode.style.display='none'">
+        <figcaption>Regex Tester &mdash; live matches highlighted with the Explain tab open.</figcaption>
+      </figure>
       <h2>What Is a Regular Expression?</h2>
       <p>A regular expression (regex) is a sequence of characters that defines a search pattern. They are used in programming for text matching, validation, search-and-replace, and data extraction. Mastering regex can save hours of manual text processing.</p>
 
@@ -172,6 +176,7 @@
         <li>The Explain tab is your best friend for debugging unfamiliar patterns.</li>
         <li>All processing happens in your browser &mdash; nothing is sent to a server.</li>
       </ul>
+      <p><strong>From the build:</strong> the matcher is the browser's native RegExp engine &mdash; there is no point shipping a second one to the tab. The interesting work is the Explain tab, which is a tiny tokenizer we wrote that walks the pattern character-by-character and describes what each construct does. Code generation isn't actual transpilation; it's a set of small template functions per language because the flag letters and escape rules differ enough between, say, Python and Go that anything more clever turns into a maintenance liability. Match highlighting uses a transparent overlay aligned to the textarea via the same font metrics, which avoids the contenteditable rabbit hole entirely.</p>
       <aside class="key-takeaways">
         <h2>Key Takeaways</h2>
         <ul>

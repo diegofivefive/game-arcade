@@ -116,6 +116,10 @@
 
   <article class="info-content">
     <p class="byline" style="font-size:13px;color:var(--text-dim);margin:0 0 16px;">By <a href="about.html#james-nicolaus" style="color:var(--accent);text-decoration:none;">James Nicolaus</a> &middot; <time datetime="2026-05-14">Updated May 14, 2026</time></p>
+    <figure class="info-figure">
+      <img src="screenshots/bubble-shooter.webp" alt="Bubble Shooter in dark mode showing a hex grid of colored bubbles, the shooter aimed upward with a dotted trajectory line bouncing off the side wall, and the next-bubble preview at the bottom" loading="lazy" onerror="this.parentNode.style.display='none'">
+      <figcaption>Bubble Shooter mid-shot &mdash; dotted aim line shows the first wall bounce.</figcaption>
+    </figure>
     <h2>How to Play</h2>
     <p>Bubble Shooter is a classic aim-and-match puzzle game. You control a shooter at the bottom of the screen that fires colored bubbles upward into a hex grid of bubbles. Aim carefully and shoot to attach your bubble to the grid. When 3 or more bubbles of the same color are connected, they pop. Any bubbles no longer connected to the ceiling will fall for bonus points. The game ends when bubbles reach the bottom danger line.</p>
 
@@ -183,6 +187,7 @@
     </div>
     <h2>About Bubble Shooter</h2>
     <p>Bubble Shooter is inspired by the arcade classic Puzzle Bobble (known as Bust-a-Move outside Japan), created by Taito in 1994. The simple concept of aiming and matching colored bubbles became one of the most popular casual game formats of all time, spawning countless browser and mobile versions. The genre combines strategic aiming with satisfying chain reactions, making it endlessly replayable.</p>
+    <p><strong>From the build:</strong> the hex grid was harder than the bouncing physics. Even rows are offset by half a bubble, which means neighbour lookups have to branch on row parity &mdash; get one wrong and a "disconnected" cluster ends up still attached, or vice versa. The flood-fill that detects floating bubbles after a pop runs from the ceiling downward; anything it doesn't visit is what falls. We snap shot bubbles to the nearest empty hex on contact rather than letting them rest where physics says, because pixel-perfect landings produce gaps that break the matching logic later.</p>
     <aside class="key-takeaways">
       <h2>Key Takeaways</h2>
       <ul>

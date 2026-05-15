@@ -107,6 +107,10 @@
   </header>
   <article class="info-content">
     <p class="byline" style="font-size:13px;color:var(--text-dim);margin:0 0 16px;">By <a href="about.html#james-nicolaus" style="color:var(--accent);text-decoration:none;">James Nicolaus</a> &middot; <time datetime="2026-05-14">Updated May 14, 2026</time></p>
+    <figure class="info-figure">
+      <img src="screenshots/word-counter.webp" alt="Word Counter in dark mode showing a paragraph of pasted text in the input area with live stat tiles below displaying word, character, sentence, paragraph counts and an estimated reading time" loading="lazy" onerror="this.parentNode.style.display='none'">
+      <figcaption>Word Counter with pasted text &mdash; all stats updating live as you type.</figcaption>
+    </figure>
     <h2>How to Use</h2>
     <p>Paste or type your text into the input area and all stats update instantly — no buttons to click.</p>
     <h2>Stats Explained</h2>
@@ -150,6 +154,7 @@
     <h2>About</h2>
     <p>Word counting is essential for writers, students, and professionals. Whether you are checking an essay against a word limit, estimating how long a speech will take, or counting characters for a tweet, accurate counts save time and effort.</p>
     <p>Our Word Counter runs entirely in your browser with zero data sent to any server. It updates stats in real time as you type, with a clean responsive layout that works on any device. The reading speed estimate is based on the widely cited average of 238 words per minute for adult English readers.</p>
+    <p><strong>From the build:</strong> the word-splitting regex looks trivial but is the part we rewrote the most. Splitting on `\s+` over-counts when text has trailing whitespace, and splitting on word boundaries undercounts contractions like "don't" by treating them as two words. The version we shipped trims first, then collapses whitespace, then counts non-empty tokens &mdash; which matches what Word and Google Docs report on the same input. The sentence counter is deliberately simple: it does not try to handle "Mr." or "Dr." as non-terminators, because guessing wrong is more annoying than being slightly off.</p>
     <aside class="key-takeaways">
       <h2>Key Takeaways</h2>
       <ul>

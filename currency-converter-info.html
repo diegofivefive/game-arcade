@@ -107,6 +107,10 @@
   </header>
   <article class="info-content">
     <p class="byline" style="font-size:13px;color:var(--text-dim);margin:0 0 16px;">By <a href="about.html#james-nicolaus" style="color:var(--accent);text-decoration:none;">James Nicolaus</a> &middot; <time datetime="2026-05-14">Updated May 14, 2026</time></p>
+    <figure class="info-figure">
+      <img src="screenshots/currency-converter.webp" alt="Currency Converter in dark mode showing 100 USD converting to the equivalent EUR amount with from/to dropdowns, a swap button between the rows, and a green freshness indicator showing rates are up to date" loading="lazy" onerror="this.parentNode.style.display='none'">
+      <figcaption>Currency Converter &mdash; USD to EUR with a green dot meaning today's rates are loaded.</figcaption>
+    </figure>
     <h2>How to Use</h2>
     <p>Convert between 30+ world currencies instantly. Just enter an amount and pick your currencies.</p>
     <ol>
@@ -155,6 +159,7 @@
     <p>Exchange rates are sourced from the European Central Bank (ECB) via the Frankfurter API. The ECB publishes reference rates once per business day, typically around 16:00 CET. Weekend and holiday rates use the last available business day rates.</p>
     <p>These are mid-market reference rates intended for informational purposes. Actual exchange rates from banks and money transfer services will differ due to spreads and fees.</p>
     <p>All conversion happens entirely in your browser. No personal data or amounts are sent to any server.</p>
+    <p><strong>From the build:</strong> the obvious approach was to call a paid currency API on every keystroke, which is wasteful and turns the tool into a service we have to keep paying for. We landed on the Frankfurter API &mdash; a free ECB proxy &mdash; and cache the full rates table in localStorage with a date stamp. Re-conversion is then just a multiplication; we only hit the network when the cached date is older than today. The freshness dot is there because a stale rate from a long weekend is still useful, but you should know it isn't this morning's number.</p>
     <aside class="key-takeaways">
       <h2>Key Takeaways</h2>
       <ul>

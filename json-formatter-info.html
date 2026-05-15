@@ -116,6 +116,10 @@
 
   <article class="info-content">
     <p class="byline" style="font-size:13px;color:var(--text-dim);margin:0 0 16px;">By <a href="about.html#james-nicolaus" style="color:var(--accent);text-decoration:none;">James Nicolaus</a> &middot; <time datetime="2026-05-14">Updated May 14, 2026</time></p>
+    <figure class="info-figure">
+      <img src="screenshots/json-formatter.webp" alt="JSON Formatter in dark mode showing a pasted API response on the left and a syntax-highlighted formatted output on the right with collapsible tree-view nodes and stats showing key, array, and depth counts" loading="lazy" onerror="this.parentNode.style.display='none'">
+      <figcaption>JSON Formatter &mdash; syntax-highlighted output with tree view and depth stats.</figcaption>
+    </figure>
     <h2>How to Use</h2>
     <ol>
       <li>Paste or type your JSON into the text area. The tool automatically formats when you paste.</li>
@@ -174,6 +178,7 @@
     <p>
       Everything runs in your browser &mdash; your data is never sent to a server. No accounts, no installs, works on any modern browser.
     </p>
+    <p><strong>From the build:</strong> the line-and-column error reporting was harder than the formatting itself. `JSON.parse` throws a single message like "Unexpected token } in JSON at position 247", and "position 247" is useless when you're staring at 800 lines of pasted config. We catch the error, walk the input string up to that byte offset, count newlines and column offset, and surface "line 12, column 4". Pretty-printing is just `JSON.stringify(parsed, null, indent)` &mdash; the browser does the heavy lifting &mdash; and the syntax highlighter is a single regex pass over the stringified output, not a tokenizer.</p>
     <aside class="key-takeaways">
       <h2>Key Takeaways</h2>
       <ul>

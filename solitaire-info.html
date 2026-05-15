@@ -116,6 +116,10 @@
 
   <article class="info-content">
     <p class="byline" style="font-size:13px;color:var(--text-dim);margin:0 0 16px;">By <a href="about.html#james-nicolaus" style="color:var(--accent);text-decoration:none;">James Nicolaus</a> &middot; <time datetime="2026-05-14">Updated May 14, 2026</time></p>
+    <figure class="info-figure">
+      <img src="screenshots/solitaire.webp" alt="Solitaire Collection in dark mode showing a Klondike layout mid-game with seven tableau columns, four foundation piles, and a card being dragged toward a red-on-black target" loading="lazy" onerror="this.parentNode.style.display='none'">
+      <figcaption>Klondike mid-deal &mdash; dragging a red card onto a black sequence.</figcaption>
+    </figure>
     <h2>How to Play</h2>
     <p>This collection includes three classic solitaire card games. Choose your favorite from the main menu.</p>
 
@@ -190,6 +194,7 @@
     </div>
     <h2>About</h2>
     <p>Solitaire Collection brings three beloved card games together in one place. Play Klondike (the classic everyone knows), Spider (the sequence-building challenge), or FreeCell (the strategic favorite) — all free, no downloads, no sign-ups. Your stats and best times are saved locally in your browser.</p>
+    <p><strong>From the build:</strong> the three variants share one card-rendering engine and one drag-and-drop layer &mdash; the rules-checking is the only part that swaps per game. Spider was the tricky one because it deals from two decks (104 cards) and the legal-move rule changes with suit count, so the move validator is parameterised rather than hard-coded. We also draw the cards as CSS rather than image sprites, which means the suit pips stay crisp at any zoom level and the whole collection adds only a few KB on top of the base page.</p>
     <aside class="key-takeaways">
       <h2>Key Takeaways</h2>
       <ul>

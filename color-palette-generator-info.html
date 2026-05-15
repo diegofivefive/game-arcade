@@ -116,6 +116,10 @@
 
   <article class="info-content">
     <p class="byline" style="font-size:13px;color:var(--text-dim);margin:0 0 16px;">By <a href="about.html#james-nicolaus" style="color:var(--accent);text-decoration:none;">James Nicolaus</a> &middot; <time datetime="2026-05-14">Updated May 14, 2026</time></p>
+    <figure class="info-figure">
+      <img src="screenshots/color-palette-generator.webp" alt="Color Palette Generator in dark mode showing five color swatches in Triadic harmony with hex codes, lock and slider icons per swatch, and Generate Palette and Export buttons above" loading="lazy" onerror="this.parentNode.style.display='none'">
+      <figcaption>Palette Generator in Triadic mode &mdash; two colors locked while the others rerolled.</figcaption>
+    </figure>
     <h2>How to Use</h2>
     <ol>
       <li>Choose a <strong>harmony mode</strong> at the top: Random, Analogous, Complementary, Triadic, or Monochromatic.</li>
@@ -174,6 +178,7 @@
     <p>
       Everything runs in your browser with zero dependencies &mdash; no accounts, no tracking, no installs. Works on any modern browser, desktop or mobile.
     </p>
+    <p><strong>From the build:</strong> we generate palettes in HSL rather than RGB because harmony rules &mdash; analogous, complementary, triadic &mdash; are angle math on the hue wheel, and HSL makes that arithmetic readable instead of opaque. The shareable URL encodes the palette as hex pairs in the hash fragment, which keeps the link out of the server-side request and means we never see what palettes anyone is sharing. The export formats are emitted from a single in-memory representation, so adding the next one (SCSS variables, when we get around to it) is a string template, not new logic.</p>
     <aside class="key-takeaways">
       <h2>Key Takeaways</h2>
       <ul>

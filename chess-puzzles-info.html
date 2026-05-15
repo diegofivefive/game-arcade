@@ -116,6 +116,10 @@
 
   <article class="info-content">
     <p class="byline" style="font-size:13px;color:var(--text-dim);margin:0 0 16px;">By <a href="about.html#james-nicolaus" style="color:var(--accent);text-decoration:none;">James Nicolaus</a> &middot; <time datetime="2026-05-14">Updated May 14, 2026</time></p>
+    <figure class="info-figure">
+      <img src="screenshots/chess-puzzles.webp" alt="Chess Puzzles in dark mode showing a mid-puzzle position with SVG pieces, a selected knight, and green highlights on its legal move squares" loading="lazy" onerror="this.parentNode.style.display='none'">
+      <figcaption>Chess Puzzles &mdash; selected knight with legal-move squares lit in green.</figcaption>
+    </figure>
     <h2>How to Play</h2>
     <ol>
       <li><strong>Read the position</strong> — look at the board and notice which side you're playing (shown above the board).</li>
@@ -185,6 +189,7 @@
     <p>
       This game features 20,000 puzzles sourced from the Lichess puzzle database (CC0 public domain), covering themes like forks, pins, sacrifices, checkmates, and more. Each puzzle is rated by difficulty and tagged with tactical themes. Move validation is powered by chess.js with professional SVG piece graphics. All puzzles run entirely in your browser with no account or download required.
     </p>
+    <p><strong>From the build:</strong> the Lichess CSV dump is several hundred megabytes &mdash; shipping all of it to the browser was a non-starter. We sampled 5,000 puzzles per rating band, dropped the columns we did not need (themes were kept, popularity wasn't), and minified the result down to something the page can hold in memory without ceremony. Move validation runs through chess.js so we never have to re-implement castling and en-passant edge cases ourselves, and pieces are SVG so the board stays crisp on any retina-class display.</p>
     <aside class="key-takeaways">
       <h2>Key Takeaways</h2>
       <ul>

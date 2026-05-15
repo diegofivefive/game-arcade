@@ -106,6 +106,10 @@
   </header>
   <article class="info-content">
     <p class="byline" style="font-size:13px;color:var(--text-dim);margin:0 0 16px;">By <a href="about.html#james-nicolaus" style="color:var(--accent);text-decoration:none;">James Nicolaus</a> &middot; <time datetime="2026-05-14">Updated May 14, 2026</time></p>
+    <figure class="info-figure">
+      <img src="screenshots/document-templates.webp" alt="Document Templates in dark mode with the Invoice template selected, several line-item rows filled in on the form on the left and a live PDF preview pane on the right showing the rendered invoice" loading="lazy" onerror="this.parentNode.style.display='none'">
+      <figcaption>Document Templates &mdash; Invoice template with three line items rendered to PDF.</figcaption>
+    </figure>
     <h2>How to Use</h2>
     <p>Generate professional PDF documents in seconds. Choose a template, fill in your details, and download.</p>
     <ol>
@@ -158,6 +162,7 @@
     <h2>About</h2>
     <p>PDFs are generated entirely in your browser using the jsPDF library. No data is sent to any server &mdash; your information stays on your device.</p>
     <p>Legal templates (NDA, Lease Agreement, Bill of Sale, IOU, Power of Attorney) are provided as general-purpose templates for informational purposes only. They do not constitute legal advice. Always consult a licensed attorney for legal matters specific to your situation.</p>
+    <p><strong>From the build:</strong> each template is a small schema (a list of fields plus a layout function) rather than a hand-coded jsPDF script per document. That means adding a new template is mostly data, and bugs we fix in the layout helpers &mdash; line wrapping, page breaks, currency formatting &mdash; benefit every template at once. The line-item omission rule was the one piece that needed extra care: a row counts as "present" only if at least one of its non-derived fields has user input, so an Invoice with three real items and seven empties produces a clean three-row PDF.</p>
     <aside class="key-takeaways">
       <h2>Key Takeaways</h2>
       <ul>
