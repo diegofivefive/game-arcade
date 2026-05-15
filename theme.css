@@ -631,6 +631,20 @@ main {
 }
 
 /* ===========================
+   PAGE SUBTITLE (top-of-page TLDR under H1)
+   =========================== */
+.page-subtitle {
+  width: 100%;
+  max-width: 560px;
+  margin: 0 auto 8px;
+  padding: 0 16px;
+  color: var(--text-dim);
+  font-size: 13px;
+  line-height: 1.5;
+  text-align: center;
+}
+
+/* ===========================
    PAGE ABOUT (SEO content below footer)
    =========================== */
 .page-about {

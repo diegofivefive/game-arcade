@@ -356,6 +356,7 @@
       <button class="icon-btn" id="themeBtn" title="Toggle theme" aria-label="Toggle theme">&#x1f319;</button>
     </div>
   </header>
+    <p class="page-subtitle">Convert length, weight, temperature, volume, area, and more &mdash; instant results, works on any device.</p>
 
   <div class="tool-content">
 
@@ -429,7 +430,7 @@
 <script>
 (function() {
 
-  /* â”€â”€ Unit Data â”€â”€ */
+  /* Ã¢â€â‚¬Ã¢â€â‚¬ Unit Data Ã¢â€â‚¬Ã¢â€â‚¬ */
   const CATS = {
     Length: {
       base: 'm',
@@ -600,7 +601,7 @@
     { label: 'kcal \u2192 kJ',  cat: 'Energy',      from: 'kcal',to: 'kJ' }
   ];
 
-  /* â”€â”€ DOM â”€â”€ */
+  /* Ã¢â€â‚¬Ã¢â€â‚¬ DOM Ã¢â€â‚¬Ã¢â€â‚¬ */
   const catWrap    = document.getElementById('catWrap');
   const catPills   = document.getElementById('catPills');
   const fromValue  = document.getElementById('fromValue');
@@ -613,7 +614,7 @@
 
   let activeCat = 'Length';
 
-  /* â”€â”€ Render â”€â”€ */
+  /* Ã¢â€â‚¬Ã¢â€â‚¬ Render Ã¢â€â‚¬Ã¢â€â‚¬ */
   function renderPills() {
     catPills.innerHTML = Object.keys(CATS).map(cat =>
       '<button class="uc-cat' + (cat === activeCat ? ' active' : '') + '" data-cat="' + cat + '">' + cat + '</button>'
@@ -637,7 +638,7 @@
     ).join('');
   }
 
-  /* â”€â”€ Conversion â”€â”€ */
+  /* Ã¢â€â‚¬Ã¢â€â‚¬ Conversion Ã¢â€â‚¬Ã¢â€â‚¬ */
   function convert() {
     const cat = CATS[activeCat];
     const val = parseFloat(fromValue.value);
@@ -681,7 +682,7 @@
     }
   }
 
-  /* â”€â”€ Set Category â”€â”€ */
+  /* Ã¢â€â‚¬Ã¢â€â‚¬ Set Category Ã¢â€â‚¬Ã¢â€â‚¬ */
   function setCategory(cat, fk, tk) {
     activeCat = cat;
     renderPills();
@@ -694,7 +695,7 @@
     if (activeBtn) activeBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
   }
 
-  /* â”€â”€ Events â”€â”€ */
+  /* Ã¢â€â‚¬Ã¢â€â‚¬ Events Ã¢â€â‚¬Ã¢â€â‚¬ */
   catPills.addEventListener('click', function(e) {
     const btn = e.target.closest('.uc-cat');
     if (!btn) return;
@@ -724,7 +725,7 @@
     setCategory(q.cat, q.from, q.to);
   });
 
-  /* â”€â”€ Scroll arrows & fades â”€â”€ */
+  /* Ã¢â€â‚¬Ã¢â€â‚¬ Scroll arrows & fades Ã¢â€â‚¬Ã¢â€â‚¬ */
   const arrowL = document.getElementById('arrowL');
   const arrowR = document.getElementById('arrowR');
   function checkScrollEnd() {
@@ -742,7 +743,7 @@
   });
   catPills.addEventListener('scroll', checkScrollEnd);
 
-  /* â”€â”€ Init â”€â”€ */
+  /* Ã¢â€â‚¬Ã¢â€â‚¬ Init Ã¢â€â‚¬Ã¢â€â‚¬ */
   renderPills();
   renderUnits();
   renderQuick();

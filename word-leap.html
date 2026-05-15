@@ -292,6 +292,7 @@
       <button class="icon-btn" id="themeBtn" title="Toggle theme" aria-label="Toggle theme">&#x1f319;</button>
     </div>
   </header>
+    <p class="page-subtitle">Guess the hidden 5-letter word in six tries. New puzzle every play, dark and light mode, works offline once loaded.</p>
 
   <div class="toast-container" id="toastContainer"></div>
 
@@ -343,7 +344,7 @@
 GameTheme.init();
 Modal.bindOverlayClose();
 
-// â”€â”€ Word Lists â”€â”€
+// Ã¢â€â‚¬Ã¢â€â‚¬ Word Lists Ã¢â€â‚¬Ã¢â€â‚¬
 // Common 5-letter answer words (curated for fun gameplay)
 const ANSWERS = [
   'about','above','abuse','actor','adapt','admit','adopt','adult','after','again',
@@ -636,7 +637,7 @@ const VALID_GUESSES = new Set([
   'zones'
 ]);
 
-// â”€â”€ State â”€â”€
+// Ã¢â€â‚¬Ã¢â€â‚¬ State Ã¢â€â‚¬Ã¢â€â‚¬
 let answer = '';
 let currentRow = 0;
 let currentCol = 0;
@@ -654,7 +655,7 @@ function saveDist(row) {
   localStorage.setItem('wl-dist', JSON.stringify(d));
 }
 
-// â”€â”€ Build Board â”€â”€
+// Ã¢â€â‚¬Ã¢â€â‚¬ Build Board Ã¢â€â‚¬Ã¢â€â‚¬
 function buildBoard() {
   const boardEl = document.getElementById('board');
   boardEl.innerHTML = '';
@@ -675,11 +676,11 @@ function buildBoard() {
   }
 }
 
-// â”€â”€ Build Keyboard â”€â”€
+// Ã¢â€â‚¬Ã¢â€â‚¬ Build Keyboard Ã¢â€â‚¬Ã¢â€â‚¬
 const keyLayout = [
   ['Q','W','E','R','T','Y','U','I','O','P'],
   ['A','S','D','F','G','H','J','K','L'],
-  ['ENTER','Z','X','C','V','B','N','M','âŒ«']
+  ['ENTER','Z','X','C','V','B','N','M','Ã¢Å’Â«']
 ];
 const keyStates = {};
 
@@ -713,7 +714,7 @@ function updateKeyboard(letter, state) {
   }
 }
 
-// â”€â”€ Toast â”€â”€
+// Ã¢â€â‚¬Ã¢â€â‚¬ Toast Ã¢â€â‚¬Ã¢â€â‚¬
 function showToast(msg) {
   const container = document.getElementById('toastContainer');
   const toast = document.createElement('div');
@@ -723,11 +724,11 @@ function showToast(msg) {
   setTimeout(() => toast.remove(), 1600);
 }
 
-// â”€â”€ Game Logic â”€â”€
+// Ã¢â€â‚¬Ã¢â€â‚¬ Game Logic Ã¢â€â‚¬Ã¢â€â‚¬
 function handleKey(key) {
   if (gameOver) return;
 
-  if (key === 'âŒ«') {
+  if (key === 'Ã¢Å’Â«') {
     if (currentCol > 0) {
       currentCol--;
       board[currentRow][currentCol].letter = '';
@@ -828,7 +829,7 @@ function revealRow(row, guess) {
   }, 5 * 200 + 300);
 }
 
-// â”€â”€ Stats Modal â”€â”€
+// Ã¢â€â‚¬Ã¢â€â‚¬ Stats Modal Ã¢â€â‚¬Ã¢â€â‚¬
 function showStats(winRow) {
   const grid = document.getElementById('statsGrid');
   grid.innerHTML = [
@@ -858,15 +859,15 @@ document.getElementById('newGameBtn').addEventListener('click', () => {
   startGame();
 });
 
-// â”€â”€ Keyboard Input â”€â”€
+// Ã¢â€â‚¬Ã¢â€â‚¬ Keyboard Input Ã¢â€â‚¬Ã¢â€â‚¬
 document.addEventListener('keydown', e => {
   if (e.ctrlKey || e.metaKey || e.altKey) return;
   if (e.key === 'Enter') handleKey('ENTER');
-  else if (e.key === 'Backspace') handleKey('âŒ«');
+  else if (e.key === 'Backspace') handleKey('Ã¢Å’Â«');
   else if (/^[a-zA-Z]$/.test(e.key)) handleKey(e.key.toUpperCase());
 });
 
-// â”€â”€ Start Game â”€â”€
+// Ã¢â€â‚¬Ã¢â€â‚¬ Start Game Ã¢â€â‚¬Ã¢â€â‚¬
 function startGame() {
   answer = ANSWERS[Math.floor(Math.random() * ANSWERS.length)];
   currentRow = 0;

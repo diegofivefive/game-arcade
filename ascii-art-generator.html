@@ -336,6 +336,7 @@
       <button class="icon-btn" id="themeBtn" title="Toggle theme" aria-label="Toggle theme">&#x1f319;</button>
     </div>
   </header>
+    <p class="page-subtitle">Convert images into text-based ASCII art in your browser. Adjustable character density and contrast, instant copy.</p>
 
   <div class="tool-content">
 
@@ -440,7 +441,7 @@
     <h2>How to Create ASCII Text Art Online</h2>
     <p>Upload any image by dragging it into the drop area or clicking to browse. The tool converts your image into ASCII text art using brightness mapping, where lighter pixels become sparse characters and darker pixels become denser ones. Adjust the output width from 40 to 200 columns, pick from four character set presets, and toggle between monochrome and colored text art output.</p>
     <h2>Features</h2>
-    <p>Four character set presets â€” Standard, Detailed, Blocks, and Simple â€” offer different visual styles for your text art. The invert toggle swaps light and dark mapping for images with dark backgrounds. Color mode preserves the original image colors using ANSI-style coloring. Copy the result to your clipboard or download it as a text file. All processing uses the Canvas API in your browser with no server uploads.</p>
+    <p>Four character set presets Ã¢â‚¬â€ Standard, Detailed, Blocks, and Simple Ã¢â‚¬â€ offer different visual styles for your text art. The invert toggle swaps light and dark mapping for images with dark backgrounds. Color mode preserves the original image colors using ANSI-style coloring. Copy the result to your clipboard or download it as a text file. All processing uses the Canvas API in your browser with no server uploads.</p>
   </section>
 </div>
 
@@ -635,7 +636,7 @@
         var b = pixels[idx + 2];
         var a = pixels[idx + 3];
 
-        // Transparent pixels â†’ white
+        // Transparent pixels Ã¢â€ â€™ white
         if (a < 128) { r = g = b = 255; }
 
         // Grayscale (perceptual luminance)

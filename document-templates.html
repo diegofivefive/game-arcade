@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Free Document Templates - PDF, Word &amp; Text - TheFreeFix.com</title>
-<meta name="description" content="Free document templates â€” invoices, resumes, NDAs, leases, letters, and more. Fill in your details and download as PDF, Word, or text. No sign-ups needed.">
+<meta name="description" content="Free document templates Ã¢â‚¬â€ invoices, resumes, NDAs, leases, letters, and more. Fill in your details and download as PDF, Word, or text. No sign-ups needed.">
 <link rel="canonical" href="https://thefreefix.com/document-templates.html">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <meta name="theme-color" content="#0a0a1a">
@@ -142,6 +142,7 @@
       <button class="icon-btn" id="themeBtn" title="Toggle theme" aria-label="Toggle theme">&#x1f319;</button>
     </div>
   </header>
+    <p class="page-subtitle">Fill in details and download professional PDFs from 20+ free templates &mdash; invoices, leases, resumes, and more.</p>
 
   <div class="tool-content">
     <div class="template-selector">
@@ -215,7 +216,7 @@
 <script>
 GameTheme.init();
 
-/* â”€â”€ PDF Helpers â”€â”€ */
+/* Ã¢â€â‚¬Ã¢â€â‚¬ PDF Helpers Ã¢â€â‚¬Ã¢â€â‚¬ */
 const H = {
   M: 20, W: 170,
   title(doc, text, y) {
@@ -255,7 +256,7 @@ const H = {
 
 function fill(text, d) { return text.replace(/\{\{(\w+)\}\}/g, (_, k) => d[k] || '________'); }
 
-/* â”€â”€ Legal Template Renderer â”€â”€ */
+/* Ã¢â€â‚¬Ã¢â€â‚¬ Legal Template Renderer Ã¢â€â‚¬Ã¢â€â‚¬ */
 function renderLegal(doc, d, title, intro, sections, parties) {
   let y = 20;
   y = H.title(doc, title, y);
@@ -276,13 +277,13 @@ function renderLegal(doc, d, title, intro, sections, parties) {
   parties.forEach((p, i) => {
     const x = i === 0 ? sx : 115;
     if (i === 2) { y += 16; }
-    H.sigLine(doc, fill(p, d) + ' â€” Signature', i < 2 ? x : sx, i < 2 ? y : y);
+    H.sigLine(doc, fill(p, d) + ' Ã¢â‚¬â€ Signature', i < 2 ? x : sx, i < 2 ? y : y);
     H.sigLine(doc, 'Date', i < 2 ? x : sx, (i < 2 ? y : y) + 12);
   });
   H.disclaimer(doc);
 }
 
-/* â”€â”€ Legal Document Section Data â”€â”€ */
+/* Ã¢â€â‚¬Ã¢â€â‚¬ Legal Document Section Data Ã¢â€â‚¬Ã¢â€â‚¬ */
 const LEGAL = {
   nda: {
     intro: 'This Non-Disclosure Agreement ("Agreement") is made effective {{effectiveDate}} between {{party1Name}}, located at {{party1Address}} ("Disclosing Party"), and {{party2Name}}, located at {{party2Address}} ("Receiving Party").',
@@ -345,7 +346,7 @@ const LEGAL = {
   }
 };
 
-/* â”€â”€ Moving Checklist Data â”€â”€ */
+/* Ã¢â€â‚¬Ã¢â€â‚¬ Moving Checklist Data Ã¢â€â‚¬Ã¢â€â‚¬ */
 const CHECKLISTS = {
   '8+ Weeks Before': ['Research moving companies and get quotes','Create a moving budget','Start decluttering room by room','Begin using up frozen and pantry food','Order packing supplies'],
   '4-6 Weeks Before': ['Notify landlord / list property if needed','File change of address with USPS','Transfer or set up utilities at new home','Notify bank, insurance, subscriptions of address change','Start packing non-essential items','Arrange time off work for moving day'],
@@ -355,7 +356,7 @@ const CHECKLISTS = {
   'After the Move': ['Unpack essentials box first','Check that utilities are working','Update driver\'s license and vehicle registration','Register to vote at new address','Introduce yourself to neighbors','Locate nearest hospital and emergency services']
 };
 
-/* â”€â”€ Legal Parties Map â”€â”€ */
+/* Ã¢â€â‚¬Ã¢â€â‚¬ Legal Parties Map Ã¢â€â‚¬Ã¢â€â‚¬ */
 const LEGAL_PARTIES = {
   billOfSale: ['Seller', 'Buyer'],
   nda: ['Disclosing Party', 'Receiving Party'],
@@ -364,9 +365,9 @@ const LEGAL_PARTIES = {
   poa: ['Principal', 'Agent']
 };
 
-/* â”€â”€ Template Definitions â”€â”€ */
+/* Ã¢â€â‚¬Ã¢â€â‚¬ Template Definitions Ã¢â€â‚¬Ã¢â€â‚¬ */
 const TEMPLATES = [
-  /* â”€â”€ BUSINESS â”€â”€ */
+  /* Ã¢â€â‚¬Ã¢â€â‚¬ BUSINESS Ã¢â€â‚¬Ã¢â€â‚¬ */
   {
     id:'invoice', name:'Invoice', cat:'Business',
     desc:'Professional invoice for billing clients',
@@ -616,7 +617,7 @@ const TEMPLATES = [
       H.sigLine(doc, 'Date', 20, y);
     }
   },
-  /* â”€â”€ PERSONAL â”€â”€ */
+  /* Ã¢â€â‚¬Ã¢â€â‚¬ PERSONAL Ã¢â€â‚¬Ã¢â€â‚¬ */
   {
     id:'resume', name:'Resume', cat:'Personal',
     desc:'Clean, professional resume / CV',
@@ -705,7 +706,7 @@ const TEMPLATES = [
       y = H.sigLine(doc, d.yourName||'Your Name', 20, y);
     }
   },
-  /* â”€â”€ LEGAL â”€â”€ */
+  /* Ã¢â€â‚¬Ã¢â€â‚¬ LEGAL Ã¢â€â‚¬Ã¢â€â‚¬ */
   {
     id:'billOfSale', name:'Bill of Sale', cat:'Legal',
     desc:'Transfer ownership of personal property',
@@ -783,7 +784,7 @@ const TEMPLATES = [
     ],
     render(doc, d) { renderLegal(doc, d, 'POWER OF ATTORNEY', LEGAL.poa.intro, LEGAL.poa.sections, ['{{principalName}} (Principal)','{{agentName}} (Agent)']); }
   },
-  /* â”€â”€ EVERYDAY â”€â”€ */
+  /* Ã¢â€â‚¬Ã¢â€â‚¬ EVERYDAY Ã¢â€â‚¬Ã¢â€â‚¬ */
   {
     id:'permissionSlip', name:'Permission Slip', cat:'Everyday',
     desc:'Parental consent for school or activities',
@@ -987,7 +988,7 @@ const TEMPLATES = [
   }
 ];
 
-/* â”€â”€ Download Utilities â”€â”€ */
+/* Ã¢â€â‚¬Ã¢â€â‚¬ Download Utilities Ã¢â€â‚¬Ã¢â€â‚¬ */
 function escHtml(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 
 function downloadBlob(content, filename, mimeType) {
@@ -1026,7 +1027,7 @@ function getFieldLabel(tmpl, fieldId) {
   return f ? f.label : fieldId;
 }
 
-/* â”€â”€ HTML Document Generator (for Word downloads) â”€â”€ */
+/* Ã¢â€â‚¬Ã¢â€â‚¬ HTML Document Generator (for Word downloads) Ã¢â€â‚¬Ã¢â€â‚¬ */
 function htmlCSS() {
   let c = '<style>';
   c += 'body{font-family:Calibri,Arial,sans-serif;max-width:700px;margin:40px auto;padding:0 20px;color:#000;line-height:1.5;font-size:10pt}';
@@ -1079,7 +1080,7 @@ function generateHTML(tmpl, data, blank) {
   return h;
 }
 
-/* Custom Invoice HTML â€” mirrors PDF layout */
+/* Custom Invoice HTML Ã¢â‚¬â€ mirrors PDF layout */
 function htmlInvoice(d, blank) {
   const v = (id) => d[id] || '';
   let h = '';
@@ -1137,7 +1138,7 @@ function htmlInvoice(d, blank) {
   return h;
 }
 
-/* Custom Receipt HTML â€” mirrors PDF layout */
+/* Custom Receipt HTML Ã¢â‚¬â€ mirrors PDF layout */
 function htmlReceipt(d, blank) {
   const v = (id) => d[id] || '';
   let h = '<h1>RECEIPT</h1>';
@@ -1174,7 +1175,7 @@ function htmlReceipt(d, blank) {
   return h;
 }
 
-/* Custom Resume HTML â€” mirrors PDF layout */
+/* Custom Resume HTML Ã¢â‚¬â€ mirrors PDF layout */
 function htmlResume(d, blank) {
   const v = (id) => d[id] || '';
   let h = '';
@@ -1341,7 +1342,7 @@ function htmlLegal(tmpl, d, lk, blank) {
   return h;
 }
 
-/* â”€â”€ Plain Text Generator â”€â”€ */
+/* Ã¢â€â‚¬Ã¢â€â‚¬ Plain Text Generator Ã¢â€â‚¬Ã¢â€â‚¬ */
 function generateText(tmpl, data, blank) {
   const d = blank ? {} : data;
   let t = tmpl.name.toUpperCase() + '\n' + '='.repeat(tmpl.name.length) + '\n\n';
@@ -1464,7 +1465,7 @@ function textLegal(tmpl, d, lk, blank) {
   return t;
 }
 
-/* â”€â”€ Download Functions â”€â”€ */
+/* Ã¢â€â‚¬Ã¢â€â‚¬ Download Functions Ã¢â€â‚¬Ã¢â€â‚¬ */
 function downloadWord() {
   const tmpl = getTemplate(templateSelect.value);
   if (!tmpl) return;
@@ -1485,7 +1486,7 @@ function downloadBlank() {
   downloadBlob(generateHTML(tmpl, {}, true), tmpl.name.replace(/\s+/g, '_') + '_Blank.doc', 'application/msword');
 }
 
-/* â”€â”€ UI Logic â”€â”€ */
+/* Ã¢â€â‚¬Ã¢â€â‚¬ UI Logic Ã¢â€â‚¬Ã¢â€â‚¬ */
 const templateSelect = document.getElementById('templateSelect');
 const templateDesc = document.getElementById('templateDesc');
 const templateForm = document.getElementById('templateForm');
@@ -1652,7 +1653,7 @@ function generatePDF() {
   doc.save(getFilename(tmpl, data) + '.pdf');
 }
 
-/* â”€â”€ Events â”€â”€ */
+/* Ã¢â€â‚¬Ã¢â€â‚¬ Events Ã¢â€â‚¬Ã¢â€â‚¬ */
 templateSelect.addEventListener('change', () => {
   const tmpl = getTemplate(templateSelect.value);
   if (tmpl) { renderForm(tmpl); updateFilenamePreview(); }
@@ -1697,7 +1698,7 @@ async function sharePDF() {
 // Update filename preview when form fields change
 templateForm.addEventListener('input', updateFilenamePreview);
 
-/* â”€â”€ Init â”€â”€ */
+/* Ã¢â€â‚¬Ã¢â€â‚¬ Init Ã¢â€â‚¬Ã¢â€â‚¬ */
 populateSelector();
 const urlT = new URLSearchParams(location.search).get('t');
 const initial = (urlT && getTemplate(urlT)) || TEMPLATES[0];

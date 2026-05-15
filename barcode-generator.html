@@ -316,6 +316,7 @@
         <button class="icon-btn" id="themeBtn" title="Toggle theme" aria-label="Toggle theme">&#x1f319;</button>
       </div>
     </header>
+    <p class="page-subtitle">Generate and scan barcodes &mdash; Code 128, UPC-A, EAN-13, and Code 39 &mdash; all in your browser, no downloads.</p>
 
     <div class="tool-content">
       <!-- Mode selector -->
@@ -398,7 +399,7 @@
     <h2>How to Use the Barcode Generator & Reader</h2>
     <p>Select a barcode format (Code 128, UPC-A, EAN-13, or Code 39) and type your data to instantly generate a barcode. Download as PNG or SVG, or copy to clipboard. Switch to Reader mode to decode barcodes from uploaded images.</p>
     <h2>Features</h2>
-    <p>Supports 4 popular barcode formats: Code 128 (general-purpose, any ASCII text), UPC-A (12-digit retail codes), EAN-13 (13-digit international product codes), and Code 39 (alphanumeric industrial codes). Includes a barcode reader that can detect and decode barcodes from uploaded images. All processing happens in your browser â€” no data is sent to any server.</p>
+    <p>Supports 4 popular barcode formats: Code 128 (general-purpose, any ASCII text), UPC-A (12-digit retail codes), EAN-13 (13-digit international product codes), and Code 39 (alphanumeric industrial codes). Includes a barcode reader that can detect and decode barcodes from uploaded images. All processing happens in your browser Ã¢â‚¬â€ no data is sent to any server.</p>
   </section>
 </div>
 
@@ -494,7 +495,7 @@ const FORMATS = {
       const valid = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ-. $/+%';
       const upper = text.toUpperCase();
       for (let i = 0; i < upper.length; i++) {
-        if (valid.indexOf(upper[i]) === -1) return `Invalid character: "${upper[i]}" â€” use A-Z, 0-9, - . $ / + % space`;
+        if (valid.indexOf(upper[i]) === -1) return `Invalid character: "${upper[i]}" Ã¢â‚¬â€ use A-Z, 0-9, - . $ / + % space`;
       }
       return null;
     }
@@ -769,7 +770,7 @@ function showToast(msg) {
   setTimeout(() => toast.classList.remove('show'), 2000);
 }
 
-// Init â€” load JsBarcode eagerly, then set up
+// Init Ã¢â‚¬â€ load JsBarcode eagerly, then set up
 loadJsBarcode().then(() => {
   switchMode('code128', false);
   bcInput.focus();

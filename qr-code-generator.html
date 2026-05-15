@@ -452,6 +452,7 @@
       <button class="icon-btn" id="themeBtn" title="Toggle theme" aria-label="Toggle theme">&#x1f319;</button>
     </div>
   </header>
+    <p class="page-subtitle">Generate QR codes for URLs, text, contact cards, and Wi-Fi credentials, or read codes from your camera &mdash; all in-browser.</p>
 
   <div class="tool-content">
     <div class="mode-selector">
@@ -670,7 +671,7 @@
 
 <script src="theme.js"></script>
 <script>
-// â”€â”€ QR Code Encoder (Byte mode, EC level M, versions 1-40) â”€â”€
+// Ã¢â€â‚¬Ã¢â€â‚¬ QR Code Encoder (Byte mode, EC level M, versions 1-40) Ã¢â€â‚¬Ã¢â€â‚¬
 
 const QR = (() => {
   // EC codewords per block for EC level M, versions 1-40
@@ -1104,7 +1105,7 @@ const QR = (() => {
 })();
 
 
-// â”€â”€ Canvas Renderer â”€â”€
+// Ã¢â€â‚¬Ã¢â€â‚¬ Canvas Renderer Ã¢â€â‚¬Ã¢â€â‚¬
 
 function renderQR(matrix, canvas, moduleSize, fgColor, bgColor) {
   const size = matrix.length;
@@ -1131,7 +1132,7 @@ function renderQR(matrix, canvas, moduleSize, fgColor, bgColor) {
 }
 
 
-// â”€â”€ SVG Generator â”€â”€
+// Ã¢â€â‚¬Ã¢â€â‚¬ SVG Generator Ã¢â€â‚¬Ã¢â€â‚¬
 
 function generateSVG(matrix, moduleSize, fgColor, bgColor) {
   const size = matrix.length;
@@ -1151,7 +1152,7 @@ function generateSVG(matrix, moduleSize, fgColor, bgColor) {
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${px} ${px}" width="${px}" height="${px}" shape-rendering="crispEdges"><rect width="${px}" height="${px}" fill="${bgColor}"/><g fill="${fgColor}">${rects}</g></svg>`;
 }
 
-// â”€â”€ UI Wiring â”€â”€
+// Ã¢â€â‚¬Ã¢â€â‚¬ UI Wiring Ã¢â€â‚¬Ã¢â€â‚¬
 
 let currentMatrix = null;
 let debounceTimer = null;
@@ -1261,7 +1262,7 @@ shareBtn.addEventListener('click', async () => {
   }, 'image/png');
 });
 
-// â”€â”€ Quick-Action Mode Switching â”€â”€
+// Ã¢â€â‚¬Ã¢â€â‚¬ Quick-Action Mode Switching Ã¢â€â‚¬Ã¢â€â‚¬
 
 const formPanels = { wifi: 'wifiForm', vcard: 'vcardForm', event: 'eventForm', read: 'readPanel' };
 const inputGroup = document.querySelector('.input-group');
@@ -1272,7 +1273,7 @@ const readerBtn = document.getElementById('readerBtn');
 function switchMode(mode) {
   currentMode = mode;
   const isRead = mode === 'read';
-  // Update pill buttons â€” deactivate all generate pills when read is active
+  // Update pill buttons Ã¢â‚¬â€ deactivate all generate pills when read is active
   document.querySelectorAll('#qrModeSelector .pill-btn').forEach(btn => {
     btn.classList.toggle('active', !isRead && btn.dataset.mode === mode);
   });
@@ -1303,7 +1304,7 @@ document.getElementById('qrModeSelector').addEventListener('click', e => {
 
 readerBtn.addEventListener('click', () => switchMode('read'));
 
-// â”€â”€ Builder Functions â”€â”€
+// Ã¢â€â‚¬Ã¢â€â‚¬ Builder Functions Ã¢â€â‚¬Ã¢â€â‚¬
 
 function buildWifiString() {
   const ssid = document.getElementById('wifiSsid').value;
@@ -1371,7 +1372,7 @@ function updateFromForm() {
   generate(str); // pass raw string to preserve \r\n for vCard/iCal
 }
 
-// â”€â”€ Form Event Wiring â”€â”€
+// Ã¢â€â‚¬Ã¢â€â‚¬ Form Event Wiring Ã¢â€â‚¬Ã¢â€â‚¬
 
 // WiFi
 ['wifiSsid', 'wifiPass'].forEach(id => {
@@ -1414,7 +1415,7 @@ document.getElementById('wifiHidden').addEventListener('click', function() {
   document.getElementById('evEndTime').value = fmtT(end);
 })();
 
-// â”€â”€ QR Reader â”€â”€
+// Ã¢â€â‚¬Ã¢â€â‚¬ QR Reader Ã¢â€â‚¬Ã¢â€â‚¬
 
 let jsQRLoaded = false;
 let jsQRLoading = false;

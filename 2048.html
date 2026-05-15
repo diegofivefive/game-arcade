@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>2048 - Free Online Puzzle Game - TheFreeFix.com</title>
-<meta name="description" content="Play 2048 online for free. Slide and merge tiles to reach 2048. No downloads, no accounts â€” just play in your browser.">
+<meta name="description" content="Play 2048 online for free. Slide and merge tiles to reach 2048. No downloads, no accounts Ã¢â‚¬â€ just play in your browser.">
 <link rel="canonical" href="https://thefreefix.com/2048.html">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <meta name="theme-color" content="#0a0a1a">
@@ -139,7 +139,7 @@
     animation: tileSpawn 0.2s ease;
   }
 
-  /* Tile sizes â€” calculated by JS based on container */
+  /* Tile sizes Ã¢â‚¬â€ calculated by JS based on container */
   /* Tile value colors */
   .tile[data-value="2"] {
     background: #8b7fdf;
@@ -369,6 +369,7 @@
         <button class="icon-btn" id="themeBtn" title="Toggle theme" aria-label="Toggle theme">&#x1f319;</button>
       </div>
     </header>
+    <p class="page-subtitle">Slide and merge numbered tiles to reach 2048. Free, keyboard or swipe controls, saves your best score locally.</p>
 
     <!-- Controls: Score + Best + Timer -->
     <div class="controls">
@@ -570,7 +571,7 @@
   }
 
   function rotateGrid(g) {
-    // Rotate 90Â° clockwise
+    // Rotate 90Ã‚Â° clockwise
     const n = g.length;
     const rotated = Array.from({ length: n }, () => Array(n).fill(0));
     for (let r = 0; r < n; r++) {

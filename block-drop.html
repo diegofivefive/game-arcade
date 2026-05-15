@@ -4,13 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Block Drop - TheFreeFix.com</title>
-<meta name="description" content="Play Block Drop online for free â€” a classic falling-blocks puzzle game. Stack, rotate, and clear lines to rack up points. No downloads or sign-ups needed.">
+<meta name="description" content="Play Block Drop online for free Ã¢â‚¬â€ a classic falling-blocks puzzle game. Stack, rotate, and clear lines to rack up points. No downloads or sign-ups needed.">
 <link rel="canonical" href="https://thefreefix.com/block-drop.html">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <meta name="theme-color" content="#0a0a1a">
 <!-- Open Graph -->
 <meta property="og:title" content="Block Drop - Play Free Online">
-<meta property="og:description" content="Play Block Drop online for free â€” a classic falling-blocks puzzle game. Stack, rotate, and clear lines.">
+<meta property="og:description" content="Play Block Drop online for free Ã¢â‚¬â€ a classic falling-blocks puzzle game. Stack, rotate, and clear lines.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://thefreefix.com/block-drop.html">
 <meta property="og:site_name" content="TheFreeFix.com">
@@ -21,7 +21,7 @@
 <meta name="twitter:site" content="@TheFreeFix">
 <meta name="twitter:title" content="Block Drop - Play Free Online">
 <meta name="twitter:image" content="https://thefreefix.com/og-image.png">
-<meta name="twitter:description" content="Play Block Drop online for free â€” a classic falling-blocks puzzle game.">
+<meta name="twitter:description" content="Play Block Drop online for free Ã¢â‚¬â€ a classic falling-blocks puzzle game.">
 <!-- Structured Data -->
 <script type="application/ld+json">
 {
@@ -279,6 +279,7 @@
       <button class="icon-btn" id="themeBtn" title="Toggle theme" aria-label="Toggle theme">&#x1f319;</button>
     </div>
   </header>
+    <p class="page-subtitle">Stack, rotate, and clear falling blocks. Tetris-style gameplay in your browser with hold piece and ghost preview.</p>
 
   <div class="game-area">
     <!-- Left panel: Score, Next, Hold, Level, Lines -->
@@ -994,7 +995,7 @@ document.getElementById('tPause').addEventListener('click', () => togglePause())
     const dx = t.clientX - lastMoveX;
     const dy = t.clientY - startY;
 
-    // Swipe down â†’ hard drop (once per gesture)
+    // Swipe down Ã¢â€ â€™ hard drop (once per gesture)
     if (!swipedDown && dy > SWIPE_THRESHOLD * 3) {
       swipedDown = true;
       hasMoved = true;
@@ -1018,7 +1019,7 @@ document.getElementById('tPause').addEventListener('click', () => togglePause())
     touchId = null;
     e.preventDefault();
 
-    // Tap â†’ rotate (if finger barely moved)
+    // Tap Ã¢â€ â€™ rotate (if finger barely moved)
     const totalDx = Math.abs(t.clientX - startX);
     const totalDy = Math.abs(t.clientY - startY);
     if (!hasMoved && totalDx < TAP_THRESHOLD && totalDy < TAP_THRESHOLD) {
