@@ -70,7 +70,7 @@
       {
         "@type": "Question",
         "name": "Are my images uploaded to a server?",
-        "acceptedAnswer": { "@type": "Answer", "text": "No. All processing happens entirely in your browser using the Canvas API. Your images are never sent to any server — nothing leaves your device." }
+        "acceptedAnswer": { "@type": "Answer", "text": "No. All processing happens entirely in your browser using the Canvas API. Your images are never sent to any server â€” nothing leaves your device." }
       },
       {
         "@type": "Question",
@@ -85,6 +85,18 @@
     ]
   }
 ]
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://thefreefix.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://thefreefix.com/tools.html" },
+      { "@type": "ListItem", "position": 3, "name": "Metadata Stripper", "item": "https://thefreefix.com/metadata-stripper.html" },
+      { "@type": "ListItem", "position": 4, "name": "How to Use Metadata Stripper", "item": "https://thefreefix.com/metadata-stripper-info.html" }
+  ]
+}
 </script>
 <link rel="stylesheet" href="theme.css">
 <style>
@@ -163,7 +175,7 @@
         </details>
         <details class="faq-item">
           <summary>Are my images uploaded to a server?</summary>
-          <p class="faq-answer">No. All processing happens entirely in your browser using the Canvas API. Your images are never sent to any server — nothing leaves your device.</p>
+          <p class="faq-answer">No. All processing happens entirely in your browser using the Canvas API. Your images are never sent to any server â€” nothing leaves your device.</p>
         </details>
         <details class="faq-item">
           <summary>What metadata gets removed?</summary>
@@ -184,7 +196,7 @@
           <li>Remove EXIF, IPTC, XMP, GPS coordinates, camera details, and timestamps from JPEG, PNG, and WebP images</li>
           <li>Batch process up to 50 images at once; GPS locations are flagged with a warning before stripping</li>
           <li>Cleaned files are re-encoded via the HTML5 Canvas API and saved with a "-clean" suffix</li>
-          <li>Runs entirely in your browser — images are never uploaded, protecting privacy when sharing online</li>
+          <li>Runs entirely in your browser â€” images are never uploaded, protecting privacy when sharing online</li>
         </ul>
       </aside>
     </article>

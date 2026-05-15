@@ -44,6 +44,17 @@
   "dateModified": "2026-05-14"
 }
 </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://thefreefix.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://thefreefix.com/tools.html" },
+      { "@type": "ListItem", "position": 3, "name": "Pomodoro Timer", "item": "https://thefreefix.com/pomodoro-timer.html" }
+  ]
+}
+</script>
 <link rel="stylesheet" href="theme.css">
 <style>
   .game-page { padding-bottom: 32px; }
@@ -576,7 +587,7 @@ const Pomo = {
     });
   },
 
-  // ── Timer Core ──
+  // â”€â”€ Timer Core â”€â”€
 
   startTimer() {
     if (this.totalSeconds <= 0) return;
@@ -638,7 +649,7 @@ const Pomo = {
     }
   },
 
-  // ── Session Management ──
+  // â”€â”€ Session Management â”€â”€
 
   setSession(type) {
     this.sessionType = type;
@@ -693,7 +704,7 @@ const Pomo = {
         this.setSession('shortBreak');
       }
     } else {
-      // Break ended → next work
+      // Break ended â†’ next work
       this.setSession('work');
     }
 
@@ -722,7 +733,7 @@ const Pomo = {
     this.updateTabTitle();
   },
 
-  // ── Display Updates ──
+  // â”€â”€ Display Updates â”€â”€
 
   updateDisplay() {
     var mm = String(Math.floor(this.totalSeconds / 60)).padStart(2, '0');
@@ -811,7 +822,7 @@ const Pomo = {
     this.el.statBestDay.textContent = this.stats.bestDaySessions;
   },
 
-  // ── Wake Lock ──
+  // â”€â”€ Wake Lock â”€â”€
 
   async acquireWakeLock() {
     if (!('wakeLock' in navigator) || !this.settings.wakeLock) return;
@@ -828,7 +839,7 @@ const Pomo = {
     }
   },
 
-  // ── Audio ──
+  // â”€â”€ Audio â”€â”€
 
   playChime() {
     try {
@@ -850,7 +861,7 @@ const Pomo = {
     } catch(e) {}
   },
 
-  // ── Notifications ──
+  // â”€â”€ Notifications â”€â”€
 
   requestNotificationPermission() {
     if ('Notification' in window && Notification.permission === 'default') {
@@ -873,7 +884,7 @@ const Pomo = {
     }
   },
 
-  // ── Settings ──
+  // â”€â”€ Settings â”€â”€
 
   loadSettings() {
     try {
@@ -943,7 +954,7 @@ const Pomo = {
 
   clamp(val, min, max) { return Math.max(min, Math.min(max, val)); },
 
-  // ── Stats ──
+  // â”€â”€ Stats â”€â”€
 
   loadStats() {
     try {

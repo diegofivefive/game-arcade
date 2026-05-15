@@ -46,6 +46,17 @@
   "dateModified": "2026-05-14"
 }
 </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://thefreefix.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Games", "item": "https://thefreefix.com/games.html" },
+      { "@type": "ListItem", "position": 3, "name": "Memory Match", "item": "https://thefreefix.com/memory-match.html" }
+  ]
+}
+</script>
 <link rel="stylesheet" href="theme.css">
 <style>
   .game-page { padding-bottom: 32px; }
@@ -400,7 +411,7 @@ function checkMatch() {
       }
     }, 300);
   } else {
-    // No match — shake then flip back
+    // No match â€” shake then flip back
     setTimeout(() => {
       a.classList.add('wrong');
       b.classList.add('wrong');

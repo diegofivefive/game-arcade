@@ -44,6 +44,17 @@
   "dateModified": "2026-05-14"
 }
 </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://thefreefix.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://thefreefix.com/tools.html" },
+      { "@type": "ListItem", "position": 3, "name": "Regex Tester", "item": "https://thefreefix.com/regex-tester.html" }
+  ]
+}
+</script>
 <link rel="stylesheet" href="theme.css">
 <style>
   .game-page { padding-bottom: 32px; }
@@ -60,7 +71,7 @@
     gap: 14px;
   }
 
-  /* ── Regex Input Row ── */
+  /* â”€â”€ Regex Input Row â”€â”€ */
   .regex-row {
     width: 100%;
     display: flex;
@@ -113,7 +124,7 @@
   }
   .regex-input-wrap .mini-btn:hover { color: var(--text); background: var(--btn-bg); }
 
-  /* ── Flags ── */
+  /* â”€â”€ Flags â”€â”€ */
   .flags-row {
     display: flex;
     gap: 4px;
@@ -145,7 +156,7 @@
     border-color: var(--accent);
   }
 
-  /* ── Error Bar ── */
+  /* â”€â”€ Error Bar â”€â”€ */
   .error-bar {
     width: 100%;
     display: none;
@@ -159,7 +170,7 @@
   }
   .error-bar.visible { display: block; }
 
-  /* ── Test String Area ── */
+  /* â”€â”€ Test String Area â”€â”€ */
   .test-wrapper {
     width: 100%;
     position: relative;
@@ -221,7 +232,7 @@
   }
   #testInput::placeholder { color: var(--text-dim); opacity: 0.4; }
 
-  /* ── Match Stats Bar ── */
+  /* â”€â”€ Match Stats Bar â”€â”€ */
   .match-bar {
     width: 100%;
     font-size: 12px;
@@ -234,7 +245,7 @@
   .match-bar b { color: var(--text); }
   .match-bar .match-warn { color: #ffb347; }
 
-  /* ── Tab Bar ── */
+  /* â”€â”€ Tab Bar â”€â”€ */
   .tab-bar {
     width: 100%;
     display: flex;
@@ -265,7 +276,7 @@
     border-color: var(--accent);
   }
 
-  /* ── Tab Panels ── */
+  /* â”€â”€ Tab Panels â”€â”€ */
   .tab-panel {
     width: 100%;
     display: none;
@@ -279,7 +290,7 @@
     font-size: 13px;
   }
 
-  /* ── Matches Panel ── */
+  /* â”€â”€ Matches Panel â”€â”€ */
   .match-list { display: flex; flex-direction: column; gap: 6px; }
   .match-item {
     background: var(--card);
@@ -332,7 +343,7 @@
   .group-val { color: var(--text); word-break: break-all; }
   .group-val.empty { color: var(--text-dim); font-style: italic; }
 
-  /* ── Explanation Panel ── */
+  /* â”€â”€ Explanation Panel â”€â”€ */
   .explain-list {
     display: flex;
     flex-direction: column;
@@ -363,7 +374,7 @@
   .explain-item.group-open .explain-token { color: var(--accent2); }
   .explain-item.group-close .explain-token { color: var(--accent2); }
 
-  /* ── Replace Panel ── */
+  /* â”€â”€ Replace Panel â”€â”€ */
   .replace-section { display: flex; flex-direction: column; gap: 10px; width: 100%; }
   .replace-label { font-size: 11px; color: var(--text-dim); }
   #replaceInput {
@@ -398,7 +409,7 @@
     box-sizing: border-box;
   }
 
-  /* ── Code Panel ── */
+  /* â”€â”€ Code Panel â”€â”€ */
   .code-section { display: flex; flex-direction: column; gap: 10px; width: 100%; }
   .code-langs {
     display: flex;
@@ -452,7 +463,7 @@
   }
   .code-copy-btn:hover { color: var(--text); border-color: var(--accent); }
 
-  /* ── Reference Panel ── */
+  /* â”€â”€ Reference Panel â”€â”€ */
   .ref-sections { display: flex; flex-direction: column; gap: 16px; }
   .ref-section-title {
     font-size: 11px;
@@ -476,7 +487,7 @@
   }
   .ref-desc { color: var(--text-dim); }
 
-  /* ── Toast ── */
+  /* â”€â”€ Toast â”€â”€ */
   .copy-toast {
     position: fixed;
     bottom: -50px;
@@ -494,7 +505,7 @@
   }
   .copy-toast.show { bottom: 80px; }
 
-  /* ── Responsive ── */
+  /* â”€â”€ Responsive â”€â”€ */
   @media (max-width: 400px) {
     .tool-content { padding: 0 12px; }
     .flag-btn { padding: 4px 8px; font-size: 12px; }
@@ -538,12 +549,12 @@
         </div>
         <div class="flags-row">
           <span class="flags-label">Flags:</span>
-          <button class="flag-btn active" data-flag="g" title="Global — find all matches">g</button>
+          <button class="flag-btn active" data-flag="g" title="Global â€” find all matches">g</button>
           <button class="flag-btn" data-flag="i" title="Case insensitive">i</button>
-          <button class="flag-btn" data-flag="m" title="Multiline — ^ and $ match line boundaries">m</button>
-          <button class="flag-btn" data-flag="s" title="Dotall — dot matches newline">s</button>
-          <button class="flag-btn" data-flag="u" title="Unicode — enable unicode matching">u</button>
-          <button class="flag-btn" data-flag="y" title="Sticky — match from lastIndex">y</button>
+          <button class="flag-btn" data-flag="m" title="Multiline â€” ^ and $ match line boundaries">m</button>
+          <button class="flag-btn" data-flag="s" title="Dotall â€” dot matches newline">s</button>
+          <button class="flag-btn" data-flag="u" title="Unicode â€” enable unicode matching">u</button>
+          <button class="flag-btn" data-flag="y" title="Sticky â€” match from lastIndex">y</button>
         </div>
       </div>
 
@@ -635,7 +646,7 @@
     <h2>How to Use the Regex Tester</h2>
     <p>Type your regular expression pattern in the input field and enter a test string below. Matches are highlighted in real time as you type. Toggle flags like global (g), case-insensitive (i), multiline (m), dotall (s), unicode (u), and sticky (y) to change matching behavior. View detailed match results, a human-readable explanation of your regex, live find-and-replace, and generated code snippets for six programming languages.</p>
     <h2>Features</h2>
-    <p>Real-time match highlighting with colored overlays. Detailed match list with capture groups and named groups. Human-readable regex explanation that breaks down every token. Live substitution preview with backreference support ($1, $2, $&). Code generation for JavaScript, Python, Java, C#, PHP, and Go. Built-in quick reference cheat sheet. All processing happens in your browser — nothing is sent to a server.</p>
+    <p>Real-time match highlighting with colored overlays. Detailed match list with capture groups and named groups. Human-readable regex explanation that breaks down every token. Live substitution preview with backreference support ($1, $2, $&). Code generation for JavaScript, Python, Java, C#, PHP, and Go. Built-in quick reference cheat sheet. All processing happens in your browser â€” nothing is sent to a server.</p>
   </section>
 </div>
 
@@ -643,11 +654,11 @@
 
 <script src="theme.js"></script>
 <script>
-/* ═══════════════════════════════════════════════════════════════
-   REGEX TESTER — Test, debug & understand regular expressions
-   ═══════════════════════════════════════════════════════════════ */
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   REGEX TESTER â€” Test, debug & understand regular expressions
+   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 
-// ── DOM Refs ──
+// â”€â”€ DOM Refs â”€â”€
 var $regexInput = document.getElementById('regexInput');
 var $regexWrap = document.getElementById('regexWrap');
 var $testInput = document.getElementById('testInput');
@@ -668,7 +679,7 @@ var $copyToast = document.getElementById('copyToast');
 var currentLang = 'javascript';
 var debounceTimer = null;
 
-// ── Utilities ──
+// â”€â”€ Utilities â”€â”€
 function escH(s) {
   return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
@@ -693,7 +704,7 @@ function copyText(text) {
   }
 }
 
-// ── Flags ──
+// â”€â”€ Flags â”€â”€
 function getFlags() {
   var flags = '';
   document.querySelectorAll('.flag-btn.active').forEach(function(b) {
@@ -709,7 +720,7 @@ document.querySelectorAll('.flag-btn').forEach(function(btn) {
   });
 });
 
-// ── Core Processing ──
+// â”€â”€ Core Processing â”€â”€
 function processRegex() {
   var pattern = $regexInput.value;
   var flags = getFlags();
@@ -765,7 +776,7 @@ function hideError() {
   $regexWrap.classList.remove('has-error');
 }
 
-// ── Match Finding ──
+// â”€â”€ Match Finding â”€â”€
 function findMatches(regex, str) {
   var matches = [];
   if (!str) return matches;
@@ -805,7 +816,7 @@ function findMatches(regex, str) {
   return matches;
 }
 
-// ── Highlight Overlay ──
+// â”€â”€ Highlight Overlay â”€â”€
 function updateHighlights(matches, str) {
   if (!str) { $highlights.innerHTML = ''; return; }
   if (matches.length === 0) { $highlights.innerHTML = escH(str) + '\n'; return; }
@@ -831,7 +842,7 @@ $testInput.addEventListener('scroll', function() {
   $highlights.scrollLeft = $testInput.scrollLeft;
 });
 
-// ── Match Stats Bar ──
+// â”€â”€ Match Stats Bar â”€â”€
 function updateMatchBar(matches) {
   if (matches.length === 0) {
     $matchBar.innerHTML = $regexInput.value ? 'No matches' : '';
@@ -846,7 +857,7 @@ function updateMatchBar(matches) {
   $matchBar.innerHTML = html;
 }
 
-// ── Match List Panel ──
+// â”€â”€ Match List Panel â”€â”€
 function updateMatchList(matches) {
   if (matches.length === 0) {
     $matchList.innerHTML = '';
@@ -861,7 +872,7 @@ function updateMatchList(matches) {
     var m = matches[i];
     html += '<div class="match-item">';
     html += '<div class="match-header"><span class="match-label">Match ' + (i + 1) + '</span>';
-    html += '<span class="match-pos">index ' + m.index + '–' + m.end + '</span></div>';
+    html += '<span class="match-pos">index ' + m.index + 'â€“' + m.end + '</span></div>';
     html += '<div class="match-value">' + escH(m.value || '(empty string)') + '</div>';
 
     if (m.groups.length > 0) {
@@ -889,7 +900,7 @@ function updateMatchList(matches) {
   $matchList.innerHTML = html;
 }
 
-// ── Regex Explanation Parser ──
+// â”€â”€ Regex Explanation Parser â”€â”€
 function parseRegex(pattern, flags) {
   var tokens = [];
   var i = 0;
@@ -956,7 +967,7 @@ function parseRegex(pattern, flags) {
 
     // Alternation
     if (ch === '|') {
-      tokens.push({ token: '|', desc: 'OR — match either alternative', depth: depth });
+      tokens.push({ token: '|', desc: 'OR â€” match either alternative', depth: depth });
       i++; continue;
     }
 
@@ -1150,12 +1161,12 @@ function updateExplanation(pattern, flags) {
   // Show flags
   if (flags) {
     var flagDescs = {
-      'g': 'Global — find all matches',
+      'g': 'Global â€” find all matches',
       'i': 'Case insensitive',
-      'm': 'Multiline — ^ and $ match line boundaries',
-      's': 'Dotall — dot matches newline',
+      'm': 'Multiline â€” ^ and $ match line boundaries',
+      's': 'Dotall â€” dot matches newline',
       'u': 'Unicode matching',
-      'y': 'Sticky — match from lastIndex'
+      'y': 'Sticky â€” match from lastIndex'
     };
     for (var f = 0; f < flags.length; f++) {
       html += '<div class="explain-item"><span class="explain-token">/' + flags[f] + '</span>';
@@ -1175,7 +1186,7 @@ function updateExplanation(pattern, flags) {
   $explainList.innerHTML = html;
 }
 
-// ── Replace Panel ──
+// â”€â”€ Replace Panel â”€â”€
 function updateReplace(regex, testStr) {
   var replaceStr = $replaceInput.value;
   if (!testStr) { $replaceOutput.textContent = ''; return; }
@@ -1189,7 +1200,7 @@ function updateReplace(regex, testStr) {
   }
 }
 
-// ── Code Generation ──
+// â”€â”€ Code Generation â”€â”€
 var codeTemplates = {
   javascript: function(p, f) {
     var e = p.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
@@ -1306,7 +1317,7 @@ function updateCodeGen(pattern, flags) {
   if (fn) $codeOutput.textContent = fn(pattern, flags);
 }
 
-// ── Quick Reference ──
+// â”€â”€ Quick Reference â”€â”€
 var refData = [
   { title: 'Character Classes', items: [
     ['.', 'Any character (except newline)'],
@@ -1353,7 +1364,7 @@ function renderReference() {
   $refSections.innerHTML = html;
 }
 
-// ── Tab Switching ──
+// â”€â”€ Tab Switching â”€â”€
 document.querySelector('.tab-bar').addEventListener('click', function(e) {
   var btn = e.target.closest('.tab-btn');
   if (!btn) return;
@@ -1365,7 +1376,7 @@ document.querySelector('.tab-bar').addEventListener('click', function(e) {
   document.getElementById(panelId).classList.add('active');
 });
 
-// ── Language Switching ──
+// â”€â”€ Language Switching â”€â”€
 document.querySelector('.code-langs').addEventListener('click', function(e) {
   var btn = e.target.closest('.lang-btn');
   if (!btn) return;
@@ -1375,7 +1386,7 @@ document.querySelector('.code-langs').addEventListener('click', function(e) {
   updateCodeGen($regexInput.value, getFlags());
 });
 
-// ── Event Listeners ──
+// â”€â”€ Event Listeners â”€â”€
 function debouncedProcess() {
   clearTimeout(debounceTimer);
   debounceTimer = setTimeout(processRegex, 100);
@@ -1415,7 +1426,7 @@ $codeCopyBtn.addEventListener('click', function() {
   if ($codeOutput.textContent) copyText($codeOutput.textContent);
 });
 
-// ── Init ──
+// â”€â”€ Init â”€â”€
 renderReference();
 processRegex();
 GameTheme.init();

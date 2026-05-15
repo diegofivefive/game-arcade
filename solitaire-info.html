@@ -87,6 +87,18 @@
   }
 ]
 </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://thefreefix.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Games", "item": "https://thefreefix.com/games.html" },
+      { "@type": "ListItem", "position": 3, "name": "Solitaire", "item": "https://thefreefix.com/solitaire.html" },
+      { "@type": "ListItem", "position": 4, "name": "How to Play Solitaire", "item": "https://thefreefix.com/solitaire-info.html" }
+  ]
+}
+</script>
 <link rel="stylesheet" href="theme.css">
 <style>
   .game-page { padding-bottom: 32px; }
@@ -193,7 +205,7 @@
       </details>
     </div>
     <h2>About</h2>
-    <p>Solitaire Collection brings three beloved card games together in one place. Play Klondike (the classic everyone knows), Spider (the sequence-building challenge), or FreeCell (the strategic favorite) — all free, no downloads, no sign-ups. Your stats and best times are saved locally in your browser.</p>
+    <p>Solitaire Collection brings three beloved card games together in one place. Play Klondike (the classic everyone knows), Spider (the sequence-building challenge), or FreeCell (the strategic favorite) â€” all free, no downloads, no sign-ups. Your stats and best times are saved locally in your browser.</p>
     <p><strong>From the build:</strong> the three variants share one card-rendering engine and one drag-and-drop layer &mdash; the rules-checking is the only part that swaps per game. Spider was the tricky one because it deals from two decks (104 cards) and the legal-move rule changes with suit count, so the move validator is parameterised rather than hard-coded. We also draw the cards as CSS rather than image sprites, which means the suit pips stay crisp at any zoom level and the whole collection adds only a few KB on top of the base page.</p>
     <aside class="key-takeaways">
       <h2>Key Takeaways</h2>
@@ -201,7 +213,7 @@
         <li>Three solitaire variants in one app: Klondike (Draw 1 or Draw 3), Spider (1, 2, or 4 suits), and FreeCell</li>
         <li>Drag-and-drop cards or tap to auto-move to a foundation; Undo and Hint buttons available anytime</li>
         <li>Stats and best times for each game variant save locally in your browser between sessions</li>
-        <li>Free to play with no downloads, accounts, or sign-ups — runs on desktop and mobile browsers</li>
+        <li>Free to play with no downloads, accounts, or sign-ups â€” runs on desktop and mobile browsers</li>
       </ul>
     </aside>
   </article>

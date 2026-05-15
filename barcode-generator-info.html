@@ -86,6 +86,18 @@
   }
 ]
 </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://thefreefix.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://thefreefix.com/tools.html" },
+      { "@type": "ListItem", "position": 3, "name": "Barcode Generator & Reader", "item": "https://thefreefix.com/barcode-generator.html" },
+      { "@type": "ListItem", "position": 4, "name": "How to Use Barcode Generator & Reader", "item": "https://thefreefix.com/barcode-generator-info.html" }
+  ]
+}
+</script>
 <link rel="stylesheet" href="theme.css">
 <style>
   .game-page { padding-bottom: 32px; }
@@ -119,9 +131,9 @@
       </figure>
       <h2>How to Use the Barcode Generator</h2>
       <ol>
-        <li><strong>Pick a format</strong> — Choose Code 128, UPC-A, EAN-13, or Code 39 from the tabs at the top.</li>
-        <li><strong>Enter your data</strong> — Type your text, number, or product code. The barcode generates automatically as you type.</li>
-        <li><strong>Download or copy</strong> — Save your barcode as PNG or SVG, or copy it directly to your clipboard.</li>
+        <li><strong>Pick a format</strong> â€” Choose Code 128, UPC-A, EAN-13, or Code 39 from the tabs at the top.</li>
+        <li><strong>Enter your data</strong> â€” Type your text, number, or product code. The barcode generates automatically as you type.</li>
+        <li><strong>Download or copy</strong> â€” Save your barcode as PNG or SVG, or copy it directly to your clipboard.</li>
       </ol>
 
       <h2>How to Read a Barcode</h2>
@@ -133,10 +145,10 @@
 
       <h2>Supported Formats</h2>
       <ul>
-        <li><strong>Code 128</strong> — The most versatile format. Encodes any ASCII text (letters, numbers, symbols). Used for shipping labels, inventory, and general-purpose barcodes.</li>
-        <li><strong>UPC-A</strong> — 12-digit retail barcode found on products in North America. Enter 11 digits and the check digit is calculated automatically.</li>
-        <li><strong>EAN-13</strong> — 13-digit international product code used worldwide. Enter 12 digits and the check digit is calculated automatically.</li>
-        <li><strong>Code 39</strong> — Alphanumeric barcode (A-Z, 0-9, and a few symbols). Common in logistics, defense, and automotive industries.</li>
+        <li><strong>Code 128</strong> â€” The most versatile format. Encodes any ASCII text (letters, numbers, symbols). Used for shipping labels, inventory, and general-purpose barcodes.</li>
+        <li><strong>UPC-A</strong> â€” 12-digit retail barcode found on products in North America. Enter 11 digits and the check digit is calculated automatically.</li>
+        <li><strong>EAN-13</strong> â€” 13-digit international product code used worldwide. Enter 12 digits and the check digit is calculated automatically.</li>
+        <li><strong>Code 39</strong> â€” Alphanumeric barcode (A-Z, 0-9, and a few symbols). Common in logistics, defense, and automotive industries.</li>
       </ul>
 
       <h2>Frequently Asked Questions</h2>
@@ -171,16 +183,16 @@
         <li>Auto-calculated check digits for UPC-A and EAN-13</li>
         <li>Input validation with helpful error messages</li>
         <li>Read barcodes from uploaded images (JPEG, PNG, WebP)</li>
-        <li>100% in-browser — no data is sent to any server</li>
+        <li>100% in-browser â€” no data is sent to any server</li>
       </ul>
       <p><strong>From the build:</strong> the four format encoders are hand-rolled because each one is small and the symbol tables are short. Code 128 needed the most care &mdash; it has three character subsets (A, B, C) and you have to switch between them to keep the barcode short while staying valid for the input. The check-digit logic for UPC-A and EAN-13 is the same modulo-10 weighted sum with different position weights, so it lives in one helper. We render the barcode as SVG first and rasterise to PNG via canvas on download, which means the source of truth is always vector and the PNG export can be any size without re-encoding from a low-res bitmap.</p>
       <aside class="key-takeaways">
         <h2>Key Takeaways</h2>
         <ul>
           <li>Generate barcodes in four formats: Code 128 (any ASCII), UPC-A (12-digit), EAN-13 (13-digit), and Code 39</li>
-          <li>Check digits for UPC-A and EAN-13 are calculated automatically — enter 11 or 12 digits respectively</li>
+          <li>Check digits for UPC-A and EAN-13 are calculated automatically â€” enter 11 or 12 digits respectively</li>
           <li>Download as PNG or SVG (scales without quality loss), or copy the image directly to your clipboard</li>
-          <li>Reader mode decodes barcodes from uploaded JPEG, PNG, or WebP images — all processing stays in-browser</li>
+          <li>Reader mode decodes barcodes from uploaded JPEG, PNG, or WebP images â€” all processing stays in-browser</li>
         </ul>
       </aside>
     </article>

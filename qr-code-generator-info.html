@@ -84,6 +84,18 @@
   }
 ]
 </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://thefreefix.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://thefreefix.com/tools.html" },
+      { "@type": "ListItem", "position": 3, "name": "QR Code Generator & Reader", "item": "https://thefreefix.com/qr-code-generator.html" },
+      { "@type": "ListItem", "position": 4, "name": "How to Use QR Code Generator & Reader", "item": "https://thefreefix.com/qr-code-generator-info.html" }
+  ]
+}
+</script>
 <link rel="stylesheet" href="theme.css">
 <style>
   .game-page { padding-bottom: 32px; }
@@ -112,28 +124,28 @@
       <figcaption>QR Code Generator in WiFi mode &mdash; custom colours and live preview.</figcaption>
     </figure>
     <h2>How to Generate a QR Code</h2>
-    <p>Generate a QR code in seconds — just type or paste your content and the code appears instantly.</p>
+    <p>Generate a QR code in seconds â€” just type or paste your content and the code appears instantly.</p>
     <ol>
-      <li><strong>Choose a mode</strong> — select Text, WiFi, vCard, or Event from the tabs</li>
-      <li><strong>Enter your content</strong> — type or paste any URL, text, or fill in the form fields</li>
-      <li><strong>QR code generates automatically</strong> — the code updates in real time as you type</li>
-      <li><strong>Customize colors</strong> — pick custom foreground and background colors using the color pickers</li>
-      <li><strong>Choose a size</strong> — select Small, Medium, or Large depending on your needs</li>
-      <li><strong>Download</strong> — save your QR code as PNG or SVG</li>
+      <li><strong>Choose a mode</strong> â€” select Text, WiFi, vCard, or Event from the tabs</li>
+      <li><strong>Enter your content</strong> â€” type or paste any URL, text, or fill in the form fields</li>
+      <li><strong>QR code generates automatically</strong> â€” the code updates in real time as you type</li>
+      <li><strong>Customize colors</strong> â€” pick custom foreground and background colors using the color pickers</li>
+      <li><strong>Choose a size</strong> â€” select Small, Medium, or Large depending on your needs</li>
+      <li><strong>Download</strong> â€” save your QR code as PNG or SVG</li>
     </ol>
     <h2>How to Read a QR Code</h2>
     <p>Decode any QR code image or scan one live with your camera.</p>
     <ol>
-      <li><strong>Switch to the Read tab</strong> — click the Read button in the mode selector</li>
-      <li><strong>Upload an image</strong> — drag and drop a QR code image, or click to browse your files (supports JPEG, PNG, WebP, GIF)</li>
-      <li><strong>Or use your camera</strong> — click "Scan with Camera" to scan a QR code in real time using your device camera</li>
-      <li><strong>View the result</strong> — the decoded text or URL is displayed instantly</li>
-      <li><strong>Copy or open</strong> — use the Copy button to copy the text, or click Open Link if the content is a URL</li>
+      <li><strong>Switch to the Read tab</strong> â€” click the Read button in the mode selector</li>
+      <li><strong>Upload an image</strong> â€” drag and drop a QR code image, or click to browse your files (supports JPEG, PNG, WebP, GIF)</li>
+      <li><strong>Or use your camera</strong> â€” click "Scan with Camera" to scan a QR code in real time using your device camera</li>
+      <li><strong>View the result</strong> â€” the decoded text or URL is displayed instantly</li>
+      <li><strong>Copy or open</strong> â€” use the Copy button to copy the text, or click Open Link if the content is a URL</li>
     </ol>
     <h2>Tips</h2>
     <ul>
       <li>For URLs, include the full address starting with <strong>https://</strong> for best compatibility</li>
-      <li>Keep text short — QR codes become harder to scan with very long content</li>
+      <li>Keep text short â€” QR codes become harder to scan with very long content</li>
       <li>Use high contrast colors (dark on light) for reliable scanning</li>
       <li>When reading QR codes, use clear, well-lit images for best results</li>
       <li>The camera scanner works best when the QR code fills most of the frame</li>
@@ -162,8 +174,8 @@
       </details>
     </div>
     <h2>About</h2>
-    <p>QR (Quick Response) codes were invented in 1994 by a Toyota subsidiary for tracking automotive parts. Today they are used everywhere — from restaurant menus and payment systems to Wi-Fi sharing and event tickets.</p>
-    <p>Our generator creates QR codes entirely in your browser using a self-contained encoder with Reed-Solomon error correction. It supports byte mode encoding, error correction level M, and QR versions 1 through 40. The reader uses the jsQR library, loaded on demand only when you use the Read tab. No data is sent to any server — everything stays on your device.</p>
+    <p>QR (Quick Response) codes were invented in 1994 by a Toyota subsidiary for tracking automotive parts. Today they are used everywhere â€” from restaurant menus and payment systems to Wi-Fi sharing and event tickets.</p>
+    <p>Our generator creates QR codes entirely in your browser using a self-contained encoder with Reed-Solomon error correction. It supports byte mode encoding, error correction level M, and QR versions 1 through 40. The reader uses the jsQR library, loaded on demand only when you use the Read tab. No data is sent to any server â€” everything stays on your device.</p>
     <p><strong>From the build:</strong> the first version of this tool pulled in a popular QR library that added roughly 80&nbsp;KB of JavaScript to the page. On a slow mobile connection that's a noticeable delay before the first code can render. We replaced it with a hand-rolled Reed-Solomon encoder, which runs in under 20&nbsp;KB and supports the full QR version range up to v40. The reader is still a third-party library (jsQR is solid), but it only loads when you actually click the Read tab &mdash; so people who only need to generate codes never pay for the reader bytes.</p>
     <aside class="key-takeaways">
       <h2>Key Takeaways</h2>

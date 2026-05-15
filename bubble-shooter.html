@@ -46,6 +46,17 @@
   "dateModified": "2026-05-14"
 }
 </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://thefreefix.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Games", "item": "https://thefreefix.com/games.html" },
+      { "@type": "ListItem", "position": 3, "name": "Bubble Shooter", "item": "https://thefreefix.com/bubble-shooter.html" }
+  ]
+}
+</script>
 <link rel="stylesheet" href="theme.css">
 <style>
   .game-page { padding-bottom: 32px; }
@@ -284,7 +295,7 @@
 <script src="theme.js"></script>
 <script>
 // ============================================================
-// Bubble Shooter — TheFreeFix.com
+// Bubble Shooter â€” TheFreeFix.com
 // ============================================================
 
 GameTheme.init();
@@ -360,7 +371,7 @@ function sizeBoard() {
   CANVAS_H = Math.floor(Math.max(h, 270));
   canvas.width = CANVAS_W;
   canvas.height = CANVAS_H;
-  // Set CSS display size to match exactly — prevents white bar
+  // Set CSS display size to match exactly â€” prevents white bar
   canvas.style.width = CANVAS_W + 'px';
   canvas.style.height = CANVAS_H + 'px';
 
@@ -500,7 +511,7 @@ function findMatches(startRow, startCol) {
   if (!bubble) return [];
   const color = bubble.color;
 
-  // Rainbow matches whatever it lands next to — try all neighbor colors, pick best
+  // Rainbow matches whatever it lands next to â€” try all neighbor colors, pick best
   let matchColor = color;
   if (color === SPECIAL_RAINBOW) {
     const neighborColors = new Set();
@@ -613,14 +624,14 @@ function popBubbles(matches) {
   // Ring wave shockwave at center
   ringWaves.push({ x: cx, y: cy, time: 0, maxR: BUBBLE_R * (2 + matches.length * 0.5), color: matches.length >= 5 ? '#ffd666' : '#fff' });
 
-  // Screen shake — scales with pop size
+  // Screen shake â€” scales with pop size
   if (matches.length >= 3) {
     screenShake.intensity = Math.min(8, 2 + matches.length);
     screenShake.time = 200;
   }
 }
 
-// Bomb explosion — clear all bubbles within a radius
+// Bomb explosion â€” clear all bubbles within a radius
 function explodeBomb(row, col) {
   const center = cellToPixel(row, col);
   const blastR = BUBBLE_R * 5;
@@ -770,7 +781,7 @@ function findBestEmptyCell(px, py) {
       grid.push(new Array(mc).fill(null));
     }
     if (col < 0 || col >= colsForRow(row)) continue;
-    if (grid[row][col]) continue; // occupied — never pick this
+    if (grid[row][col]) continue; // occupied â€” never pick this
     const pos = cellToPixel(row, col);
     const dx = px - pos.x, dy = py - pos.y;
     const dist = dx * dx + dy * dy;
@@ -808,7 +819,7 @@ function snapBubble(bubble) {
   const snapColor = isSpecial(bubble.color) ? '#fff' : bubble.color;
   snapAnims.push({ x: pos.x, y: pos.y, time: 0, color: snapColor });
 
-  // Bomb special — explode area instead of matching
+  // Bomb special â€” explode area instead of matching
   if (bubble.color === SPECIAL_BOMB) {
     grid[row][col] = null; // remove the bomb itself
     explodeBomb(row, col);
@@ -1311,7 +1322,7 @@ function drawShooter() {
 }
 
 function draw() {
-  // Always reset to origin — prevents shake drift
+  // Always reset to origin â€” prevents shake drift
   ctx.setTransform(1, 0, 0, 1, 0, 0);
   ctx.clearRect(0, 0, CANVAS_W, CANVAS_H);
 
@@ -1480,7 +1491,7 @@ function draw() {
 
   // End screen shake transform
   ctx.restore();
-  // Hard reset to origin — ensures no residual offset
+  // Hard reset to origin â€” ensures no residual offset
   ctx.setTransform(1, 0, 0, 1, 0, 0);
 }
 

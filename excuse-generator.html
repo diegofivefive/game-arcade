@@ -4,13 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Excuse Generator - TheFreeFix.com</title>
-<meta name="description" content="Generate hilarious excuses for any situation — from plausible to completely unhinged. Free, no sign-ups, just laughs.">
+<meta name="description" content="Generate hilarious excuses for any situation â€” from plausible to completely unhinged. Free, no sign-ups, just laughs.">
 <link rel="canonical" href="https://thefreefix.com/excuse-generator.html">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <meta name="theme-color" content="#0a0a1a">
 <!-- Open Graph -->
 <meta property="og:title" content="Excuse Generator - Free Online Tool">
-<meta property="og:description" content="Generate hilarious excuses for any situation — from plausible to completely unhinged.">
+<meta property="og:description" content="Generate hilarious excuses for any situation â€” from plausible to completely unhinged.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://thefreefix.com/excuse-generator.html">
 <meta property="og:site_name" content="TheFreeFix.com">
@@ -21,7 +21,7 @@
 <meta name="twitter:site" content="@TheFreeFix">
 <meta name="twitter:title" content="Excuse Generator - Free Online Tool">
 <meta name="twitter:image" content="https://thefreefix.com/og-image.png">
-<meta name="twitter:description" content="Generate hilarious excuses for any situation — from plausible to completely unhinged.">
+<meta name="twitter:description" content="Generate hilarious excuses for any situation â€” from plausible to completely unhinged.">
 <!-- Structured Data -->
 <script type="application/ld+json">
 {
@@ -29,7 +29,7 @@
   "@type": "WebApplication",
   "name": "Excuse Generator",
   "url": "https://thefreefix.com/excuse-generator.html",
-  "description": "Generate hilarious excuses for any situation — from plausible to completely unhinged.",
+  "description": "Generate hilarious excuses for any situation â€” from plausible to completely unhinged.",
   "applicationCategory": "EntertainmentApplication",
   "operatingSystem": "Any",
   "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
@@ -42,6 +42,17 @@
   },
   "datePublished": "2026-03-20",
   "dateModified": "2026-05-14"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://thefreefix.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://thefreefix.com/tools.html" },
+      { "@type": "ListItem", "position": 3, "name": "Excuse Generator", "item": "https://thefreefix.com/excuse-generator.html" }
+  ]
 }
 </script>
 <link rel="stylesheet" href="theme.css">
@@ -427,7 +438,7 @@
     <label class="ex-nsfw-row" id="nsfwRow">
       <input type="checkbox" id="nsfwToggle">
       <span class="ex-nsfw-check">&#x2713;</span>
-      <span class="ex-nsfw-label">NSFW Mode <span>— crude, rude &amp; unacceptable</span></span>
+      <span class="ex-nsfw-label">NSFW Mode <span>â€” crude, rude &amp; unacceptable</span></span>
     </label>
 
     <!-- Action buttons -->
@@ -490,23 +501,23 @@
 <script>
 (function() {
 
-/* ── Excuse Database ── */
+/* â”€â”€ Excuse Database â”€â”€ */
 const EXCUSES = {
   work: [
-    // Level 1 — Plausible
+    // Level 1 â€” Plausible
     [
       "I woke up with a terrible migraine and can't look at screens.",
       "My car won't start and I'm waiting for a tow truck.",
       "I have a dentist appointment I forgot to mention.",
-      "I've got a stomach bug — better if I stay home today.",
+      "I've got a stomach bug â€” better if I stay home today.",
       "There's a water leak in my apartment and I need to wait for the plumber.",
       "I threw my back out picking up groceries.",
-      "My kid's school just called — they're sick and I need to pick them up.",
+      "My kid's school just called â€” they're sick and I need to pick them up.",
       "I'm locked out of my apartment and waiting for a locksmith.",
       "My internet went down and the technician is coming between 8 and 5.",
-      "I slept through my alarm — first time in years, I promise."
+      "I slept through my alarm â€” first time in years, I promise."
     ],
-    // Level 2 — Stretching it
+    // Level 2 â€” Stretching it
     [
       "My neighbor's tree fell on my car during the night.",
       "I accidentally took nighttime cold medicine this morning instead of daytime.",
@@ -519,10 +530,10 @@ const EXCUSES = {
       "My hot water heater exploded. My basement is a swimming pool.",
       "I accidentally locked my keys in the car. With my phone. And my wallet."
     ],
-    // Level 3 — Suspicious
+    // Level 3 â€” Suspicious
     [
       "A goose attacked me in the parking lot and I need to regroup.",
-      "I'm having an allergic reaction to a new soap — my face looks like a tomato.",
+      "I'm having an allergic reaction to a new soap â€” my face looks like a tomato.",
       "My roommate used my car for a road trip without asking. Just found out.",
       "I woke up and my entire apartment was flooded from the unit above me. The ceiling is dripping. I need to document everything.",
       "My identity got stolen and I'm on hold with the bank. It's been three hours.",
@@ -532,7 +543,7 @@ const EXCUSES = {
       "My smoke detector won't stop beeping and the fire department is on the way.",
       "I got on the wrong bus and I'm now two towns over."
     ],
-    // Level 4 — Absurd
+    // Level 4 â€” Absurd
     [
       "My Roomba went rogue and is holding my shoes hostage in the bathroom.",
       "A psychic told me that today is cosmically unfavorable for productivity.",
@@ -541,11 +552,11 @@ const EXCUSES = {
       "I was abducted by a very polite cult. I'm back now but emotionally I need a day.",
       "A wizard cursed my alarm clock. It now only shows times from the 1400s.",
       "I'm stuck in a time loop. Every time I leave for work, I end up back in bed.",
-      "My house ghost is acting up. Flickering lights, slamming doors — the whole deal.",
+      "My house ghost is acting up. Flickering lights, slamming doors â€” the whole deal.",
       "I accidentally astral projected to the wrong realm and need the day to re-center.",
       "A very convincing infomercial host talked me into an 8-hour cookware presentation."
     ],
-    // Level 5 — Unhinged
+    // Level 5 â€” Unhinged
     [
       "I was recruited by a secret society of office supply enthusiasts. The initiation takes all day.",
       "My reflection in the mirror started giving me career advice and honestly it made some good points. I need time to process.",
@@ -623,7 +634,7 @@ const EXCUSES = {
   ],
   social: [
     [
-      "I'm not feeling great — think I'm coming down with something.",
+      "I'm not feeling great â€” think I'm coming down with something.",
       "Something came up with my family, sorry!",
       "I completely forgot I have another commitment tonight.",
       "I'm absolutely exhausted from work this week.",
@@ -632,7 +643,7 @@ const EXCUSES = {
       "I'm waiting on a package that needs a signature.",
       "I'm on a tight deadline for a project.",
       "I already ate and I'm so full I might explode.",
-      "I'm saving money this month — rain check?"
+      "I'm saving money this month â€” rain check?"
     ],
     [
       "My pet is being extra clingy today and I can't leave them alone.",
@@ -688,7 +699,7 @@ const EXCUSES = {
       "I just got home from work and I'm genuinely too tired.",
       "I have a headache and just need to rest for a bit.",
       "I'll do it first thing tomorrow, I promise.",
-      "I didn't realize it needed to be done — my bad.",
+      "I didn't realize it needed to be done â€” my bad.",
       "I was about to but then got a phone call that took forever.",
       "I thought it was your turn this week?",
       "I cleaned the other thing instead. We should make a chart.",
@@ -750,7 +761,7 @@ const EXCUSES = {
       "I'm feeling a bit sore from yesterday, better to rest.",
       "I didn't sleep well and working out tired would just risk injury.",
       "I forgot my gym clothes at home.",
-      "I'll go tomorrow — rest day is important too.",
+      "I'll go tomorrow â€” rest day is important too.",
       "I ate too recently and I'd probably throw up.",
       "It's leg day and I'm choosing peace.",
       "I pulled something weird yesterday and I want to let it heal.",
@@ -810,10 +821,10 @@ const EXCUSES = {
   dating: [
     [
       "I'm so sorry, something came up with work and I can't get away.",
-      "I'm not feeling great today — can we reschedule?",
+      "I'm not feeling great today â€” can we reschedule?",
       "I forgot I promised my friend I'd help them move.",
       "My car is in the shop and I don't have a ride.",
-      "I double-booked myself — totally my fault.",
+      "I double-booked myself â€” totally my fault.",
       "Family dinner got sprung on me last minute.",
       "I'm coming down with something and don't want to get you sick.",
       "I had a really long day and wouldn't be great company tonight.",
@@ -858,7 +869,7 @@ const EXCUSES = {
     ],
     [
       "I can't make it because my future self called and said this date results in us adopting 17 cats. I love cats but that's logistically challenging.",
-      "I was getting ready but my mirror cracked — not from bad luck, it just couldn't handle this look.",
+      "I was getting ready but my mirror cracked â€” not from bad luck, it just couldn't handle this look.",
       "My emotional support blanket won't release me. It's stronger than it looks.",
       "I've been chosen as a tribute in my apartment complex's Hunger Games. May the odds be in my favor.",
       "A parallel universe version of me is already on the date. They're funnier. Let them handle it.",
@@ -871,7 +882,7 @@ const EXCUSES = {
   ]
 };
 
-/* ── NSFW Excuse Database ── */
+/* â”€â”€ NSFW Excuse Database â”€â”€ */
 const NSFW_EXCUSES = {
   work: [
     [
@@ -1251,14 +1262,14 @@ const ABSURD_LABELS = ['Plausible', 'Stretching It', 'Suspicious', 'Absurd', 'Un
 const ABSURD_CLASSES = ['absurd-1', 'absurd-2', 'absurd-3', 'absurd-4', 'absurd-5'];
 const ALL_CATS = ['work', 'school', 'social', 'chores', 'gym', 'dating'];
 
-/* ── State ── */
+/* â”€â”€ State â”€â”€ */
 let currentCat = 'any';
 let currentExcuse = '';
 let favorites = JSON.parse(localStorage.getItem('ex_favorites') || '[]');
 let stats = JSON.parse(localStorage.getItem('ex_stats') || '{"generated":0,"saved":0,"copied":0}');
 let lastExcuse = '';
 
-/* ── DOM ── */
+/* â”€â”€ DOM â”€â”€ */
 const excuseText = document.getElementById('excuseText');
 const copyBtn = document.getElementById('copyBtn');
 const catContainer = document.getElementById('categories');
@@ -1274,7 +1285,7 @@ const statCopied = document.getElementById('statCopied');
 const nsfwToggle = document.getElementById('nsfwToggle');
 const outputBox = document.querySelector('.ex-output');
 
-/* ── Core ── */
+/* â”€â”€ Core â”€â”€ */
 function pickRandom(arr) {
   return arr[Math.floor(Math.random() * arr.length)];
 }
@@ -1326,7 +1337,7 @@ function updateAbsurdLabel() {
   absurdLabel.className = 'ex-slider-value ' + ABSURD_CLASSES[v];
 }
 
-/* ── Copy ── */
+/* â”€â”€ Copy â”€â”€ */
 async function copyExcuse(text, btn) {
   try {
     await navigator.clipboard.writeText(text);
@@ -1361,7 +1372,7 @@ async function copyExcuse(text, btn) {
   }
 }
 
-/* ── Favorites ── */
+/* â”€â”€ Favorites â”€â”€ */
 function toggleFavorite() {
   if (!currentExcuse || currentExcuse === 'Click generate to get your first excuse...') return;
   const idx = favorites.indexOf(currentExcuse);
@@ -1408,7 +1419,7 @@ function renderFavorites() {
   ).join('');
 }
 
-/* ── Stats ── */
+/* â”€â”€ Stats â”€â”€ */
 function saveStats() {
   localStorage.setItem('ex_stats', JSON.stringify(stats));
 }
@@ -1424,7 +1435,7 @@ function escapeHtml(str) {
   return d.innerHTML;
 }
 
-/* ── Events ── */
+/* â”€â”€ Events â”€â”€ */
 generateBtn.addEventListener('click', generate);
 
 copyBtn.addEventListener('click', () => {
@@ -1466,7 +1477,7 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
-/* ── Init ── */
+/* â”€â”€ Init â”€â”€ */
 updateAbsurdLabel();
 renderStats();
 renderFavorites();

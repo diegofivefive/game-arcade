@@ -44,6 +44,17 @@
   "dateModified": "2026-05-14"
 }
 </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://thefreefix.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://thefreefix.com/tools.html" },
+      { "@type": "ListItem", "position": 3, "name": "Metadata Stripper", "item": "https://thefreefix.com/metadata-stripper.html" }
+  ]
+}
+</script>
 <link rel="stylesheet" href="theme.css">
 <style>
   .game-page { padding-bottom: 32px; }
@@ -60,7 +71,7 @@
     gap: 16px;
   }
 
-  /* ── Drop Zone ── */
+  /* â”€â”€ Drop Zone â”€â”€ */
   .drop-zone {
     width: 100%;
     border: 2px dashed var(--card-border);
@@ -84,7 +95,7 @@
   .drop-title { font-size: 16px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
   .drop-hint { font-size: 12px; color: var(--text-dim); }
 
-  /* ── Batch Controls ── */
+  /* â”€â”€ Batch Controls â”€â”€ */
   .batch-bar {
     width: 100%;
     display: none;
@@ -123,7 +134,7 @@
   .batch-btn.danger:hover { background: rgba(255, 94, 148, 0.1); }
   .batch-btn:disabled { opacity: 0.4; cursor: default; pointer-events: none; }
 
-  /* ── File List ── */
+  /* â”€â”€ File List â”€â”€ */
   .file-list {
     width: 100%;
     display: flex;
@@ -176,7 +187,7 @@
   }
   .file-meta span { white-space: nowrap; }
 
-  /* ── Metadata Tags ── */
+  /* â”€â”€ Metadata Tags â”€â”€ */
   .meta-tags {
     display: flex;
     flex-wrap: wrap;
@@ -202,7 +213,7 @@
     border-color: var(--accent3);
   }
 
-  /* ── Status / Progress ── */
+  /* â”€â”€ Status / Progress â”€â”€ */
   .file-status {
     display: flex;
     align-items: center;
@@ -257,7 +268,7 @@
   .remove-btn { color: var(--text-dim) !important; border-color: transparent !important; background: transparent !important; font-size: 16px !important; padding: 2px 6px !important; }
   .remove-btn:hover { color: var(--accent2) !important; }
 
-  /* ── Metadata Details Panel ── */
+  /* â”€â”€ Metadata Details Panel â”€â”€ */
   .meta-detail-toggle {
     font-size: 11px;
     color: var(--accent);
@@ -302,7 +313,7 @@
     word-break: break-all;
   }
 
-  /* ── Savings Summary ── */
+  /* â”€â”€ Savings Summary â”€â”€ */
   .savings-bar {
     width: 100%;
     display: none;
@@ -408,15 +419,15 @@
     <h2>How to Use the Metadata Stripper</h2>
     <p>Drag and drop your images or click the upload area to select files. The tool instantly scans each image for hidden metadata including GPS coordinates, camera details, software information, and timestamps. Click "Strip All" to remove metadata from every image at once, or strip files individually. Download cleaned images one by one or all at once as a batch.</p>
     <h2>Features</h2>
-    <p>Remove EXIF, IPTC, and XMP metadata from JPEG, PNG, and WebP images entirely in your browser. Batch process up to 50 files at once. View a detailed breakdown of detected metadata before stripping. GPS location data is flagged as a privacy warning. All processing happens locally — your images never leave your device.</p>
+    <p>Remove EXIF, IPTC, and XMP metadata from JPEG, PNG, and WebP images entirely in your browser. Batch process up to 50 files at once. View a detailed breakdown of detected metadata before stripping. GPS location data is flagged as a privacy warning. All processing happens locally â€” your images never leave your device.</p>
   </section>
 </div>
 
 <script src="theme.js"></script>
 <script>
-/* ═══════════════════════════════════════════════════════════════
-   METADATA STRIPPER — Remove EXIF/metadata from images
-   ═══════════════════════════════════════════════════════════════ */
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   METADATA STRIPPER â€” Remove EXIF/metadata from images
+   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 
 const $dropZone = document.getElementById('dropZone');
 const $fileInput = document.getElementById('fileInput');
@@ -435,7 +446,7 @@ const $btnClearAll = document.getElementById('btnClearAll');
 const MAX_FILES = 50;
 let files = []; // { id, file, name, type, origSize, thumb, metadata, stripped, strippedBlob, strippedSize, status }
 
-// ── EXIF Parser (lightweight, JPEG-focused) ──
+// â”€â”€ EXIF Parser (lightweight, JPEG-focused) â”€â”€
 function readUint16(data, offset, littleEndian) {
   return littleEndian
     ? data[offset] | (data[offset + 1] << 8)
@@ -529,7 +540,7 @@ function parseEXIF(arrayBuffer) {
 
   // JPEG check
   if (data[0] !== 0xFF || data[1] !== 0xD8) {
-    // Not JPEG — check PNG text chunks
+    // Not JPEG â€” check PNG text chunks
     if (data[0] === 0x89 && data[1] === 0x50) {
       return parsePNGMeta(data, meta);
     }
@@ -541,7 +552,7 @@ function parseEXIF(arrayBuffer) {
     if (data[offset] !== 0xFF) break;
     const marker = data[offset + 1];
 
-    // SOS — start of scan, no more metadata
+    // SOS â€” start of scan, no more metadata
     if (marker === 0xDA) break;
 
     const segLen = readUint16(data, offset + 2, false);
@@ -594,7 +605,7 @@ function parseEXIF(arrayBuffer) {
       meta.segments.push({ start: segStart, end: segEnd, type: 'APP' + (marker - 0xE0) });
       meta.metaSize += segLen + 2;
     }
-    // APP0 (JFIF) — keep this one, it's needed
+    // APP0 (JFIF) â€” keep this one, it's needed
     else if (marker === 0xE0) {
       // Don't count as strippable metadata
     }
@@ -640,7 +651,7 @@ function parsePNGMeta(data, meta) {
   return meta;
 }
 
-// ── Strip metadata by re-encoding via Canvas ──
+// â”€â”€ Strip metadata by re-encoding via Canvas â”€â”€
 function stripMetadata(file) {
   return new Promise((resolve, reject) => {
     const img = new Image();
@@ -673,7 +684,7 @@ function stripMetadata(file) {
   });
 }
 
-// ── File handling ──
+// â”€â”€ File handling â”€â”€
 let idCounter = 0;
 
 function addFiles(fileList) {
@@ -737,7 +748,7 @@ function clearAll() {
   updateBatchBar();
 }
 
-// ── Rendering ──
+// â”€â”€ Rendering â”€â”€
 function renderFileCard(entry) {
   let card = document.querySelector(`[data-file-id="${entry.id}"]`);
   if (!card) {
@@ -869,7 +880,7 @@ function updateBatchBar() {
   }
 }
 
-// ── Actions ──
+// â”€â”€ Actions â”€â”€
 async function stripSingle(entry) {
   entry.status = 'processing';
   renderFileCard(entry);
@@ -932,7 +943,7 @@ async function shareFile(entry) {
   }
 }
 
-// ── Utilities ──
+// â”€â”€ Utilities â”€â”€
 function formatBytes(bytes) {
   if (bytes < 1024) return bytes + ' B';
   if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
@@ -944,7 +955,7 @@ function formatGPS(coords, ref) {
   const d = coords[0];
   const m = coords[1];
   const s = coords[2];
-  return `${d.toFixed(0)}° ${m.toFixed(0)}' ${s.toFixed(1)}" ${ref || ''}`;
+  return `${d.toFixed(0)}Â° ${m.toFixed(0)}' ${s.toFixed(1)}" ${ref || ''}`;
 }
 
 function escH(s) {
@@ -953,7 +964,7 @@ function escH(s) {
   return d.innerHTML;
 }
 
-// ── Event Listeners ──
+// â”€â”€ Event Listeners â”€â”€
 $dropZone.addEventListener('dragover', e => { e.preventDefault(); $dropZone.classList.add('dragover'); });
 $dropZone.addEventListener('dragleave', () => $dropZone.classList.remove('dragover'));
 $dropZone.addEventListener('drop', e => {

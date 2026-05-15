@@ -44,6 +44,17 @@
   "dateModified": "2026-05-14"
 }
 </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://thefreefix.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://thefreefix.com/tools.html" },
+      { "@type": "ListItem", "position": 3, "name": "QR Code Generator & Reader", "item": "https://thefreefix.com/qr-code-generator.html" }
+  ]
+}
+</script>
 <link rel="stylesheet" href="theme.css">
 <style>
   .game-page { padding-bottom: 32px; }
@@ -659,7 +670,7 @@
 
 <script src="theme.js"></script>
 <script>
-// ── QR Code Encoder (Byte mode, EC level M, versions 1-40) ──
+// â”€â”€ QR Code Encoder (Byte mode, EC level M, versions 1-40) â”€â”€
 
 const QR = (() => {
   // EC codewords per block for EC level M, versions 1-40
@@ -1093,7 +1104,7 @@ const QR = (() => {
 })();
 
 
-// ── Canvas Renderer ──
+// â”€â”€ Canvas Renderer â”€â”€
 
 function renderQR(matrix, canvas, moduleSize, fgColor, bgColor) {
   const size = matrix.length;
@@ -1120,7 +1131,7 @@ function renderQR(matrix, canvas, moduleSize, fgColor, bgColor) {
 }
 
 
-// ── SVG Generator ──
+// â”€â”€ SVG Generator â”€â”€
 
 function generateSVG(matrix, moduleSize, fgColor, bgColor) {
   const size = matrix.length;
@@ -1140,7 +1151,7 @@ function generateSVG(matrix, moduleSize, fgColor, bgColor) {
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${px} ${px}" width="${px}" height="${px}" shape-rendering="crispEdges"><rect width="${px}" height="${px}" fill="${bgColor}"/><g fill="${fgColor}">${rects}</g></svg>`;
 }
 
-// ── UI Wiring ──
+// â”€â”€ UI Wiring â”€â”€
 
 let currentMatrix = null;
 let debounceTimer = null;
@@ -1250,7 +1261,7 @@ shareBtn.addEventListener('click', async () => {
   }, 'image/png');
 });
 
-// ── Quick-Action Mode Switching ──
+// â”€â”€ Quick-Action Mode Switching â”€â”€
 
 const formPanels = { wifi: 'wifiForm', vcard: 'vcardForm', event: 'eventForm', read: 'readPanel' };
 const inputGroup = document.querySelector('.input-group');
@@ -1261,7 +1272,7 @@ const readerBtn = document.getElementById('readerBtn');
 function switchMode(mode) {
   currentMode = mode;
   const isRead = mode === 'read';
-  // Update pill buttons — deactivate all generate pills when read is active
+  // Update pill buttons â€” deactivate all generate pills when read is active
   document.querySelectorAll('#qrModeSelector .pill-btn').forEach(btn => {
     btn.classList.toggle('active', !isRead && btn.dataset.mode === mode);
   });
@@ -1292,7 +1303,7 @@ document.getElementById('qrModeSelector').addEventListener('click', e => {
 
 readerBtn.addEventListener('click', () => switchMode('read'));
 
-// ── Builder Functions ──
+// â”€â”€ Builder Functions â”€â”€
 
 function buildWifiString() {
   const ssid = document.getElementById('wifiSsid').value;
@@ -1360,7 +1371,7 @@ function updateFromForm() {
   generate(str); // pass raw string to preserve \r\n for vCard/iCal
 }
 
-// ── Form Event Wiring ──
+// â”€â”€ Form Event Wiring â”€â”€
 
 // WiFi
 ['wifiSsid', 'wifiPass'].forEach(id => {
@@ -1403,7 +1414,7 @@ document.getElementById('wifiHidden').addEventListener('click', function() {
   document.getElementById('evEndTime').value = fmtT(end);
 })();
 
-// ── QR Reader ──
+// â”€â”€ QR Reader â”€â”€
 
 let jsQRLoaded = false;
 let jsQRLoading = false;

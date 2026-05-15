@@ -23,7 +23,8 @@
       "Bash(bash /tmp/audit.sh)",
       "Bash(python3 -c ' *)",
       "Bash(awk '/<url>/{u=NR; has=0; loc=\"\"} /<loc>/{loc=$0} /<lastmod>/{has=1} /<\\\\/url>/{if\\(!has\\) print loc}' sitemap.xml)",
-      "Bash(python3)"
+      "Bash(python3)",
+      "Bash(grep \"<loc>https://thefreefix.com/$\" sitemap.xml)"
     ]
   }
 }

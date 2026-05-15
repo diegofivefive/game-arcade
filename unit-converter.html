@@ -44,6 +44,17 @@
   "dateModified": "2026-05-14"
 }
 </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://thefreefix.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://thefreefix.com/tools.html" },
+      { "@type": "ListItem", "position": 3, "name": "Unit Converter", "item": "https://thefreefix.com/unit-converter.html" }
+  ]
+}
+</script>
 <link rel="stylesheet" href="theme.css">
 <style>
   .game-page { padding-bottom: 32px; }
@@ -418,7 +429,7 @@
 <script>
 (function() {
 
-  /* ── Unit Data ── */
+  /* â”€â”€ Unit Data â”€â”€ */
   const CATS = {
     Length: {
       base: 'm',
@@ -589,7 +600,7 @@
     { label: 'kcal \u2192 kJ',  cat: 'Energy',      from: 'kcal',to: 'kJ' }
   ];
 
-  /* ── DOM ── */
+  /* â”€â”€ DOM â”€â”€ */
   const catWrap    = document.getElementById('catWrap');
   const catPills   = document.getElementById('catPills');
   const fromValue  = document.getElementById('fromValue');
@@ -602,7 +613,7 @@
 
   let activeCat = 'Length';
 
-  /* ── Render ── */
+  /* â”€â”€ Render â”€â”€ */
   function renderPills() {
     catPills.innerHTML = Object.keys(CATS).map(cat =>
       '<button class="uc-cat' + (cat === activeCat ? ' active' : '') + '" data-cat="' + cat + '">' + cat + '</button>'
@@ -626,7 +637,7 @@
     ).join('');
   }
 
-  /* ── Conversion ── */
+  /* â”€â”€ Conversion â”€â”€ */
   function convert() {
     const cat = CATS[activeCat];
     const val = parseFloat(fromValue.value);
@@ -670,7 +681,7 @@
     }
   }
 
-  /* ── Set Category ── */
+  /* â”€â”€ Set Category â”€â”€ */
   function setCategory(cat, fk, tk) {
     activeCat = cat;
     renderPills();
@@ -683,7 +694,7 @@
     if (activeBtn) activeBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
   }
 
-  /* ── Events ── */
+  /* â”€â”€ Events â”€â”€ */
   catPills.addEventListener('click', function(e) {
     const btn = e.target.closest('.uc-cat');
     if (!btn) return;
@@ -713,7 +724,7 @@
     setCategory(q.cat, q.from, q.to);
   });
 
-  /* ── Scroll arrows & fades ── */
+  /* â”€â”€ Scroll arrows & fades â”€â”€ */
   const arrowL = document.getElementById('arrowL');
   const arrowR = document.getElementById('arrowR');
   function checkScrollEnd() {
@@ -731,7 +742,7 @@
   });
   catPills.addEventListener('scroll', checkScrollEnd);
 
-  /* ── Init ── */
+  /* â”€â”€ Init â”€â”€ */
   renderPills();
   renderUnits();
   renderQuick();

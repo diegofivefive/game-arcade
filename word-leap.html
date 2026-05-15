@@ -46,6 +46,17 @@
   "dateModified": "2026-05-14"
 }
 </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://thefreefix.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Games", "item": "https://thefreefix.com/games.html" },
+      { "@type": "ListItem", "position": 3, "name": "Word Leap", "item": "https://thefreefix.com/word-leap.html" }
+  ]
+}
+</script>
 <link rel="stylesheet" href="theme.css">
 <style>
   .game-page { padding-bottom: 32px; }
@@ -332,7 +343,7 @@
 GameTheme.init();
 Modal.bindOverlayClose();
 
-// ── Word Lists ──
+// â”€â”€ Word Lists â”€â”€
 // Common 5-letter answer words (curated for fun gameplay)
 const ANSWERS = [
   'about','above','abuse','actor','adapt','admit','adopt','adult','after','again',
@@ -625,7 +636,7 @@ const VALID_GUESSES = new Set([
   'zones'
 ]);
 
-// ── State ──
+// â”€â”€ State â”€â”€
 let answer = '';
 let currentRow = 0;
 let currentCol = 0;
@@ -643,7 +654,7 @@ function saveDist(row) {
   localStorage.setItem('wl-dist', JSON.stringify(d));
 }
 
-// ── Build Board ──
+// â”€â”€ Build Board â”€â”€
 function buildBoard() {
   const boardEl = document.getElementById('board');
   boardEl.innerHTML = '';
@@ -664,11 +675,11 @@ function buildBoard() {
   }
 }
 
-// ── Build Keyboard ──
+// â”€â”€ Build Keyboard â”€â”€
 const keyLayout = [
   ['Q','W','E','R','T','Y','U','I','O','P'],
   ['A','S','D','F','G','H','J','K','L'],
-  ['ENTER','Z','X','C','V','B','N','M','⌫']
+  ['ENTER','Z','X','C','V','B','N','M','âŒ«']
 ];
 const keyStates = {};
 
@@ -702,7 +713,7 @@ function updateKeyboard(letter, state) {
   }
 }
 
-// ── Toast ──
+// â”€â”€ Toast â”€â”€
 function showToast(msg) {
   const container = document.getElementById('toastContainer');
   const toast = document.createElement('div');
@@ -712,11 +723,11 @@ function showToast(msg) {
   setTimeout(() => toast.remove(), 1600);
 }
 
-// ── Game Logic ──
+// â”€â”€ Game Logic â”€â”€
 function handleKey(key) {
   if (gameOver) return;
 
-  if (key === '⌫') {
+  if (key === 'âŒ«') {
     if (currentCol > 0) {
       currentCol--;
       board[currentRow][currentCol].letter = '';
@@ -817,7 +828,7 @@ function revealRow(row, guess) {
   }, 5 * 200 + 300);
 }
 
-// ── Stats Modal ──
+// â”€â”€ Stats Modal â”€â”€
 function showStats(winRow) {
   const grid = document.getElementById('statsGrid');
   grid.innerHTML = [
@@ -847,15 +858,15 @@ document.getElementById('newGameBtn').addEventListener('click', () => {
   startGame();
 });
 
-// ── Keyboard Input ──
+// â”€â”€ Keyboard Input â”€â”€
 document.addEventListener('keydown', e => {
   if (e.ctrlKey || e.metaKey || e.altKey) return;
   if (e.key === 'Enter') handleKey('ENTER');
-  else if (e.key === 'Backspace') handleKey('⌫');
+  else if (e.key === 'Backspace') handleKey('âŒ«');
   else if (/^[a-zA-Z]$/.test(e.key)) handleKey(e.key.toUpperCase());
 });
 
-// ── Start Game ──
+// â”€â”€ Start Game â”€â”€
 function startGame() {
   answer = ANSWERS[Math.floor(Math.random() * ANSWERS.length)];
   currentRow = 0;
