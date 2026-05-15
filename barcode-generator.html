@@ -381,6 +381,24 @@
     <div class="ad-slot ad-bottom"></div>
     </div>
 
+    <nav class="related-links" aria-label="Related tools">
+    <h2>Related tools</h2>
+    <div class="related-grid">
+      <a href="qr-code-generator.html" class="related-card">
+        <span class="r-icon" aria-hidden="true">&#x1f532;</span>
+        <span class="r-name">QR Code Generator</span>
+      </a>
+      <a href="password-generator.html" class="related-card">
+        <span class="r-icon" aria-hidden="true">&#x1f512;</span>
+        <span class="r-name">Password Generator</span>
+      </a>
+      <a href="ascii-art-generator.html" class="related-card">
+        <span class="r-icon" aria-hidden="true">&#x1f523;</span>
+        <span class="r-name">ASCII Art</span>
+      </a>
+    </div>
+  </nav>
+
   <footer class="site-footer">
     <nav aria-label="Footer">
       <a href="about.html">About</a>
@@ -399,7 +417,7 @@
     <h2>How to Use the Barcode Generator & Reader</h2>
     <p>Select a barcode format (Code 128, UPC-A, EAN-13, or Code 39) and type your data to instantly generate a barcode. Download as PNG or SVG, or copy to clipboard. Switch to Reader mode to decode barcodes from uploaded images.</p>
     <h2>Features</h2>
-    <p>Supports 4 popular barcode formats: Code 128 (general-purpose, any ASCII text), UPC-A (12-digit retail codes), EAN-13 (13-digit international product codes), and Code 39 (alphanumeric industrial codes). Includes a barcode reader that can detect and decode barcodes from uploaded images. All processing happens in your browser Ã¢â‚¬â€ no data is sent to any server.</p>
+    <p>Supports 4 popular barcode formats: Code 128 (general-purpose, any ASCII text), UPC-A (12-digit retail codes), EAN-13 (13-digit international product codes), and Code 39 (alphanumeric industrial codes). Includes a barcode reader that can detect and decode barcodes from uploaded images. All processing happens in your browser ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â no data is sent to any server.</p>
   </section>
 </div>
 
@@ -495,7 +513,7 @@ const FORMATS = {
       const valid = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ-. $/+%';
       const upper = text.toUpperCase();
       for (let i = 0; i < upper.length; i++) {
-        if (valid.indexOf(upper[i]) === -1) return `Invalid character: "${upper[i]}" Ã¢â‚¬â€ use A-Z, 0-9, - . $ / + % space`;
+        if (valid.indexOf(upper[i]) === -1) return `Invalid character: "${upper[i]}" ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â use A-Z, 0-9, - . $ / + % space`;
       }
       return null;
     }
@@ -770,7 +788,7 @@ function showToast(msg) {
   setTimeout(() => toast.classList.remove('show'), 2000);
 }
 
-// Init Ã¢â‚¬â€ load JsBarcode eagerly, then set up
+// Init ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â load JsBarcode eagerly, then set up
 loadJsBarcode().then(() => {
   switchMode('code128', false);
   bcInput.focus();

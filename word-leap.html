@@ -317,6 +317,24 @@
     <div class="ad-slot ad-bottom"></div>
     </div>
 
+    <nav class="related-links" aria-label="Related games">
+    <h2>More games like this</h2>
+    <div class="related-grid">
+      <a href="2048.html" class="related-card">
+        <span class="r-icon" aria-hidden="true">&#x1f522;</span>
+        <span class="r-name">2048</span>
+      </a>
+      <a href="sudoku.html" class="related-card">
+        <span class="r-icon" aria-hidden="true">&#x1f9e9;</span>
+        <span class="r-name">Sudoku</span>
+      </a>
+      <a href="memory-match.html" class="related-card">
+        <span class="r-icon" aria-hidden="true">&#x1f0cf;</span>
+        <span class="r-name">Memory Match</span>
+      </a>
+    </div>
+  </nav>
+
   <footer class="site-footer">
     <nav aria-label="Footer">
       <a href="about.html">About</a>
@@ -344,7 +362,7 @@
 GameTheme.init();
 Modal.bindOverlayClose();
 
-// Ã¢â€â‚¬Ã¢â€â‚¬ Word Lists Ã¢â€â‚¬Ã¢â€â‚¬
+// ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ Word Lists ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬
 // Common 5-letter answer words (curated for fun gameplay)
 const ANSWERS = [
   'about','above','abuse','actor','adapt','admit','adopt','adult','after','again',
@@ -637,7 +655,7 @@ const VALID_GUESSES = new Set([
   'zones'
 ]);
 
-// Ã¢â€â‚¬Ã¢â€â‚¬ State Ã¢â€â‚¬Ã¢â€â‚¬
+// ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ State ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬
 let answer = '';
 let currentRow = 0;
 let currentCol = 0;
@@ -655,7 +673,7 @@ function saveDist(row) {
   localStorage.setItem('wl-dist', JSON.stringify(d));
 }
 
-// Ã¢â€â‚¬Ã¢â€â‚¬ Build Board Ã¢â€â‚¬Ã¢â€â‚¬
+// ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ Build Board ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬
 function buildBoard() {
   const boardEl = document.getElementById('board');
   boardEl.innerHTML = '';
@@ -676,11 +694,11 @@ function buildBoard() {
   }
 }
 
-// Ã¢â€â‚¬Ã¢â€â‚¬ Build Keyboard Ã¢â€â‚¬Ã¢â€â‚¬
+// ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ Build Keyboard ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬
 const keyLayout = [
   ['Q','W','E','R','T','Y','U','I','O','P'],
   ['A','S','D','F','G','H','J','K','L'],
-  ['ENTER','Z','X','C','V','B','N','M','Ã¢Å’Â«']
+  ['ENTER','Z','X','C','V','B','N','M','ÃƒÂ¢Ã…â€™Ã‚Â«']
 ];
 const keyStates = {};
 
@@ -714,7 +732,7 @@ function updateKeyboard(letter, state) {
   }
 }
 
-// Ã¢â€â‚¬Ã¢â€â‚¬ Toast Ã¢â€â‚¬Ã¢â€â‚¬
+// ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ Toast ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬
 function showToast(msg) {
   const container = document.getElementById('toastContainer');
   const toast = document.createElement('div');
@@ -724,11 +742,11 @@ function showToast(msg) {
   setTimeout(() => toast.remove(), 1600);
 }
 
-// Ã¢â€â‚¬Ã¢â€â‚¬ Game Logic Ã¢â€â‚¬Ã¢â€â‚¬
+// ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ Game Logic ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬
 function handleKey(key) {
   if (gameOver) return;
 
-  if (key === 'Ã¢Å’Â«') {
+  if (key === 'ÃƒÂ¢Ã…â€™Ã‚Â«') {
     if (currentCol > 0) {
       currentCol--;
       board[currentRow][currentCol].letter = '';
@@ -829,7 +847,7 @@ function revealRow(row, guess) {
   }, 5 * 200 + 300);
 }
 
-// Ã¢â€â‚¬Ã¢â€â‚¬ Stats Modal Ã¢â€â‚¬Ã¢â€â‚¬
+// ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ Stats Modal ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬
 function showStats(winRow) {
   const grid = document.getElementById('statsGrid');
   grid.innerHTML = [
@@ -859,15 +877,15 @@ document.getElementById('newGameBtn').addEventListener('click', () => {
   startGame();
 });
 
-// Ã¢â€â‚¬Ã¢â€â‚¬ Keyboard Input Ã¢â€â‚¬Ã¢â€â‚¬
+// ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ Keyboard Input ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬
 document.addEventListener('keydown', e => {
   if (e.ctrlKey || e.metaKey || e.altKey) return;
   if (e.key === 'Enter') handleKey('ENTER');
-  else if (e.key === 'Backspace') handleKey('Ã¢Å’Â«');
+  else if (e.key === 'Backspace') handleKey('ÃƒÂ¢Ã…â€™Ã‚Â«');
   else if (/^[a-zA-Z]$/.test(e.key)) handleKey(e.key.toUpperCase());
 });
 
-// Ã¢â€â‚¬Ã¢â€â‚¬ Start Game Ã¢â€â‚¬Ã¢â€â‚¬
+// ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ Start Game ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬
 function startGame() {
   answer = ANSWERS[Math.floor(Math.random() * ANSWERS.length)];
   currentRow = 0;

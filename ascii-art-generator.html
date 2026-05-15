@@ -424,6 +424,24 @@
     <div class="ad-slot ad-bottom"></div>
     </div>
 
+    <nav class="related-links" aria-label="Related tools">
+    <h2>Related tools</h2>
+    <div class="related-grid">
+      <a href="color-palette-generator.html" class="related-card">
+        <span class="r-icon" aria-hidden="true">&#x1f3a8;</span>
+        <span class="r-name">Color Palette</span>
+      </a>
+      <a href="image-compressor.html" class="related-card">
+        <span class="r-icon" aria-hidden="true">&#x1f5bc;&#xfe0f;</span>
+        <span class="r-name">Image Compressor</span>
+      </a>
+      <a href="qr-code-generator.html" class="related-card">
+        <span class="r-icon" aria-hidden="true">&#x1f532;</span>
+        <span class="r-name">QR Code Generator</span>
+      </a>
+    </div>
+  </nav>
+
   <footer class="site-footer">
     <nav aria-label="Footer">
       <a href="about.html">About</a>
@@ -441,7 +459,7 @@
     <h2>How to Create ASCII Text Art Online</h2>
     <p>Upload any image by dragging it into the drop area or clicking to browse. The tool converts your image into ASCII text art using brightness mapping, where lighter pixels become sparse characters and darker pixels become denser ones. Adjust the output width from 40 to 200 columns, pick from four character set presets, and toggle between monochrome and colored text art output.</p>
     <h2>Features</h2>
-    <p>Four character set presets Ã¢â‚¬â€ Standard, Detailed, Blocks, and Simple Ã¢â‚¬â€ offer different visual styles for your text art. The invert toggle swaps light and dark mapping for images with dark backgrounds. Color mode preserves the original image colors using ANSI-style coloring. Copy the result to your clipboard or download it as a text file. All processing uses the Canvas API in your browser with no server uploads.</p>
+    <p>Four character set presets ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â Standard, Detailed, Blocks, and Simple ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â offer different visual styles for your text art. The invert toggle swaps light and dark mapping for images with dark backgrounds. Color mode preserves the original image colors using ANSI-style coloring. Copy the result to your clipboard or download it as a text file. All processing uses the Canvas API in your browser with no server uploads.</p>
   </section>
 </div>
 
@@ -636,7 +654,7 @@
         var b = pixels[idx + 2];
         var a = pixels[idx + 3];
 
-        // Transparent pixels Ã¢â€ â€™ white
+        // Transparent pixels ÃƒÂ¢Ã¢â‚¬Â Ã¢â‚¬â„¢ white
         if (a < 128) { r = g = b = 255; }
 
         // Grayscale (perceptual luminance)

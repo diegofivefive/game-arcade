@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Currency Converter - Free Online Exchange Rates - TheFreeFix.com</title>
-<meta name="description" content="Convert between 30+ world currencies with daily exchange rates. Free online currency converter Ã¢â‚¬â€ no sign-ups, no downloads.">
+<meta name="description" content="Convert between 30+ world currencies with daily exchange rates. Free online currency converter ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â no sign-ups, no downloads.">
 <link rel="canonical" href="https://thefreefix.com/currency-converter.html">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <meta name="theme-color" content="#0a0a1a">
@@ -350,6 +350,24 @@
     <div class="ad-slot ad-bottom"></div>
     </div>
 
+    <nav class="related-links" aria-label="Related tools">
+    <h2>Related tools</h2>
+    <div class="related-grid">
+      <a href="unit-converter.html" class="related-card">
+        <span class="r-icon" aria-hidden="true">&#x1f4d0;</span>
+        <span class="r-name">Unit Converter</span>
+      </a>
+      <a href="password-generator.html" class="related-card">
+        <span class="r-icon" aria-hidden="true">&#x1f512;</span>
+        <span class="r-name">Password Generator</span>
+      </a>
+      <a href="qr-code-generator.html" class="related-card">
+        <span class="r-icon" aria-hidden="true">&#x1f532;</span>
+        <span class="r-name">QR Code Generator</span>
+      </a>
+    </div>
+  </nav>
+
   <footer class="site-footer">
     <nav aria-label="Footer">
       <a href="about.html">About</a>
@@ -376,7 +394,7 @@
 <script>
 GameTheme.init();
 
-/* Ã¢â€â‚¬Ã¢â€â‚¬ Currency data Ã¢â€â‚¬Ã¢â€â‚¬ */
+/* ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ Currency data ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ */
 const CURRENCIES = {
   AUD: 'Australian Dollar', BGN: 'Bulgarian Lev', BRL: 'Brazilian Real',
   CAD: 'Canadian Dollar', CHF: 'Swiss Franc', CNY: 'Chinese Yuan',
@@ -394,7 +412,7 @@ const CURRENCIES = {
 const POPULAR = ['USD', 'EUR', 'GBP', 'JPY', 'CAD', 'AUD', 'CHF', 'INR'];
 const ZERO_DECIMAL = new Set(['JPY', 'KRW', 'HUF', 'ISK', 'IDR']);
 
-/* Ã¢â€â‚¬Ã¢â€â‚¬ DOM refs Ã¢â€â‚¬Ã¢â€â‚¬ */
+/* ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ DOM refs ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ */
 const fromInput = document.getElementById('fromAmount');
 const toInput = document.getElementById('toAmount');
 const fromSel = document.getElementById('fromCurrency');
@@ -409,7 +427,7 @@ const statusDot = document.getElementById('statusDot');
 const errorMsg = document.getElementById('errorMsg');
 const quickChips = document.getElementById('quickChips');
 
-/* Ã¢â€â‚¬Ã¢â€â‚¬ State Ã¢â€â‚¬Ã¢â€â‚¬ */
+/* ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ State ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ */
 let rates = null;
 let lastUpdated = null;
 let isCached = false;
@@ -417,7 +435,7 @@ let lastEdited = 'from';
 let fromCur = localStorage.getItem('cc_from') || 'USD';
 let toCur = localStorage.getItem('cc_to') || 'EUR';
 
-/* Ã¢â€â‚¬Ã¢â€â‚¬ Populate selects Ã¢â€â‚¬Ã¢â€â‚¬ */
+/* ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ Populate selects ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ */
 function populateSelects() {
   const allCodes = Object.keys(CURRENCIES).sort();
   const rest = allCodes.filter(c => !POPULAR.includes(c));
@@ -443,7 +461,7 @@ function populateSelects() {
   toSel.value = toCur;
 }
 
-/* Ã¢â€â‚¬Ã¢â€â‚¬ Quick pick chips Ã¢â€â‚¬Ã¢â€â‚¬ */
+/* ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ Quick pick chips ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ */
 function buildQuickChips() {
   quickChips.innerHTML = '';
   POPULAR.forEach(code => {
@@ -474,7 +492,7 @@ function highlightChips() {
   });
 }
 
-/* Ã¢â€â‚¬Ã¢â€â‚¬ Conversion Ã¢â€â‚¬Ã¢â€â‚¬ */
+/* ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ Conversion ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ */
 function getDecimals(code) { return ZERO_DECIMAL.has(code) ? 0 : 2; }
 
 function convert(amount, from, to) {
@@ -489,7 +507,7 @@ function formatRate(r) {
   return r.toFixed(4);
 }
 
-/* Ã¢â€â‚¬Ã¢â€â‚¬ Update display Ã¢â€â‚¬Ã¢â€â‚¬ */
+/* ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ Update display ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ */
 function updateDisplay() {
   if (!rates) return;
 
@@ -531,7 +549,7 @@ function updateDisplay() {
   highlightChips();
 }
 
-/* Ã¢â€â‚¬Ã¢â€â‚¬ Fetch rates Ã¢â€â‚¬Ã¢â€â‚¬ */
+/* ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ Fetch rates ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ */
 async function fetchRates() {
   // Try cached rates first for instant display
   const cachedRates = localStorage.getItem('cc_rates');
@@ -573,7 +591,7 @@ async function fetchRates() {
   }
 }
 
-/* Ã¢â€â‚¬Ã¢â€â‚¬ Event listeners Ã¢â€â‚¬Ã¢â€â‚¬ */
+/* ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ Event listeners ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ */
 fromInput.addEventListener('input', () => { lastEdited = 'from'; updateDisplay(); });
 toInput.addEventListener('input', () => { lastEdited = 'to'; updateDisplay(); });
 
@@ -615,7 +633,7 @@ swapBtn.addEventListener('click', () => {
   });
 });
 
-/* Ã¢â€â‚¬Ã¢â€â‚¬ Init Ã¢â€â‚¬Ã¢â€â‚¬ */
+/* ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ Init ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ */
 populateSelects();
 buildQuickChips();
 fetchRates();

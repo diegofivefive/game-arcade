@@ -418,6 +418,24 @@
     <div class="ad-slot ad-bottom"></div>
     </div>
 
+    <nav class="related-links" aria-label="Related games">
+    <h2>More games like this</h2>
+    <div class="related-grid">
+      <a href="sudoku.html" class="related-card">
+        <span class="r-icon" aria-hidden="true">&#x1f9e9;</span>
+        <span class="r-name">Sudoku</span>
+      </a>
+      <a href="nonograms.html" class="related-card">
+        <span class="r-icon" aria-hidden="true">&#x1f5bc;&#xfe0f;</span>
+        <span class="r-name">Nonograms</span>
+      </a>
+      <a href="solitaire.html" class="related-card">
+        <span class="r-icon" aria-hidden="true">&#x1f0a1;</span>
+        <span class="r-name">Solitaire</span>
+      </a>
+    </div>
+  </nav>
+
   <footer class="site-footer">
     <nav aria-label="Footer">
       <a href="about.html">About</a>
@@ -468,7 +486,7 @@
 
 <script src="theme.js"></script>
 <script>
-// chess.js v0.12.1 (BSD license) Ã¢â‚¬â€ inlined for offline use
+// chess.js v0.12.1 (BSD license) ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â inlined for offline use
 /*
  * Copyright (c) 2021, Jeff Hlywa (jhlywa@gmail.com)
  * All rights reserved.
@@ -2441,7 +2459,7 @@ if (typeof define !== 'undefined')
 
 // END chess.js
 // ====================================================================
-// PUZZLE DATA Ã¢â‚¬â€ 20,000 Lichess puzzles (CC0 license)
+// PUZZLE DATA ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â 20,000 Lichess puzzles (CC0 license)
 // Format: [FEN, moves, rating, themes]
 // Moves: space-separated UCI. First move = opponent blunder (auto-played).
 // ====================================================================
@@ -2481,9 +2499,9 @@ function loadFullPuzzleSet() {
 }
 
 // ====================================================================
-// PIECE IMAGES Ã¢â‚¬â€ Lichess cburnett SVG set
+// PIECE IMAGES ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â Lichess cburnett SVG set
 // ====================================================================
-// Piece SVG data URIs Ã¢â‚¬â€ inlined for offline use (Lichess cburnett set, CC0)
+// Piece SVG data URIs ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â inlined for offline use (Lichess cburnett set, CC0)
 const PIECE_MAP = {
   K: 'wK', Q: 'wQ', R: 'wR', B: 'wB', N: 'wN', P: 'wP',
   k: 'bK', q: 'bQ', r: 'bR', b: 'bB', n: 'bN', p: 'bP'
@@ -2821,7 +2839,7 @@ function attemptMove(moveObj) {
       setTimeout(() => opponentMove(), 600);
     }
   } else {
-    // Wrong move Ã¢â‚¬â€ execute briefly, shake, then undo
+    // Wrong move ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â execute briefly, shake, then undo
     wrongMoveInProgress = true;
     const wrongFrom = moveObj.from;
     const wrongTo = moveObj.to;

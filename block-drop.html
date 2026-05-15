@@ -4,13 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Block Drop - TheFreeFix.com</title>
-<meta name="description" content="Play Block Drop online for free Ã¢â‚¬â€ a classic falling-blocks puzzle game. Stack, rotate, and clear lines to rack up points. No downloads or sign-ups needed.">
+<meta name="description" content="Play Block Drop online for free ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â a classic falling-blocks puzzle game. Stack, rotate, and clear lines to rack up points. No downloads or sign-ups needed.">
 <link rel="canonical" href="https://thefreefix.com/block-drop.html">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <meta name="theme-color" content="#0a0a1a">
 <!-- Open Graph -->
 <meta property="og:title" content="Block Drop - Play Free Online">
-<meta property="og:description" content="Play Block Drop online for free Ã¢â‚¬â€ a classic falling-blocks puzzle game. Stack, rotate, and clear lines.">
+<meta property="og:description" content="Play Block Drop online for free ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â a classic falling-blocks puzzle game. Stack, rotate, and clear lines.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://thefreefix.com/block-drop.html">
 <meta property="og:site_name" content="TheFreeFix.com">
@@ -21,7 +21,7 @@
 <meta name="twitter:site" content="@TheFreeFix">
 <meta name="twitter:title" content="Block Drop - Play Free Online">
 <meta name="twitter:image" content="https://thefreefix.com/og-image.png">
-<meta name="twitter:description" content="Play Block Drop online for free Ã¢â‚¬â€ a classic falling-blocks puzzle game.">
+<meta name="twitter:description" content="Play Block Drop online for free ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â a classic falling-blocks puzzle game.">
 <!-- Structured Data -->
 <script type="application/ld+json">
 {
@@ -359,6 +359,24 @@
   <!-- Ad Slot 2: Bottom Banner -->
     <div class="ad-slot ad-bottom"></div>
     </div>
+
+    <nav class="related-links" aria-label="Related games">
+    <h2>More games like this</h2>
+    <div class="related-grid">
+      <a href="2048.html" class="related-card">
+        <span class="r-icon" aria-hidden="true">&#x1f522;</span>
+        <span class="r-name">2048</span>
+      </a>
+      <a href="brick-smash.html" class="related-card">
+        <span class="r-icon" aria-hidden="true">&#x1f9f1;</span>
+        <span class="r-name">Brick Smash</span>
+      </a>
+      <a href="pipe-dream.html" class="related-card">
+        <span class="r-icon" aria-hidden="true">&#x1f6b0;</span>
+        <span class="r-name">Pipe Dream</span>
+      </a>
+    </div>
+  </nav>
 
   <footer class="site-footer">
     <nav aria-label="Footer">
@@ -995,7 +1013,7 @@ document.getElementById('tPause').addEventListener('click', () => togglePause())
     const dx = t.clientX - lastMoveX;
     const dy = t.clientY - startY;
 
-    // Swipe down Ã¢â€ â€™ hard drop (once per gesture)
+    // Swipe down ÃƒÂ¢Ã¢â‚¬Â Ã¢â‚¬â„¢ hard drop (once per gesture)
     if (!swipedDown && dy > SWIPE_THRESHOLD * 3) {
       swipedDown = true;
       hasMoved = true;
@@ -1019,7 +1037,7 @@ document.getElementById('tPause').addEventListener('click', () => togglePause())
     touchId = null;
     e.preventDefault();
 
-    // Tap Ã¢â€ â€™ rotate (if finger barely moved)
+    // Tap ÃƒÂ¢Ã¢â‚¬Â Ã¢â‚¬â„¢ rotate (if finger barely moved)
     const totalDx = Math.abs(t.clientX - startX);
     const totalDy = Math.abs(t.clientY - startY);
     if (!hasMoved && totalDx < TAP_THRESHOLD && totalDy < TAP_THRESHOLD) {

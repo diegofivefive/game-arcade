@@ -189,6 +189,23 @@
         <li>All processing happens in your browser &mdash; nothing is sent to a server.</li>
       </ul>
       <p><strong>From the build:</strong> the matcher is the browser's native RegExp engine &mdash; there is no point shipping a second one to the tab. The interesting work is the Explain tab, which is a tiny tokenizer we wrote that walks the pattern character-by-character and describes what each construct does. Code generation isn't actual transpilation; it's a set of small template functions per language because the flag letters and escape rules differ enough between, say, Python and Go that anything more clever turns into a maintenance liability. Match highlighting uses a transparent overlay aligned to the textarea via the same font metrics, which avoids the contenteditable rabbit hole entirely.</p>
+
+      <h2>Regex Terms in Plain English</h2>
+      <dl class="glossary">
+        <dt>Character class</dt>
+        <dd>A bracketed set such as <code>[a-z]</code> or <code>[0-9]</code> that matches any single character from the set. Lead with <code>^</code> to negate, so <code>[^aeiou]</code> matches any non-vowel.</dd>
+        <dt>Quantifier</dt>
+        <dd>Symbols that say how many times the previous token must match. <code>*</code> is zero or more, <code>+</code> is one or more, <code>?</code> is zero or one, and <code>{2,5}</code> is between two and five times.</dd>
+        <dt>Anchor</dt>
+        <dd>A position match rather than a character match. <code>^</code> binds to the start of the string (or line in multiline mode), <code>$</code> to the end, and <code>\b</code> to a word boundary.</dd>
+        <dt>Capture group</dt>
+        <dd>A pattern wrapped in parentheses <code>(...)</code> that records what it matched. Reuse the captured text later via <code>$1</code>, <code>$2</code>, and so on in the Replace field.</dd>
+        <dt>Lookaround (lookahead / lookbehind)</dt>
+        <dd>An assertion that requires nearby text without consuming it. <code>foo(?=bar)</code> matches <code>foo</code> only when followed by <code>bar</code>; <code>(?&lt;=bar)foo</code> matches <code>foo</code> only when preceded by <code>bar</code>.</dd>
+        <dt>Backreference</dt>
+        <dd>A reference back to a previously captured group inside the same pattern. <code>(\w+)\s+\1</code> matches a word repeated twice in a row by using <code>\1</code> to refer back to the first capture.</dd>
+      </dl>
+
       <aside class="key-takeaways">
         <h2>Key Takeaways</h2>
         <ul>

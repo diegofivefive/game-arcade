@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>2048 - Free Online Puzzle Game - TheFreeFix.com</title>
-<meta name="description" content="Play 2048 online for free. Slide and merge tiles to reach 2048. No downloads, no accounts Ã¢â‚¬â€ just play in your browser.">
+<meta name="description" content="Play 2048 online for free. Slide and merge tiles to reach 2048. No downloads, no accounts ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â just play in your browser.">
 <link rel="canonical" href="https://thefreefix.com/2048.html">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <meta name="theme-color" content="#0a0a1a">
@@ -139,7 +139,7 @@
     animation: tileSpawn 0.2s ease;
   }
 
-  /* Tile sizes Ã¢â‚¬â€ calculated by JS based on container */
+  /* Tile sizes ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â calculated by JS based on container */
   /* Tile value colors */
   .tile[data-value="2"] {
     background: #8b7fdf;
@@ -443,7 +443,25 @@
     <div class="ad-slot ad-bottom"></div>
     </div>
 
-    <footer class="site-footer">
+      <nav class="related-links" aria-label="Related games">
+    <h2>More games like this</h2>
+    <div class="related-grid">
+      <a href="block-drop.html" class="related-card">
+        <span class="r-icon" aria-hidden="true">&#x1f7e6;</span>
+        <span class="r-name">Block Drop</span>
+      </a>
+      <a href="word-leap.html" class="related-card">
+        <span class="r-icon" aria-hidden="true">&#x1f520;</span>
+        <span class="r-name">Word Leap</span>
+      </a>
+      <a href="sudoku.html" class="related-card">
+        <span class="r-icon" aria-hidden="true">&#x1f9e9;</span>
+        <span class="r-name">Sudoku</span>
+      </a>
+    </div>
+  </nav>
+
+  <footer class="site-footer">
       <nav aria-label="Footer">
         <a href="about.html">About</a>
         <span class="footer-sep">&middot;</span>
@@ -571,7 +589,7 @@
   }
 
   function rotateGrid(g) {
-    // Rotate 90Ã‚Â° clockwise
+    // Rotate 90Ãƒâ€šÃ‚Â° clockwise
     const n = g.length;
     const rotated = Array.from({ length: n }, () => Array(n).fill(0));
     for (let r = 0; r < n; r++) {

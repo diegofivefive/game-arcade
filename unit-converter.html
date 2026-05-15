@@ -405,6 +405,24 @@
     <div class="ad-slot ad-bottom"></div>
     </div>
 
+    <nav class="related-links" aria-label="Related tools">
+    <h2>Related tools</h2>
+    <div class="related-grid">
+      <a href="currency-converter.html" class="related-card">
+        <span class="r-icon" aria-hidden="true">&#x1f4b1;</span>
+        <span class="r-name">Currency Converter</span>
+      </a>
+      <a href="pomodoro-timer.html" class="related-card">
+        <span class="r-icon" aria-hidden="true">&#x1f345;</span>
+        <span class="r-name">Pomodoro Timer</span>
+      </a>
+      <a href="word-counter.html" class="related-card">
+        <span class="r-icon" aria-hidden="true">&#x1f4dd;</span>
+        <span class="r-name">Word Counter</span>
+      </a>
+    </div>
+  </nav>
+
   <footer class="site-footer">
     <nav aria-label="Footer">
       <a href="about.html">About</a>
@@ -430,7 +448,7 @@
 <script>
 (function() {
 
-  /* Ã¢â€â‚¬Ã¢â€â‚¬ Unit Data Ã¢â€â‚¬Ã¢â€â‚¬ */
+  /* ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ Unit Data ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ */
   const CATS = {
     Length: {
       base: 'm',
@@ -601,7 +619,7 @@
     { label: 'kcal \u2192 kJ',  cat: 'Energy',      from: 'kcal',to: 'kJ' }
   ];
 
-  /* Ã¢â€â‚¬Ã¢â€â‚¬ DOM Ã¢â€â‚¬Ã¢â€â‚¬ */
+  /* ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ DOM ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ */
   const catWrap    = document.getElementById('catWrap');
   const catPills   = document.getElementById('catPills');
   const fromValue  = document.getElementById('fromValue');
@@ -614,7 +632,7 @@
 
   let activeCat = 'Length';
 
-  /* Ã¢â€â‚¬Ã¢â€â‚¬ Render Ã¢â€â‚¬Ã¢â€â‚¬ */
+  /* ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ Render ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ */
   function renderPills() {
     catPills.innerHTML = Object.keys(CATS).map(cat =>
       '<button class="uc-cat' + (cat === activeCat ? ' active' : '') + '" data-cat="' + cat + '">' + cat + '</button>'
@@ -638,7 +656,7 @@
     ).join('');
   }
 
-  /* Ã¢â€â‚¬Ã¢â€â‚¬ Conversion Ã¢â€â‚¬Ã¢â€â‚¬ */
+  /* ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ Conversion ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ */
   function convert() {
     const cat = CATS[activeCat];
     const val = parseFloat(fromValue.value);
@@ -682,7 +700,7 @@
     }
   }
 
-  /* Ã¢â€â‚¬Ã¢â€â‚¬ Set Category Ã¢â€â‚¬Ã¢â€â‚¬ */
+  /* ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ Set Category ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ */
   function setCategory(cat, fk, tk) {
     activeCat = cat;
     renderPills();
@@ -695,7 +713,7 @@
     if (activeBtn) activeBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
   }
 
-  /* Ã¢â€â‚¬Ã¢â€â‚¬ Events Ã¢â€â‚¬Ã¢â€â‚¬ */
+  /* ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ Events ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ */
   catPills.addEventListener('click', function(e) {
     const btn = e.target.closest('.uc-cat');
     if (!btn) return;
@@ -725,7 +743,7 @@
     setCategory(q.cat, q.from, q.to);
   });
 
-  /* Ã¢â€â‚¬Ã¢â€â‚¬ Scroll arrows & fades Ã¢â€â‚¬Ã¢â€â‚¬ */
+  /* ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ Scroll arrows & fades ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ */
   const arrowL = document.getElementById('arrowL');
   const arrowR = document.getElementById('arrowR');
   function checkScrollEnd() {
@@ -743,7 +761,7 @@
   });
   catPills.addEventListener('scroll', checkScrollEnd);
 
-  /* Ã¢â€â‚¬Ã¢â€â‚¬ Init Ã¢â€â‚¬Ã¢â€â‚¬ */
+  /* ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ Init ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ */
   renderPills();
   renderUnits();
   renderQuick();

@@ -647,6 +647,24 @@
     <div class="ad-slot ad-bottom"></div>
     </div>
 
+    <nav class="related-links" aria-label="Related tools">
+    <h2>Related tools</h2>
+    <div class="related-grid">
+      <a href="barcode-generator.html" class="related-card">
+        <span class="r-icon" aria-hidden="true">&#x1f4ca;</span>
+        <span class="r-name">Barcode Generator</span>
+      </a>
+      <a href="password-generator.html" class="related-card">
+        <span class="r-icon" aria-hidden="true">&#x1f512;</span>
+        <span class="r-name">Password Generator</span>
+      </a>
+      <a href="ascii-art-generator.html" class="related-card">
+        <span class="r-icon" aria-hidden="true">&#x1f523;</span>
+        <span class="r-name">ASCII Art</span>
+      </a>
+    </div>
+  </nav>
+
   <footer class="site-footer">
     <nav aria-label="Footer">
       <a href="about.html">About</a>
@@ -671,7 +689,7 @@
 
 <script src="theme.js"></script>
 <script>
-// Ã¢â€â‚¬Ã¢â€â‚¬ QR Code Encoder (Byte mode, EC level M, versions 1-40) Ã¢â€â‚¬Ã¢â€â‚¬
+// ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ QR Code Encoder (Byte mode, EC level M, versions 1-40) ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬
 
 const QR = (() => {
   // EC codewords per block for EC level M, versions 1-40
@@ -1105,7 +1123,7 @@ const QR = (() => {
 })();
 
 
-// Ã¢â€â‚¬Ã¢â€â‚¬ Canvas Renderer Ã¢â€â‚¬Ã¢â€â‚¬
+// ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ Canvas Renderer ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬
 
 function renderQR(matrix, canvas, moduleSize, fgColor, bgColor) {
   const size = matrix.length;
@@ -1132,7 +1150,7 @@ function renderQR(matrix, canvas, moduleSize, fgColor, bgColor) {
 }
 
 
-// Ã¢â€â‚¬Ã¢â€â‚¬ SVG Generator Ã¢â€â‚¬Ã¢â€â‚¬
+// ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ SVG Generator ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬
 
 function generateSVG(matrix, moduleSize, fgColor, bgColor) {
   const size = matrix.length;
@@ -1152,7 +1170,7 @@ function generateSVG(matrix, moduleSize, fgColor, bgColor) {
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${px} ${px}" width="${px}" height="${px}" shape-rendering="crispEdges"><rect width="${px}" height="${px}" fill="${bgColor}"/><g fill="${fgColor}">${rects}</g></svg>`;
 }
 
-// Ã¢â€â‚¬Ã¢â€â‚¬ UI Wiring Ã¢â€â‚¬Ã¢â€â‚¬
+// ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ UI Wiring ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬
 
 let currentMatrix = null;
 let debounceTimer = null;
@@ -1262,7 +1280,7 @@ shareBtn.addEventListener('click', async () => {
   }, 'image/png');
 });
 
-// Ã¢â€â‚¬Ã¢â€â‚¬ Quick-Action Mode Switching Ã¢â€â‚¬Ã¢â€â‚¬
+// ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ Quick-Action Mode Switching ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬
 
 const formPanels = { wifi: 'wifiForm', vcard: 'vcardForm', event: 'eventForm', read: 'readPanel' };
 const inputGroup = document.querySelector('.input-group');
@@ -1273,7 +1291,7 @@ const readerBtn = document.getElementById('readerBtn');
 function switchMode(mode) {
   currentMode = mode;
   const isRead = mode === 'read';
-  // Update pill buttons Ã¢â‚¬â€ deactivate all generate pills when read is active
+  // Update pill buttons ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â deactivate all generate pills when read is active
   document.querySelectorAll('#qrModeSelector .pill-btn').forEach(btn => {
     btn.classList.toggle('active', !isRead && btn.dataset.mode === mode);
   });
@@ -1304,7 +1322,7 @@ document.getElementById('qrModeSelector').addEventListener('click', e => {
 
 readerBtn.addEventListener('click', () => switchMode('read'));
 
-// Ã¢â€â‚¬Ã¢â€â‚¬ Builder Functions Ã¢â€â‚¬Ã¢â€â‚¬
+// ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ Builder Functions ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬
 
 function buildWifiString() {
   const ssid = document.getElementById('wifiSsid').value;
@@ -1372,7 +1390,7 @@ function updateFromForm() {
   generate(str); // pass raw string to preserve \r\n for vCard/iCal
 }
 
-// Ã¢â€â‚¬Ã¢â€â‚¬ Form Event Wiring Ã¢â€â‚¬Ã¢â€â‚¬
+// ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ Form Event Wiring ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬
 
 // WiFi
 ['wifiSsid', 'wifiPass'].forEach(id => {
@@ -1415,7 +1433,7 @@ document.getElementById('wifiHidden').addEventListener('click', function() {
   document.getElementById('evEndTime').value = fmtT(end);
 })();
 
-// Ã¢â€â‚¬Ã¢â€â‚¬ QR Reader Ã¢â€â‚¬Ã¢â€â‚¬
+// ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ QR Reader ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬
 
 let jsQRLoaded = false;
 let jsQRLoading = false;

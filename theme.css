@@ -645,6 +645,89 @@ main {
 }
 
 /* ===========================
+   GLOSSARY (definition list used on technical info pages)
+   =========================== */
+.glossary {
+  margin: 12px 0 16px;
+  padding: 0;
+}
+.glossary dt {
+  font-weight: 700;
+  color: var(--text);
+  margin-top: 14px;
+  font-size: 14px;
+}
+.glossary dt:first-child { margin-top: 0; }
+.glossary dd {
+  margin: 4px 0 0;
+  color: var(--text-dim);
+  font-size: 14px;
+  line-height: 1.55;
+}
+.glossary code {
+  background: var(--btn-bg);
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-size: 12.5px;
+  color: var(--accent);
+  font-family: Consolas, 'Courier New', monospace;
+}
+
+/* ===========================
+   RELATED LINKS (sibling discovery, above footer)
+   =========================== */
+.related-links {
+  width: 100%;
+  max-width: 560px;
+  margin: 24px auto 8px;
+  padding: 0 16px;
+  box-sizing: border-box;
+}
+.related-links h2 {
+  font-size: 12px;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  margin: 0 0 12px;
+  text-align: center;
+  font-weight: 700;
+}
+.related-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+.related-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 12px 8px;
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  color: var(--text);
+  transition: transform var(--transition), border-color var(--transition);
+  min-height: 64px;
+}
+.related-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+.related-card .r-icon {
+  font-size: 22px;
+  line-height: 1;
+}
+.related-card .r-name {
+  font-size: 12px;
+  font-weight: 600;
+  text-align: center;
+  line-height: 1.2;
+}
+
+/* ===========================
    PAGE ABOUT (SEO content below footer)
    =========================== */
 .page-about {
